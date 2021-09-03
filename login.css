@@ -1,0 +1,27 @@
+.btn-primary {
+    color: #fff;
+    background-color: #9e1616;
+    border-color: #9e1616;  
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #c52626;
+}
+
+  
+*, ::after{
+    background-color: #E5E9F2;
+}
+
+.pass {
+    width: 150px;
+    padding-right: 20px;
+  }
+  
+.olho {
+    cursor: pointer;
+    float: right;
+    position: relative;
+    width: 20px;
+  }

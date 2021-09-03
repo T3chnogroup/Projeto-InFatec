@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.87.0">
+    <title>Signin Template · Bootstrap v5.1</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sign-in/">
+    <link rel="icon" href="imagens/icon1.png" sizes="128x128" type="image/png">
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <link href="login.css" rel="stylesheet">
+    <meta name="theme-color" content="#7952b3">
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/5.1/examples/sign-in/signin.css" rel="stylesheet">
+</head>
+
+<body class="text-center" cz-shortcut-listen="true">
+
+    <main class="form-signin">
+        <fieldset class="fundo">
+            <form method="post" action="">
+                <img class="mb-2" src="imagens/logoinfatec.png" alt=""
+                    width="200" height="200">
+                <div class="mb-4">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="CPF" required minlength="11"
+                        maxlength="13">
+                </div>
+                <div mb-4 id="floatingPassword">
+                    <img src="https://cdn0.iconfinder.com/data/icons/ui-icons-pack/100/ui-icon-pack-14-512.png" id="olho" class="olho">
+                    <input type="password" class="form-control" placeholder="Password" id="pass">
+                </div>
+                <div class="reset-senha mb-3">
+                    <label>
+                        <a href="#">Esqueci minha senha</a>
+                    </label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Entrar</button>
+            </form>
+        </fieldset>
+        <script>
+            document.getElementById('olho').addEventListener('mousedown', function () {
+                document.getElementById('pass').type = 'text';
+            });
+
+            document.getElementById('olho').addEventListener('mouseup', function () {
+                document.getElementById('pass').type = 'password';
+            });
+
+            // Para que o password não fique exposto apos mover a imagem.
+            document.getElementById('olho').addEventListener('mousemove', function () {
+                document.getElementById('pass').type = 'password';
+            });
+        </script>
+    </main>
+
+
+</body>
