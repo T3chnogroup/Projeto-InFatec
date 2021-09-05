@@ -16,6 +16,12 @@
 <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
+      .fundovermelho {
+        background-color: #B22D30;
+        height: 60px;
+        
+      }
+
       .bd-placeholder-img { 
         font-size: 1.125rem;
         text-anchor: middle;
@@ -29,6 +35,19 @@
           font-size: 3.5rem;
         }
       }
+
+      .textoheader {
+        text-align: center;
+        position: relative;
+        left: 555px;
+      
+      }
+
+      .navbarp {
+       position: relative;
+       top: 28px;
+      }
+
     </style>
 
     
@@ -36,10 +55,13 @@
     <link href="dashboard.css" rel="stylesheet">
   </head>
   <body>
+
 <!--Header pagina-->  
-<header class="navbar navbar-red sticky-top  flex-md-nowrap p-0 shadow" style="background-color: darkred;">
+<header class= "navbar navbar-red sticky-top  flex-md-nowrap p-0 shadow fundovermelho">
+
 <!--Texto Header-->
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#" style="color: whitesmoke">Comunicados Alunos</a>
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 textoheader" href="#" style="color: whitesmoke">Comunicados Alunos</a>
+<!--botao-->  
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -52,7 +74,7 @@
 <!--lista lateral-->
 <div class="container-fluid">
   <div class="row">
-    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style="background-color: rgb(51, 51, 95);">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse navbarp" style="background-color: #0F3456;">
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
           <!--"Criar canal"-->
