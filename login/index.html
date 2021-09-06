@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.87.0">
+    <title>Login</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/sign-in/">
+    <link rel="icon" href="imagens/icon1.png" sizes="128x128" type="image/png">
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/docs/5.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+    <link href="css/login_styles.css" rel="stylesheet">
+    <meta name="theme-color" content="#7952b3">
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/5.1/examples/sign-in/signin.css" rel="stylesheet">
+</head>
+
+<body class="text-center" cz-shortcut-listen="true">
+
+    <main class="form-signin">
+        <fieldset class="fundo">
+            <form method="GET" action="pagina_inicial.html"> <!--Inserido Get apenas para validar, porteriormente será feito integração com backend -->
+                <img class="mb-2" src="imagens/logoinfatec.png" alt="Logo InFatec"
+                    width="200" height="200">
+                <div class="mb-4">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="CPF" required minlength="11"
+                        maxlength="13">
+                </div>
+                <div class="input-group mb-3">
+                    <input class="form-control" id="password" name="password" placeholder="Senha" type="password" value="" required>
+                    <span class="input-group-text height-eye" >
+                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" id="togglePassword" fill="currentColor" style="cursor: pointer" class="bi bi-eye" viewBox="0 0 16 16">
+                      <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                      <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                    </svg>
+                     </span>
+                  </div>
+                <div class="reset-senha mb-3">
+                    <label>
+                        <a href="#">Esqueci minha senha</a>
+                    </label>
+                </div>
+                    <button class="w-100 btn btn-lg btn-primary" type="submit" >Entrar</button> 
+            </form>
+        </fieldset>
+        <script>
+            const togglePassword = document.querySelector("#togglePassword");
+        const password = document.querySelector("#password");
+        
+        togglePassword.addEventListener("click", function () {
+           
+          // toggle the type attribute
+          const type = password.getAttribute("type") === "password" ? "text" : "password";
+          password.setAttribute("type", type);
+          // toggle the eye icon
+          this.classList.toggle('bi-eye');
+          this.classList.toggle('bi-eye-slash');
+        });
+        </script>
+    </main>
+
+
+</body>
