@@ -38,14 +38,19 @@
 
       .textoheader {
         text-align: center;
-        position: relative;
-        left: 555px;
-      
+        width: 100%;      
       }
 
       .navbarp {
        position: relative;
        top: 28px;
+      }
+      .nav-item-btn {
+        background-color: #0A3C69;
+        opacity: 0.75;
+      }
+      .bg-azul {
+        background-color: #0F3456;
       }
 
     </style>
@@ -56,103 +61,61 @@
   </head>
   <body>
 
-<!--Header pagina-->  
-<header class= "navbar navbar-red sticky-top  flex-md-nowrap p-0 shadow fundovermelho">
 
-<!--Texto Header-->
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 textoheader" href="#" style="color: whitesmoke">Comunicados Alunos</a>
-<!--botao-->  
-  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="navbar-nav">
-    <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="#" style="color: white;">Sign out</a>
-    </div>
-  </div>
-</header>
 <!--lista lateral-->
-<div class="container-fluid">
-  <div class="row">
-    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse navbarp" style="background-color: #0F3456;">
-      <div class="position-sticky pt-3">
+<div class="container-fluid px-0 position-absolute h-100">
+  <div class="d-flex flex-row h-100">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
+      <div class="position-sticky pt-3 bg-azul">
+        <div class="nav-item text-white">
+          <div class="flex-row">
+            <div class="col-10">
+              <input type="text" class="form-control">
+            </div>
+            <span class="col-2">Filtro</span>
+          </div>
+        </div>
         <ul class="nav flex-column">
           <!--"Criar canal"-->
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#" style="color: white;">
+          <li class="nav-item border-bottom nav-item-btn">
+            <a class="nav-link active text-white p-2" aria-current="page" href="#">
               <span data-feather="home"></span>
               + Criar Canal
             </a>
           </li>
           <!--"Direção"-->
-          <li class="nav-item">
-            <a class="nav-link" href="#" style="color: white;">
+          <li class="nav-item border-bottom nav-item-btn">
+            <a class="nav-link text-white p-2" href="#">
               <span data-feather="file"></span>
               #Direção
             </a>
           </li>
           <!--"ComunicadosAlunos"-->
-          <li class="nav-item">
-            <a class="nav-link" href="#" style="color: white;" >
+          <li class="nav-item border-bottom nav-item-btn">
+            <a class="nav-link text-white p-2" href="#" >
               <span data-feather="shopping-cart"></span>
               #ComunicadosAlunos
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="users"></span>
-              Customers
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="bar-chart-2"></span>
-              Reports
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="layers"></span>
-              Integrations
-            </a>
-          </li>
-        </ul>
-
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-          <span>Saved reports</span>
-          <a class="link-secondary" href="#" aria-label="Add a new report">
-            <span data-feather="plus-circle"></span>
-          </a>
-        </h6>
-        <ul class="nav flex-column mb-2">
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Current month
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Last quarter
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Social engagement
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="file-text"></span>
-              Year-end sale
-            </a>
-          </li>
+          
         </ul>
       </div>
     </nav>
+    <!--Header pagina-->  
+<header class= "navbar navbar-red sticky-top  flex-md-nowrap p-0 shadow fundovermelho w-100">
 
+  <!--Texto Header-->
+    <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 textoheader" href="#" style="color: whitesmoke">Comunicados Alunos</a>
+  <!--botao-->  
+    <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <!-- <div class="navbar-nav">
+      <div class="nav-item text-nowrap">
+        <a class="nav-link px-3" href="#" style="color: white;">Sign out</a>
+      </div>
+    </div> -->
+  </header>
   </div>
 </div>
 
