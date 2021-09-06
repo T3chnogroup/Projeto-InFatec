@@ -19,9 +19,7 @@
     padding-right: 20px;
   }
   
-.olho {
-    cursor: pointer;
-    float: right;
-    position: relative;
-    width: 20px;
-  }
+.height-eye{
+    height: 38px;
+}
+
