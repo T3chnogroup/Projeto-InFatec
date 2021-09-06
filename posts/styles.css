@@ -1,0 +1,100 @@
+.main-content {
+  padding: 0 24px;
+}
+
+.post-container {
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  
+  background: rgba(196, 196, 196, .42);
+}
+
+.post-container #user-icon {
+  margin-right: 5px;
+
+  background: rgba(37, 37, 37, .6);
+}
+
+.post-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-container .fa-edit {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.post-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  margin-bottom: 2.1rem;
+}
+
+.post-header p span {
+  color: var(--primary-blue);
+}
+
+.date-posted-text {
+  color: var(--color-text-complement);
+}
+
+.post-main iframe {
+  width: 40rem;
+  height: 20rem;
+}
+
+.user-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+
+  color: #fff;
+}
+
+.text-area-wrapper {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.text-area-wrapper #send-icon {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+
+  background: var(--primary-red);
+}
+
+.text-area-wrapper #clips-icon {
+  position: absolute;
+  right: 50px;
+  bottom: 10px;
+
+  border: none;
+
+  background: var(--primary-red);  
+}
+
+.text-area-wrapper textarea {
+  padding: 10px 0 0 10px;
+}
+
+@media (max-width: 576px) {
+  .post-main iframe {
+    width: 95%;
+    height: 95%;
+  }
+}
