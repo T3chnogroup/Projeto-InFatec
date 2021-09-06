@@ -10,6 +10,9 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
     
 
     <!-- Bootstrap core CSS -->
@@ -51,6 +54,35 @@
       }
       .bg-azul {
         background-color: #0F3456;
+        height: 60px; 
+      }
+      .inputp {
+        position: relative;
+        left: 17px;
+        height: 20px;
+        
+        
+        
+      }
+      
+
+      footer {
+        background-color: #0F3456;
+        position: relative;
+        height: 60px;
+        font-size: 1.8rem;
+        padding: 0.9rem;
+        
+      }
+      .grupos {
+        height: 82%;
+        background-color: rgba(10, 60, 105 ,0.2);
+      }
+
+      .nav li:hover{
+        background-color: #0F3456;
+        opacity: 1;
+
       }
 
     </style>
@@ -65,41 +97,59 @@
 <!--lista lateral-->
 <div class="container-fluid px-0 position-absolute h-100">
   <div class="d-flex flex-row h-100">
-    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
-      <div class="position-sticky pt-3 bg-azul">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse sticky-top">
+      <div class="position-sticky pt-3 bg-azul sticky-top">
         <div class="nav-item text-white">
-          <div class="flex-row">
-            <div class="col-10">
-              <input type="text" class="form-control">
+          <div class="d-flex justify-content-between">
+            <div class="col-8 mt-1">
+              <input type="text" class="form-control inputp">
             </div>
-            <span class="col-2">Filtro</span>
+            <span class="col-2 pt-1"><i class="fas fa-filter"></i></span>
+
           </div>
         </div>
+
+        
+        
+       
+        <!--footer da lista-->
+      
+      </div>
+      <div class="grupos">
         <ul class="nav flex-column">
           <!--"Criar canal"-->
-          <li class="nav-item border-bottom nav-item-btn">
-            <a class="nav-link active text-white p-2" aria-current="page" href="#">
+          <li class="nav-item border-bottom nav-item-btn border-top">
+            <a class="nav-link active text-white p-2 canais sticky-top" aria-current="page" href="#">
               <span data-feather="home"></span>
               + Criar Canal
             </a>
           </li>
           <!--"Direção"-->
           <li class="nav-item border-bottom nav-item-btn">
-            <a class="nav-link text-white p-2" href="#">
+            <a class="nav-link text-white p-2 sticky-top" href="#">
               <span data-feather="file"></span>
               #Direção
             </a>
           </li>
           <!--"ComunicadosAlunos"-->
           <li class="nav-item border-bottom nav-item-btn">
-            <a class="nav-link text-white p-2" href="#" >
+            <a class="nav-link text-white p-2 sticky-top" href="#" >
               <span data-feather="shopping-cart"></span>
               #ComunicadosAlunos
             </a>
           </li>
           
+          
         </ul>
+        <div class="bg-lista"></div>
       </div>
+      <!--footer da lista-->
+      <footer class="flex-row text-white d-flex justify-content-between ">
+        <i class="fas fa-cog"></i>
+        <i class="fas fa-users"></i>
+        <i class="fas fa-sign-out-alt"></i>
+      </footer>
+      
     </nav>
     <!--Header pagina-->  
 <header class= "navbar navbar-red sticky-top  flex-md-nowrap p-0 shadow fundovermelho w-100">
@@ -108,7 +158,9 @@
     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 textoheader" href="#" style="color: whitesmoke">Comunicados Alunos</a>
   <!--botao-->  
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon text-white">
+        <i class="fas fa-bars"></i>
+      </span>
     </button>
     <!-- <div class="navbar-nav">
       <div class="nav-item text-nowrap">
