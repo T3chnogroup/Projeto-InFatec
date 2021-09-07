@@ -4,16 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.87.0">
     <title>inFATEC-Home Page</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/dashboard/">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
-    
 
     <!-- Bootstrap core CSS -->
 <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -21,22 +14,12 @@
     <style>
       .fundovermelho {
         background-color: #B22D30;
-        height: 60px;
+        height: 9%;
         
       }
 
-      .bd-placeholder-img { 
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
+      #btn-toggle-mobile {
+        display: none;
       }
 
       .textoheader {
@@ -54,22 +37,18 @@
       }
       .bg-azul {
         background-color: #0F3456;
-        height: 60px; 
+        height: 9%; 
       }
       .inputp {
         position: relative;
-        left: 17px;
-        height: 20px;
-        
-        
-        
+        height: 20px;        
       }
       
 
       footer {
         background-color: #0F3456;
         position: relative;
-        height: 60px;
+        height: 9%;
         font-size: 1.8rem;
         padding: 0.9rem;
         
@@ -85,11 +64,25 @@
 
       }
 
+      @media (max-width: 650px) {
+        #sidebarMenu {
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 1021;
+          width: 90%;
+          height: 100%;
+        }
+        #btn-toggle-mobile {
+          display: block;
+          position: absolute !important;
+          right: 0;
+          padding: 5px 0;
+        }
+      }
+
     </style>
 
-    
-    <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
   </head>
   <body>
 
@@ -98,27 +91,27 @@
 <div class="container-fluid px-0 position-absolute h-100">
   <div class="d-flex flex-row h-100">
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse sticky-top">
-      <div class="position-sticky pt-3 bg-azul sticky-top">
+      <div class="pt-3 bg-azul sticky-top">
         <div class="nav-item text-white">
-          <div class="d-flex justify-content-between">
-            <div class="col-8 mt-1">
+          <div class="d-flex justify-content-between" >
+            <button id="btn-toggle-mobile" class="navbar-toggler position-absolute collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon text-white">
+                <i class="fas fa-bars"></i>
+              </span>
+            </button>
+            <div class="col-9 mt-1 px-2">
               <input type="text" class="form-control inputp">
             </div>
-            <span class="col-2 pt-1"><i class="fas fa-filter"></i></span>
+            <span class="col-3 pt-1 text-center"><i class="fas fa-filter"></i></span>
 
           </div>
-        </div>
-
-        
-        
-       
-        <!--footer da lista-->
-      
+        </div>      
       </div>
+
       <div class="grupos">
         <ul class="nav flex-column">
           <!--"Criar canal"-->
-          <li class="nav-item border-bottom nav-item-btn border-top">
+          <li class="nav-item border-bottom nav-item-btn border-top mb-2">
             <a class="nav-link active text-white p-2 canais sticky-top" aria-current="page" href="#">
               <span data-feather="home"></span>
               + Criar Canal
@@ -137,9 +130,7 @@
               <span data-feather="shopping-cart"></span>
               #ComunicadosAlunos
             </a>
-          </li>
-          
-          
+          </li>          
         </ul>
         <div class="bg-lista"></div>
       </div>
