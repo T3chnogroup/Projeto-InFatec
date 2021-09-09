@@ -1,0 +1,283 @@
+@charset "UTF-8";
+
+/*Estilos da Página de Cadastro de Projetos*/
+
+/*
+Conteúdo de Projetos
+*/
+
+#container {
+  width: 100%;
+  height: 1024px;
+  background: rgba(255,255,255,1);
+  opacity: 1;
+  position: relative;
+}
+
+.header_titulo {
+  width: 80%;
+  height: 103px;
+  background: rgba(178,45,48,1);
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  left: 279px;
+  justify-content: center;
+  text-align: justify;
+  display: flex;
+}
+
+.titulo-comunicado{
+    width: 100%;
+}
+
+.titulo {
+  color: rgba(255,255,255,1);
+  font-family: Roboto;
+  font-weight: Bold;
+  font-size: 36px;
+  text-align: center;
+  margin-top: 2.5%;
+}
+
+
+.aside {
+  width: 20%;
+  height: 100%;
+  background: rgba(235,233,233,0.10);
+  opacity: 1;
+  position: relative;
+}
+
+section.site-pesquisa{
+    width: 100%;
+    height: 103px;
+    display: flex;
+    background: rgba(15,52,86,1);
+    opacity: 1;
+    position: absolute;
+}
+
+.formul-pesquisa{
+    position: relative;
+    float: left;
+    width: 90%;
+}
+
+form.barra-pesquisa{
+    width: 100%;
+    height: 100%;
+    margin-top: 30px;
+    
+}
+
+.pesquisa{
+    width: 165px;
+    height: 15px;
+    background-color: #ffffff;
+    margin-left: 10px;
+    border-radius: 13px;
+}
+
+#texto{
+    width: 140px;
+    height: 20px;
+    float: right;
+    font-family: Roboto;
+    font-weight: Regular;
+    font-size: 16px;
+    margin-top: 0;
+    border: 0;
+}
+
+.btn{
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+#texto:focus{
+     outline: 0;
+}
+
+.pesquisa:hover{
+    box-shadow: 0px 0px 2px #0066ff;
+    border: 1px solid rgba(94, 190, 190, 0.452);
+}
+
+.imagem-pesquisa{
+    position: relative;
+    width: 40%;
+    float: right;
+    margin-left: 4%;
+    margin-top: 10px;
+}
+
+.imagem-pesquisa img{
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-repeat: no-repeat;
+    width: 40%;
+    margin-top: 25px;
+    margin-left: 6%;
+}
+
+section.canal{
+    width: 100%;
+    height: 55px;
+    display: flex;
+    background: rgba(10,60,105,0.75);
+    opacity: 1;
+    position: absolute;
+    margin-top: 103px;
+    margin-left: 0px;
+}
+
+.texto-canal{
+    position: relative;
+    float: left;
+    width: 80%;
+}
+
+.texto-canal p{
+    color: rgba(255,255,255,1);
+    font-family: Roboto;
+    font-weight: Regular;
+    font-size: 20px;
+    display: flex;
+    text-align: justify;
+    text-justify: auto;
+    margin-right: 4%;
+    margin-top: 15px;
+    cursor: pointer;
+}
+
+.imagem-canal{
+    position: relative;
+    width: 20%;
+    float: right;
+    margin-left: 4%;
+}
+
+
+.imagem-canal img{
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-repeat: no-repeat;
+    width: 55%;
+    margin-top: 12px;
+    margin-left: 10%;
+}
+
+section.direcao{
+    width: 100%;
+    height: 77px;
+    display: flex;
+    background: rgba(10,60,105,0.62);
+    opacity: 1;
+    position: absolute;
+    margin-top: 167px;
+    margin-left: 0px;
+}
+
+.texto-direcao{
+    position: relative;
+    float: left;
+    width: 80%;
+    margin-top: 3px;
+}
+.texto-direcao p{
+    color: rgba(255,255,255,1);
+    font-family: Roboto;
+    font-weight: Regular;
+    font-size: 20px;
+    text-align: justify;
+    text-justify: auto;
+    margin-right: 4%;
+    margin-top: 25px;
+    cursor: pointer;
+}
+
+.imagem-direcao{
+    position: relative;
+    width: 20%;
+    float: right;
+    margin-left: 4%;
+    margin-top: 10px;
+}
+
+
+.imagem-direcao img{
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-repeat: no-repeat;
+    width: 70%;
+    margin-top: 8px;
+    margin-left: 10%;
+}
+
+section.alunos{
+    width: 100%;
+    height: 77px;
+    display: flex;
+    background: rgba(10,60,105,0.62);
+    opacity: 1;
+    position: absolute;
+    margin-top: 246px;
+    margin-left: 0px;
+}
+
+.texto-alunos{
+    position: relative;
+    float: left;
+    width: 50%;
+    margin-top: 3px;
+}
+.texto-alunos p{
+    color: rgba(255,255,255,1);
+    font-family: Roboto;
+    font-weight: Regular;
+    font-size: 20px;
+    text-align: justify;
+    text-justify: auto;
+    cursor: pointer;
+    margin-right: 8px;
+}
+
+.imagem-alunos{
+    position: relative;
+    width: 20%;
+    float: right;
+    margin-left: 4%;
+    margin-top: 10px;
+}
+
+
+.imagem-alunos img{
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-repeat: no-repeat;
+    width: 70%;
+    margin-top: 8px;
+    margin-left: 4%;
+    cursor: pointer;
+}
+
+
