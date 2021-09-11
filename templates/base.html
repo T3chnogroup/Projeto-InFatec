@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Bootstrap core CSS -->
-    <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="{{url_for('static', filename='css/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
   </head>
   <body>
 
@@ -97,7 +97,9 @@
           </span>
         </div>
         <div>
+          {% block conteudo %}
           <!-- Aqui fica o conteudo -->
+          {% endblock %}
         </div>
     </div>
 
@@ -105,5 +107,5 @@
 </div>
 
 </body>
-<script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
 </html>
