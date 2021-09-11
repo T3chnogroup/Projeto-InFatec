@@ -45,7 +45,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
 
-              <div id="atencao" class="alert alert-warning alert-dismissible fade" role="alert">
+              <div id="atencao">
                 <p>
                     <strong>Atenção!</strong>
                 </p>
@@ -61,11 +61,6 @@
                     um
                     redirecionamento
                     indevido para essas caixas.
-                <button id="close" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" data-bs-dismiss="alert" onclick="funcao2()" ></button>
-              </div>
-
-            
-               
                 </p>
             </div>
         </form>
@@ -75,11 +70,10 @@
     <script>
         function funcao1() {
             document.getElementById('recuperado').classList.add('show');
-            document.getElementById('atencao').classList.add('show');
         }
         
         function funcao2(){
-            document.getElementsById('Close').classList.remove('atencao');
+            document.getElementsById('Close').classList.remove('');
         }
     </script>
 
