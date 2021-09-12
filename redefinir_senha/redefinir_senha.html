@@ -32,20 +32,20 @@
                     sistema.</p>
             </div>
             <div class="input mb-4">
-                <input type="text" class="form-control" id="floatingInput" placeholder="Usuário">
+                <input type="text" class="form-control" id="usuario" placeholder="Usuário">
             </div>
             <div class="input input-group mb-3">
-                <input class="form-control" id="password" name="password" placeholder="Email" type="email">
+                <input class="form-control" id="email" name="email" placeholder="Email" type="email">
             </div>
             <button class="button botao-voltar btn btn-primary mb-4 " type="submit">Voltar</button>
-            <button class="button botao-enviar btn btn-primary mb-4" onclick="funcao1()" value="Exibir Alert" type="button">Enviar</button>
+            <button class="button botao-enviar btn btn-primary mb-4" onclick="mostrar_msg_sucesso()" value="Exibir Alert" type="button">Enviar</button>
 
             <div id="recuperado" class="alert alert-warning alert-dismissible fade" role="alert">
                 Enviado com sucesso!
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="botao_fechar_msg_sucesso()" aria-label="Fechar"></button>
               </div>
 
-              <div id="atencao" class="alert alert-warning alert-dismissible fade" role="alert">
+              <div id="atencao">
                 <p>
                     <strong>Atenção!</strong>
                 </p>
@@ -61,11 +61,6 @@
                     um
                     redirecionamento
                     indevido para essas caixas.
-                <button id="close" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" data-bs-dismiss="alert" onclick="funcao2()" ></button>
-              </div>
-
-            
-               
                 </p>
             </div>
         </form>
@@ -73,13 +68,14 @@
     </main>
 
     <script>
-        function funcao1() {
-            document.getElementById('recuperado').classList.add('show');
-            document.getElementById('atencao').classList.add('show');
+        function mostrar_msg_sucesso() {
+            document.getElementById('recuperado').classList.add('show'); /*mostra a mensagem de enviado com sucesso*/ 
+            document.getElementById('usuario').value='';/*limpa o campo usuário ao clicar em enviar*/ 
+            document.getElementById('email').value='';/*limpa o campo email ao clicar em enviar*/ 
         }
         
-        function funcao2(){
-            document.getElementsById('Close').classList.remove('atencao');
+        function botao_fechar_msg_sucesso(){
+            document.getElementById('recuperado').classList.remove('show');/*função do botão de fechar mensagem de sucesso*/
         }
     </script>
 
