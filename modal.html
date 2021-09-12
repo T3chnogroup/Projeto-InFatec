@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="modal.css" media="screen">
+    <link rel="icon" href="">  
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" >
+
+     <!-- Bootstrap core CSS -->
+    <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>Modal</title>
+</head>
+
+<body>
+    
+    <div id="container"><!-- Início container -->
+
+        <header class="navbar header-titulo navbar-expand navbar-light" style="background-color: rgba(178,45,48,1);">
+            <div class="titulo-comunicado">
+                <h1 class="navbar-brand titulo-comualunos text-white">Comunicados Alunos</h1>
+            </div>
+        </header>
+
+
+        <nav class="navbar nav-filtro navbar-expand navbar-light" style="background-color: rgba(205,68,71,0.62);">
+            <div class="container-fluid">
+                <h2 class="navbar-brand titulo-filtrar text-white" href="#">Filtrar por</h2>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Mais recente</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Mais antigas</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Pesquisa Avançada</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header border-bottom-0">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form class="pesquisa-avancada" name="formtest" method="post" action="cadastrado_com_sucesso_contato.html">
+
+                    <fieldset class="p-avancada">
+                        <div class="preenchimento-p-avancada">
+                            <div class="campo-center px-4 mt-3">
+                                <input type="text" class="form-control" name="nome" placeholder="Palavra-chave" required="required">
+                            </div>
+                        </div>
+
+                        <div class="titulo-p-avancada mt-3 mb-3">
+                            <h2 class="titulo-ou">OU</h2>                      
+                        </div>
+
+                        <div class="preenchimento-p-avancada">
+                            <div class="campo-center px-4  mt-3">
+                                <label for="nascimento"><strong>Data inicial</strong></label>
+                                <input type="date" class="form-control" name="nascimento" id="nascimento" required>
+                            </div>
+                        </div>
+
+                        <div class="preenchimento-p-avancada">
+                            <div class="campo-center px-4  mt-3">
+                                <label for="nascimento"><strong>Data final</strong></label>
+                                <input type="date" class="form-control" name="nascimento" id="nascimento" required>
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                </form><!--conteúdo-->
+
+              </div>
+
+              <div class="modal-footer border-top-0">
+                <div class="preenchimento-p-avancada">
+                    <div class="campo-left d-grid gap-2 px-4 mb-3">
+                        <button class="btn btn-light text-danger btn-block fw-bold border" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+        
+                    <div class="campo-right d-grid gap-2 px-4 mb-3">
+                        <button class="btn btn-light text-primary btn-block fw-bold border" data-bs-dismiss="modal">Filtrar</button>
+                    </div> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+    </div><!--/fim container -->
+
+    <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
