@@ -1,18 +1,23 @@
 # Projeto-InFatec
 
 ```bash
-git clone #
+git clone https://github.com/T3chnogroup/Projeto-InFatec.git
 cd Projeto-InFatec
 ```
-Para Windows:
+
+Criar ambiente virtual Python:
 ```bash
 python3 -m venv env
+```
+Iniciar ambiente:
+
+Para Windows:
+```bash
 .\env\Scripts\activate
 ```
 
 Para Linux:
 ```bash
-python3 -m venv env
 source env/bin/activate
 ```
 
@@ -24,6 +29,4 @@ pip3 install -r requirements.txt
 Executar aplicação:
 ```bash
 python3 wsgi.py
-```
-git clone #
 ```
