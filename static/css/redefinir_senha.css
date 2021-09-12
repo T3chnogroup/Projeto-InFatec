@@ -31,8 +31,8 @@ max-width: 278px;
 }
 
 @media(max-width:600px){
-    .atencao{
-        max-width: 80%;
+    #atencao, #recuperado{
+        max-width: 100%!important;
     }
 }
 

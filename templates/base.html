@@ -4,13 +4,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
+    {% block title %}
     <title>inFATEC-Home Page</title>
+    {% endblock %}
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Bootstrap core CSS -->
     <link href="{{url_for('static', filename='css/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    {% block css %}
+    {% endblock %}
   </head>
   <body>
 
@@ -56,13 +60,13 @@
           </li>
           <!--"Direção"-->
           <li class="nav-item border-bottom nav-item-btn">
-            <a class="nav-link text-white p-2 sticky-top" href="#">
+            <a class="nav-link text-white p-2 sticky-top" href="/post">
               <i class="fas fa-lock"></i> Direção
             </a>
           </li>
           <!--"ComunicadosAlunos"-->
           <li class="nav-item border-bottom nav-item-btn">
-            <a class="nav-link text-white p-2 sticky-top" href="#" >
+            <a class="nav-link text-white p-2 sticky-top" href="/post" >
               <i class="fas fa-lock-open"></i> Comunicados Alunos
             </a>
           </li>          
@@ -71,9 +75,9 @@
       </div>
       <!--footer da lista-->
       <footer class="flex-row text-white d-flex justify-content-between ">
-        <i class="fas fa-cog"></i>
-        <i class="fas fa-users"></i>
-        <i class="fas fa-sign-out-alt"></i>
+        <a href="" class="text-white"><i class="fas fa-cog"></i></a>
+        <a href="" class="text-white"><i class="fas fa-users"></i></a>
+        <a href="/login" class="text-white"><i class="fas fa-sign-out-alt"></i></a>
       </footer>
       
     </nav>
@@ -96,7 +100,7 @@
             <i class="fas fa-caret-down"></i>
           </span>
         </div>
-        <div>
+        <div class="conteudo">
           {% block conteudo %}
           <!-- Aqui fica o conteudo -->
           {% endblock %}

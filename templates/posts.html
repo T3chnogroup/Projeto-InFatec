@@ -1,6 +1,149 @@
 {% extends 'base.html' %}
 
-{% block conteudo %}
+{% block title %}
+<title>InFate - Post</title>
+{% endblock %}
 
-<h1>Titulo do post</h1>
+{% block css %}
+<!-- CSS Global -->
+<link rel="stylesheet" href="{{url_for('static', filename='css/globals.css')}}"> 
+<!-- CSS local -->
+<link rel="stylesheet" href="{{url_for('static', filename='css/posts.css')}}">
+{% endblock %}
+
+{% block conteudo %}
+<div class="container">
+    <div class="posts-wrapper">
+        <div class="card post-card">
+            <div class="card-body post-container">
+                <div class="post-actions">
+                    <button class="action-button" data-bs-toggle="modal" data-bs-target="#edit-modal">
+                        <i class="far fa-edit"></i>
+                    </button>
+                    <button class="action-button" data-bs-toggle="modal" data-bs-target="#visibility-modal">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="action-button" data-bs-toggle="modal" data-bs-target="#delete-modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div id="user-icon" class="user-icon-wrapper">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="post-content">
+                    <div class="post-header">
+                        <p class="posted-info">
+                            <span>@Secretaria</span> fez uma publicação.
+                        </p>
+                        <span class="date-posted-text">
+                            Postado em 29/08/2021
+                        </span>
+                    </div>
+                    <div class="post-main">
+                        <iframe src="https://www.youtube.com/embed/lOpUYoDiIts" title="YouTube video player"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="card post-card">
+                <div class="card-body post-container">
+                    <div class="post-actions">
+                        <button class="action-button" data-bs-toggle="modal" data-bs-target="#edit-modal">
+                            <i class="far fa-edit"></i>
+                        </button>
+                        <button class="action-button" data-bs-toggle="modal" data-bs-target="#visibility-modal">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="action-button" data-bs-toggle="modal" data-bs-target="#delete-modal">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div id="user-icon" class="user-icon-wrapper">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-header">
+                            <p class="posted-info">
+                                <span>@Secretaria</span> fez uma publicação.
+                            </p>
+                            <span class="date-posted-text">
+                                Postado em 29/08/2021
+                            </span>
+                        </div>
+                        <div class="post-main">
+                            <p class="posted-info">
+                                <span>@Geral</span>, a volta às aulas acontecerá de forma gradativa no 1º semestre de 2022.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="text-area-wrapper">
+        <textarea name="post" id="post" cols="30" rows="5" class="form-control" placeholder="Inicie uma nova publicação. Digite @ para mencionar alguém ou canal. "></textarea>
+        <button id="send-icon" class="user-icon-wrapper text-area-buttons">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+        <button id="clips-icon" class="user-icon-wrapper text-area-buttons">
+            <i class="fas fa-paperclip"></i>
+        </button>
+    </div>
+</div>
+
+<!-- Modal Edição -->
+<div class="modal fade" id="edit-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Alterar Post</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Deseja realmente alterar este post?
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+        <button type="button" class="btn btn-primary">Sim</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- Modal Visibilidade -->
+<div class="modal fade" id="visibility-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Alterar Visibilidade do Post</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Deseja realmente deixar de ver este post?
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+        <button type="button" class="btn btn-primary">Sim</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- Modal Visibilidade -->
+<div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Excluir Post</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Deseja realmente excluir este post?
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+        <button type="button" class="btn btn-danger">Sim</button>
+        </div>
+    </div>
+    </div>
+</div>
 {% endblock %}

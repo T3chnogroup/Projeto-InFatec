@@ -63,7 +63,18 @@
   #sidebarMenu {
     border-right: 3px solid #fff;
   }
+  .conteudo {
+    height: 87%;
+    overflow-y: auto;
+    position: fixed;
+    width: 83.5%;
+  }
 
+  @media (max-width: 767px) {
+    .conteudo {
+      width: 100%;
+    }
+  }
   @media (max-width: 650px) {
     #sidebarMenu {
       position: absolute;

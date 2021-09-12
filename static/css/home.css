@@ -1,0 +1,33 @@
+
+.e20_5 { 
+	color:rgba(0, 0, 0, 1);
+	width:422px;
+	height:110px;
+	position:absolute;
+	left:714px;
+	top:270px;
+	font-family:Roboto;
+	text-align:left;
+	font-size:50px;
+	letter-spacing:0;
+}
+.e21_16 { 
+	color:rgba(0, 0, 0, 1);
+	width:926px;
+	height:132px;
+	position:absolute;
+	left:414px;
+	top:621px;
+	font-family:Roboto;
+	text-align:center;
+	font-size:20px;
+	letter-spacing:0;
+}
+
+.foto_logo {
+	width: auto;
+	margin-left: -410px;
+	padding: -20px;
+	position: absolute;
+}
+

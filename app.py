@@ -16,7 +16,7 @@ def redefinir():
 
 @app.route('/')
 def inicio():
-    return render_template('base.html')
+    return render_template('home.html')
 
 @app.route('/post')
 def post():
