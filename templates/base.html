@@ -9,7 +9,7 @@
     {% endblock %}
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link rel="icon" href="{{ url_for('static', filename='imagens/icon1.png') }}" sizes="128x128" type="image/png">
     <!-- Bootstrap core CSS -->
     <link href="{{url_for('static', filename='css/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
@@ -84,7 +84,7 @@
     <div class="w-100">
 
     <!--Header pagina-->  
-      <header class= "navbar navbar-red sticky-top  flex-md-nowrap p-0 fundovermelho w-100">
+      <header class= "navbar navbar-red flex-md-nowrap p-0 fundovermelho w-100">
         <!--Texto Header-->
           <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 textoheader font-weight-bold text-white" >Comunicados Alunos</a>
         <!--botao-->  
@@ -94,7 +94,7 @@
             </span>
           </button>
         </header>
-        <div class="sticky-top flex-md-nowrap p-0 shadow text-white div-filtrar px-2">
+        <div class="flex-md-nowrap p-0 shadow text-white div-filtrar px-2">
           Filtrar por 
           <span>
             <i class="fas fa-caret-down"></i>
@@ -112,4 +112,7 @@
 
 </body>
 <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+{% block modals %}
+
+{% endblock %}
 </html>

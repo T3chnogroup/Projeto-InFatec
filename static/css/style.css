@@ -20,6 +20,8 @@
   .nav-item-btn {
     background-color: #0A3C69;
     opacity: 0.75;
+    font-size: 1rem;
+    padding: 0.2rem;
   }
   .bg-azul {
     background-color: #0F3456;
@@ -99,5 +101,8 @@
     }
     .nav-item-btn {
       opacity: 1;
+    }
+    .grupos {
+      background-color: rgba(100, 150, 225 ,1);;
     }
   }
