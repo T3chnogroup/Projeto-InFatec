@@ -3,6 +3,10 @@ button {
   background: none;
 }
 
+input[type='file'] {
+  display: none;
+}
+
 .form-modal {
   background: #E5E9F2;
 }
