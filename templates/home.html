@@ -1,55 +1,40 @@
-<!DOCTYPE html>
 {% extends 'base.html' %}
 
-<html lang="pt-br"><head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-  <meta name="generator" content="Hugo 0.88.1">
-  {% block title %}
-  <title>InFatec - Início</title>
-  {% endblock %}
-  {% block css %}
-  <!-- Bootstrap core CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+{% block title %}
+<title>InFatec - Início</title>
+{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 
-  <!-- Favicons -->
-
+<!-- Favicons -->
 <link rel="icon" href="../static/imagens/icon1.png" sizes="32x32" type="image/png">
 <meta name="theme-color" content="#7952b3">
 
+<style>
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+  }
 
-  <style>
-    .bd-placeholder-img {
-      font-size: 1.125rem;
-      text-anchor: middle;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      user-select: none;
+  @media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
     }
+  }
+</style>
+{% endblock %}
 
-    @media (min-width: 768px) {
-      .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-      }
-    }
-  </style>
-  {% endblock %}
+{% block conteudo %}
 
-  {% block conteudo %}
-  
-  <!-- Custom styles for this template -->
-  <link href="heroes.css" rel="stylesheet">
-</head>
-<body cz-shortcut-listen="true">
-  
-<main>
 <div class="px-4 pt-5 my-5 text-center border-bottom">
   <h1 class="display-4 fw-bold">Bem vindo</h1>
   <div>
     <div class="container px-5">
-      <img src="../static/imagens/logoinfatec.png" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image" width="700" height="500" loading="lazy">
+      <img src="../static/imagens/logoinfatec.png" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image"
+        width="700" height="500" loading="lazy">
     </div>
   </div>
   <div class="col-lg-6 mx-auto">
@@ -57,10 +42,4 @@
       não perde nenhuma publicação importante.</p>
   </div>
 </div>
-
- <script src="/docs/5.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
-
-    
-  {% endblock %}
-
-</body></html>
+{% endblock %}
