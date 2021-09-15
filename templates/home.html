@@ -29,17 +29,20 @@
 
 {% block conteudo %}
 
-<div class="px-4 pt-5 my-5 text-center border-bottom">
-  <h1 class="display-4 fw-bold">Bem vindo</h1>
-  <div>
-    <div class="container px-5">
-      <img src="../static/imagens/logoinfatec.png" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image"
-        width="700" height="500" loading="lazy">
+<main class="bg_color">
+
+  <div class="px-4 pt-5 text-center">
+    <h1 class="display-4 fw-bold">Bem vindo</h1>
+    <div>
+      <div class="container px-5">
+        <img class="imagem" src="../static/imagens/logoinfatec.png" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image"
+          width="700" height="500" loading="lazy">
+      </div>
+    </div>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">Aqui você tem acesso a todos os seus canais e
+        não perde nenhuma publicação importante.</p>
     </div>
   </div>
-  <div class="col-lg-6 mx-auto">
-    <p class="lead mb-4">Aqui você tem acesso a todos os seus canais e
-      não perde nenhuma publicação importante.</p>
-  </div>
-</div>
+</main>
 {% endblock %}
