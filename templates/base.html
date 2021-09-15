@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    {% block title %}
+    <title>inFATEC-Home Page</title>
+    {% endblock %}
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" href="{{ url_for('static', filename='imagens/icon1.png') }}" sizes="128x128" type="image/png">
+    <!-- Bootstrap core CSS -->
+    <link href="{{url_for('static', filename='css/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    {% block css %}
+    {% endblock %}
+  </head>
+  <body>
+
+
+<!--lista lateral-->
+<div class="container-fluid px-0 position-absolute h-100">
+  <div class="d-flex flex-row h-100">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse sticky-top">
+      <div class="pt-3 bg-azul sticky-top">
+        <div class="nav-item text-white">
+          <div class="d-flex justify-content-between" >
+            
+            <div class="col-md-10 col-9 mt-1 px-2 position-relative">
+              <input type="text" class="form-control inputp">
+              <span class="icone-lupa font-azul">
+                <i class="fas fa-search"></i>
+              </span>
+            </div>
+            
+            <div class="col-md-2 col-3 pt-1 d-flex justify-content-between">
+              <span>
+                <i class="fas fa-filter"></i>
+              </span>
+              <button id="btn-toggle-mobile" class="navbar-toggler position-absolute collapsed pt-1" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon text-white">
+                  <i class="fas fa-bars"></i>
+                </span>
+              </button>
+            </div>
+
+          </div>
+        </div>      
+      </div>
+
+      <div class="grupos">
+        <ul class="nav flex-column">
+          <!--"Criar canal"-->
+          <li class="nav-item border-bottom nav-item-btn border-top mb-2">
+            <button type="button" class="nav-link active text-white p-2 canais sticky-top create-channel-button" data-bs-toggle="modal" data-bs-target="#cadastroModal">
+              <span data-feather="home"></span>
+              <i class="fas fa-plus"></i> Criar Canal
+            </button>
+            <!-- <a class="nav-link active text-white p-2 canais sticky-top" aria-current="page" href="#">
+              <span data-feather="home"></span>
+              <i class="fas fa-plus"></i> Criar Canal
+            </a> -->
+          </li>
+          <!--"Direção"-->
+          <li class="nav-item border-bottom nav-item-btn">
+            <a class="nav-link text-white p-2 sticky-top" href="/post">
+              <i class="fas fa-lock"></i> Direção
+            </a>
+          </li>
+          <!--"ComunicadosAlunos"-->
+          <li class="nav-item border-bottom nav-item-btn">
+            <a class="nav-link text-white p-2 sticky-top" href="/post" >
+              <i class="fas fa-lock-open"></i> Comunicados Alunos
+            </a>
+          </li>          
+        </ul>
+        <div class="bg-lista"></div>
+      </div>
+      <!--footer da lista-->
+      <footer class="flex-row text-white d-flex justify-content-between ">
+        <a href="" class="text-white"><i class="fas fa-cog"></i></a>
+        <a href="" class="text-white"><i class="fas fa-users"></i></a>
+        <a href="/login" class="text-white"><i class="fas fa-sign-out-alt"></i></a>
+      </footer>
+      
+    </nav>
+    <div class="w-100">
+
+    <!--Header pagina-->  
+      <header class= "navbar navbar-red flex-md-nowrap p-0 fundovermelho w-100">
+        <!--Texto Header-->
+          <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 textoheader font-weight-bold text-white" >Comunicados Alunos</a>
+        <!--botao-->  
+          <button class="navbar-toggler position-absolute d-md-none collapsed pt-3" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon text-white">
+              <i class="fas fa-bars"></i>
+            </span>
+          </button>
+        </header>
+        <div class="flex-md-nowrap p-0 shadow text-white div-filtrar px-2">
+          Filtrar por 
+          <span>
+            <i class="fas fa-caret-down"></i>
+          </span>
+        </div>
+        <div class="conteudo">
+          {% block conteudo %}
+          <!-- Aqui fica o conteudo -->
+          {% endblock %}
+        </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="modal fade" id="cadastroModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="exampleModalLabel">Criar Canal</h5>
+        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="">
+          <div class="d-flex justify-content-center mt-4 inputs-wrapper">
+            <div class="inputs-first-column me-4">
+              <input type="text" class="form-control form-control mb-3" placeholder="Nome">
+              <div class="d-flex align-items-center justify-content-center mb-3">
+                <select class="form-select" aria-label="Default select example">
+                  <option>Grupo</option>
+                  <option value="1">Coordenadores</option>
+                  <option value="2">Professores</option>
+                </select>
+                <div class="dropdown dropdown-wrapper">
+                  <button class="btn-add-group dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li class="ps-3">
+                      <input type="checkbox" id="checkAluno" />
+                      <label for="checkAluno" class="ps-2">Alunos</label>
+                    </li>
+                    <li class="ps-3">
+                      <input type="checkbox" id="checkProfessor" />
+                      <label for="checkProfessor" class="ps-2">Professores</label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <select class="form-select mb-3" aria-label="Default select example">
+                <option>Semestre</option>
+                <option value="1">1º semestre</option>
+                <option value="2">2º semestre</option>
+                <option value="3">3º semestre</option>
+              </select>
+              <select class="form-select mb-3" aria-label="Default select example">
+                <option>Curso</option>
+                <option value="1">DSM</option>
+                <option value="2">ADS</option>
+                <option value="3">BD</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer d-flex justify-content-center no-border">
+        <button type="button" class="btn btn-danger fw-bold save-button">Criar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+<script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+{% block modals %}
+
+{% endblock %}
+</html>

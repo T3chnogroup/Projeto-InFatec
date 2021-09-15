@@ -1,0 +1,173 @@
+.fundovermelho {
+    background-color: #B22D30;
+    height: 9%;
+    
+  }
+
+  #btn-toggle-mobile {
+    display: none;
+  }
+
+  .textoheader {
+    text-align: center;
+    width: 100%;      
+  }
+
+  .navbarp {
+   position: relative;
+   top: 28px;
+  }
+  .nav-item-btn {
+    background-color: #0A3C69;
+    opacity: 0.75;
+    font-size: 1rem;
+    padding: 0.2rem;
+  }
+  .bg-azul {
+    background-color: #0F3456;
+    height: 9%; 
+  }
+  .inputp {
+    position: relative;
+    height: 20px;
+    border-radius: 13px;   
+  }
+  .icone-lupa {
+    position: absolute;
+    right: 1rem;
+    top:0;
+  }
+  .font-azul {
+    color: #0F3456;
+  }
+  
+
+  footer {
+    background-color: #0F3456;
+    position: relative;
+    height: 9%;
+    font-size: 1.8rem;
+    padding: 0.9rem;
+    
+  }
+  .grupos {
+    height: 82%;
+    background-color: rgba(10, 60, 105 ,0.2);
+  }
+
+  .nav li:hover{
+    background-color: #0F3456;
+    opacity: 1;
+  }
+  .div-filtrar {
+    background-color: rgba(205, 68, 71, 0.65);
+  }
+  #sidebarMenu {
+    border-right: 3px solid #fff;
+  }
+  .conteudo {
+    height: 87%;
+    overflow-y: auto;
+    position: fixed;
+    width: 83.5%;
+  }
+
+  .create-channel-button {
+    width: 100%;
+
+    background: none;
+    border: none;
+    text-align: left;
+  }
+
+  button {
+    border: none;
+    background: none;
+  }
+  
+  input[type='file'] {
+    display: none;
+  }
+  
+  .form-modal {
+    background: #E5E9F2;
+  }
+  
+  .modal-width {
+    width: 50% !important;
+  }
+  
+  .no-border {
+    border: none !important;
+  }
+  
+  .save-button {
+    padding: 0 50px !important;
+  
+    border-radius: 25px;
+  }
+  
+  .btn-add-group {
+    background: none;
+    border: none;
+    color: rgba(0,0, 0, 0.5)
+  }
+  
+  .dropdown-wrapper {
+    position: absolute;
+    left: 385px;
+  }
+  
+  @media (max-width: 576px) {
+    .modal-width {
+      width: 95.5% !important;
+    }
+  
+    .inputs-wrapper {
+      flex-direction: column !important;
+    }
+  
+    .inputs-wrapper .inputs-second-column {
+      margin-top: 1rem;
+    }
+  
+    .inputs-wrapper .inputs-first-column {
+      margin-right: 0 !important;
+    }
+  }
+  
+
+  @media (max-width: 767px) {
+    .conteudo {
+      width: 100%;
+    }
+  }
+  @media (max-width: 650px) {
+    #sidebarMenu {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1021;
+      width: 90%;
+      height: 100%;
+    }
+    #btn-toggle-mobile {
+      display: block;
+      position: absolute !important;
+      right: 0;
+      font-size: 1.5rem;
+      padding: 0;
+    }
+    .inputp {
+      height: 2rem;
+    }
+    .nav-item, .icone-lupa {
+      font-size: 1.5rem;
+    }
+    .nav-item-btn {
+      opacity: 1;
+    }
+    .grupos {
+      background-color: rgba(100, 150, 225 ,1);;
+    }
+  }
