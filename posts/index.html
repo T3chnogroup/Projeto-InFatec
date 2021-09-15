@@ -110,38 +110,8 @@
         </div>
 
         <section class="post">
-            <div class="posts-wrapper">
-                <div class="card post-card">
-                    <div class="card-body post-container">
-                        <div class="post-actions">
-                            <button class="action-button" data-bs-toggle="modal" data-bs-target="#edit-modal">
-                                <i class="far fa-edit"></i>
-                            </button>
-                            <button class="action-button" data-bs-toggle="modal" data-bs-target="#visibility-modal">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button class="action-button" data-bs-toggle="modal" data-bs-target="#delete-modal">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                        <div id="user-icon" class="user-icon-wrapper">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="post-content">
-                            <div class="post-header">
-                                <p class="posted-info">
-                                    <span>@Secretaria</span> fez uma publicação.
-                                </p>
-                                <span class="date-posted-text">
-                                    Postado em 29/08/2021
-                                </span>
-                            </div>
-                            <div class="post-main">
-                                <iframe src="https://www.youtube.com/embed/lOpUYoDiIts" title="YouTube video player"></iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="center-post">
+                <div class="posts-wrapper">
                     <div class="card post-card">
                         <div class="card-body post-container">
                             <div class="post-actions">
@@ -168,22 +138,54 @@
                                     </span>
                                 </div>
                                 <div class="post-main">
-                                    <p class="posted-info">
-                                        <span>@Geral</span>, a volta às aulas acontecerá de forma gradativa no 1º semestre de 2022.
-                                    </p>
+                                    <iframe src="https://www.youtube.com/embed/lOpUYoDiIts" title="YouTube video player"></iframe>
                                 </div>
                             </div>
                         </div>
                     </div>
-            </div>
-            <div class="text-area-wrapper">
-                <textarea name="post" id="post" cols="30" rows="5" class="form-control" placeholder="Inicie uma nova publicação. Digite @ para mencionar alguém ou canal. "></textarea>
-                <button id="send-icon" class="user-icon-wrapper text-area-buttons">
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-                <button id="clips-icon" class="user-icon-wrapper text-area-buttons">
-                    <i class="fas fa-paperclip"></i>
-                </button>
+                        <div class="card post-card">
+                            <div class="card-body post-container">
+                                <div class="post-actions">
+                                    <button class="action-button" data-bs-toggle="modal" data-bs-target="#edit-modal">
+                                        <i class="far fa-edit"></i>
+                                    </button>
+                                    <button class="action-button" data-bs-toggle="modal" data-bs-target="#visibility-modal">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-button" data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                                <div id="user-icon" class="user-icon-wrapper">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="post-content">
+                                    <div class="post-header">
+                                        <p class="posted-info">
+                                            <span>@Secretaria</span> fez uma publicação.
+                                        </p>
+                                        <span class="date-posted-text">
+                                            Postado em 29/08/2021
+                                        </span>
+                                    </div>
+                                    <div class="post-main">
+                                        <p class="posted-info">
+                                            <span>@Geral</span>, a volta às aulas acontecerá de forma gradativa no 1º semestre de 2022.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="text-area-wrapper">
+                    <textarea name="post" id="post" cols="30" rows="5" class="form-control" placeholder="Inicie uma nova publicação. Digite @ para mencionar alguém ou canal. "></textarea>
+                    <button id="send-icon" class="user-icon-wrapper text-area-buttons">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                    <button id="clips-icon" class="user-icon-wrapper text-area-buttons">
+                        <i class="fas fa-paperclip"></i>
+                    </button>
+                </div>
             </div>
         </section>
 
