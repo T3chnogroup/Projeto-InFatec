@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>InFate - Inicio</title>
+{% endblock %}
+{% block css %}
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+
+<style>
+    /*
+    Figma Background for illustrative/preview purposes only.
+    You can remove this style tag with no consequence
+    */
+    body {background: #E5E5E5; }
+</style>
+{% endblock %}
+
+{% block conteudo %}
+<div>
+    <span class="e20_5">Bem vindo(a) ao <img class="foto_logo" src="{{url_for('static', filename='imagens/logoinfatec.png')}}" alt="Logo InFatec">
+    </span>
+    
+    <span class="e21_16">Aqui você tem acesso a todos os seus canais e
+      não perde nenhuma publicação importante.
+    </span>
+  </div>
+{% endblock %}
