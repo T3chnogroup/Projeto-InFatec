@@ -80,9 +80,9 @@
       <!--footer da lista-->
       <footer class="flex-row text-white d-flex justify-content-between ">
         <a href="" class="text-white"><i class="fas fa-cog"></i></a>
-        <a href="" class="text-white"><i class="fas fa-users"></i></a>
+        <a href="/gerenciamento_usuario" class="text-white"><i class="fas fa-users"></i></a>
         <a href="/login" class="text-white"><i class="fas fa-sign-out-alt"></i></a>
-      </footer>
+      </footer> 
       
     </nav>
     <div class="w-100">
@@ -172,6 +172,8 @@
 </div>
 
 </body>
+{% block js %}
+{% endblock %}
 <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
 {% block modals %}
 
