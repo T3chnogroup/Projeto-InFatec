@@ -7,24 +7,9 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 
 <!-- Favicons -->
-<link rel="icon" href="../static/imagens/icon1.png" sizes="32x32" type="image/png">
+<link rel="icon" href="{{url_for('static', filename='imagens/icon1.png')}}" sizes="32x32" type="image/png">
 <meta name="theme-color" content="#7952b3">
 
-<style>
-  .bd-placeholder-img {
-    font-size: 1.125rem;
-    text-anchor: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-  }
-
-  @media (min-width: 768px) {
-    .bd-placeholder-img-lg {
-      font-size: 3.5rem;
-    }
-  }
-</style>
 {% endblock %}
 
 {% block conteudo %}
@@ -35,7 +20,7 @@
     <h1 class="display-4 fw-bold">Bem vindo</h1>
     <div>
       <div class="container px-5">
-        <img class="imagem" src="../static/imagens/logoinfatec.png" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image"
+        <img class="imagem" src="{{url_for('static', filename='imagens/logoinfatec.png')}}" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image"
           width="700" height="500" loading="lazy">
       </div>
     </div>
