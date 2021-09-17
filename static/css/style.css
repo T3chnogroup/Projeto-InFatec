@@ -13,6 +13,9 @@
     width: 100%;      
   }
 
+  
+
+
   .navbarp {
    position: relative;
    top: 28px;
@@ -56,7 +59,7 @@
   }
 
   .nav li:hover{
-    background-color: #0F3456;
+    background-color: #4487c5;
     opacity: 1;
   }
   .div-filtrar {
