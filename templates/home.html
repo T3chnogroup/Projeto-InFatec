@@ -3,14 +3,15 @@
 {% block title %}
 <title>InFatec - Início</title>
 {% endblock %}
+
 {% block css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 
-<!-- Favicons -->
-<link rel="icon" href="{{url_for('static', filename='imagens/icon1.png')}}" sizes="32x32" type="image/png">
-<meta name="theme-color" content="#7952b3">
-
 {% endblock %}
+
+{% block titulo_cabecalho %}Início{% endblock %}
+
+{% block filtrar_por %}{% endblock %}
 
 {% block conteudo %}
 
