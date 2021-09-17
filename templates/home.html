@@ -1,29 +1,33 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<title>InFate - Inicio</title>
+<title>InFatec - Início</title>
 {% endblock %}
 {% block css %}
-<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 
-<style>
-    /*
-    Figma Background for illustrative/preview purposes only.
-    You can remove this style tag with no consequence
-    */
-    body {background: #E5E5E5; }
-</style>
+<!-- Favicons -->
+<link rel="icon" href="{{url_for('static', filename='imagens/icon1.png')}}" sizes="32x32" type="image/png">
+<meta name="theme-color" content="#7952b3">
+
 {% endblock %}
 
 {% block conteudo %}
-<div>
-    <span class="e20_5">Bem vindo(a) ao <img class="foto_logo" src="{{url_for('static', filename='imagens/logoinfatec.png')}}" alt="Logo InFatec">
-    </span>
-    
-    <span class="e21_16">Aqui você tem acesso a todos os seus canais e
-      não perde nenhuma publicação importante.
-    </span>
+
+<main class="bg_color">
+
+  <div class="px-4 pt-5 text-center">
+    <h1 class="display-4 fw-bold">Bem vindo</h1>
+    <div>
+      <div class="container px-5">
+        <img class="imagem" src="{{url_for('static', filename='imagens/logoinfatec.png')}}" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image"
+          width="700" height="500" loading="lazy">
+      </div>
+    </div>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">Aqui você tem acesso a todos os seus canais e
+        não perde nenhuma publicação importante.</p>
+    </div>
   </div>
+</main>
 {% endblock %}

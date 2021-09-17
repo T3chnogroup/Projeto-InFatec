@@ -21,3 +21,7 @@ def inicio():
 @app.route('/post')
 def post():
     return render_template('posts.html')
+
+@app.route('/gerenciamento_usuario')
+def gerenciamentoUsuario():
+    return render_template('gerenciamento_usuario.html')
