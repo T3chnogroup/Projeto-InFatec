@@ -56,8 +56,8 @@
       <div class="grupos">
         <ul class="nav flex-column">
           <!--"Criar canal"-->
-          <li class="nav-item border-bottom nav-item-btn border-top mb-2">
-            <button type="button" class="nav-link active text-white p-2 canais sticky-top create-channel-button" data-bs-toggle="modal" data-bs-target="#cadastroModal">
+          <li class="nav-item border-bottom nav-item-btn border-top mb-1">
+            <button type="button" class="nav-link active text-white p-2 canais sticky-top create-channel-button" data-bs-toggle="modal" data-bs-target="#criacaocanal">
               <span data-feather="home"></span>
               <i class="fas fa-plus"></i> Criar Canal
             </button>
@@ -91,6 +91,7 @@
     </nav>
     <div class="w-100">
 
+    {% block header %}
     <!--Header pagina-->  
       <header class= "navbar navbar-red flex-md-nowrap p-0 fundovermelho w-100">
         <!--Texto Header-->
@@ -104,7 +105,9 @@
             </span>
           </button>
         </header>
-        {% block filtrar_por %}
+      {% endblock %}
+
+        {% block nav %}
         <nav class=" navbar navbar-expand flex-md-nowrap p-0 shadow text-white div-filtrar px-2">
           Filtrar por 
           <span>
@@ -137,26 +140,27 @@
   </div>
 </div>
 
-<div class="modal fade" id="cadastroModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="criacaocanal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title" id="exampleModalLabel">Criar Canal</h5>
+        <h5 class="modal-title">Criar Canal</h5>
         <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form action="">
           <div class="d-flex justify-content-center mt-4 inputs-wrapper">
             <div class="inputs-first-column me-4">
-              <input type="text" class="form-control form-control mb-3" placeholder="Nome">
+              <input type="text" class="form-control mb-3" placeholder="Nome">
               <div class="d-flex align-items-center justify-content-center mb-3">
                 <select class="form-select" aria-label="Default select example">
                   <option>Grupo</option>
                   <option value="1">Coordenadores</option>
                   <option value="2">Professores</option>
+                  <option value="3">Alunos</option>
                 </select>
                 <div class="dropdown dropdown-wrapper">
-                  <button class="btn-add-group dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  <button class="btn-add-group" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fas fa-plus"></i>
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -176,6 +180,10 @@
                 <option value="1">1º semestre</option>
                 <option value="2">2º semestre</option>
                 <option value="3">3º semestre</option>
+                <option value="4">4º semestre</option>
+                <option value="5">5º semestre</option>
+                <option value="6">6º semestre</option>
+                <option value="7">Todos</option>
               </select>
               <select class="form-select mb-3" aria-label="Default select example">
                 <option>Curso</option>
@@ -198,6 +206,15 @@
 {% block js %}
 {% endblock %}
 <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $(document).ready(() => {
+    $('.form-control').on('keydown', e => {
+      if (e.which === 13) e.preventDefault()
+    });
+  })
+</script>
 <!-- Modal Pesquisa Avançada-->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog">
