@@ -1,5 +1,5 @@
 # Projeto-InFatec
-
+![Tecnologias](doc/imagens/7.png)
 ```bash
 git clone https://github.com/T3chnogroup/Projeto-InFatec.git
 cd Projeto-InFatec
