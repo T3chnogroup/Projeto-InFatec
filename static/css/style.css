@@ -38,7 +38,7 @@
   .icone-lupa {
     position: absolute;
     right: 1rem;
-    top:0;
+    bottom: 2px;
   }
   .font-azul {
     color: #0F3456;
