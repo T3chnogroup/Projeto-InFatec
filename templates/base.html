@@ -53,7 +53,7 @@
         <ul class="nav flex-column">
           <!--"Criar canal"-->
           <li class="nav-item border-bottom nav-item-btn border-top mb-1">
-            <button type="button" class="nav-link active text-white p-2 canais sticky-top create-channel-button" data-bs-toggle="modal" data-bs-target="#cadastroModal">
+            <button type="button" class="nav-link active text-white p-2 canais sticky-top create-channel-button" data-bs-toggle="modal" data-bs-target="#criacaocanal">
               <span data-feather="home"></span>
               <i class="fas fa-plus"></i> Criar Canal
             </button>
@@ -130,11 +130,11 @@
   </div>
 </div>
 
-<div class="modal fade" id="cadastroModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="criacaocanal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title" id="exampleModalLabel">Criar Canal</h5>
+        <h5 class="modal-title">Criar Canal</h5>
         <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -147,6 +147,7 @@
                   <option>Grupo</option>
                   <option value="1">Coordenadores</option>
                   <option value="2">Professores</option>
+                  <option value="3">Alunos</option>
                 </select>
                 <div class="dropdown dropdown-wrapper">
                   <button class="btn-add-group dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
