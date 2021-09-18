@@ -87,6 +87,7 @@
     </nav>
     <div class="w-100">
 
+    {% block header %}
     <!--Header pagina-->  
       <header class= "navbar navbar-red flex-md-nowrap p-0 fundovermelho w-100">
         <!--Texto Header-->
@@ -98,7 +99,9 @@
             </span>
           </button>
         </header>
+      {% endblock %}
 
+        {% block nav %}
         <nav class=" navbar navbar-expand flex-md-nowrap p-0 shadow text-white div-filtrar px-2">
           Filtrar por 
           <span>
@@ -119,6 +122,7 @@
                 </div>
           </span>
         </nav>
+        {% endblock %}
 
         <div class="conteudo">
           {% block conteudo %}
