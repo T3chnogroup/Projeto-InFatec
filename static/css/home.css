@@ -1,3 +1,10 @@
+.conteudo {
+  height: 91%;
+}
+.fundovermelho {
+    background-color: #B22D30;
+    height: 9%;
+}
 
 .imagem{
 	width: 220px;
