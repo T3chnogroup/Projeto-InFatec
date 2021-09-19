@@ -44,7 +44,7 @@
 
 
 ## Objetivo do Projeto
-O objetivo do projeto se baseou no problema que começou devido a pandemia do novo Coronavirus. O volume de informações da parte administrativa com os alunos trocadas através do e-mail vieram tendo um aumento significativo fazendo com que muitas informações importantes passassem a ser lidas fora do seu tempo apropriado, ou seja, perda informações importantes. Para solucionar esse problema vamos criar uma aplicação web onde os docentes e discentes possam ver as informações de forma seletiva e controlada, sendo eles avisos gerais ou específicos do cursos.
+O objetivo do projeto se baseou no problema que começou devido a pandemia do novo Coronavirus. O volume de informações da parte administrativa trocadas com os alunos e professores através do e-mail vieram tendo um aumento significativo fazendo com que muitas informações importantes passassem a ser lidas fora do seu tempo apropriado, ou seja, perda informações importantes. Para solucionar esse problema decidimos criar uma aplicação web onde os docentes e discentes possam ver as informações de forma seletiva e controlada, sendo eles avisos gerais ou específicos do cursos.
 
 
 
