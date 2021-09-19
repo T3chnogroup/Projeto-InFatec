@@ -42,12 +42,10 @@
 * P2: Prof. Fabricio Galende M Carvalho
 
 
+
 ## Objetivo do Projeto
-A carga de dados georreferenciados é uma atividade contínua durante os projetos que utilizam diversos software GIS para organizar e fazer o processamento de imagens de satélite. O resultado desse processamento, a depender do projeto, é o que se utiliza para desenvolvimento de produtos. A solução escolhida foi a ferramenta de ETL espacial GEOFIP, cuja estrutura conceitual é apresentada na figura abaixo.
+O objetivo do projeto é solucionar o problema passado pelo cliente, que é devido a pandemia o volume de informações trocadas através do e-mail fosse significativamente aumentado, fazendo com que muitas informações importantes passassem a ser lidas fora do seu tempo apropriado, ou seja perda informações importantes. Para solucionar esse problema vamos criar uma aplicação web onde os docentes e discentes possam ver as informações de forma seletiva e controlada, sendo eles avisos gerais ou específicos do cursos.
 
-
-## Ferramenta Desenvolvida
-Essa ferramenta será configurada para entender os arquivos de formato shapefile e realizar conversões, usando regras definidas na etapa de planejamento, buscando compatibilidade com normas oficiais, e carregá-los e manipulá-los no banco de dados geográficos PostgreSQL com extensão Postgis, de acordo com a modelagem física definida pelo cliente. Também realiza o processo inverso de gerar um arquivo shapefile a partir de uma tabela do banco de dados PostgreSQL.
 
 
 ## *User story*
@@ -104,4 +102,16 @@ python3 wsgi.py
 ```
 ## Sistema Desenvolvido 
 
+![Sistema](./imagens/Prototipo-gif.gif)
 
+
+
+## Cronograma de Entregas
+
+| Data | Links |
+| ------ | ------ |
+|    19/09/2021    |[Sprint 1](https://github.com/marciosousa4/GEOFPI---Projeto-Integrador/tree/sprint1)|
+|    10/10/2021    |[Sprint 2](https://github.com/marciosousa4/GEOFPI---Projeto-Integrador/tree/sprint2) |
+|    07/11/2021    |[Sprint 3](https://github.com/marciosousa4/GEOFPI---Projeto-Integrador/tree/sprint3) |
+|    28/11/2021    |[Sprint 4](https://github.com/marciosousa4/GEOFPI---Projeto-Integrador/tree/sprint4) |                    
+|    05/12/2021    |[Entrega final](https://github.com/marciosousa4/GEOFPI---Projeto-Integrador/tree/sprint5) |
