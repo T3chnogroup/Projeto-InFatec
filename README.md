@@ -44,7 +44,7 @@
 
 
 ## Objetivo do Projeto
-O objetivo do projeto é solucionar o problema passado pelo cliente, que é devido a pandemia o volume de informações trocadas através do e-mail fosse significativamente aumentado, fazendo com que muitas informações importantes passassem a ser lidas fora do seu tempo apropriado, ou seja perda informações importantes. Para solucionar esse problema vamos criar uma aplicação web onde os docentes e discentes possam ver as informações de forma seletiva e controlada, sendo eles avisos gerais ou específicos do cursos.
+O objetivo do projeto se baseou no problema que começou devido a pandemia do novo Coronavirus. O volume de informações da parte administrativa com os alunos trocadas através do e-mail vieram tendo um aumento significativo fazendo com que muitas informações importantes passassem a ser lidas fora do seu tempo apropriado, ou seja, perda informações importantes. Para solucionar esse problema vamos criar uma aplicação web onde os docentes e discentes possam ver as informações de forma seletiva e controlada, sendo eles avisos gerais ou específicos do cursos.
 
 
 
@@ -53,12 +53,12 @@ O objetivo do projeto é solucionar o problema passado pelo cliente, que é devi
 
 | Quem | O que? | Para |
 |:--------------:  | :----------:|:---------------------------------------------------------|
-|    Analista de Dados Espaciais   | Gostaria da Prototipação da Ferramenta desenvolvida. | Para ter uma visão global do desenvolvimento do produto, verificar o entendimento das funcionalidades da ferramenta e fazer possíveis apontamentos de melhorias na usabilidade.|
-|    Analista de Dados Espaciais   |Gostaria da interface gráfica fazendo a extração dos dados Shapefile e a conexão com o banco de dados|Para iniciar o processo de utilização da função “de para” da ferramenta.|
-|    Analista de Dados Espaciais   |Gostaria que a ferramenta execute e transforme os dados e faça a parametrização com o Banco de Dados| Para atender as necessidades do negócio.|
-|    Analista de Dados Espaciais   |Gostaria de um ambiente de desenvolvimento de tarefas e transformações geográficas e que o sistema realize o processo inverso de conversão de dados| Para atender as necessidades do negócio. E trazer soluções rápida de desenvolvimento de produtos para sistemas.|
-|    Analista de Dados Espaciais   |Gostaria de uma ferramenta que me forneça condições de aplicar regras de transformação nos dados  | Para desenvolver novos produtos de acordo com a solicitação dos setores.| 
-|    Analista de Dados Espaciais   |Gostaria de uma ferramenta intuitiva, de fácil usabilidade,  com manuais de instruções| Para melhorar a experiência do usuário com a ferramenta|
+|    Administrador   | Quero poder adicionar os usuários que irão utilizar o meu sistema de acordo com a sua função (Administrador, Coordenador, Aluno), poder alterar alguma informação dele posteriormente e fazer a remoção do mesmo. | Gerenciar os usuários do sistema.|
+|    Administrador e Coordenador   | Quero fazer o envio de informações com a possibilidade de anexar documentos para os discentes e docentes. | Divulgar as informações para os discentes e docentes. |
+|    Docente e Discente   | Quero visualizar de forma seletiva e controlada os avisos gerais ou específicos dos cursos. | Visualizar as informações de modo seletivo.|
+|    Docente e Discente   | Quero uma maneira para facilitar a achar as informações mais recentes ou antigas e até mesmo visualizar de acordo com uma data.| Visualizar as informações de modo seletivo.|
+|    Docente e Discente   | Após ler alguma informação gostaria que ela não aparecesse mais para mim por não me interessar. | Visualizar as informações de modo seletivo.| 
+|    Docente e Discente   | Quero ver as informações tanto no desktop quanto no celular. | Responsividade do site. |
 
 
 ![Cronograma](./imagens/3.png)
@@ -111,7 +111,3 @@ python3 wsgi.py
 | Data | Links |
 | ------ | ------ |
 |    19/09/2021    |[Sprint 1](https://github.com/marciosousa4/GEOFPI---Projeto-Integrador/tree/sprint1)|
-|    10/10/2021    |[Sprint 2](https://github.com/marciosousa4/GEOFPI---Projeto-Integrador/tree/sprint2) |
-|    07/11/2021    |[Sprint 3](https://github.com/marciosousa4/GEOFPI---Projeto-Integrador/tree/sprint3) |
-|    28/11/2021    |[Sprint 4](https://github.com/marciosousa4/GEOFPI---Projeto-Integrador/tree/sprint4) |                    
-|    05/12/2021    |[Entrega final](https://github.com/marciosousa4/GEOFPI---Projeto-Integrador/tree/sprint5) |
