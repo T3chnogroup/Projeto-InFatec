@@ -33,7 +33,7 @@
 
 
 * Kevin Ferreira Mirenda (Dev team)
-#### [Linked](    )<img src="https://raw.githubusercontent.com/marciosousa4/GEOFPI---Projeto-Integrador/master/Loading%20images/download.png" width="15" height="15" /> [Github](https://github.com/   )<img src="https://raw.githubusercontent.com/marciosousa4/GEOFPI---Projeto-Integrador/master/Loading%20images/GitHub-Mark.png" width="20" height="20" />
+#### [Linked](https://www.linkedin.com/in/kevin-mirenda-a54a64220)<img src="https://raw.githubusercontent.com/marciosousa4/GEOFPI---Projeto-Integrador/master/Loading%20images/download.png" width="15" height="15" /> [Github](https://github.com/KevinFMfatec)<img src="https://raw.githubusercontent.com/marciosousa4/GEOFPI---Projeto-Integrador/master/Loading%20images/GitHub-Mark.png" width="20" height="20" />
 
 
 ## API 1º Semestre do Curso de Desenvolvimento de Software Multiplataforma
@@ -47,9 +47,7 @@
 O objetivo do projeto se baseou no problema que começou devido a pandemia do novo Coronavirus. O volume de informações da parte administrativa trocadas com os alunos e professores através do e-mail vieram tendo um aumento significativo fazendo com que muitas informações importantes passassem a ser lidas fora do seu tempo apropriado, ou seja, perda informações importantes. Para solucionar esse problema decidimos criar uma aplicação web onde os docentes e discentes possam ver as informações de forma seletiva e controlada, sendo eles avisos gerais ou específicos do cursos.
 
 
-
-## *User story*
-
+## *User Story*
 
 | Quem | O que? | Para |
 |:--------------:  | :----------:|:---------------------------------------------------------|
@@ -102,7 +100,7 @@ python3 wsgi.py
 ```
 ## Sistema Desenvolvido 
 
-![Sistema](./imagens/Prototipo-gif.gif)
+![Sistema](./imagens/api_gif.gif)
 
 
 
