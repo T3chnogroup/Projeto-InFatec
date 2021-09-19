@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>InFatec - Início</title>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+
+{% endblock %}
+
+ {% block header %}
+   <!--Header pagina-->  
+      <header class= "navbar navbar-red flex-md-nowrap p-0 fundovermelho w-100">
+        <!--Texto Header-->
+          <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 textoheader font-weight-bold text-white" >Bem Vindo(a)!</a>
+        <!--botao-->  
+          <button class="navbar-toggler position-absolute d-md-none collapsed pt-3" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon text-white">
+            </span>
+          </button>
+        </header>
+ {% endblock %}
+
+
+{% block nav %}
+<!-- Aqui fica o nav -->
+{% endblock %}
+
+{% block conteudo %}
+
+<main class="bg_color">
+
+  <div class="px-4 pt-5 text-center">
+    <h1 class="display-4 fw-bold">Bem vindo</h1>
+    <div>
+      <div class="container px-5">
+        <img class="imagem" src="{{url_for('static', filename='imagens/logoinfatec.png')}}" class="img-fluid border rounded-3 shadow-lg mb-4" alt="Example image"
+          width="700" height="500" loading="lazy">
+      </div>
+    </div>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">Aqui você tem acesso a todos os seus canais e
+        não perde nenhuma publicação importante.</p>
+    </div>
+  </div>
+</main>
+{% endblock %}
