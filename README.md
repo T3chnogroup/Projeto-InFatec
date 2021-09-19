@@ -25,7 +25,7 @@
 
 
 * Felipe Gabriel Barreto Faria (Dev team)
-#### [Linked](    )<img src="https://raw.githubusercontent.com/marciosousa4/GEOFPI---Projeto-Integrador/master/Loading%20images/download.png" width="15" height="15" /> [Github](https://github.com/OFelipeGabriel)<img src="https://raw.githubusercontent.com/marciosousa4/GEOFPI---Projeto-Integrador/master/Loading%20images/GitHub-Mark.png" width="20" height="20" />
+#### [Linked](https://www.linkedin.com/in/felipe-gabriel-2386541b0)<img src="https://raw.githubusercontent.com/marciosousa4/GEOFPI---Projeto-Integrador/master/Loading%20images/download.png" width="15" height="15" /> [Github](https://github.com/OFelipeGabriel)<img src="https://raw.githubusercontent.com/marciosousa4/GEOFPI---Projeto-Integrador/master/Loading%20images/GitHub-Mark.png" width="20" height="20" />
 
 
 * Felipe Matias de Lima Santos (Dev team)
