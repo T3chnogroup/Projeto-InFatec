@@ -110,4 +110,4 @@ python3 wsgi.py
 
 | Data | Links |
 | ------ | ------ |
-|    19/09/2021    |[Sprint 1](https://github.com/marciosousa4/GEOFPI---Projeto-Integrador/tree/sprint1)|
+|    19/09/2021    |[Sprint 1](https://github.com/T3chnogroup/Projeto-InFatec/releases/tag/Sprint-01)|
