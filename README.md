@@ -70,7 +70,7 @@ O objetivo do projeto se baseou no problema que começou devido a pandemia do no
 
 ```bash
 git clone https://github.com/T3chnogroup/Projeto-InFatec.git
-cd Projeto-InFatec
+cd Projeto-InFatec/src
 ```
 
 Criar ambiente virtual Python:
