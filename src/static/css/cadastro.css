@@ -2,7 +2,7 @@ html, body{
     height: unset!important;
 }
 
-.input{
+.input, .input-group{
 max-width: 278px;
 }
 
