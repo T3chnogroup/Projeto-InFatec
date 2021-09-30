@@ -13,21 +13,17 @@
     width: 100%;      
   }
 
-  
-
-
-  .navbarp {
+    .navbarp {
    position: relative;
    top: 28px;
   }
   .nav-item-btn {
-    background-color: #0A3C69;
-    opacity: 0.75;
+    background-color: #4b54679e;
     font-size: 1rem;
     padding: 0.2rem;
   }
   .bg-azul {
-    background-color: #0F3456;
+    background-color: #081C33 ;
     height: 9%; 
   }
   .inputp {
@@ -43,10 +39,14 @@
   .font-azul {
     color: #0F3456;
   }
+  .text-white{
+    color: white !important;
+    font-weight: bolder;
+  }
   
 
   footer {
-    background-color: #0F3456;
+    background-color: #081C33 ;
     position: relative;
     height: 9%;
     font-size: 1.8rem;
@@ -55,7 +55,7 @@
   }
   .grupos {
     height: 82%;
-    background-color: rgba(10, 60, 105 ,0.2);
+    background-color: #0f2b42;
   }
 
   .nav li:hover{
@@ -241,7 +241,7 @@ input:focus{
 
 .botao1{
     font-size: 1.2em;
-    background: rgba(0, 0, 0, 0.2)
+    background: rgba(0, 0, 0, 0.2);
     border:0;
     margin-top: 30px;
     position: relative;
@@ -252,13 +252,14 @@ input:focus{
     text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }
 
+
 .botao1:hover{
     background: #2eb42e;
 }
 
 .botao2{
     font-size: 1.2em;
-    background: rgba(0, 0, 0, 0.2)
+    background: rgba(0, 0, 0, 0.2);
     border:0;
     margin-top: 30px;
     position: relative;
