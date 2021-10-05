@@ -1,0 +1,50 @@
+html, body{
+    height: unset!important;
+}
+
+.input, .input-group{
+max-width: 278px;
+}
+
+.botao-enviar.btn-primary {
+    color: #fff;
+    background-color: #0F3456;
+    border-color: #0F3456;  
+}
+
+.botao-voltar.btn-primary {
+    color: #fff;
+    background-color: #9e1616;
+    border-color: #9e1616;  
+}
+
+.botao-enviar.btn-primary:hover {
+    color: #fff;
+    background-color: #1b568d;
+}
+
+.botao-voltar.btn-primary:hover {
+    color: #fff;
+    background-color: #c52626;
+}
+
+@media(max-width:600px){
+    #atencao, #cadastro{
+        max-width: 100%!important;
+    }
+}
+
+#cadastro{
+    border-color: #d1e7dd;
+    background-color: #d1e7dd;
+    color: #0f5132;
+    max-width: 50%;
+}
+
+#atencao{
+    max-width: 50%;
+    color: #9e1616;
+    background-color: #ec0f0f17;
+    border: 0px;
+    border-radius: 5px;
+}

@@ -25,3 +25,7 @@ def post():
 @app.route('/gerenciamento_usuario')
 def gerenciamentoUsuario():
     return render_template('gerenciamento_usuario.html')
+
+@app.route('/cadastro')
+def cadastro():
+    return render_template('cadastro.html')
