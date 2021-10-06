@@ -148,12 +148,13 @@
         <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="">
+        <!--Backend criação de canal-->
+        <form action="/criarcanal" method="POST">
           <div class="d-flex justify-content-center mt-4 inputs-wrapper">
             <div class="inputs-first-column me-4">
-              <input type="text" class="form-control mb-3" placeholder="Nome">
+              <input type="text" class="form-control mb-3" placeholder="Nome" name="nome">
               <div class="d-flex align-items-center justify-content-center mb-3">
-                <select class="form-select" aria-label="Default select example">
+                <select class="form-select" aria-label="Default select example" name="grupo">
                   <option>Grupo</option>
                   <option value="1">Coordenadores</option>
                   <option value="2">Professores</option>
@@ -165,17 +166,17 @@
                   </button>
                   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li class="ps-3">
-                      <input type="checkbox" id="checkAluno" />
+                      <input type="checkbox" name="checkAluno" id="checkAluno" />
                       <label for="checkAluno" class="ps-2">Alunos</label>
                     </li>
                     <li class="ps-3">
-                      <input type="checkbox" id="checkProfessor" />
+                      <input type="checkbox" name="checkProfessor" id="checkProfessor" />
                       <label for="checkProfessor" class="ps-2">Professores</label>
                     </li>
                   </ul>
                 </div>
               </div>
-              <select class="form-select mb-3" aria-label="Default select example">
+              <select class="form-select mb-3" aria-label="Default select example" name="semestre">
                 <option>Semestre</option>
                 <option value="1">1º semestre</option>
                 <option value="2">2º semestre</option>
@@ -185,7 +186,7 @@
                 <option value="6">6º semestre</option>
                 <option value="7">Todos</option>
               </select>
-              <select class="form-select mb-3" aria-label="Default select example">
+              <select class="form-select mb-3" aria-label="Default select example" name="curso">
                 <option>Curso</option>
                 <option value="1">DSM</option>
                 <option value="2">ADS</option>
@@ -193,10 +194,10 @@
               </select>
             </div>
           </div>
+          <div class="modal-footer d-flex justify-content-center no-border">
+            <button class="btn btn-danger fw-bold save-button" type="submit">Criar</button>
+          </div>
         </form>
-      </div>
-      <div class="modal-footer d-flex justify-content-center no-border">
-        <button type="button" class="btn btn-danger fw-bold save-button">Criar</button>
       </div>
     </div>
   </div>
