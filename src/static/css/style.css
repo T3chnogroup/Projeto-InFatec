@@ -23,7 +23,7 @@
     padding: 0.2rem;
   }
   .bg-azul {
-    background-color: #081C33 ;
+    background-color: #000000 ;
     height: 9%; 
   }
   .inputp {
@@ -46,7 +46,7 @@
   
 
   footer {
-    background-color: #081C33 ;
+    background-color: #000000 ;
     position: relative;
     height: 9%;
     font-size: 1.8rem;
@@ -55,11 +55,11 @@
   }
   .grupos {
     height: 82%;
-    background-color: #0f2b42;
+    background-color: #28292e;
   }
 
   .nav li:hover{
-    background-color: #4487c5;
+    background-color: rgba(196, 196, 196, .42);;
     opacity: 1;
   }
   .div-filtrar {
