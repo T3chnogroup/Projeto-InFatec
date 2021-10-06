@@ -29,8 +29,12 @@ input[type='file'] {
 
 .save-button {
   padding: 0 50px !important;
-
   border-radius: 25px;
+}
+
+.form-check-input:checked {
+  background-color: #0d6efd;
+  border-color: #28292e;
 }
 
 @media (max-width: 576px) {
