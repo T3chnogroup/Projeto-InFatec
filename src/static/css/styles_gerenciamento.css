@@ -3,6 +3,14 @@ button {
   background: none;
 }
 
+
+.btn-secondary:hover {
+  color: #fff;
+  background-color: #9e1616;
+  border-color: #9e1616;
+}
+
+
 input[type='file'] {
   display: none;
 }
