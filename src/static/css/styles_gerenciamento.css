@@ -3,6 +3,19 @@ button {
   background: none;
 }
 
+
+.btn-secondary:hover {
+  color: #fff;
+  background-color: #9e1616;
+  border-color: #9e1616;
+}
+
+.btn-secondary {
+  color: #fff;
+  background-color: #28292e;
+  border-color: #28292e;
+}
+
 input[type='file'] {
   display: none;
 }
@@ -23,6 +36,11 @@ input[type='file'] {
   padding: 0 50px !important;
 
   border-radius: 25px;
+}
+
+.form-check-input:checked {
+  background-color: #28292e;
+  border-color: #28292e;
 }
 
 @media (max-width: 576px) {

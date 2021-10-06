@@ -13,21 +13,17 @@
     width: 100%;      
   }
 
-  
-
-
-  .navbarp {
+    .navbarp {
    position: relative;
    top: 28px;
   }
   .nav-item-btn {
-    background-color: #0A3C69;
-    opacity: 0.75;
+    background-color: #4b54679e;
     font-size: 1rem;
     padding: 0.2rem;
   }
   .bg-azul {
-    background-color: #0F3456;
+    background-color: #000000 ;
     height: 9%; 
   }
   .inputp {
@@ -43,10 +39,14 @@
   .font-azul {
     color: #0F3456;
   }
+  .text-white{
+    color: white !important;
+    font-weight: bolder;
+  }
   
 
   footer {
-    background-color: #0F3456;
+    background-color: #000000 ;
     position: relative;
     height: 9%;
     font-size: 1.8rem;
@@ -55,11 +55,11 @@
   }
   .grupos {
     height: 82%;
-    background-color: rgba(10, 60, 105 ,0.2);
+    background-color: #28292e;
   }
 
   .nav li:hover{
-    background-color: #4487c5;
+    background-color: #9e1616;
     opacity: 1;
   }
   .div-filtrar {
@@ -251,6 +251,7 @@ input:focus{
     box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
     text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
 }
+
 
 .botao1:hover{
     background: #2eb42e;
