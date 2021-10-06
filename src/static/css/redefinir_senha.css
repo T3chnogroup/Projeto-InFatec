@@ -6,27 +6,29 @@ html, body{
 max-width: 278px;
 }
 
-.botao-enviar.btn-primary {
-    color: #fff;
-    background-color: #0F3456;
-    border-color: #0F3456;  
+.botao-voltar.btn-light {
+    color: #9e1616;
+    font-weight: bold;
+    border-color: #9e1616;    
 }
 
-.botao-voltar.btn-primary {
+.botao-voltar.btn-light:hover {
     color: #fff;
     background-color: #9e1616;
-    border-color: #9e1616;  
 }
 
-.botao-enviar.btn-primary:hover {
-    color: #fff;
-    background-color: #1b568d;
+.botao-enviar.btn-light {
+    color: #2d2e33;
+    font-weight: bold;
+    border-color: #2d2e33;    
 }
 
-.botao-voltar.btn-primary:hover {
+.botao-enviar.btn-light:hover {
     color: #fff;
-    background-color: #c52626;
+    background-color: #2d2e33;
 }
+
+
 
 @media(max-width:600px){
     #atencao, #recuperado{
