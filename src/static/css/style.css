@@ -171,7 +171,7 @@
       opacity: 1;
     }
     .grupos {
-      background-color: rgba(100, 150, 225 ,1);
+      background-color: #28292e;
     }
   }
 
@@ -194,7 +194,6 @@ form.pesquisa-avancada{
     width: 100%;
     text-align: center;
 }
-
 
 .campo-left{
     position: relative;
@@ -224,7 +223,6 @@ form.pesquisa-avancada{
     font-size: 1rem;  
     font-weight: bold;
 }
-
 
 .campo-left,.campo-right, .campo-center label{ /*nome dos campos a serem preenchidos*/
     margin-bottom: 0.2em;
@@ -273,3 +271,31 @@ input:focus{
 .botao2:hover{
     background: #2eb42e;
 }
+
+  /*Adcionado para formatar o campo de inserir membros*/
+  .select2.select2-container.select2-container--default, .select2.select2-container.select2-container--default.select2-container--focus.select2-container--below.select2-container--open{
+    max-width: 450px;
+    max-height: 100px;
+    overflow-x: auto;
+  }
+  
+  .select2-selection.select2-selection--multiple{
+    width: 400px;
+  }
+  
+  .select2-close-mask{ /*Deixa a listagem de emails na frente do modal*/
+    z-index: 1021 !important;
+  }
+  
+  .select2-dropdown{/*Deixa a listagem de emails na frente do modal*/
+    z-index: 9999 !important;
+  }
+  
+  @media (max-width: 650px) { /*tamanho dos campos para mobile*/
+    .largura_input{
+      width:300px !important;
+  }
+    .select2-selection.select2-selection--multiple{
+      width:300px !important;
+    }
+  }
