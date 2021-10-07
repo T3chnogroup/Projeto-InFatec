@@ -5,3 +5,7 @@ itsdangerous==2.0.1
 Jinja2==3.0.1
 MarkupSafe==2.0.1
 Werkzeug==2.0.1
+PyMySQL==1.0.2
+flask-mysql==1.5.2
+flask-mysqldb==0.2.0 
+mysqlclient==2.0.3
