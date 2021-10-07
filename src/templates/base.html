@@ -152,10 +152,9 @@
         <form action="/criarcanal" method="POST">
           <div class="d-flex justify-content-center mt-4 inputs-wrapper">
             <div class="inputs-first-column me-4">
-              <input type="text" class="form-control mb-3" placeholder="Nome" name="nome">
+              <input type="text" class="form-control mb-3" placeholder="Nome" name="nome" required>
               <div class="d-flex align-items-center justify-content-center mb-3">
                 <select class="form-select" aria-label="Default select example" name="grupo">
-                  <option>Grupo</option>
                   <option value="1">Coordenadores</option>
                   <option value="2">Professores</option>
                   <option value="3">Alunos</option>
@@ -177,17 +176,16 @@
                 </div>
               </div>
               <select class="form-select mb-3" aria-label="Default select example" name="semestre">
-                <option>Semestre</option>
+                <option value="0">Todos Semestres</option>
                 <option value="1">1º semestre</option>
                 <option value="2">2º semestre</option>
                 <option value="3">3º semestre</option>
                 <option value="4">4º semestre</option>
                 <option value="5">5º semestre</option>
                 <option value="6">6º semestre</option>
-                <option value="7">Todos</option>
+                
               </select>
               <select class="form-select mb-3" aria-label="Default select example" name="curso">
-                <option>Curso</option>
                 <option value="1">DSM</option>
                 <option value="2">ADS</option>
                 <option value="3">BD</option>

@@ -6,7 +6,7 @@ app = Flask(__name__)
 # configuração Conexão com o Banco de Dados Mysql
 app.config['MYSQL_Host'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = '*****'
+app.config['MYSQL_PASSWORD'] = '********'
 app.config['MYSQL_DB'] = 'infatec'
 
 mysql = MySQL(app)
@@ -47,11 +47,11 @@ def criar_canal():
     semestre = data['semestre']
     curso = data['curso']
     
-    # cur = mysql.connection.cursor()
-    # cur.execute("INSERT INTO canal(nome, fk_usuario) VALUES (%s, %s)", (nome, fk_usuario))
+    cur = mysql.connection.cursor()
+    cur.execute("INSERT INTO canal(nome, grupo, semestre, curso) VALUES (%s, %s, %s, %s)", (nome, grupo, semestre, curso))
        
-    # mysql.connection.commit()
+    mysql.connection.commit()
         
-    # cur.close()
+    cur.close()
 
     return render_template('home.html')
