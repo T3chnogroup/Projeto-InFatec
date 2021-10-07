@@ -1,7 +1,15 @@
 from flask import Flask, render_template, request, url_for, redirect
-from flask_mysqldb import MySQL
+from flask-mysqldb import MySQL
 
 app = Flask(__name__)
+
+# configuração Conexão com o Banco de Dados Mysql
+app.config['MYSQL_Host'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'root'
+app.config['MYSQL_DB'] = 'flask'
+
+mysql = MySQL(app)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -19,8 +27,16 @@ def redefinir():
 def inicio():
     return render_template('home.html')
 
-@app.route('/post')
+@app.route('/post', methods=['GET', 'POST'])
 def post():
+    if request.method == "POST":
+        conteudo = request.form['conteudo']
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO post(conteudo) VALUES (%s)", (conteudo))
+        mysql.connection.commit()
+        cur.close()
+
+        return 'sucesso'
     return render_template('posts.html')
 
 @app.route('/gerenciamento_usuario')
