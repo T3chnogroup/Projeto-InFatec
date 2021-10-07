@@ -37,6 +37,18 @@ def post():
         cur.close()
 
         return 'sucesso'
+
+    elif request.method == "GET": 
+
+    cur = mysql.connection.cursor()
+
+    conteudo = cur.execute("SELECT * FROM post")
+
+        if conteudo > 0:
+            Conteudos = cur.fetchall()
+
+        return render_template("posts.html", Conteudos=Conteudos)
+
     return render_template('posts.html')
 
 @app.route('/gerenciamento_usuario')
