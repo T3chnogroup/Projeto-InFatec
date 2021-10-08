@@ -23,17 +23,26 @@ def login():
 def redefinir():
     return render_template('redefinir_senha.html')
 
+def getcanais():
+    cursor = mysql.connection.cursor()
+    cur = cursor.execute("SELECT id_canal, nome FROM canal") # Seleciona a coluna id e a colona nome do canal na tabela
+    return cursor.fetchall()
+
 @app.route('/')
 def inicio():
-    return render_template('home.html')
+    return render_template('home.html', canais=getcanais())
 
 @app.route('/post')
 def post():
-    return render_template('posts.html')
+    id_canal = request.args.get('canal')
+    cursor = mysql.connection.cursor()
+    cur = cursor.execute("SELECT nome FROM canal where id_canal = %s", (id_canal,)) # Pega o nome do canal que veio da url
+    nome_canal = cursor.fetchall()[0][0]
+    return render_template('posts.html', canais=getcanais(), titulocanal = nome_canal) # Mostra o nome do canal da tela
 
 @app.route('/gerenciamento_usuario')
 def gerenciamentoUsuario():
-    return render_template('gerenciamento_usuario.html')
+    return render_template('gerenciamento_usuario.html', canais=getcanais(), titulocanal = "Gerenciamento Usuários")
 
 @app.route('/cadastro')
 def cadastro():
@@ -53,5 +62,7 @@ def criar_canal():
     mysql.connection.commit()
         
     cur.close()
-
-    return render_template('home.html')
+    cursor = mysql.connection.cursor()
+    cur = cursor.execute("SELECT max(id_canal) FROM canal where nome = %s", (nome,)) # Select utilizado por ter nomes de canal duplicado
+    idcanal = cursor.fetchall()[0]
+    return redirect(url_for('post', canal = idcanal))
