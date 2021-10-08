@@ -53,14 +53,23 @@
   .post-content {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
   
   .post-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-  
     margin-bottom: 2.1rem;
+    width: 50%;
+  }
+
+  .posted-info p{
+    text-align: right;
+  }
+
+  .post-text{
+    width: 50%;
   }
   
   .posted-info span {
@@ -69,6 +78,7 @@
   
   .date-posted-text {
     color: var(--color-text-complement);
+    text-align: left;
   }
   
   .post-main iframe {
@@ -92,11 +102,11 @@
   .text-area-wrapper {    
     display: flex;
     flex-direction: column;
+    width: 80%;
   }
 
   .text-area-wrapper form textarea {
     position: fixed;
-
     bottom: 0;
   }
   
