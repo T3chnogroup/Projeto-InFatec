@@ -59,9 +59,8 @@ def inicio():
 
 @app.route('/post', methods=['GET', 'POST'])
 def post():
-    if request.method == "POST":
-        id_canal = request.args.get('canal')
-        
+    id_canal = request.args.get('canal')
+    if request.method == "POST":   
         conteudo = request.form['post']
         cur = mysql.connection.cursor()
         cur.execute("INSERT INTO post(id_post, data_postagem, data_expiracao, conteudo, fk_canal, fk_usuario) VALUES (%s, %s, %s, %s, %s, %s)", (0, str(date.today()), str(date.today()), conteudo, id_canal, None))
@@ -69,15 +68,26 @@ def post():
         Posts = getPosts()
 
         cur.close()
-        return render_template('posts.html', id_canal=id_canal,Posts=Posts, canais=getcanais(), titulocanal=getChannel(id_canal))
+        return render_template('posts.html', id_canal=id_canal,Posts=Posts, canais=getcanais(), titulocanal=getChannel(id_canal), pode_editar = True)
     elif request.method == "GET": 
-        id_canal = request.args.get('canal')
-
+        # pegar o email do usuário a partir do cookie 
+        email_logado = request.cookies.get('email_logado')
+        # descobrir id do usuário a partir do email
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT id_usuario from usuario where email = %s", (email_logado,)) # busca o id do usuario com este email no banco
+        if cur.rowcount > 0:# se existir esse id
+            id_usuario = cur.fetchall()[0][0]
+        # verificar a existencia de uma linha na tabela canal_usuario para este usuário e este canal
+            cur.execute("select * from canal_usuario where id_canal = %s and id_usuario = %s", (id_canal, id_usuario))
+        if cur.rowcount > 0:
+            pode_editar = True
+        else:
+            pode_editar = False
         Posts = getPosts()
 
-        return render_template("posts.html", id_canal=id_canal, Posts=Posts, canais=getcanais(), titulocanal =getChannel(id_canal))
+        return render_template("posts.html", id_canal=id_canal, Posts=Posts, canais=getcanais(), titulocanal =getChannel(id_canal), pode_editar = pode_editar)
 
-    return render_template('posts.html', id_canal=id_canal)
+    return render_template('posts.html', id_canal= id_canal, pode_editar = False)
 
 @app.route('/gerenciamento_usuario')
 def gerenciamentoUsuario():

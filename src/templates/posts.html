@@ -50,6 +50,7 @@
                     </div>
                 {% endfor %}
     </div>
+    {% if pode_editar %}
     <div class="text-area-wrapper">
         <form action="/post?canal={{id_canal}}" method="POST">
             <textarea name="post" id="post" cols="30" rows="5" class="form-control" placeholder="Inicie uma nova publicação. Digite @ para mencionar alguém ou canal. "></textarea>
@@ -61,6 +62,7 @@
             </button>
         </form>
     </div>
+    {% endif %}
 </div>
 
 {% endblock %}
