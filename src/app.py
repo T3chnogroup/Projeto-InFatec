@@ -1,14 +1,30 @@
 from flask import Flask, render_template, request, url_for, redirect
+from flask_mysqldb import MySQL
+from datetime import date
 
 app = Flask(__name__)
 
 # configuração Conexão com o Banco de Dados Mysql
-app.config['MYSQL_Host'] = 'localhost'
+# app.config['MYSQL_Host'] = 'localhost'
+app.config['MYSQL_HOST'] = '0.0.0.0'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'dsm!123456'
+# app.config['MYSQL_PASSWORD'] = 'dsm!123456'
+app.config['MYSQL_PASSWORD'] = 'root'
 app.config['MYSQL_DB'] = 'infatec'
 
 mysql = MySQL(app)
+
+def getPosts():
+    cursor = mysql.connection.cursor()
+    conteudo = cursor.execute("SELECT * FROM post")
+    Posts = cursor.fetchall()
+    return Posts
+
+def getChannel(id_canal):
+    cursor = mysql.connection.cursor()
+    cur = cursor.execute("SELECT nome FROM canal where id_canal = %s", (id_canal,)) # Pega o nome do canal que veio da url
+    nome_canal = cursor.fetchall()[0][0]
+    return nome_canal
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -37,16 +53,29 @@ def getcanais():
 
 @app.route('/')
 def inicio():
-    return render_template('home.html', canais=getcanais())
+    return render_template('home.html', canais=getcanais(), )
 
-@app.route('/post')
+@app.route('/post', methods=['GET', 'POST'])
 def post():
-    id_canal = request.args.get('canal')
-    cursor = mysql.connection.cursor()
-    cur = cursor.execute("SELECT nome FROM canal where id_canal = %s", (id_canal,)) # Pega o nome do canal que veio da url
-    nome_canal = cursor.fetchall()[0][0]
-    email_logado = request.cookies.get('email_logado')
-    return render_template('posts.html', canais=getcanais(), titulocanal = nome_canal) # Mostra o nome do canal da tela
+    if request.method == "POST":
+        id_canal = request.args.get('canal')
+        
+        conteudo = request.form['post']
+        cur = mysql.connection.cursor()
+        cur.execute("INSERT INTO post(id_post, data_postagem, data_expiracao, conteudo, fk_canal, fk_usuario) VALUES (%s, %s, %s, %s, %s, %s)", (0, str(date.today()), str(date.today()), conteudo, id_canal, None))
+        mysql.connection.commit()
+        Posts = getPosts()
+
+        cur.close()
+        return render_template('posts.html', id_canal=id_canal,Posts=Posts, canais=getcanais(), titulocanal=getChannel(id_canal))
+    elif request.method == "GET": 
+        id_canal = request.args.get('canal')
+
+        Posts = getPosts()
+
+        return render_template("posts.html", id_canal=id_canal, Posts=Posts, canais=getcanais(), titulocanal =getChannel(id_canal))
+
+    return render_template('posts.html', id_canal=id_canal)
 
 @app.route('/gerenciamento_usuario')
 def gerenciamentoUsuario():
