@@ -89,16 +89,19 @@
     color: #fff;
   }
   
-  .text-area-wrapper {
-    position: relative;
-  
+  .text-area-wrapper {    
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+  }
+
+  .text-area-wrapper form textarea {
+    position: fixed;
+
+    bottom: 0;
   }
   
   .text-area-buttons {
-    position: absolute;
+    position: fixed;
     bottom: 10px;
   
     background: var(--primary-red);  
