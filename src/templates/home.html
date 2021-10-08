@@ -33,10 +33,10 @@
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const email = urlParams.get('email')
-  //Criando cookie
-  document.cookie = 'email_logado=' + email;
   //Redireciona para a home sem o parâmetro de email
   if (email){
+    //Criando cookie
+    document.cookie = 'email_logado=' + email;
     window.location.href = "/";
   }
   

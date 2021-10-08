@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, url_for, redirect
-
+from flask_mysqldb import MySQL
+from datetime import date
 app = Flask(__name__)
 
 # configuração Conexão com o Banco de Dados Mysql
@@ -14,7 +15,6 @@ mysql = MySQL(app)
 def login():
     if request.method == 'POST':
         # fazer aqui validação de login
-        email = 'elen.petri@fatec.sp.gov.br'
         cursor = mysql.connection.cursor()
         cpf = request.form['login']
         cur = cursor.execute("select email from usuario where cpf = %s", (cpf,)) # Recupera e-mail a partir do cpf
@@ -63,14 +63,22 @@ def criar_canal():
     grupo = data['grupo']
     semestre = data['semestre']
     curso = data['curso']
+    emails = data.getlist('email')
     
     cur = mysql.connection.cursor()
     cur.execute("INSERT INTO canal(nome, grupo, semestre, curso) VALUES (%s, %s, %s, %s)", (nome, grupo, semestre, curso))
-       
+    cur.execute("SELECT max(id_canal) FROM canal where nome = %s", (nome,)) # Select utilizado por ter nomes de canal duplicado
+    id_canal = cur.fetchall()[0]
+
+    #Saber qual o id do usuário
+    for email in emails:
+        cur.execute("SELECT id_usuario from usuario where email = %s", (email,)) # busca o id do usuario com este email no banco
+        if cur.rowcount > 0:# se existir esse id
+            id_usuario = cur.fetchall()[0][0]
+            cur.execute("INSERT INTO canal_usuario(id_canal, id_usuario) VALUES (%s, %s)", (id_canal, id_usuario)) #inserir na tabela canal_usuario
+
     mysql.connection.commit()
         
     cur.close()
-    cursor = mysql.connection.cursor()
-    cur = cursor.execute("SELECT max(id_canal) FROM canal where nome = %s", (nome,)) # Select utilizado por ter nomes de canal duplicado
-    idcanal = cursor.fetchall()[0]
-    return redirect(url_for('post', canal = idcanal))
+    
+    return redirect(url_for('post', canal = id_canal))
