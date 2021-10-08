@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, url_for, redirect
-from flask-mysqldb import MySQL
+from flask_mysqldb import MySQL
 
 app = Flask(__name__)
 
@@ -7,7 +7,7 @@ app = Flask(__name__)
 app.config['MYSQL_Host'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'root'
-app.config['MYSQL_DB'] = 'flask'
+app.config['MYSQL_DB'] = 'infatec'
 
 mysql = MySQL(app)
 
@@ -37,6 +37,7 @@ def post():
         cur.close()
 
         return 'sucesso'
+
     return render_template('posts.html')
 
 @app.route('/gerenciamento_usuario')

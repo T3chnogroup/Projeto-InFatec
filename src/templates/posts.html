@@ -80,13 +80,15 @@
             </div>
     </div>
     <div class="text-area-wrapper">
-        <textarea name="post" id="post" cols="30" rows="5" class="form-control" placeholder="Inicie uma nova publicação. Digite @ para mencionar alguém ou canal. "></textarea>
-        <button id="send-icon" class="user-icon-wrapper text-area-buttons">
-            <i class="fas fa-paper-plane"></i>
-        </button>
-        <button id="clips-icon" class="user-icon-wrapper text-area-buttons">
-            <i class="fas fa-paperclip"></i>
-        </button>
+        <form action="/post" method="POST">
+            <textarea name="post" id="post" cols="30" rows="5" class="form-control" placeholder="Inicie uma nova publicação. Digite @ para mencionar alguém ou canal. "></textarea>
+            <button type="submit" id="send-icon" class="user-icon-wrapper text-area-buttons">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+            <button id="clips-icon" class="user-icon-wrapper text-area-buttons">
+                <i class="fas fa-paperclip"></i>
+            </button>
+        </form>
     </div>
 </div>
 
