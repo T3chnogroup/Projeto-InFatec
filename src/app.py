@@ -15,7 +15,15 @@ mysql = MySQL(app)
 def login():
     if request.method == 'POST':
         # fazer aqui validação de login
-        return redirect(url_for('inicio'))
+        email = 'elen.petri@fatec.sp.gov.br'
+        cursor = mysql.connection.cursor()
+        cpf = request.form['login']
+        cur = cursor.execute("select email from usuario where cpf = %s", (cpf,)) # Recupera e-mail a partir do cpf
+        if cursor.rowcount > 0:
+            lista_emails = cursor.fetchall()
+            return redirect(url_for('inicio', email = lista_emails[0][0]))
+        else:
+            return redirect(url_for('inicio'))
     else:
         return render_template('login.html')
 
@@ -38,6 +46,7 @@ def post():
     cursor = mysql.connection.cursor()
     cur = cursor.execute("SELECT nome FROM canal where id_canal = %s", (id_canal,)) # Pega o nome do canal que veio da url
     nome_canal = cursor.fetchall()[0][0]
+    email_logado = request.cookies.get('email_logado')
     return render_template('posts.html', canais=getcanais(), titulocanal = nome_canal) # Mostra o nome do canal da tela
 
 @app.route('/gerenciamento_usuario')
