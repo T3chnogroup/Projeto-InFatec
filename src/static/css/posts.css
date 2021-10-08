@@ -61,15 +61,10 @@
     flex-direction: row;
     justify-content: space-between;
     margin-bottom: 2.1rem;
-    width: 50%;
   }
 
   .posted-info p{
     text-align: right;
-  }
-
-  .post-text{
-    width: 50%;
   }
   
   .posted-info span {
