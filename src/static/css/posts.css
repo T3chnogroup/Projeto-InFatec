@@ -59,16 +59,21 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-  
     margin-bottom: 2.1rem;
   }
-  
+
+  .posted-info p{
+    text-align: right;
+
+  }
+
   .posted-info span {
     color: var(--primary-blue);
   }
   
   .date-posted-text {
     color: var(--color-text-complement);
+    text-align: left;
   }
   
   .post-main iframe {
@@ -89,16 +94,20 @@
     color: #fff;
   }
   
-  .text-area-wrapper {
-    position: relative;
-  
+  .text-area-wrapper {    
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+    margin-right: 10%;
+    margin-left: 10%;
+  }
+
+  .text-area-wrapper form textarea {
+    position: fixed;
+    bottom: 0;
   }
   
   .text-area-buttons {
-    position: absolute;
+    position: fixed;
     bottom: 10px;
   
     background: var(--primary-red);  
