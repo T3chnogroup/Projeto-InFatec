@@ -56,16 +56,16 @@ CREATE TABLE IF NOT EXISTS usuario_canal (
 );
 
 -- Inserção tabela usuario
-INSERT INTO usuario VALUES (0, "Lucas", "lucasbrzdias@gmail.com", "123456", "33333333333")
+INSERT INTO usuario VALUES (0, "Lucas", "lucasbrzdias@gmail.com", "123456", "33333333333");
 
 -- Consulta todos os
 select * from usuario;
 
 -- Inserção tabela canal
-INSERT INTO canal VALUES (0, "Geral", 1)
+INSERT INTO canal(nome, grupo, semestre, curso) VALUES ("geral", null, null, null);
 select * from canal;
 
 -- Inserção tabela post
-INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo legal", 1, 1)
-INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo chato", 1, 1)
+INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo legal", 1, 1);
+INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo chato", 1, 1);
 select * from post;
