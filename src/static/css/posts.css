@@ -4,7 +4,7 @@
   }
   
   .post-card {
-    margin-top: 50px;
+    margin-top: 30px;
   }
   
   .post-container {
@@ -98,17 +98,19 @@
     display: flex;
     flex-direction: column;
     margin-right: 10%;
-    margin-left: 10%;
+    margin-left: 0%;
   }
 
   .text-area-wrapper form textarea {
     position: fixed;
     bottom: 0;
+    width: 81%;
+    height: 20%;
   }
   
   .text-area-buttons {
     position: fixed;
-    bottom: 10px;
+    bottom: 5px;
   
     background: var(--primary-red);  
   }
@@ -118,11 +120,11 @@
   }
   
   .text-area-wrapper #send-icon {
-    right: 10px;
+    right: 10%;
   }
   
   .text-area-wrapper #clips-icon {
-    right: 50px;
+    right: 12%;
   }
   
   .text-area-wrapper textarea {
