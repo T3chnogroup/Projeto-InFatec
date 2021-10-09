@@ -125,8 +125,6 @@
     </div>
 </div>
 <script>//Não Remover! Seta o tamanho do text-area de acordo com as postagens
-    (function() {
-        $('#post').width($($('.posts-wrapper')[0]).width())
-    })();
+        $('#post').width($($('#nav-filtro')[0]).width()-30)
 </script>
 {% endblock %}
