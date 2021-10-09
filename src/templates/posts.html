@@ -34,12 +34,13 @@
                             <div class="post-content">
                                 <div class="post-header">
                                     <p class="posted-info">
-                                        <span>@Secretaria</span> fez uma publicação.
+                                        <span>@{{titulocanal}}</span> fez uma publicação. <br>
                                     </p>
+                                    <p class="date-posted-text">
+                                        Postado em {{post[1].strftime('%d/%m/%Y')}}</p>
                                 </div>
-                                <span class="date-posted-text">
-                                    Postado em {{post[1]}}
-                                </span>
+                               
+
                                 <div class="post-main">
                                     <p class="posted-info">
                                         {{post[3]}}
@@ -53,13 +54,12 @@
     {% if pode_editar %}
     <div class="text-area-wrapper">
         <form action="/post?canal={{id_canal}}" method="POST">
-            <textarea name="post" id="post" cols="30" rows="5" class="form-control" placeholder="Inicie uma nova publicação. Digite @ para mencionar alguém ou canal. "></textarea>
-            <button type="submit" id="send-icon" class="user-icon-wrapper text-area-buttons">
-                <i class="fas fa-paper-plane"></i>
-            </button>
-            <button id="clips-icon" class="user-icon-wrapper text-area-buttons">
-                <i class="fas fa-paperclip"></i>
-            </button>
+            <textarea name="post" id="post" cols="30" rows="5" class="form-control" placeholder="Crie uma nova publicação."></textarea>
+                <button type="submit" id="send-icon" class="user-icon-wrapper text-area-buttons">
+                    <i class="fas fa-paper-plane"></i>
+               <!-- <button id="clips-icon" class="user-icon-wrapper text-area-buttons">
+                    <i class="fas fa-paperclip"></i>
+                </button>--> <!--Inserir quando for feito a postagem de arquivo-->
         </form>
     </div>
     {% endif %}
@@ -124,4 +124,9 @@
     </div>
     </div>
 </div>
+<script>//Não Remover! Seta o tamanho do text-area de acordo com as postagens
+    (function() {
+        $('#post').width($($('.posts-wrapper')[0]).width())
+    })();
+</script>
 {% endblock %}

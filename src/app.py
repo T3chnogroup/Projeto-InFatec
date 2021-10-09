@@ -19,7 +19,7 @@ mysql = MySQL(app)
 
 def getPosts():
     cursor = mysql.connection.cursor()
-    conteudo = cursor.execute("SELECT * FROM post")
+    conteudo = cursor.execute("SELECT * FROM post order by id_post desc")
     Posts = cursor.fetchall()
     return Posts
 

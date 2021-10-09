@@ -11,7 +11,7 @@
     position: relative;
   
     display: flex;
-    justify-content: center;
+  
     
     background: rgba(196, 196, 196, .42);
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -58,7 +58,6 @@
   .post-header {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     margin-bottom: 2.1rem;
   }
 
@@ -74,6 +73,7 @@
   .date-posted-text {
     color: var(--color-text-complement);
     text-align: left;
+    padding-left: 20px;
   }
   
   .post-main iframe {
@@ -103,14 +103,13 @@
 
   .text-area-wrapper form textarea {
     position: fixed;
-    bottom: 0;
-    width: 81%;
-    height: 20%;
+    bottom: 5px !important;
+    height: 150px;
   }
   
   .text-area-buttons {
     position: fixed;
-    bottom: 5px;
+    bottom: 10px;
   
     background: var(--primary-red);  
   }
@@ -136,4 +135,12 @@
       width: 95%;
       height: 95%;
     }
+  }
+
+  .posts-wrapper{
+    margin-bottom: 200px;
+  }
+
+  .bg-button{
+   border: 1px solid black;
   }
