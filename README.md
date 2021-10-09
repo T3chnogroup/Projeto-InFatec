@@ -98,11 +98,31 @@ Executar aplicação:
 ```bash
 python3 wsgi.py
 ```
+## Antes de rodar a aplicação, siga os passos abaixo:
+
+Renomear arquivo .env.exemplo para .env
+
+cp .env.exemplo .env
+
+Alterar dados de acordo com seu ambiente:
+
+```bash
+MYSQL_Host = [host MySQL ou localhost]
+```
+```bash
+MYSQL_USER = [nome usuário]
+```
+
+```bash
+MMYSQL_PASSWORD = [senha banco de dados]
+```
+```bash
+MYSQL_DB = infatec
+```
+
 ## Sistema Desenvolvido 
 
 ![Sistema](./imagens/api_gif.gif)
-
-
 
 ## Cronograma de Entregas
 
