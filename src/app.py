@@ -17,9 +17,9 @@ app.config['MYSQL_DB'] = os.getenv("MYSQL_DB")
 
 mysql = MySQL(app)
 
-def getPosts():
+def getPosts(id_canal):
     cursor = mysql.connection.cursor()
-    conteudo = cursor.execute("SELECT * FROM post order by id_post desc")
+    conteudo = cursor.execute(f'SELECT * FROM post where fk_canal={id_canal} order by id_post desc')
     Posts = cursor.fetchall()
     return Posts
 
@@ -65,7 +65,7 @@ def post():
         cur = mysql.connection.cursor()
         cur.execute("INSERT INTO post(id_post, data_postagem, data_expiracao, conteudo, fk_canal, fk_usuario) VALUES (%s, %s, %s, %s, %s, %s)", (0, str(date.today()), str(date.today()), conteudo, id_canal, None))
         mysql.connection.commit()
-        Posts = getPosts()
+        Posts = getPosts(id_canal)
 
         cur.close()
         return render_template('posts.html', id_canal=id_canal,Posts=Posts, canais=getcanais(), titulocanal=getChannel(id_canal), pode_editar = True)
@@ -83,7 +83,7 @@ def post():
             pode_editar = True
         else:
             pode_editar = False
-        Posts = getPosts()
+        Posts = getPosts(id_canal)
 
         return render_template("posts.html", id_canal=id_canal, Posts=Posts, canais=getcanais(), titulocanal =getChannel(id_canal), pode_editar = pode_editar)
 
