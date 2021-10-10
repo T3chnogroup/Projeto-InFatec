@@ -4,14 +4,14 @@
   }
   
   .post-card {
-    margin-top: 50px;
+    margin-top: 30px;
   }
   
   .post-container {
     position: relative;
   
     display: flex;
-    justify-content: center;
+  
     
     background: rgba(196, 196, 196, .42);
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -58,17 +58,22 @@
   .post-header {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-  
     margin-bottom: 2.1rem;
   }
-  
+
+  .posted-info p{
+    text-align: right;
+
+  }
+
   .posted-info span {
     color: var(--primary-blue);
   }
   
   .date-posted-text {
     color: var(--color-text-complement);
+    text-align: left;
+    padding-left: 20px;
   }
   
   .post-main iframe {
@@ -89,16 +94,21 @@
     color: #fff;
   }
   
-  .text-area-wrapper {
-    position: relative;
-  
+  .text-area-wrapper {    
     display: flex;
     flex-direction: column;
-    margin-top: 20px;
+    margin-right: 10%;
+    margin-left: 0%;
+  }
+
+  .text-area-wrapper form textarea {
+    position: fixed;
+    bottom: 5px !important;
+    height: 150px;
   }
   
   .text-area-buttons {
-    position: absolute;
+    position: fixed;
     bottom: 10px;
   
     background: var(--primary-red);  
@@ -109,11 +119,11 @@
   }
   
   .text-area-wrapper #send-icon {
-    right: 10px;
+    right: 10%;
   }
   
   .text-area-wrapper #clips-icon {
-    right: 50px;
+    right: 12%;
   }
   
   .text-area-wrapper textarea {
@@ -125,4 +135,12 @@
       width: 95%;
       height: 95%;
     }
+  }
+
+  .posts-wrapper{
+    margin-bottom: 200px;
+  }
+
+  .bg-button{
+   border: 1px solid black;
   }

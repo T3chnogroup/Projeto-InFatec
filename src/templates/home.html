@@ -28,7 +28,19 @@
 {% endblock %}
 
 {% block conteudo %}
-
+<script>
+  //Recupera o email da URL
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const email = urlParams.get('email')
+  //Redireciona para a home sem o parâmetro de email
+  if (email){
+    //Criando cookie
+    document.cookie = 'email_logado=' + email;
+    window.location.href = "/";
+  }
+  
+</script>
 <main class="bg_color">
 
   <div class="px-4 pt-5 text-center">
