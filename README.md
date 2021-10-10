@@ -24,14 +24,6 @@
 #### [Linked](https://www.linkedin.com/in/rodrigo-de-andrade-a34605104)<img src="https://raw.githubusercontent.com/marciosousa4/GEOFPI---Projeto-Integrador/master/Loading%20images/download.png" width="15" height="15" /> [Github](https://github.com/RodrigodeAndrade90)<img src="https://raw.githubusercontent.com/marciosousa4/GEOFPI---Projeto-Integrador/master/Loading%20images/GitHub-Mark.png" width="20" height="20" />
 
 
-* Felipe Gabriel Barreto Faria (Dev team)
-#### [Linked](https://www.linkedin.com/in/felipe-gabriel-2386541b0)<img src="https://raw.githubusercontent.com/marciosousa4/GEOFPI---Projeto-Integrador/master/Loading%20images/download.png" width="15" height="15" /> [Github](https://github.com/OFelipeGabriel)<img src="https://raw.githubusercontent.com/marciosousa4/GEOFPI---Projeto-Integrador/master/Loading%20images/GitHub-Mark.png" width="20" height="20" />
-
-
-* Felipe Matias de Lima Santos (Dev team)
-#### [Linked](https://www.linkedin.com/in/felipe-matias-55a67021b/)<img src="https://raw.githubusercontent.com/marciosousa4/GEOFPI---Projeto-Integrador/master/Loading%20images/download.png" width="15" height="15" /> [Github](https://github.com/FelipeMTS)<img src="https://raw.githubusercontent.com/marciosousa4/GEOFPI---Projeto-Integrador/master/Loading%20images/GitHub-Mark.png" width="20" height="20" />
-
-
 * Kevin Ferreira Mirenda (Dev team)
 #### [Linked](https://www.linkedin.com/in/kevin-mirenda-a54a64220)<img src="https://raw.githubusercontent.com/marciosousa4/GEOFPI---Projeto-Integrador/master/Loading%20images/download.png" width="15" height="15" /> [Github](https://github.com/KevinFMfatec)<img src="https://raw.githubusercontent.com/marciosousa4/GEOFPI---Projeto-Integrador/master/Loading%20images/GitHub-Mark.png" width="20" height="20" />
 
@@ -98,6 +90,9 @@ Executar aplicação:
 ```bash
 python3 wsgi.py
 ```
+## Importar Banco de dados
+Importar o Banco de dados que está no src/bd em sua máquina.
+
 ## Antes de rodar a aplicação, siga os passos abaixo:
 
 Renomear arquivo .env.exemplo para .env
@@ -129,3 +124,4 @@ MYSQL_DB = infatec
 | Data | Links |
 | ------ | ------ |
 |    19/09/2021    |[Sprint 1](https://github.com/T3chnogroup/Projeto-InFatec/releases/tag/Sprint-01)|
+|    10/10/2021    |[Sprint 2](https://github.com/T3chnogroup/Projeto-InFatec/releases/tag/Sprint-02)|
