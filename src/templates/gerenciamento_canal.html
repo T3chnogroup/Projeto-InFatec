@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/gerenciamento_canal.css')}}">
+{% endblock %}
+
+{% block title %}
+<title>inFATEC-Configuração do Canal</title>
+{% endblock %}
+
+{% block nav %}
+<!-- Aqui fica o nav -->
+{% endblock %}
+
+{% block conteudo%}
+  <div class="container mt-3">
+    <!--Botão de adicionar membros-->
+
+    <div class="container mt-3 adicionarmembros no-padding-small">
+      <input class="search " type="text" placeholder="Pesquisar Membro" aria-label="Search">
+      
+      <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#adicionar-membros">
+        Adicionar Membros
+      </button>
+  
+      <!--Abas da guia-->
+      <div class="py-2">
+        <ul class="nav nav-tabs " id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="membros-tab" data-bs-toggle="tab" data-bs-target="#membros" type="button"
+              role="tab" aria-controls="membros" aria-selected="true">Membros</button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="configuracao-tab" data-bs-toggle="tab" data-bs-target="#configuracao"
+              type="button" role="tab" aria-controls="configuracao" aria-selected="false">Configurações</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  <!--Tabela Moderadores-->
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="membros" role="tabpanel" aria-labelledby="membros-tab">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Moderadores</th>
+            <th scope="col">Email</th>
+            <th scope="col">Função</th>
+            <th scope="col">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Exemplo de Membro</td>
+            <td class="word-breakable">emaildomembro@email.com</td>
+            <td>
+              <select id="funcao" class="form-select form-select-sm " aria-label=".form-select-sm example">
+                <option value="1"selected class="backgroundselect">Moderador</option>
+                <option value="2">Participante</option>
+              </select>
+            </td>
+            <td>
+              <button type="button" data-bs-toggle="modal" class="text-danger" data-bs-target="#excluirModal">
+                <i class="far fa-trash-alt" title="Remover Membro"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="configuracao-tab">...</div>
+  </div>
+
+   <!--Tabela Participantes-->
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="membros" role="tabpanel" aria-labelledby="membros-tab">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Participantes</th>
+            <th scope="col">Email</th>
+            <th scope="col">Função</th>
+            <th scope="col">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Exemplo de Membro 2</td>
+            <td class="word-breakable">emaildomembro@email.com</td>
+            <td>
+              <select id="funcao" class="form-select form-select-sm " aria-label=".form-select-sm example">
+                <option value="1">Moderador</option>
+                <option value="2"selected>Participante</option>
+              </select>
+            </td>
+            <td>
+              <button type="button" data-bs-toggle="modal" class="text-danger" data-bs-target="#excluirModal" title="Remover Membro">
+                <i class="far fa-trash-alt"></i>
+              </button>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="configuracao-tab">...</div>
+  </div>
+</div>
+{% endblock %}
+
+{% block modals %}
+<!-- Modal -->
+<div class="modal fade" id="adicionar-membros" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title">Adicionar membros</h5>
+        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/adicionar-membros" method="POST">
+          <div class="d-flex justify-content-center mt-4 inputs-wrapper">
+            <div class="inputs-first-column me-4 largura_input">
+              <!--Select2-->
+
+              <div class="d-flex align-items-center justify-content-center mb-3">
+                    <select class="adicionar-membros select2-close-mask select2-dropdown" name="email"
+                  multiple="multiple">
+                  <option value="elen.petri@fatec.sp.gov.br">elen.petri@fatec.sp.gov.br</option>
+                  <option value="tais.salomao@fatec.sp.gov.br">tais.salomao@fatec.sp.gov.br</option>
+                  <option value="kevin.mirenda@fatec.sp.gov.br">kevin.mirenda@fatec.sp.gov.br</option>
+                  <option value="lucas.dias52@fatec.sp.gov.br">lucas.dias52@fatec.sp.gov.br</option>
+                  <option value="rodrigo.paula15@fatec.sp.gov.br">rodrigo.paula15@fatec.sp.gov.br</option>
+                  <option value="priscila.silva140@fatec.sp.gov.br">priscila.silva140@fatec.sp.gov.br</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-center no-border">
+            <button type="submit" class="btn btn-danger fw-bold save-button">Salvar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="excluirModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-width">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Remover Usuário</h5>
+        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Deseja remover esse usuário mesmo?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="botaonao btn btn-ligth fw-bold" data-bs-dismiss="modal" aria-label="Close">Não</button>
+        <button type="button" class="botaosim btn btn-ligth fw-bold">Sim</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script src="{{url_for('static', filename='js/jquery.mask.js')}}"></script>
+<script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
+<script>
+  
+  $(document).ready(function () {
+    $('.adicionar-membros').select2({
+      placeholder: "Digite o e-mail"
+    });
+  });
+</script>
+
+{% endblock %}

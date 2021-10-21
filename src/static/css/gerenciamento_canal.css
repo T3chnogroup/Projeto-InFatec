@@ -1,0 +1,64 @@
+.search{
+    float: left;
+    display: block;
+    padding: .375rem .75rem;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+.search:focus{
+    background-color: #ced4da26;
+    
+}
+#container, .adicionarmembros{ /*estilização do posicionamento das abas e do botão de adicionar membros*/
+    text-align: right;
+    padding: 0;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.btn-secondary { /*Estilização do botão de adicionar membros*/
+    color: #fff;
+    background-color: #28292e;
+    border-color: #28292e;
+}
+
+.btn-secondary:hover {
+    color: #fff;
+    background-color: #9e1616;
+    border-color: #9e1616;
+}
+
+.word-breakable{
+    word-break: break-all;
+}
+
+#funcao{ /*Tamamaho do select*/
+    width:auto;
+}
+
+.backgroundselect{
+    background-color: #9e1616;
+}
+
+.botaonao{
+    color: #2d2e33;
+    font-weight: bold;
+    border-color: #2d2e33;
+}
+
+.botaonao:hover{
+    color: #fff;
+    background-color: #2d2e33;
+}
+
+.botaosim{
+    color: #9e1616;
+    font-weight: bold;
+    border-color: #9e1616;
+}
+
+.botaosim:hover{
+    color: #fff;
+    background-color: #9e1616;
+}

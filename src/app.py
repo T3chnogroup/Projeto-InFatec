@@ -123,3 +123,14 @@ def criar_canal():
     cur.close()
     
     return redirect(url_for('post', canal = id_canal))
+
+
+#Configurações do Canal
+@app.route('/gerenciamento-canal')
+def configuracao_canal():
+    return render_template('gerenciamento_canal.html', canais=getcanais(), titulocanal = "Gerenciamento do Canal" )
+
+
+@app.route('/adicionar-membros')
+def adicionar_membros():
+    return render_template('gerenciamento_canal.html', canais=getcanais(),)
