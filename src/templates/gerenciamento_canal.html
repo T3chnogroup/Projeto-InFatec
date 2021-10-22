@@ -12,98 +12,167 @@
 {% endblock %}
 
 {% block conteudo%}
-  <div class="container mt-3">
-    <!--Botão de adicionar membros-->
+<!--Conteúdo da página de membros em gerenciamento de canal-->
+<div class="container mt-3">
+  <!--Botão de adicionar membros-->
+  <div class="container mt-3 adicionarmembros no-padding-small">
+    <input class="search " type="text" placeholder="Pesquisar Membro" aria-label="Search">
+    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#adicionar-membros">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus"
+        viewBox="0 0 16 16">
+        <path
+          d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+        <path fill-rule="evenodd"
+          d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z" />
+      </svg>
+      Adicionar Membros
+    </button>
 
-    <div class="container mt-3 adicionarmembros no-padding-small">
-      <input class="search " type="text" placeholder="Pesquisar Membro" aria-label="Search">
-      
-      <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#adicionar-membros">
-        Adicionar Membros
-      </button>
-  
-      <!--Abas da guia-->
-      <div class="py-2">
-        <ul class="nav nav-tabs " id="myTab" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="membros-tab" data-bs-toggle="tab" data-bs-target="#membros" type="button"
-              role="tab" aria-controls="membros" aria-selected="true">Membros</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="configuracao-tab" data-bs-toggle="tab" data-bs-target="#configuracao"
-              type="button" role="tab" aria-controls="configuracao" aria-selected="false">Configurações</button>
-          </li>
-        </ul>
+    <!--Abas das Guias-->
+    <div class="py-2">
+      <ul class="nav nav-tabs " id="myTab" role="tablist">
+        <!--Aba membros-->
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="membros-tab" data-bs-toggle="tab" data-bs-target="#membros" type="button"
+            role="tab" aria-controls="membros" aria-selected="true">Membros</button>
+        </li>
+        <!--Aba configurações-->
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="configuracao-tab" data-bs-toggle="tab" data-bs-target="#configuracao"
+            type="button" role="tab" aria-controls="configuracao" aria-selected="false">Configurações</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="tabs">
+        <!--Aba Configurações-->
+        <div class="tab-pane fade show active area-conteudo" id="membros" role="tabpanel" aria-labelledby="membros-tab">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Moderadores</th>
+                <th scope="col">Email</th>
+                <th scope="col">Função</th>
+                <th scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Exemplo de Membro</td>
+                <td class="word-breakable">emaildomembro@email.com</td>
+                <td>
+                  <select id="funcao" class="form-select form-select-sm " aria-label=".form-select-sm example">
+                    <option value="1" selected>Moderador</option>
+                    <option value="2">Participante</option>
+                  </select>
+                </td>
+                <!--Botão de excluir membro-->
+                <td>
+                  <button type="button" data-bs-toggle="modal" title="Remover membro" class="text-danger"
+                    data-bs-target="#excluirModal">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      class="bi bi-trash" viewBox="0 0 16 16">
+                      <path
+                        d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                      <path fill-rule="evenodd"
+                        d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!--Tabela Participantes-->
+          <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="membros-tab">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Participantes</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Função</th>
+                  <th scope="col">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Exemplo de Membro 2</td>
+                  <td class="word-breakable">emaildomembro@email.com</td>
+                  <td>
+                    <select id="funcao" class="form-select form-select-sm " aria-label=".form-select-sm example">
+                      <option value="1">Moderador</option>
+                      <option value="2" selected>Participante</option>
+                    </select>
+                  </td>
+                  <!--Botão de excluir membro-->
+                  <td class=>
+                    <button type="button" data-bs-toggle="modal" class="text-danger" data-bs-target="#excluirModal"
+                      title="Remover Membro">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-trash" title="Remover membro" viewBox="0 0 16 16">
+                        <path
+                          d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                        <path fill-rule="evenodd"
+                          d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                      </svg>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!--Aba Configurações-->
+        <div class="tab-pane fade area-conteudo" id="configuracao" role="tabpanel" aria-labelledby="configuracao-tab">
+          <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="membros-tab">
+            <table class="table table-striped">
+              <div class="my-3 p-3 rounded shadow-sm">
+                <h6 class="border-bottom pb-2 mb-0">Opções do canal</h6>
+                <!--Área Canal público-->
+                <div class="form-check pt-3">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                  <label class="form-check-label" for="flexRadioDefault1">
+                    <p class="">
+                      Canal público
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-unlock" viewBox="0 0 16 16">
+                        <path
+                          d="M11 1a2 2 0 0 0-2 2v4a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h5V3a3 3 0 0 1 6 0v4a.5.5 0 0 1-1 0V3a2 2 0 0 0-2-2zM3 8a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1H3z" />
+                      </svg>
+                    </p>
+                  </label>
+                </div>
+                <!--Área Canal privado-->
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                  <label class="form-check-label" for="flexRadioDefault2">
+                    <p>
+                      Canal privado
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-lock" viewBox="0 0 16 16">
+                        <path
+                          d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z">
+                        </path>
+                      </svg>
+                  </label>
+                </div>
+                <!--Área excluir canal-->
+                <div class="py-2 pb-3 mb-0 small lh-sm border-bottom w-100">
+                  <button type="button" class="btn btn-outline-danger">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      class="bi bi-trash" viewBox="0 0 16 16">
+                      <path
+                        d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                      <path fill-rule="evenodd"
+                        d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                    </svg>
+                    Excluir canal
+                  </button>
+                </div>
+              </div>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
-
-  <!--Tabela Moderadores-->
-  <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="membros" role="tabpanel" aria-labelledby="membros-tab">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Moderadores</th>
-            <th scope="col">Email</th>
-            <th scope="col">Função</th>
-            <th scope="col">Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Exemplo de Membro</td>
-            <td class="word-breakable">emaildomembro@email.com</td>
-            <td>
-              <select id="funcao" class="form-select form-select-sm " aria-label=".form-select-sm example">
-                <option value="1"selected class="backgroundselect">Moderador</option>
-                <option value="2">Participante</option>
-              </select>
-            </td>
-            <td>
-              <button type="button" data-bs-toggle="modal" class="text-danger" data-bs-target="#excluirModal">
-                <i class="far fa-trash-alt" title="Remover Membro"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="configuracao-tab">...</div>
-  </div>
-
-   <!--Tabela Participantes-->
-  <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="membros" role="tabpanel" aria-labelledby="membros-tab">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Participantes</th>
-            <th scope="col">Email</th>
-            <th scope="col">Função</th>
-            <th scope="col">Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Exemplo de Membro 2</td>
-            <td class="word-breakable">emaildomembro@email.com</td>
-            <td>
-              <select id="funcao" class="form-select form-select-sm " aria-label=".form-select-sm example">
-                <option value="1">Moderador</option>
-                <option value="2"selected>Participante</option>
-              </select>
-            </td>
-            <td>
-              <button type="button" data-bs-toggle="modal" class="text-danger" data-bs-target="#excluirModal" title="Remover Membro">
-                <i class="far fa-trash-alt"></i>
-              </button>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="configuracao-tab">...</div>
   </div>
 </div>
 {% endblock %}
@@ -124,8 +193,7 @@
               <!--Select2-->
 
               <div class="d-flex align-items-center justify-content-center mb-3">
-                    <select class="adicionar-membros select2-close-mask select2-dropdown" name="email"
-                  multiple="multiple">
+                <select class="adicionar-membros select2-close-mask select2-dropdown" name="email" multiple="multiple">
                   <option value="elen.petri@fatec.sp.gov.br">elen.petri@fatec.sp.gov.br</option>
                   <option value="tais.salomao@fatec.sp.gov.br">tais.salomao@fatec.sp.gov.br</option>
                   <option value="kevin.mirenda@fatec.sp.gov.br">kevin.mirenda@fatec.sp.gov.br</option>
@@ -144,8 +212,6 @@
     </div>
   </div>
 </div>
-
-
 <div class="modal fade" id="excluirModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-width">
     <div class="modal-content">
@@ -154,10 +220,17 @@
         <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Deseja remover esse usuário mesmo?
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+          class="bi bi-exclamation-octagon text-danger" viewBox="0 0 16 16">
+          <path
+            d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
+          <path
+            d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+        </svg> Deseja mesmo remover esse usuário ?
       </div>
       <div class="modal-footer">
-        <button type="button" class="botaonao btn btn-ligth fw-bold" data-bs-dismiss="modal" aria-label="Close">Não</button>
+        <button type="button" class="botaonao btn btn-ligth fw-bold" data-bs-dismiss="modal"
+          aria-label="Close">Não</button>
         <button type="button" class="botaosim btn btn-ligth fw-bold">Sim</button>
       </div>
     </div>
@@ -170,7 +243,7 @@
 <script src="{{url_for('static', filename='js/jquery.mask.js')}}"></script>
 <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
 <script>
-  
+
   $(document).ready(function () {
     $('.adicionar-membros').select2({
       placeholder: "Digite o e-mail"

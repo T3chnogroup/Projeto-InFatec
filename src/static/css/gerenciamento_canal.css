@@ -33,6 +33,9 @@
     word-break: break-all;
 }
 
+.area-conteudo{
+    text-align: justify;
+}
 #funcao{ /*Tamamaho do select*/
     width:auto;
 }
@@ -61,4 +64,11 @@
 .botaosim:hover{
     color: #fff;
     background-color: #9e1616;
+}
+
+
+/*CSS ABA DE CONFIGURAÇÕES*/
+.form-select {
+    display: block;
+    width: auto;
 }
