@@ -8,8 +8,7 @@
 }
 
 .search:focus{
-    background-color: #ced4da26;
-    
+    background-color: #ced4da26; 
 }
 #container, .adicionarmembros{ /*estilização do posicionamento das abas e do botão de adicionar membros*/
     text-align: right;
@@ -67,8 +66,32 @@
 }
 
 
+
 /*CSS ABA DE CONFIGURAÇÕES*/
 .form-select {
     display: block;
     width: auto;
 }
+.nav-link:focus, .nav-link:hover {
+    color: white; /*Cor da letra ao passar o mouse em cima da aba que está "inativa" */
+}
+
+.nav-link{
+    color:#495057; /*Cor da letra da aba que está "inativa*/
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
+    font-weight: bold; /*Deixa a letra da aba selecionada em negrito*/
+}
+
+/*Estilização do modal de adiconar membros*/
+.modal-header{
+    background-color: #9e1616;
+}
+
+.btn-save{
+    color: #fff;
+    background-color: #9e1616;
+    border-color: #9e1616;
+}
+
