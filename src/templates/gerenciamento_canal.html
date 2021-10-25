@@ -119,7 +119,6 @@
             </table>
           </div>
         </div>
-
         <!--Aba Configurações-->
         <div class="tab-pane fade area-conteudo" id="configuracao" role="tabpanel" aria-labelledby="configuracao-tab">
           <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="membros-tab">
@@ -127,6 +126,7 @@
               <div class="my-3 p-3 rounded shadow-sm">
                 <h6 class="border-bottom pb-2 mb-0">Opções do canal</h6>
                 <!--Área Canal público-->
+                <!--Ao selecionar essa opção, todos os membros da comunidade poderão ter acesso as informações postadas.-->
                 <div class="form-check pt-3">
                   <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
                   <label class="form-check-label" for="flexRadioDefault1">
@@ -141,6 +141,7 @@
                   </label>
                 </div>
                 <!--Área Canal privado-->
+                <!--Ao selecionar essa opção, apenas membros adicionados ao canal poderão ter acesso as informações postadas.-->
                 <div class="form-check">
                   <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
                   <label class="form-check-label" for="flexRadioDefault2">
@@ -152,11 +153,18 @@
                           d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2zM5 8h6a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z">
                         </path>
                       </svg>
+                    </p>
                   </label>
+                   
                 </div>
+                <!--Salvar alterações canal-->
+                <div class="py-2 pb-3 mb-0 small lh-sm border-bottom w-100">
+                  <button type="button" class="btn salvarconfig">Salvar alterações</button>
+                </div>
+
                 <!--Área excluir canal-->
                 <div class="py-2 pb-3 mb-0 small lh-sm border-bottom w-100">
-                  <button type="button" class="btn btn-outline-danger">
+                  <button type="button" class="btn excluircanal">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                       class="bi bi-trash" viewBox="0 0 16 16">
                       <path

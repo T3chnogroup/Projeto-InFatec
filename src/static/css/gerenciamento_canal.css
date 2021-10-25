@@ -66,7 +66,6 @@
 }
 
 
-
 /*CSS ABA DE CONFIGURAÇÕES*/
 .form-select {
     display: block;
@@ -95,3 +94,25 @@
     border-color: #9e1616;
 }
 
+.excluircanal{
+    color: #9e1616;
+    font-weight: bold;
+    border-color: #9e1616;
+}
+
+.excluircanal:hover{
+    color: #fff;
+    background-color: #9e1616;
+}
+
+.salvarconfig{
+    color: #2d2e33;
+    font-weight: bold;
+    border-color: #2d2e33;
+}
+
+
+.salvarconfig:hover{
+    color: #fff;
+    background-color: #2d2e33;
+}
