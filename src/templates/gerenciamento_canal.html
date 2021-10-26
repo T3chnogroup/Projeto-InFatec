@@ -92,9 +92,10 @@
                 </tr>
               </thead>
               <tbody>
+                {% for membro in membros %}
                 <tr>
-                  <td>Exemplo de Membro 2</td>
-                  <td class="word-breakable">emaildomembro@email.com</td>
+                  <td>{{membro[1]}}</td>
+                  <td class="word-breakable">{{membro[2]}}</td>
                   <td>
                     <select id="funcao" class="form-select form-select-sm " aria-label=".form-select-sm example">
                       <option value="1">Moderador</option>
@@ -115,6 +116,8 @@
                     </button>
                   </td>
                 </tr>
+                {% endfor %}
+                
               </tbody>
             </table>
           </div>
