@@ -3,6 +3,8 @@ from flask import Flask, render_template, request, url_for, redirect
 from flask_mysqldb import MySQL
 from datetime import date
 from dotenv import load_dotenv
+
+from gerenciamento_canal import listar_membros
 load_dotenv(".env")
 
 app = Flask(__name__)
@@ -128,8 +130,9 @@ def criar_canal():
 #Configurações do Canal
 @app.route('/gerenciamento-canal')
 def configuracao_canal():
-    return render_template('gerenciamento_canal.html', canais=getcanais(), titulocanal = "Gerenciamento do Canal" )
-
+    id_canal = request.args.get('canal')
+    membros = listar_membros(id_canal)
+    return render_template('gerenciamento_canal.html', canais=getcanais(), titulocanal = "Gerenciamento do Canal", membros = membros)
 
 @app.route('/adicionar-membros')
 def adicionar_membros():
