@@ -47,13 +47,6 @@ CREATE TABLE IF NOT EXISTS visualizado_por (
 	FOREIGN KEY (fk_post) REFERENCES post (id_post)
 );
 
-CREATE TABLE IF NOT EXISTS usuario_canal (
-	fk_usuario INT,
-	fk_canal INT,
-	PRIMARY KEY (fk_usuario, fk_canal),
-	FOREIGN KEY (fk_usuario) REFERENCES usuario (id_usuario),
-	FOREIGN KEY (fk_canal) REFERENCES canal (id_canal)
-);
  -- Se não existir, cria tabela de ralacionamento entre canal e usuário
 CREATE TABLE IF NOT EXISTS canal_usuario (
 	id_canal INT,
