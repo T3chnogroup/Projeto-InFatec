@@ -17,6 +17,8 @@
 
   <!-- Bootstrap core CSS -->
   <link href="{{url_for('static', filename='css/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='css/bootstrap/icons-1.6.1/font/bootstrap-icons.css')}}" rel="stylesheet">
+
   <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
 
   <!-- Select2 JS e CSS -->
@@ -78,9 +80,12 @@
             </a> -->
             </li>
             {% for canal in canais %}
-              <li class="nav-item border-bottom nav-item-btn">
+              <li class="nav-item border-bottom nav-item-btn d-flex justify-content-between pe-2">
                 <a class="nav-link text-white p-2 sticky-top" href="/post?canal={{canal[0]}}">
                 <!--<i class="fas fa-lock"></i>--> {{canal[1]}} 
+                </a>
+                <a href="/gerenciamento-canal?canal={{canal[0]}}" class="pt-2">
+                  <i class="bi bi-three-dots text-white"></i>
                 </a>
               </li>
             {% endfor %}
