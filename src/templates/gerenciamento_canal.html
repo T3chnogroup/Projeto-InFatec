@@ -34,7 +34,7 @@
           <!--Botão de adicionar membros-->
           <div class="container mt-3 adicionarmembros py-3">
             <input class="search " type="text" placeholder="Pesquisar Membro" aria-label="Search">
-            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#adicionar-membros">
+            <button type="button" class="btn  button-adicionarmembros" data-bs-toggle="modal" data-bs-target="#adicionar-membros">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-plus"
                 viewBox="0 0 16 16">
                 <path
@@ -167,7 +167,7 @@
 
                 <!--Área excluir canal-->
                 <div class="py-2 pb-3 mb-0 small lh-sm border-bottom w-100">
-                  <button type="button" class="btn excluircanal">
+                  <button type="button" data-bs-toggle="modal" class="btn excluircanal" data-bs-target="#excluir-canal">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                       class="bi bi-trash" viewBox="0 0 16 16">
                       <path
@@ -177,6 +177,7 @@
                     </svg>
                     Excluir canal
                   </button>
+
                 </div>
               </div>
             </table>
@@ -189,7 +190,9 @@
 {% endblock %}
 
 {% block modals %}
-<!-- Modal -->
+<!-- Modals -->
+
+<!--Modal que inclui membros -->
 <div class="modal fade" id="adicionar-membros" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -201,7 +204,6 @@
         <form action="/adicionar-membros" method="POST">
           <div class="d-flex justify-content-center mt-4 inputs-wrapper">
             <div class="inputs-first-column me-4 largura_input">
-              
               <div class="d-flex align-items-center justify-content-center mb-3">
                 <select class="adicionar-membros select2-close-mask select2-dropdown" name="email" multiple="multiple">
                   <option value="elen.petri@fatec.sp.gov.br">elen.petri@fatec.sp.gov.br</option>
@@ -215,17 +217,18 @@
             </div>
           </div>
           <div class="modal-footer d-flex justify-content-center no-border">
-            <button type="submit" class="btn btn-save fw-bold save-button">Salvar</button>
+            <button type="submit" class="btn btn-save fw-bold">Salvar</button>
           </div>
         </form>
       </div>
     </div>
   </div>
 </div>
+<!--Modal que exclui membro-->
 <div class="modal fade" id="excluirModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-width">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header text-white">
         <h5 class="modal-title" id="exampleModalLabel">Remover Usuário</h5>
         <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
@@ -237,6 +240,34 @@
           <path
             d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
         </svg> Deseja mesmo remover esse usuário ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="botaonao btn btn-ligth fw-bold" data-bs-dismiss="modal"
+          aria-label="Close">Não</button>
+        <button type="button" class="botaosim btn btn-ligth fw-bold">Sim</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Modal que exclui canal-->
+<div class="modal fade" id="excluir-canal" tabindex="-1" aria-labelledby="excluir-canal" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-width">
+    <div class="modal-content">
+      <div class="modal-header text-white">
+        <h5 class="modal-title">Excluir canal</h5>
+        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+          class="bi bi-exclamation-octagon text-danger" viewBox="0 0 16 16">
+          <path
+            d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z" />
+          <path
+            d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
+        </svg> Deseja mesmo excluir esse canal? 
+        <br> 
+        Essa ação não poderá ser desfeita e todas as informações serão perdidas.
       </div>
       <div class="modal-footer">
         <button type="button" class="botaonao btn btn-ligth fw-bold" data-bs-dismiss="modal"

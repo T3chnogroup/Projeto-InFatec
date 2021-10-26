@@ -15,6 +15,16 @@
     padding: 0;
     padding-left: 0px;
     padding-right: 0px;
+    display: flex;
+    justify-content: space-between;
+}
+@media(max-width: 500px){
+    .adicionarmembros{
+        flex-direction: column-reverse;
+    }
+    .button-adicionarmembros{
+        margin-bottom: 9px ;
+    }
 }
 .btn-secondary { /*Estilização do botão de adicionar membros*/
     color: #fff;
@@ -76,12 +86,26 @@
 }
 
 .nav-link{
-    color:#495057; /*Cor da letra da aba que está "inativa*/
+    color:#28292e; /*Cor da letra da aba que está "inativa*/
 }
 
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
     font-weight: bold; /*Deixa a letra da aba selecionada em negrito*/
 }
+
+
+/*Botão adicionar membros*/
+.button-adicionarmembros{
+    color: #2d2e33;
+    font-weight: bold;
+    border-color: #2d2e33;
+}
+
+.button-adicionarmembros:hover{
+    color: #fff;
+    background-color: #2d2e33;
+}
+
 
 /*Estilização do modal de adiconar membros*/
 .modal-header{
@@ -92,6 +116,36 @@
     color: #fff;
     background-color: #9e1616;
     border-color: #9e1616;
+}
+
+.btn-save:hover{
+    color: #fff;
+    background-color: #9e1616;
+    border-color: #9e1616;
+}
+
+.btn-close{
+    color: #fff;
+}
+
+
+/*Estilização do gerenciamento*/
+
+.form-check-input:checked {
+    background-color: #28292e;
+    border-color: #28292e;
+}
+
+
+.salvarconfig{
+    color: #2d2e33;
+    font-weight: bold;
+    border-color: #2d2e33;
+}
+
+.salvarconfig:hover{
+    color: #fff;
+    background-color: #2d2e33;
 }
 
 .excluircanal{
@@ -105,14 +159,3 @@
     background-color: #9e1616;
 }
 
-.salvarconfig{
-    color: #2d2e33;
-    font-weight: bold;
-    border-color: #2d2e33;
-}
-
-
-.salvarconfig:hover{
-    color: #fff;
-    background-color: #2d2e33;
-}
