@@ -4,7 +4,7 @@ from flask_mysqldb import MySQL
 from datetime import date
 from dotenv import load_dotenv
 
-from gerenciamento_canal import listar_membros
+from gerenciamento_canal import listar_moderador, listar_participante
 load_dotenv(".env")
 
 app = Flask(__name__)
@@ -114,11 +114,18 @@ def criar_canal():
     id_canal = cur.fetchall()[0]
 
     #Saber qual o id do usuário
+    email_logado = request.cookies.get('email_logado')
     for email in emails:
-        cur.execute("SELECT id_usuario from usuario where email = %s", (email,)) # busca o id do usuario com este email no banco
-        if cur.rowcount > 0:# se existir esse id
-            id_usuario = cur.fetchall()[0][0]
-            cur.execute("INSERT INTO canal_usuario(id_canal, id_usuario) VALUES (%s, %s)", (id_canal, id_usuario)) #inserir na tabela canal_usuario
+        if email != email_logado: #Se o email for diferente do email logado, será inserido como participante
+            cur.execute("SELECT id_usuario from usuario where email = %s", (email,)) # busca o id do usuario com este email no banco
+            if cur.rowcount > 0:# se existir esse id
+                id_usuario = cur.fetchall()[0][0]
+                cur.execute("INSERT INTO canal_usuario(id_canal, id_usuario, funcao) VALUES (%s, %s, 'participante')", (id_canal, id_usuario)) #inserir na tabela canal_usuario como participante
+    
+    cur.execute("SELECT id_usuario from usuario where email = %s", (email_logado,)) # busca o id do usuario com este email no banco
+    if cur.rowcount > 0:# se existir esse id
+        id_usuario = cur.fetchall()[0][0]
+        cur.execute("INSERT INTO canal_usuario(id_canal, id_usuario, funcao) VALUES (%s, %s, 'moderador')", (id_canal, id_usuario)) #inserir na tabela canal_usuario como moderador
 
     mysql.connection.commit()
         
@@ -131,8 +138,9 @@ def criar_canal():
 @app.route('/gerenciamento-canal')
 def configuracao_canal():
     id_canal = request.args.get('canal')
-    membros = listar_membros(id_canal)
-    return render_template('gerenciamento_canal.html', canais=getcanais(), titulocanal = "Gerenciamento do Canal", membros = membros)
+    moderadores = listar_moderador(id_canal)
+    participantes = listar_participante(id_canal)
+    return render_template('gerenciamento_canal.html', canais=getcanais(), titulocanal = "Gerenciamento do Canal", moderadores = moderadores, participantes = participantes)
 
 @app.route('/adicionar-membros')
 def adicionar_membros():

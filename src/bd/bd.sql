@@ -76,3 +76,7 @@ select * from canal;
 INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo legal", 1, 1);
 INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo chato", 1, 1);
 select * from post;
+
+
+--Adição da coluna função (Moderador ou participante) na tabela canal_usuario (referente ao gerenciamento do canal)
+ALTER TABLE canal_usuario ADD funcao varchar(30);

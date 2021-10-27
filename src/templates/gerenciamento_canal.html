@@ -49,23 +49,26 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Exemplo de Membro</td>
-                <td class="word-breakable">emaildomembro@email.com</td>
-                <td>
-                  <select id="funcao" class="form-select form-select-sm " aria-label=".form-select-sm example">
-                    <option value="1" selected>Moderador</option>
-                    <option value="2">Participante</option>
-                  </select>
-                </td>
-                <!--Botão de excluir membro-->
-                <td>
-                  <button type="button" data-bs-toggle="modal" title="Remover membro" class="text-danger"
-                    data-bs-target="#excluirModal">
-                    <i class="bi bi-trash"></i>
-                  </button>
-                </td>
-              </tr>
+              <!--Tabela Participantes-->
+              {% for membro in moderadores %}
+                <tr>
+                  <td>{{membro[1]}}</td>
+                  <td class="word-breakable">{{membro[2]}}</td>
+                  <td>
+                    <select id="funcao" class="form-select form-select-sm " aria-label=".form-select-sm example">
+                      <option value="1" selected>Moderador</option>
+                      <option value="2">Participante</option>
+                    </select>
+                  </td>
+                  <!--Botão de excluir membro-->
+                  <td class=>
+                    <button type="button" data-bs-toggle="modal" class="text-danger" data-bs-target="#excluirModal"
+                      title="Remover Membro">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+                {% endfor %}
             </tbody>
           </table>
           <!--Tabela Participantes-->
@@ -80,7 +83,7 @@
                 </tr>
               </thead>
               <tbody>
-                {% for membro in membros %}
+                {% for membro in participantes %}
                 <tr>
                   <td>{{membro[1]}}</td>
                   <td class="word-breakable">{{membro[2]}}</td>
