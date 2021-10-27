@@ -105,6 +105,7 @@
     position: fixed;
     bottom: 5px !important;
     height: 150px;
+    width: 1170px !important;
   }
   
   .text-area-buttons {
@@ -119,7 +120,7 @@
   }
   
   .text-area-wrapper #send-icon {
-    right: 10%;
+    right: 80%;
   }
   
   .text-area-wrapper #clips-icon {
@@ -143,4 +144,28 @@
 
   .bg-button{
    border: 1px solid black;
+  }
+/* Footer com Textarea */ 
+
+  #text_area{
+    display: flex !important;
+    position: fixed;
+    margin-top: 500px;
+    width: 1239px;
+    height: 200px;
+    background-color: rgba(245,245,245,255);
+    border-radius: 5px;
+  }
+
+  .text_area{
+    width: 1198px !important; /*Faz com que o textarea fique dentro do footer*/
+    height: 200px;
+    position: relative !important;
+  }
+
+  @media (max-width: 576px) {
+    .text_area, #text_area {
+      width: 100%;
+      height: 100%;
+    }
   }

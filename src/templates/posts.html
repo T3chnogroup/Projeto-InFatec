@@ -52,17 +52,19 @@
                 {% endfor %}
     </div>
     {% if pode_editar %}
-    <div class="text-area-wrapper">
+    <footer id="text_area" class="py-5">
         <form action="/post?canal={{id_canal}}" method="POST">
-            <textarea name="post" id="post" cols="30" rows="5" class="form-control" placeholder="Crie uma nova publicação."></textarea>
+            <div class="form-floating">
+                <textarea name="post" id="post" cols="30" rows="5" class="form-control text_area" placeholder="Crie uma nova publicação."></textarea>
                 <button type="submit" id="send-icon" class="user-icon-wrapper text-area-buttons">
-                    <i class="fas fa-paper-plane"></i>
-               <!-- <button id="clips-icon" class="user-icon-wrapper text-area-buttons">
+                    <i class="fas fa-paper-plane"></i></button>
+                                <!-- <button id="clips-icon" class="user-icon-wrapper text-area-buttons">
                     <i class="fas fa-paperclip"></i>
                 </button>--> <!--Inserir quando for feito a postagem de arquivo-->
+            </div>
         </form>
-    </div>
-    {% endif %}
+    </footer>
+   {% endif %}
 </div>
 
 {% endblock %}
