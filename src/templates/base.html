@@ -165,11 +165,14 @@
           <h5 class="modal-title">Criar Canal</h5>
           <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        
         <div class="modal-body">
+          
           <form action="/criarcanal" method="POST">
             <div class="d-flex justify-content-center mt-4 inputs-wrapper">
               <div class="inputs-first-column me-4 largura_input">
                 <input type="text" class="form-control mb-3 largura_input" placeholder="Nome" required name="nome">
+                <p>Defina qual o público alvo deste canal</p>
                 <div class="d-flex align-items-center justify-content-center mb-3">
                   <select class="adicionar-grupo select2-close-mask select2-dropdown" name="grupo"
                     multiple="multiple">
@@ -194,21 +197,34 @@
                 <div class="d-flex align-items-center justify-content-center mb-3">
                   <select class="adicionar-curso select2-close-mask select2-dropdown" name="curso"
                     multiple="multiple">
+                    <option value="0">Todos</option>
                     <option value="1">DSM</option>
                     <option value="2">ADS</option>
                     <option value="3">BD</option>
                   </select>
                 </div>
-                <div class="d-flex align-items-center justify-content-center mb-3">
-                      <select class="adicionar-membros select2-close-mask select2-dropdown" name="email"
-                    multiple="multiple">
-                    <option value="elen.petri@fatec.sp.gov.br">elen.petri@fatec.sp.gov.br</option>
-                    <option value="tais.salomao@fatec.sp.gov.br">tais.salomao@fatec.sp.gov.br</option>
-                    <option value="kevin.mirenda@fatec.sp.gov.br">kevin.mirenda@fatec.sp.gov.br</option>
-                    <option value="lucas.dias52@fatec.sp.gov.br">lucas.dias52@fatec.sp.gov.br</option>
-                    <option value="rodrigo.paula15@fatec.sp.gov.br">rodrigo.paula15@fatec.sp.gov.br</option>
-                    <option value="priscila.silva140@fatec.sp.gov.br">priscila.silva140@fatec.sp.gov.br</option>
-                  </select>
+
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input aria-expanded" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" data-bs-toggle="collapsed" href="#multiCollapseRadio2" role="button" aria-expanded="false" aria-controls="multiCollapseRadio2" onclick="collapse_remove()">
+                  <label class="form-check-label" for="inlineRadio1" >Canal público</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input aria-expanded" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2" data-bs-toggle="collapse" href="#multiCollapseRadio2" role="button" aria-expanded="false" aria-controls="multiCollapseRadio2">
+                  <label class="form-check-label" for="inlineRadio2">Canal privado</label>
+                </div>
+
+                <div class="collapse multi-collapse" data-bs-target="#multiCollapseRadio2" id="multiCollapseRadio2" aria-expanded="false">
+                  <div class="d-flex align-items-center justify-content-center mb-3">
+                        <select class="adicionar-membros select2-close-mask select2-dropdown" name="email"
+                      multiple="multiple">
+                      <option value="elen.petri@fatec.sp.gov.br">elen.petri@fatec.sp.gov.br</option>
+                      <option value="tais.salomao@fatec.sp.gov.br">tais.salomao@fatec.sp.gov.br</option>
+                      <option value="kevin.mirenda@fatec.sp.gov.br">kevin.mirenda@fatec.sp.gov.br</option>
+                      <option value="lucas.dias52@fatec.sp.gov.br">lucas.dias52@fatec.sp.gov.br</option>
+                      <option value="rodrigo.paula15@fatec.sp.gov.br">rodrigo.paula15@fatec.sp.gov.br</option>
+                      <option value="priscila.silva140@fatec.sp.gov.br">priscila.silva140@fatec.sp.gov.br</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
@@ -249,6 +265,12 @@
     $('.select2-search__field').addClass("largura_input");
   });
 
+</script>
+
+<script>
+  function collapse_remove(){
+    document.getElementById('multiCollapseRadio2').classList.remove('show');/*oculta o input de emails*/
+  }
 </script>
 
 <!-- Modal Pesquisa Avançada-->
