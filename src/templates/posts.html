@@ -57,12 +57,15 @@
             <div class="form-floating">
                 <textarea name="post" id="post" cols="30" rows="5" class="form-control text_area" placeholder="Crie uma nova publicação."></textarea>
                 <button type="submit" id="send-icon" class="user-icon-wrapper text-area-buttons">
-                    <i class="fas fa-paper-plane"></i></button>
-                                <!-- <button id="clips-icon" class="user-icon-wrapper text-area-buttons">
-                    <i class="fas fa-paperclip"></i>
-                </button>--> <!--Inserir quando for feito a postagem de arquivo-->
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+<!--Inserir quando for feito a postagem de arquivo-->
             </div>
         </form>
+        <button id="clips-icon" class="user-icon-wrapper text-area-buttons add_arquivo">
+            <input type="file"/>
+            <i class="fas fa-paperclip"></i>
+        </button> 
     </footer>
    {% endif %}
 </div>
