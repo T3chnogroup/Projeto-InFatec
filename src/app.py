@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, url_for, redirect
 from flask_mysqldb import MySQL
 from datetime import date
 from dotenv import load_dotenv
+from gerenciamento_post import getPosts
 load_dotenv(".env")
 
 app = Flask(__name__)
@@ -17,11 +18,11 @@ app.config['MYSQL_DB'] = os.getenv("MYSQL_DB")
 
 mysql = MySQL(app)
 
-def getPosts(id_canal):
+'''def getPosts(id_canal): 
     cursor = mysql.connection.cursor()
     conteudo = cursor.execute(f'SELECT * FROM post where fk_canal={id_canal} order by id_post desc')
     Posts = cursor.fetchall()
-    return Posts
+    return Posts '''
 
 def getChannel(id_canal):
     cursor = mysql.connection.cursor()
