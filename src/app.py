@@ -4,7 +4,7 @@ from flask_mysqldb import MySQL
 from datetime import date
 from dotenv import load_dotenv
 
-from gerenciamento_canal import listar_moderador, listar_participante
+from gerenciamento_canal import adicionar_lista_emails, listar_moderador, listar_participante, alterar_funcao_membro
 load_dotenv(".env")
 
 app = Flask(__name__)
@@ -80,7 +80,7 @@ def post():
         if cur.rowcount > 0:# se existir esse id
             id_usuario = cur.fetchall()[0][0]
         # verificar a existencia de uma linha na tabela canal_usuario para este usuário e este canal
-            cur.execute("select * from canal_usuario where id_canal = %s and id_usuario = %s", (id_canal, id_usuario))
+            cur.execute("select * from canal_usuario where id_canal = %s and id_usuario = %s and funcao = 'moderador'", (id_canal, id_usuario))
         if cur.rowcount > 0:
             pode_editar = True
         else:
@@ -115,13 +115,7 @@ def criar_canal():
 
     #Saber qual o id do usuário
     email_logado = request.cookies.get('email_logado')
-    for email in emails:
-        if email != email_logado: #Se o email for diferente do email logado, será inserido como participante
-            cur.execute("SELECT id_usuario from usuario where email = %s", (email,)) # busca o id do usuario com este email no banco
-            if cur.rowcount > 0:# se existir esse id
-                id_usuario = cur.fetchall()[0][0]
-                cur.execute("INSERT INTO canal_usuario(id_canal, id_usuario, funcao) VALUES (%s, %s, 'participante')", (id_canal, id_usuario)) #inserir na tabela canal_usuario como participante
-    
+    adicionar_lista_emails(emails, id_canal, email_logado) # adicona a lista de emails ao canal
     cur.execute("SELECT id_usuario from usuario where email = %s", (email_logado,)) # busca o id do usuario com este email no banco
     if cur.rowcount > 0:# se existir esse id
         id_usuario = cur.fetchall()[0][0]
@@ -140,8 +134,21 @@ def configuracao_canal():
     id_canal = request.args.get('canal')
     moderadores = listar_moderador(id_canal)
     participantes = listar_participante(id_canal)
-    return render_template('gerenciamento_canal.html', canais=getcanais(), titulocanal = "Gerenciamento do Canal", moderadores = moderadores, participantes = participantes)
+    nome_canal = getChannel(id_canal)
+    return render_template('gerenciamento_canal.html', id_canal=id_canal, canais=getcanais(), titulocanal = nome_canal,  moderadores = moderadores, participantes = participantes)
 
-@app.route('/adicionar-membros')
+@app.route('/adicionar-membros', methods = ['POST'])
 def adicionar_membros():
-    return render_template('gerenciamento_canal.html', canais=getcanais(),)
+    id_canal = request.args.get('canal')
+    emails = request.form.getlist('email')
+    email_logado = request.cookies.get('email_logado')
+    adicionar_lista_emails(emails, id_canal, email_logado) # adicona a lista de emails ao canal
+    return redirect(url_for('configuracao_canal', canal = id_canal))
+
+@app.route('/editar-funcao-membro-canal')
+def alterar_funcao_membro_canal():
+    id_usuario = request.args.get('usuario')
+    id_canal = request.args.get('canal')
+    funcao = request.args.get('funcao')
+    alterar_funcao_membro(id_usuario, id_canal, funcao)
+    return redirect(url_for('configuracao_canal', canal = id_canal))

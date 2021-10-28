@@ -28,3 +28,25 @@ def listar_participante(id_canal):
     cursor.execute('Select usuario.id_usuario, nome, email, funcao from canal_usuario join usuario on (canal_usuario.id_usuario = usuario.id_usuario) where id_canal = %s and funcao = \'participante\' order by nome', (id_canal,)) #Seleciona os dados da tabela usuario e junta com a tabela canal_usuário e compara os id_usuario e ordena por ordem alfabética (nome)
     Membros = cursor.fetchall()
     return Membros
+
+def adicionar_lista_emails(emails, id_canal, email_logado):
+    for email in emails:
+        if email != email_logado: #Se o email for diferente do email logado, será inserido como participante
+            print(f'Adicionando o  email {email} ao  canal {id_canal}')
+            adicionar_email(email,id_canal) #adicona o email ao canal
+
+def adicionar_email(email, id_canal):
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT id_usuario from usuario where email = %s", (email,)) # busca o id do usuario com este email no banco
+    if cur.rowcount > 0:# se existir esse id
+        id_usuario = cur.fetchall()[0][0]
+        print(f'Adicionando o usuario {id_usuario} ao canal {id_canal}')
+        cur.execute("INSERT IGNORE INTO canal_usuario(id_canal, id_usuario, funcao) VALUES (%s, %s, 'participante')", (id_canal, id_usuario)) #inserir na tabela canal_usuario como participante
+    mysql.connection.commit()
+    cur.close()
+
+def alterar_funcao_membro(id_usuario, id_canal, funcao):
+    cur = mysql.connection.cursor()
+    cur.execute("UPDATE canal_usuario SET funcao = %s where id_canal = %s and id_usuario = %s", (funcao, id_canal, id_usuario,)) #inserir na tabela canal_usuario como participante
+    mysql.connection.commit()
+    cur.close()

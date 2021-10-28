@@ -131,6 +131,11 @@
 
 /*Estilização do gerenciamento*/
 
+.select2-container .select2-search--inline .select2-search__field{
+    height: 25px!important;
+}
+
+
 .form-check-input:checked {
     background-color: #28292e;
     border-color: #28292e;

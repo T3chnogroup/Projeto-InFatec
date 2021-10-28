@@ -49,15 +49,15 @@
               </tr>
             </thead>
             <tbody>
-              <!--Tabela Participantes-->
+              <!--Tabela Moderadores-->
               {% for membro in moderadores %}
                 <tr>
                   <td>{{membro[1]}}</td>
                   <td class="word-breakable">{{membro[2]}}</td>
                   <td>
-                    <select id="funcao" class="form-select form-select-sm " aria-label=".form-select-sm example">
-                      <option value="1" selected>Moderador</option>
-                      <option value="2">Participante</option>
+                    <select id="funcao" class="form-select form-select-sm select-funcao" aria-label=".form-select-sm example">
+                      <option value="{{membro[0]}} - {{id_canal}} - moderador - moderador" selected>Moderador</option>
+                      <option value="{{membro[0]}} - {{id_canal}} - moderador - participante">Participante</option>
                     </select>
                   </td>
                   <!--Botão de excluir membro-->
@@ -88,9 +88,9 @@
                   <td>{{membro[1]}}</td>
                   <td class="word-breakable">{{membro[2]}}</td>
                   <td>
-                    <select id="funcao" class="form-select form-select-sm " aria-label=".form-select-sm example">
-                      <option value="1">Moderador</option>
-                      <option value="2" selected>Participante</option>
+                    <select id="funcao" class="form-select form-select-sm select-funcao" aria-label=".form-select-sm example">
+                      <option value="{{membro[0]}} - {{id_canal}} - participante - moderador">Moderador</option>
+                      <option value="{{membro[0]}} - {{id_canal}} - participante - participante" selected>Participante</option>
                     </select>
                   </td>
                   <!--Botão de excluir membro-->
@@ -102,7 +102,7 @@
                   </td>
                 </tr>
                 {% endfor %}
-                
+
               </tbody>
             </table>
           </div>
@@ -113,41 +113,74 @@
             <table class="table table-striped">
               <div class="my-3 p-3 rounded shadow-sm">
                 <h6 class="border-bottom pb-2 mb-0">Opções do canal</h6>
-                <!--Área Canal público-->
-                <!--Ao selecionar essa opção, todos os membros da comunidade poderão ter acesso as informações postadas.-->
-                <div class="form-check pt-3">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                  <label class="form-check-label" for="flexRadioDefault1">
-                    <p class="">
-                      Canal público
-                      <i class="bi bi-unlock"></i>
-                    </p>
-                  </label>
-                </div>
-                <!--Área Canal privado-->
-                <!--Ao selecionar essa opção, apenas membros adicionados ao canal poderão ter acesso as informações postadas.-->
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                  <label class="form-check-label" for="flexRadioDefault2">
-                    <p>
-                      Canal privado
-                      <i class="bi bi-lock"></i>
-                    </p>
-                  </label>
-                   
-                </div>
-                <!--Salvar alterações canal-->
+                
+                <form action="/gerenciamento-canal" method="POST">
+                  <div class="d-flex mt-4 inputs-wrapper ">
+                    <div class="inputs-first-column me-4 ">
+                      <p>Selecione abaixo o público alvo do seu canal</p>
+                             
+                        <div class="d-flex align-items-center justify-content-center mb-3">
+                          <select class="adicionar-grupo select2-close-mask select2-dropdown" name="grupo" multiple="multiple">
+                            <option value="1">Coordenadores</option>
+                            <option value="2">Professores</option>
+                            <option value="3">Alunos</option>
+                          </select>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center mb-3">
+                          <select class="adicionar-semestre select2-close-mask select2-dropdown" name="semestre" multiple="multiple">
+                            <option value="0">Todos</option>
+                            <option value="1">1º semestre</option>
+                            <option value="2">2º semestre</option>
+                            <option value="3">3º semestre</option>
+                            <option value="4">4º semestre</option>
+                            <option value="5">5º semestre</option>
+                            <option value="6">6º semestre</option>
+                          </select>
+                        </div>
+                        <!--Select2-->
+                        <div class="d-flex align-items-center justify-content-center mb-3">
+                          <select class="adicionar-curso select2-close-mask select2-dropdown" name="curso" multiple="multiple">
+                            <option value="0">Todos</option>
+                            <option value="1">DSM</option>
+                            <option value="2">ADS</option>
+                            <option value="3">BD</option>
+                          </select>
+                        </div>
+                      <!--Área Canal público-->
+                      <!--Ao selecionar essa opção, todos os membros da comunidade poderão ter acesso as informações postadas.-->
+                      <div class="form-check pt-3">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
+                        <label class="form-check-label" for="flexRadioDefault1">
+                          <p class="">
+                            Canal público
+                            <i class="bi bi-unlock"></i>
+                          </p>
+                        </label>
+                      </div>
+                      <!--Área Canal privado-->
+                      <!--Ao selecionar essa opção, apenas membros adicionados ao canal poderão ter acesso as informações postadas.-->
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
+                        <label class="form-check-label" for="flexRadioDefault2">
+                          <p>
+                            Canal privado
+                            <i class="bi bi-lock"></i>
+                          </p>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <!--Salvar alterações canal-->
                 <div class="py-2 pb-3 mb-0 small lh-sm border-bottom w-100">
-                  <button type="button" class="btn salvarconfig">Salvar alterações</button>
+                  <button type="submit" class="btn salvarconfig">Salvar alterações</button>
                 </div>
-
+                </form>
                 <!--Área excluir canal-->
                 <div class="py-2 pb-3 mb-0 small lh-sm border-bottom w-100">
-                  <button type="button" data-bs-toggle="modal" class="btn excluircanal" data-bs-target="#excluir-canal">
+                  <button type="button" data-bs-toggle="modal" class="btn excluircanal mt-2" data-bs-target="#excluir-canal">
                     <i class="bi bi-trash"></i>
                     Excluir canal
                   </button>
-
                 </div>
               </div>
             </table>
@@ -162,7 +195,7 @@
 {% block modals %}
 <!-- Modals -->
 
-<!--Modal que inclui membros -->
+<!--Modal que inclui membros-->
 <div class="modal fade" id="adicionar-membros" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -171,7 +204,7 @@
         <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="/adicionar-membros" method="POST">
+        <form action="/adicionar-membros?canal={{id_canal}}" method="POST">
           <div class="d-flex justify-content-center mt-4 inputs-wrapper">
             <div class="inputs-first-column me-4 largura_input">
               <div class="d-flex align-items-center justify-content-center mb-3">
@@ -243,12 +276,32 @@
 <script src="{{url_for('static', filename='js/jquery.mask.js')}}"></script>
 <script src="{{url_for('static', filename='js/bootstrap.bundle.min.js')}}"></script>
 <script>
-
   $(document).ready(function () {
     $('.adicionar-membros').select2({
-      placeholder: "Digite o e-mail"
+      placeholder: "Adicionar participante"
     });
   });
+</script>
+
+<script>
+  $( ".select-funcao" ).change(function(event) {
+    console.log('Vamos mudar a funçao do usuário ? no canal ? de ? para ?')
+    console.log($(this).val())
+    var dados = $(this).val()
+    var posicao_primeiro_espaco = dados.indexOf(' ')
+    var usuario = dados.substring(0, posicao_primeiro_espaco)
+    dados = dados.substring(posicao_primeiro_espaco + 3)
+    posicao_primeiro_espaco = dados.indexOf(' ')
+    var canal = dados.substring(0, posicao_primeiro_espaco)
+    dados = dados.substring(posicao_primeiro_espaco + 3)
+    posicao_primeiro_espaco = dados.indexOf(' ')
+    var funcao_de = dados.substring(0, posicao_primeiro_espaco)
+    dados = dados.substring(posicao_primeiro_espaco + 3)
+    var funcao_para = dados
+    var url = `/editar-funcao-membro-canal?usuario=${usuario}&canal=${canal}&funcao=${funcao_para}`
+
+    window.location.href = url
+});
 </script>
 
 {% endblock %}
