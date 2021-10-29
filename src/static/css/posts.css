@@ -112,7 +112,9 @@
     position: fixed;
     bottom: 10px;
     margin-left: 70%;
-    background: var(--primary-red);  
+    background: var(--primary-red);
+    font-size: small;
+    color: aliceblue;  
   }
 
   /*Afasta os botões do textarea*/
@@ -156,22 +158,64 @@
   #text_area{
     display: flex !important;
     position: fixed;
-    margin-top: 500px;
+    margin-bottom: 30px;
+    margin-top: 420px;
     width: /*1239px*/ 81%;
-    height: /*200px*/ 30%;
+    height: /*200px*/ auto;
     background-color: rgba(245,245,245,255);
     border-radius: 5px;
   }
 
   .text_area{
-    width: /*1198px*/ 460% !important; /*Faz com que o textarea fique dentro do footer*/
-    height: /*200px*/ 30%;
+    width: /*1198px*/ 490% !important; /*Faz com que o textarea fique dentro do footer*/
+    height: /*200px*/ 10%;
+    margin-left: 20px;
+    margin-bottom: 60px;
     position: relative !important;
+    padding-bottom: 30px !important;
   }
 
-  /*@media (max-width: 576px) {
-    .text_area, #text_area {
-      width: 100%;
-      height: 100%;
+  .titulo_post{
+    margin-top: 8%;
+    margin-left: 20px;
+    width: 220px;
+  }
+
+  @media (max-width: 500px) {
+    .text_area{
+      max-width: 190%;
     }
-  }*/
+  }
+
+  @media (max-width: 700px) {
+    #text_area, .text_area{
+      width: 180%;
+      position: flex;
+    }
+  }
+
+  #add_arquivo{
+    margin-left: 20px;
+    margin-right: 70%;
+    position: fixed;
+    bottom: 10px;
+    display: block;
+  }
+
+  .botao_enviar{
+    width: 100px;
+    position: fixed;
+    bottom: 10px;
+    margin-left: 70%;
+    background: var(--primary-red);
+    font-size: small;
+    color: aliceblue;  
+  }
+
+  @media (max-width: 700px) {
+    #add_arquivo{
+      width: 180%;
+      position: flex;
+      display: flex;
+    }
+  }

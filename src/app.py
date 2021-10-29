@@ -62,8 +62,9 @@ def post():
     id_canal = request.args.get('canal')
     if request.method == "POST":   
         conteudo = request.form['post']
+        titulo = request.form['titulo']
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO post(id_post, data_postagem, data_expiracao, conteudo, fk_canal, fk_usuario) VALUES (%s, %s, %s, %s, %s, %s)", (0, str(date.today()), str(date.today()), conteudo, id_canal, None))
+        cur.execute("INSERT INTO post(id_post, data_postagem, data_expiracao, conteudo, fk_canal, fk_usuario, titulo_post) VALUES (%s, %s, %s, %s, %s, %s, %s)", (0, str(date.today()), str(date.today()), conteudo, id_canal, None, titulo))
         mysql.connection.commit()
         Posts = getPosts(id_canal)
 
