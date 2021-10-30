@@ -35,7 +35,7 @@ def adicionar_lista_emails(emails, id_canal, email_logado):
             print(f'Adicionando o  email {email} ao  canal {id_canal}')
             adicionar_email(email,id_canal) #adicona o email ao canal
 
-def adicionar_email(email, id_canal):
+def adicionar_email(email, id_canal): #adiciona membro no canal depois que o canal foi criado
     cur = mysql.connection.cursor()
     cur.execute("SELECT id_usuario from usuario where email = %s", (email,)) # busca o id do usuario com este email no banco
     if cur.rowcount > 0:# se existir esse id
@@ -48,5 +48,19 @@ def adicionar_email(email, id_canal):
 def alterar_funcao_membro(id_usuario, id_canal, funcao):
     cur = mysql.connection.cursor()
     cur.execute("UPDATE canal_usuario SET funcao = %s where id_canal = %s and id_usuario = %s", (funcao, id_canal, id_usuario,)) #inserir na tabela canal_usuario como participante
+    mysql.connection.commit()
+    cur.close()
+
+def remover_membros(id_usuario, id_canal):
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE from canal_usuario where id_canal = %s and id_usuario = %s", (id_canal, id_usuario,))
+    mysql.connection.commit()
+    cur.close()
+
+def excluir_canal(id_canal):
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE from canal_usuario where id_canal = %s", (id_canal,)) #Exclui todos os membros do canal
+    cur.execute("DELETE from post where fk_canal = %s", (id_canal,)) #Exclui todos os posts do canal
+    cur.execute("DELETE from canal where id_canal = %s", (id_canal,)) #Exclui todo o canal
     mysql.connection.commit()
     cur.close()

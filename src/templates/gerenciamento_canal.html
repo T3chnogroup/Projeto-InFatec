@@ -62,7 +62,7 @@
                   </td>
                   <!--Botão de excluir membro-->
                   <td class=>
-                    <button type="button" data-bs-toggle="modal" class="text-danger" data-bs-target="#excluirModal"
+                    <button type="button" data-usuario="{{membro[0]}}" data-bs-toggle="modal" class="text-danger" data-bs-target="#excluirModal"
                       title="Remover Membro">
                       <i class="bi bi-trash"></i>
                     </button>
@@ -94,8 +94,8 @@
                     </select>
                   </td>
                   <!--Botão de excluir membro-->
-                  <td class=>
-                    <button type="button" data-bs-toggle="modal" class="text-danger" data-bs-target="#excluirModal"
+                  <td>
+                    <button type="button" data-usuario="{{membro[0]}}" data-bs-toggle="modal" class="text-danger" data-bs-target="#excluirModal"
                       title="Remover Membro">
                       <i class="bi bi-trash"></i>
                     </button>
@@ -228,46 +228,53 @@
   </div>
 </div>
 <!--Modal que exclui membro-->
-<div class="modal fade" id="excluirModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-width">
-    <div class="modal-content">
-      <div class="modal-header text-white">
-        <h5 class="modal-title" id="exampleModalLabel">Remover Usuário</h5>
-        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <i class="bi bi-exclamation-triangle text-danger"></i>
+
+  <div class="modal fade" id="excluirModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form action="/remover-membros?canal={{id_canal}}&usuario={{id_usuario}}" templete="/remover-membros?canal={{id_canal}}&usuario=" method="POST">
+    <div class="modal-dialog modal-lg modal-width">
+      <div class="modal-content">
+        <div class="modal-header text-white">
+          <h5 class="modal-title" id="exampleModalLabel">Remover Usuário</h5>
+          <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <i class="bi bi-exclamation-triangle text-danger"></i>
           Deseja mesmo remover esse usuário ?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="botaonao btn btn-ligth fw-bold" data-bs-dismiss="modal"
-          aria-label="Close">Não</button>
-        <button type="button" class="botaosim btn btn-ligth fw-bold">Sim</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="botaonao btn btn-ligth fw-bold" data-bs-dismiss="modal"
+            aria-label="Close">Não</button>
+          <button type="submit" class="botaosim btn btn-ligth fw-bold">Sim</button>
+        </div>
       </div>
     </div>
+    </form>
   </div>
-</div>
+
 
 <!--Modal que exclui canal-->
 <div class="modal fade" id="excluir-canal" tabindex="-1" aria-labelledby="excluir-canal" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-width">
-    <div class="modal-content">
-      <div class="modal-header text-white">
-        <h5 class="modal-title">Excluir canal</h5>
-        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        
-        <p> <i class="bi bi-exclamation-triangle text-danger"></i> Deseja mesmo excluir esse canal?</p> <i class="bi bi-exclamation-triangle text-danger"></i> 
-        <p>Esta ação não poderá ser desfeita e todas as informações serão perdidas.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="botaonao btn btn-ligth fw-bold" data-bs-dismiss="modal"
-          aria-label="Close">Não</button>
-        <button type="button" class="botaosim btn btn-ligth fw-bold">Sim</button>
+  <form action="/excluir_canal?canal={{id_canal}}" method="POST">
+    <div class="modal-dialog modal-lg modal-width">
+      <div class="modal-content">
+        <div class="modal-header text-white">
+          <h5 class="modal-title">Excluir canal</h5>
+          <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+  
+          <p> <i class="bi bi-exclamation-triangle text-danger"></i> Deseja mesmo excluir esse canal?</p> 
+          <i class="bi bi-exclamation-triangle text-danger"></i>
+          <p>Esta ação não poderá ser desfeita e todas as informações serão perdidas.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="botaonao btn btn-ligth fw-bold" data-bs-dismiss="modal"
+            aria-label="Close">Não</button>
+          <button type="submit" class="botaosim btn btn-ligth fw-bold">Sim</button>
+        </div>
       </div>
     </div>
-  </div>
+  </form>
 </div>
 {% endblock %}
 
@@ -302,6 +309,18 @@
 
     window.location.href = url
 });
+</script>
+
+<script type="text/javascript"> /*Remover participante do canal*/
+  $('#excluirModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) /*Botão que foi clicado*/
+    var id_user = button.data('usuario') /*Atribui à variável o atributo data-usuario do botão que foi clicado*/
+    var modal = $(this) /*Modal que está sendo aberto*/
+    var formulario = modal.find('form') /*Atribui à variável formulário o formulário que foi encontrado no modal*/
+    var action = formulario.attr('templete')
+    action = action + id_user /*Action monta a URL completa com o id do usuário*/
+    formulario.attr('action', action) /*Coloca a URL completa no action do formulário*/ 
+  })
 </script>
 
 {% endblock %}

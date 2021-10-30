@@ -4,7 +4,7 @@ from flask_mysqldb import MySQL
 from datetime import date
 from dotenv import load_dotenv
 
-from gerenciamento_canal import adicionar_lista_emails, listar_moderador, listar_participante, alterar_funcao_membro
+from gerenciamento_canal import adicionar_lista_emails, excluir_canal, listar_moderador, listar_participante, alterar_funcao_membro, remover_membros
 load_dotenv(".env")
 
 app = Flask(__name__)
@@ -142,7 +142,7 @@ def adicionar_membros():
     id_canal = request.args.get('canal')
     emails = request.form.getlist('email')
     email_logado = request.cookies.get('email_logado')
-    adicionar_lista_emails(emails, id_canal, email_logado) # adicona a lista de emails ao canal
+    adicionar_lista_emails(emails, id_canal, email_logado) # adiciona a lista de emails ao canal
     return redirect(url_for('configuracao_canal', canal = id_canal))
 
 @app.route('/editar-funcao-membro-canal')
@@ -152,3 +152,16 @@ def alterar_funcao_membro_canal():
     funcao = request.args.get('funcao')
     alterar_funcao_membro(id_usuario, id_canal, funcao)
     return redirect(url_for('configuracao_canal', canal = id_canal))
+
+@app.route('/remover-membros', methods = ['POST'])
+def remover_membros_canal():
+    id_usuario = request.args.get('usuario')
+    id_canal = request.args.get('canal')
+    remover_membros(id_usuario, id_canal)
+    return redirect(url_for('configuracao_canal', canal = id_canal))
+
+@app.route('/excluir_canal', methods = ['POST'])
+def exclusao_canal():
+    id_canal = request.args.get('canal')
+    excluir_canal(id_canal)
+    return redirect(url_for('inicio'))
