@@ -9,7 +9,6 @@
   
   .post-container {
     position: relative;
-  
     display: flex;
   
     
@@ -113,14 +112,9 @@
     bottom: 10px;
     margin-left: 70%;
     background: var(--primary-red);
-    font-size: small;
+    font-size: medium;
+    text-align: center;
     color: aliceblue;  
-  }
-
-  /*Afasta os botões do textarea*/
-
-  .add_arquivo{
-    margin-left: 75% !important;
   }
   
   .text-area-buttons:hover {
@@ -129,6 +123,8 @@
   
   .text-area-wrapper #send-icon {
     right: 80%;
+    font-size: medium;
+    text-align: center;
   }
   
   .text-area-wrapper #clips-icon {
@@ -158,40 +154,31 @@
   #text_area{
     display: flex !important;
     position: fixed;
-    margin-bottom: 30px;
+    margin-bottom: 60px;
     margin-top: 420px;
+    margin-right: 10%;
     width: /*1239px*/ 81%;
-    height: /*200px*/ auto;
     background-color: rgba(245,245,245,255);
     border-radius: 5px;
+    flex-direction: column;
+    padding-right: 16px;
   }
 
   .text_area{
     width: /*1198px*/ 490% !important; /*Faz com que o textarea fique dentro do footer*/
     height: /*200px*/ 10%;
     margin-left: 20px;
-    margin-bottom: 60px;
+    margin-bottom: 80px;
     position: relative !important;
-    padding-bottom: 30px !important;
+    /*padding-bottom: 30px !important;*/
+    flex-direction: column;
   }
 
   .titulo_post{
-    margin-top: 8%;
+    margin-top: 1%;
     margin-left: 20px;
-    width: 220px;
-  }
-
-  @media (max-width: 500px) {
-    .text_area{
-      max-width: 190%;
-    }
-  }
-
-  @media (max-width: 700px) {
-    #text_area, .text_area{
-      width: 180%;
-      position: flex;
-    }
+    width: 200px;
+    display: flex;
   }
 
   #add_arquivo{
@@ -200,22 +187,57 @@
     position: fixed;
     bottom: 10px;
     display: block;
+    width: 30%;
+    flex-direction: column;
   }
 
   .botao_enviar{
+    font-size: center !important;
     width: 100px;
     position: fixed;
     bottom: 10px;
     margin-left: 70%;
     background: var(--primary-red);
     font-size: small;
-    color: aliceblue;  
+    color: aliceblue;
+    display: flex;
+    flex-direction: column;  
+  }
+  
+  .textarea_div{
+    position: relative;
+    display: flex;
   }
 
-  @media (max-width: 700px) {
-    #add_arquivo{
-      width: 180%;
+  @media (max-width: 576px) {
+    #text_area{
       position: flex;
+      max-width: 100%;
+      flex-direction: column;
+
+    }
+    .botao_enviar{
+      position: absolute;
+      bottom: 220px;
+    }
+    .text_area{
+      max-width: 95%;
+      position: absolute;
+    }
+    #add_arquivo{
+      position: absolute;
       display: flex;
+      bottom: 170px;
+    }
+    .titulo_post{
+      margin-bottom: 50px;
+    }
+  }
+  @media (min-width: 1080px) {
+    #text_area{
+      position: flex;
+      max-width: 100%;
+      flex-direction: column;
+      margin-right: auto;
     }
   }
