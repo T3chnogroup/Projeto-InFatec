@@ -18,13 +18,13 @@
                     <div class="card post-card">
                         <div class="card-body post-container">
                             <div class="post-actions">
-                                <button class="action-button" data-bs-toggle="modal" data-bs-target="#edit-modal">
+                                <button class="action-button" data-bs-toggle="modal" data-bs-target="#edit-modal" onclick="edit_post('{{post[0]}}','{{post[3]}}')">
                                     <i class="far fa-edit"></i>
                                 </button>
                                 <button class="action-button" data-bs-toggle="modal" data-bs-target="#visibility-modal">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                                <button class="action-button" data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                <button class="action-button" data-bs-toggle="modal" data-bs-target="#delete-modal" onclick="delete_post('{{post[0]}}')">
                                     <i class="fas fa-times"></i>
                                 </button> 
                             </div>
@@ -75,14 +75,20 @@
         <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Alterar Post</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            Deseja realmente alterar este post?
-        </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
-        <button type="button" class="btn btn-primary">Sim</button>
-        </div>
+        </div> 
+        <form id="formEditaPost" method="POST">
+            <div class="modal-body">
+                
+                    <textarea id="text-editar-post" name="text-editar-post">  
+                    
+                    </textarea>
+                
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+            <button type="submit" class="btn btn-primary">Sim</button>
+            </div>
+        </form>
     </div>
     </div>
 </div>
@@ -119,12 +125,22 @@
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
-        <button type="button" class="btn btn-danger">Sim</button>
+        <a id="btn-apagar-post" class="btn btn-danger">Sim</a>
         </div>
     </div>
     </div>
 </div>
-<script>//Não Remover! Seta o tamanho do text-area de acordo com as postagens
-        $('#post').width($($('.posts-wrapper')[0]).width()-10)
-</script>
+
 {% endblock %}
+{%block js%}
+<script>//Não Remover! Seta o tamanho do text-area de acordo com as postagens
+    $('#post').width($($('.posts-wrapper')[0]).width()-10)
+    function delete_post(id){
+        $("#btn-apagar-post").attr("href","delete_post/{{id_canal}}/"+id) 
+    }
+    function edit_post(id,conteudo){
+        $("#text-editar-post").val(conteudo)
+        $("#formEditaPost").attr("action",'/post/'+id+"?canal={{id_canal}}")
+    }
+</script>
+{%endblock%}

@@ -3,10 +3,13 @@ from flask import Flask, render_template, request, url_for, redirect
 from flask_mysqldb import MySQL
 from datetime import date
 from dotenv import load_dotenv
-from gerenciamento_post import getPosts
+from gerenciamento_post.post import getPosts, insere_post
+from gerenciamento_post.delete import delete_post
+from gerenciamento_post.edit import edit_post
+
 load_dotenv(".env")
 
-app = Flask(__name__)
+app = Flask(__name__)      
 
 # configuração Conexão com o Banco de Dados Mysql
 app.config['MYSQL_Host'] = os.getenv("MYSQL_Host")
@@ -58,18 +61,24 @@ def getcanais():
 def inicio():
     return render_template('home.html', canais=getcanais(), )
 
+@app.route('/post/<id_edit>', methods=['POST'])
+def editar_post(id_edit):
+    conteudo = request.form['text-editar-post']
+    edit_post(id_edit,conteudo)
+    id_canal = request.args.get('canal')
+    posts= getPosts(id_canal)
+    return render_template('posts.html', id_canal=id_canal,Posts=posts, canais=getcanais(), titulocanal=getChannel(id_canal), pode_editar = True)
+
 @app.route('/post', methods=['GET', 'POST'])
 def post():
     id_canal = request.args.get('canal')
-    if request.method == "POST":   
+    if request.method == "POST":  
         conteudo = request.form['post']
-        cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO post(id_post, data_postagem, data_expiracao, conteudo, fk_canal, fk_usuario) VALUES (%s, %s, %s, %s, %s, %s)", (0, str(date.today()), str(date.today()), conteudo, id_canal, None))
-        mysql.connection.commit()
-        Posts = getPosts(id_canal)
+        posts = insere_post(id_canal,conteudo,date)
+        
+        return render_template('posts.html', id_canal=id_canal,Posts=posts, canais=getcanais(), titulocanal=getChannel(id_canal), pode_editar = True)
+        
 
-        cur.close()
-        return render_template('posts.html', id_canal=id_canal,Posts=Posts, canais=getcanais(), titulocanal=getChannel(id_canal), pode_editar = True)
     elif request.method == "GET": 
         # pegar o email do usuário a partir do cookie 
         email_logado = request.cookies.get('email_logado')
@@ -124,3 +133,9 @@ def criar_canal():
     cur.close()
     
     return redirect(url_for('post', canal = id_canal))
+
+@app.route('/delete_post/<id_canal>/<id_post>')
+def delete_post_by_id(id_canal,id_post): 
+    delete_post(id_post)
+    return redirect(url_for('post',canal=id_canal))
+   
