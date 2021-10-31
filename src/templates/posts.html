@@ -52,23 +52,20 @@
                 {% endfor %}
     </div>
     {% if pode_editar %}
-        <fieldset id="text_area">
+        <footer id="footer" class="card post-card">
             <form action="/post?canal={{id_canal}}" method="POST">
                 <div class="mb-3 textarea_div">
                     <input name="titulo" type="text" class="form-control titulo_post" id="exampleFormControlInput1" placeholder="Titulo da postagem" required>
                 </div>
-                <div class="mb-3 textarea_div">
-                    <textarea name="post" class="form-control text_area" id="post" rows="3" placeholder="Digite sua mensagem." required></textarea>
-
-                    <button id="send-icon" class="botao_enviar btn btn-danger" type="submit">Enviar</button>
-                 <!-- </div>
-                  <button type="submit" id="send-icon" class="user-icon-wrapper text-area-buttons"> 
-                    <i class="fas fa-paper-plane"></i>
-                 </button> -->
-                 <input class="form-control" type="file" id="add_arquivo">
-                </div>
+                    <div class="mb-3 textarea_div">
+                        <textarea name="post" class="form-control text_area" id="post" rows="3" placeholder="Digite sua mensagem." required>
+                        </textarea>
+                        <button id="send-icon" class="botao_enviar btn btn-danger" type="submit"><span class="class_enviar">Enviar</span>
+                        </button>
+                        <input class="form-control" type="file" id="add_arquivo">
+                    </div>
             </form>
-        </fieldset>
+        </footer>
    {% endif %}
 </div>
 

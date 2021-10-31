@@ -151,57 +151,69 @@
   }
 /* Footer com Textarea */ 
 
-  #text_area{
-    display: flex !important;
+  #footer{
+    margin: auto;
+    min-width: 300px !important;
+    max-width: 1293px !important;
+    display: block !important;
     position: fixed;
-    margin-bottom: 60px;
-    margin-top: 420px;
+    margin-bottom: 5px;
+    margin-top: 25%;
     margin-right: 10%;
-    width: /*1239px*/ 81%;
-    background-color: rgba(245,245,245,255);
+    width: 80%;
+    height: 40%;
+    background-color: rgba(245,245,245,255) !important;
     border-radius: 5px;
     flex-direction: column;
     padding-right: 16px;
+    bottom: 10px;
   }
 
   .text_area{
+    min-width: 290px !important;
+    max-width: 1290px !important;
     width: /*1198px*/ 490% !important; /*Faz com que o textarea fique dentro do footer*/
-    height: /*200px*/ 10%;
+    height: /*200px*/ 30%;
     margin-left: 20px;
-    margin-bottom: 80px;
+    margin-bottom: 50px;
     position: relative !important;
-    /*padding-bottom: 30px !important;*/
+    padding-bottom: 10px !important;
     flex-direction: column;
   }
 
   .titulo_post{
-    margin-top: 1%;
+    margin-top: 2%;
     margin-left: 20px;
-    width: 200px;
+    width: 165px;
     display: flex;
   }
 
   #add_arquivo{
     margin-left: 20px;
-    margin-right: 70%;
+    margin-right: 20%;
     position: fixed;
-    bottom: 10px;
+    bottom: 25px;
     display: block;
     width: 30%;
     flex-direction: column;
   }
 
   .botao_enviar{
-    font-size: center !important;
+    max-width: 1290px !important;
     width: 100px;
     position: fixed;
-    bottom: 10px;
-    margin-left: 70%;
+    bottom: 25px;
+    margin-left: 50%;
     background: var(--primary-red);
     font-size: small;
     color: aliceblue;
     display: flex;
     flex-direction: column;  
+  }
+
+  .class_enviar{
+    text-align: center;
+    margin: auto;
   }
   
   .textarea_div{
@@ -209,35 +221,40 @@
     display: flex;
   }
 
-  @media (max-width: 576px) {
-    #text_area{
-      position: flex;
-      max-width: 100%;
-      flex-direction: column;
-
+  @media (max-width: 650px) {
+    #footer{
+      display: flex;
+      width: 100%;
+      flex-direction:row;
+      margin: auto;
+      bottom: 20px;
     }
     .botao_enviar{
       position: absolute;
-      bottom: 220px;
+      margin-left: 40% !important;
     }
     .text_area{
       max-width: 95%;
       position: absolute;
+      margin-bottom: 70px;
     }
     #add_arquivo{
       position: absolute;
       display: flex;
-      bottom: 170px;
+      bottom: 210px;
     }
     .titulo_post{
       margin-bottom: 50px;
+      margin-left: 40%;
+      margin-top: 15px;
     }
   }
-  @media (min-width: 1080px) {
-    #text_area{
+  @media (min-width: 1000px) {
+    #fieldset{
       position: flex;
-      max-width: 100%;
+      max-width: 80%;
       flex-direction: column;
       margin-right: auto;
+      bottom: auto;
     }
   }
