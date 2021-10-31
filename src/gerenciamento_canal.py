@@ -1,4 +1,6 @@
 import os
+import re
+from MySQLdb.cursors import Cursor
 from flask import Flask, render_template, request, url_for, redirect
 from flask_mysqldb import MySQL
 from datetime import date
@@ -64,3 +66,24 @@ def excluir_canal(id_canal):
     cur.execute("DELETE from canal where id_canal = %s", (id_canal,)) #Exclui todo o canal
     mysql.connection.commit()
     cur.close()
+
+def getcanais(id_usuario):
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT id_canal, nome FROM canal") # Seleciona a coluna id e a coluna nome do canal na tabela
+
+    todos_canais_bd = cursor.fetchall()
+    todos_canais = []
+    for canal in todos_canais_bd:
+        id_canal = canal[0]
+        moderador = checagem_moderador(id_canal, id_usuario)
+        nova_tupla = canal + (moderador,)
+        todos_canais.append(nova_tupla)
+    return todos_canais
+
+def checagem_moderador(id_canal,  id_usuario):
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * from canal_usuario where id_canal = %s and id_usuario = %s and funcao = 'moderador'",(id_canal, id_usuario))
+    if cursor.rowcount > 0:
+        return True
+    else:
+        return False

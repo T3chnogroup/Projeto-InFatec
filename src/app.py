@@ -4,7 +4,7 @@ from flask_mysqldb import MySQL
 from datetime import date
 from dotenv import load_dotenv
 
-from gerenciamento_canal import adicionar_lista_emails, excluir_canal, listar_moderador, listar_participante, alterar_funcao_membro, remover_membros
+from gerenciamento_canal import adicionar_lista_emails, excluir_canal, listar_moderador, listar_participante, alterar_funcao_membro, remover_membros, getcanais
 load_dotenv(".env")
 
 app = Flask(__name__)
@@ -50,14 +50,11 @@ def login():
 def redefinir():
     return render_template('redefinir_senha.html')
 
-def getcanais():
-    cursor = mysql.connection.cursor()
-    cur = cursor.execute("SELECT id_canal, nome FROM canal") # Seleciona a coluna id e a colona nome do canal na tabela
-    return cursor.fetchall()
+
 
 @app.route('/')
 def inicio():
-    return render_template('home.html', canais=getcanais(), )
+    return render_template('home.html', canais=getcanais(recuperar_id_usuario_logado()), )
 
 @app.route('/post', methods=['GET', 'POST'])
 def post():
@@ -70,7 +67,7 @@ def post():
         Posts = getPosts(id_canal)
 
         cur.close()
-        return render_template('posts.html', id_canal=id_canal,Posts=Posts, canais=getcanais(), titulocanal=getChannel(id_canal), pode_editar = True)
+        return render_template('posts.html', id_canal=id_canal,Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_editar = True)
     elif request.method == "GET": 
         # pegar o email do usuário a partir do cookie 
         email_logado = request.cookies.get('email_logado')
@@ -87,13 +84,13 @@ def post():
             pode_editar = False
         Posts = getPosts(id_canal)
 
-        return render_template("posts.html", id_canal=id_canal, Posts=Posts, canais=getcanais(), titulocanal =getChannel(id_canal), pode_editar = pode_editar)
+        return render_template("posts.html", id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), titulocanal =getChannel(id_canal), pode_editar = pode_editar)
 
     return render_template('posts.html', id_canal= id_canal, pode_editar = False)
 
 @app.route('/gerenciamento_usuario')
 def gerenciamentoUsuario():
-    return render_template('gerenciamento_usuario.html', canais=getcanais(), titulocanal = "Gerenciamento Usuários")
+    return render_template('gerenciamento_usuario.html', canais=getcanais(recuperar_id_usuario_logado()), titulocanal = "Gerenciamento Usuários")
 
 @app.route('/cadastro')
 def cadastro():
@@ -135,7 +132,7 @@ def configuracao_canal():
     moderadores = listar_moderador(id_canal)
     participantes = listar_participante(id_canal)
     nome_canal = getChannel(id_canal)
-    return render_template('gerenciamento_canal.html', id_canal=id_canal, canais=getcanais(), titulocanal = nome_canal,  moderadores = moderadores, participantes = participantes)
+    return render_template('gerenciamento_canal.html', id_canal=id_canal, canais=getcanais(recuperar_id_usuario_logado()), titulocanal = nome_canal,  moderadores = moderadores, participantes = participantes)
 
 @app.route('/adicionar-membros', methods = ['POST'])
 def adicionar_membros():
@@ -165,3 +162,15 @@ def exclusao_canal():
     id_canal = request.args.get('canal')
     excluir_canal(id_canal)
     return redirect(url_for('inicio'))
+
+def recuperar_id_usuario_logado():
+    # pegar o email do usuário a partir do cookie 
+    email_logado = request.cookies.get('email_logado')
+    # descobrir id do usuário a partir do email
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT id_usuario from usuario where email = %s", (email_logado,)) # busca o id do usuario com este email no banco
+    if cur.rowcount > 0:# se existir esse id
+        id_usuario = cur.fetchall()[0][0]
+        return id_usuario
+    else:
+        return None

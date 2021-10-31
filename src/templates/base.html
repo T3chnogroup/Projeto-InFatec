@@ -84,9 +84,11 @@
                 <a class="nav-link text-white p-2 sticky-top" href="/post?canal={{canal[0]}}">
                 <!--<i class="fas fa-lock"></i>--> {{canal[1]}} 
                 </a>
+                {% if canal[2] == True %}
                 <a href="/gerenciamento-canal?canal={{canal[0]}}" class="pt-2">
                   <i class="bi bi-gear text-white" title="Gerenciar canal"></i>
                 </a>
+                {% endif %}
               </li>
             {% endfor %}
           </ul>
