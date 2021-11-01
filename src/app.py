@@ -103,10 +103,11 @@ def criar_canal():
     grupo = data['grupo']
     semestre = data['semestre']
     curso = data['curso']
+    visibilidade = data['visibilidade']
     emails = data.getlist('email')
     
     cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO canal(nome, grupo, semestre, curso) VALUES (%s, %s, %s, %s)", (nome, grupo, semestre, curso))
+    cur.execute("INSERT INTO canal(nome, grupo, semestre, curso, visibilidade) VALUES (%s, %s, %s, %s, %s)", (nome, grupo, semestre, curso, visibilidade))
     cur.execute("SELECT max(id_canal) FROM canal where nome = %s", (nome,)) # Select utilizado por ter nomes de canal duplicado
     id_canal = cur.fetchall()[0]
 

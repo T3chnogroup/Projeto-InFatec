@@ -80,3 +80,7 @@ select * from post;
 
 --Adição da coluna função (Moderador ou participante) na tabela canal_usuario (referente ao gerenciamento do canal)
 ALTER TABLE canal_usuario ADD funcao varchar(30);
+
+--Adição da coluna visibilidade (canal público ou privado) na tabela canal (referente ao gerenciamento do canal)
+ALTER TABLE canal ADD visibilidade varchar(30);
+
