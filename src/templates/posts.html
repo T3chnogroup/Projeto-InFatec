@@ -51,22 +51,39 @@
                     </div>
                 {% endfor %}
     </div>
+
     {% if pode_editar %}
-        <footer id="footer" class="card post-card">
-            <form action="/post?canal={{id_canal}}" method="POST">
-                <div class="mb-3 textarea_div">
-                    <input name="titulo" type="text" class="form-control titulo_post" id="exampleFormControlInput1" placeholder="Titulo da postagem" required>
+    <form class="formulario-post" name="formtest" action="/post?canal={{id_canal}}" method="POST">
+        <div class="center-postagem">
+
+            <fieldset class="grupo-post">
+                <div class="preenchimento-post">
+                    <div class="textarea_div px-4 mt-3">
+                        <input type="text" class="form-control" name="titulo" id="exampleFormControlInput1" placeholder="Titulo da postagem" required="required">
+                    </div> 
                 </div>
-                    <div class="mb-3 textarea_div">
-                        <textarea name="post" class="form-control text_area" id="post" rows="3" placeholder="Digite sua mensagem." required>
-                        </textarea>
-                        <button id="send-icon" class="botao_enviar btn btn-danger" type="submit"><span class="class_enviar">Enviar</span>
-                        </button>
+
+                <div class="preenchimento-post">
+                    <div class="textarea_div px-4 mt-3">
+                        <textarea type="textarea" class="form-control text_area" name="post" rows="3" placeholder="Digite aqui para uma nova publicação" required="required"></textarea>
+                    </div>
+                </div>
+
+               <div class="preenchimento-post">
+                    <div class="gap-2 px-4 mb-3 arquivo">
                         <input class="form-control" type="file" id="add_arquivo">
                     </div>
-            </form>
-        </footer>
-   {% endif %}
+                    <div class="gap-2 px-4 mb-3 envio">
+                        <button id="send-icon" class="botao_enviar btn btn-danger" type="submit"><span class="class_enviar">Enviar</span>
+                    </div>
+                </div>
+
+            </fieldset>
+
+        </div><!--center-post-->
+    </form><!--formulario-post-->
+    {% endif %}
+
 </div>
 
 {% endblock %}

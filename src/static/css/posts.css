@@ -1,260 +1,171 @@
 .container {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .post-card {
-    margin-top: 30px;
-  }
-  
-  .post-container {
-    position: relative;
-    display: flex;
-  
-    
-    background: rgba(196, 196, 196, .42);
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    border: none !important;
-  }
-  
-  .post-actions .fa-edit {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
-  
-  .post-actions .fa-eye {
-    position: absolute;
-    top: 35px;
-    right: 10px;
-  }
-  
-  .post-actions .fa-times {
-    position: absolute;
-    top: 55px;
-    right: 12.5px;
-  }
-  
-  .post-container #user-icon {
-    margin-right: 5px;
-  
-    background: rgba(37, 37, 37, .6);
-  }
-  
-  .action-button {
-    color: rgb(51, 51, 51);
-  }
-  
-  .action-button:hover > i {
-    color: rgba(51, 51, 51, .7);
-  }
-  
-  .post-content {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .post-header {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 2.1rem;
-  }
+  display: flex;
+  flex-direction: column;
+}
 
-  .posted-info p{
-    text-align: right;
+.post-card {
+  margin-top: 30px;
+}
 
-  }
+.post-container {
+  position: relative;
+  display: flex;
+  background: rgba(196, 196, 196, .42);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border: none !important;
+}
 
-  .posted-info span {
-    color: var(--primary-blue);
-  }
-  
-  .date-posted-text {
-    color: var(--color-text-complement);
-    text-align: left;
-    padding-left: 20px;
-  }
-  
-  .post-main iframe {
-    width: 40rem;
-    height: 20rem;
-  }
-  
-  .user-icon-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    width: 30px;
-    height: 30px;
-    padding: 10px;
-    border-radius: 100%;
-  
-    color: #fff;
-  }
-  
-  .text-area-wrapper {    
-    display: flex;
-    flex-direction: column;
-    margin-right: 10%;
-    margin-left: 0%;
-  }
+.post-actions .fa-edit {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
 
-  .text-area-wrapper form textarea {
+.post-actions .fa-eye {
+  position: absolute;
+  top: 35px;
+  right: 10px;
+}
+
+.post-actions .fa-times {
+  position: absolute;
+  top: 55px;
+  right: 12.5px;
+}
+
+.post-container #user-icon {
+  margin-right: 5px;
+
+  background: rgba(37, 37, 37, .6);
+}
+
+.action-button {
+  color: rgb(51, 51, 51);
+}
+
+.action-button:hover > i {
+  color: rgba(51, 51, 51, .7);
+}
+
+.post-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-header {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 2.1rem;
+}
+
+.posted-info p{
+  text-align: right;
+
+}
+
+.posted-info span {
+  color: var(--primary-blue);
+}
+
+.date-posted-text {
+  color: var(--color-text-complement);
+  text-align: left;
+  padding-left: 20px;
+}
+
+.post-main iframe {
+  width: 40rem;
+  height: 20rem;
+}
+
+.user-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 10px;
+  border-radius: 100%;
+  color: #fff;
+}
+
+/*formulário de post*/
+.formulario-post {
+  margin: auto;
+  min-width: 300px !important;
+  max-width: 1293px !important;
+  display: block !important;
+  position: fixed;
+  margin-top: 25%;
+  width: 80%;
+  background-color: rgba(245,245,245,255) !important;
+  border-radius: 5px;
+  flex-direction: column;
+  bottom: 10px;
+}
+
+#add_arquivo{
+  position: relative;
+  display: flex;
+  width: 80%;
+}
+
+.arquivo{
+  position: relative;
+  float: left;
+  width: 80%;
+  font-size: 20px;
+  text-align: justify;
+  text-justify: auto;
+  margin-top: 30px;
+}
+
+.envio{
+  position: relative;
+  width: 20%;
+  float: right;
+  margin-top: 30px;
+}
+
+@media(max-width: 767px){
+  .formulario-post {
     position: fixed;
-    bottom: 5px !important;
-    height: 150px;
-    width: 1170px !important;
-  }
-  
-  .text-area-buttons {
-    position: fixed;
-    bottom: 10px;
-    margin-left: 70%;
-    background: var(--primary-red);
-    font-size: medium;
-    text-align: center;
-    color: aliceblue;  
-  }
-  
-  .text-area-buttons:hover {
-    background: var(--secondary-red); 
-  }
-  
-  .text-area-wrapper #send-icon {
-    right: 80%;
-    font-size: medium;
-    text-align: center;
-  }
-  
-  .text-area-wrapper #clips-icon {
-    right: 12%;
-  }
-  
-  .text-area-wrapper textarea {
-    padding: 10px 0 0 10px;
-  }
-  
-  @media (max-width: 576px) {
-    .post-main iframe {
-      width: 95%;
-      height: 95%;
-    }
+    margin: 0 auto;
+    width: 80%;
+    margin-left:10px;
+    margin-right: 10px;
   }
 
-  .posts-wrapper{
-    margin-bottom: 200px;
+  .arquivo{
+    width: 100%;
   }
-
-  .bg-button{
-   border: 1px solid black;
-  }
-/* Footer com Textarea */ 
-
-  #footer{
-    margin: auto;
-    min-width: 300px !important;
-    max-width: 1293px !important;
-    display: block !important;
-    position: fixed;
-    margin-bottom: 5px;
-    margin-top: 25%;
-    margin-right: 10%;
-    width: 82%;
-    height: 40%;
-    background-color: rgba(245,245,245,255) !important;
-    border-radius: 5px;
-    flex-direction: column;
-    padding-right: 16px;
-    bottom: 10px;
-  }
-
-  .text_area{
-    min-width: 290px !important;
-    max-width: 1290px !important;
-    width: /*1198px*/ 490% !important; /*Faz com que o textarea fique dentro do footer*/
-    height: /*200px*/ 30%;
-    margin-left: 20px;
-    margin-bottom: 50px;
-    position: relative !important;
-    padding-bottom: 10px !important;
-    flex-direction: column;
-  }
-
-  .titulo_post{
-    margin-top: 2%;
-    margin-left: 20px;
-    width: 165px;
-    display: flex;
-  }
-
+ 
   #add_arquivo{
-    margin-left: 20px;
-    margin-right: 20%;
-    position: fixed;
-    bottom: 25px;
-    display: block;
-    width: 30%;
-    flex-direction: column;
+    width: 90%;
+    font-size: 14px;
+    text-align: center;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  .envio{
+      width: 100%;
   }
 
   .botao_enviar{
-    max-width: 1290px !important;
-    width: 100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media(max-width: 600px){
+  .formulario-post {
     position: fixed;
-    bottom: 25px;
-    margin-left: 50%;
-    background: var(--primary-red);
-    font-size: small;
-    color: aliceblue;
-    display: flex;
-    flex-direction: column;  
+    margin: 0 auto;
+    width: 90%;
+    margin-left:5px;
+    margin-right: 5px;
   }
-
-  .class_enviar{
-    text-align: center;
-    margin: auto;
-  }
-  
-  .textarea_div{
-    position: relative;
-    display: flex;
-  }
-
-  @media (max-width: 650px) {
-    #footer{
-      display: flex;
-      width: 100%;
-      flex-direction:row;
-      margin: auto;
-      bottom: 20px;
-    }
-    .botao_enviar{
-      position: absolute;
-      margin-left: 40% !important;
-    }
-    .text_area{
-      max-width: 95%;
-      position: absolute;
-      margin-bottom: 70px;
-    }
-    #add_arquivo{
-      position: absolute;
-      display: flex;
-      bottom: 210px;
-    }
-    .titulo_post{
-      margin-bottom: 50px;
-      margin-left: 40%;
-      margin-top: 15px;
-    }
-  }
-  @media (min-width: 1000px) {
-    #fieldset{
-      position: flex;
-      max-width: 80%;
-      flex-direction: column;
-      margin-right: auto;
-      bottom: auto;
-    }
-  }
+}
