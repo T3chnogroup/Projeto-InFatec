@@ -18,15 +18,19 @@
                     <div class="card post-card">
                         <div class="card-body post-container">
                             <div class="post-actions">
+                                {% if pode_editar %}
                                 <button class="action-button" data-bs-toggle="modal" data-bs-target="#edit-modal" onclick="edit_post('{{post[0]}}','{{post[3]}}')">
                                     <i class="far fa-edit"></i>
                                 </button>
+                                {% endif %}
                                 <button class="action-button" data-bs-toggle="modal" data-bs-target="#visibility-modal">
                                     <i class="fas fa-eye"></i>
                                 </button>
+                                {% if pode_deletar %}
                                 <button class="action-button" data-bs-toggle="modal" data-bs-target="#delete-modal" onclick="delete_post('{{post[0]}}')">
                                     <i class="fas fa-times"></i>
                                 </button> 
+                                {% endif %}
                             </div>
                             <div id="user-icon" class="user-icon-wrapper">
                                 <i class="fas fa-user"></i>
@@ -45,6 +49,9 @@
                                     <p class="posted-info">
                                         {{post[3]}}
                                     </p>
+                                    {% if post[7] %}
+                                    <p><a href="{{url_for('static', filename='uploads/')}}{{post[7]}}" target="_blank" download>{{post[7]}}</a></p>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -53,13 +60,14 @@
     </div>
     {% if pode_editar %}
     <div class="text-area-wrapper">
-        <form action="/post?canal={{id_canal}}" method="POST">
+        <form action="/post?canal={{id_canal}}" method="POST" enctype="multipart/form-data">
             <textarea name="post" id="post" cols="30" rows="5" class="form-control" placeholder="Crie uma nova publicação."></textarea>
                 <button type="submit" id="send-icon" class="user-icon-wrapper text-area-buttons">
                     <i class="fas fa-paper-plane"></i>
-                <!--<button id="clips-icon" class="user-icon-wrapper text-area-buttons">
+                <button type="button" id="clips-icon" class="user-icon-wrapper text-area-buttons">
                     <i class="fas fa-paperclip"></i>
-                </button>--> <!--postagem de arquivo-->
+                </button> <!--postagem de arquivo-->
+                <input type = "file" id="file-form" name="arquivo">
         </form>
     </div>
     {% endif %}
@@ -142,5 +150,10 @@
         $("#text-editar-post").val(conteudo)
         $("#formEditaPost").attr("action",'/post/'+id+"?canal={{id_canal}}")
     }
+    $('document').ready(function () {
+        $("#clips-icon").on("click",function (){
+            $("#file-form").click()
+        })
+    })
 </script>
 {%endblock%}

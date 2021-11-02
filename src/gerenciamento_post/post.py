@@ -19,7 +19,7 @@ mysql = MySQL(app)
 
 def getPosts(id_canal):
     cursor = mysql.connection.cursor()
-    conteudo = cursor.execute(f'SELECT * FROM post where fk_canal={id_canal} order by id_post desc')
+    conteudo = cursor.execute(f'SELECT * FROM post left join anexo on anexo.fk_post=post.id_post where fk_canal={id_canal} order by id_post desc')
     Posts = cursor.fetchall()
     return Posts
 
@@ -28,9 +28,9 @@ def insere_post (id_canal, conteudo, date):
     cur.execute("INSERT INTO post(id_post, data_postagem, data_expiracao, conteudo, fk_canal, fk_usuario) VALUES (%s, %s, %s, %s, %s, %s)", (0, str(date.today()), str(date.today()), conteudo, id_canal, None))
     mysql.connection.commit()
     Posts = getPosts(id_canal)
-
+    id = cur.lastrowid
     cur.close()
-    return Posts
+    return [Posts, id]
 
 
 @app.route('/post', methods=['GET', 'POST'])

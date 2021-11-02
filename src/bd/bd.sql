@@ -76,3 +76,6 @@ select * from canal;
 INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo legal", 1, 1);
 INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo chato", 1, 1);
 select * from post;
+
+-- Anexo de arquivos
+ALTER TABLE anexo ADD src varchar(255);

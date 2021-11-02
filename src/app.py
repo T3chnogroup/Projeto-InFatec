@@ -6,10 +6,18 @@ from dotenv import load_dotenv
 from gerenciamento_post.post import getPosts, insere_post
 from gerenciamento_post.delete import delete_post
 from gerenciamento_post.edit import edit_post
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = 'static/uploads'
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 load_dotenv(".env")
 
 app = Flask(__name__)      
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # configuração Conexão com o Banco de Dados Mysql
 app.config['MYSQL_Host'] = os.getenv("MYSQL_Host")
@@ -26,12 +34,28 @@ mysql = MySQL(app)
     conteudo = cursor.execute(f'SELECT * FROM post where fk_canal={id_canal} order by id_post desc')
     Posts = cursor.fetchall()
     return Posts '''
-
+def salva_arquivo(id_post, arquivo):
+    cursor = mysql.connection.cursor()
+    cur = cursor.execute("INSERT into anexo(nome, fk_post, src) values(%s, %s, %s)",(arquivo, id_post, UPLOAD_FOLDER))
+    mysql.connection.commit()
 def getChannel(id_canal):
     cursor = mysql.connection.cursor()
     cur = cursor.execute("SELECT nome FROM canal where id_canal = %s", (id_canal,)) # Pega o nome do canal que veio da url
     nome_canal = cursor.fetchall()[0][0]
     return nome_canal
+
+def getVerificaFuncao (id_canal):
+    # pegar o email do usuário a partir do cookie 
+    email_logado = request.cookies.get('email_logado')
+    # descobrir id do usuário a partir do email
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT id_usuario from usuario where email = %s", (email_logado,)) # busca o id do usuario com este email no banco
+    if cur.rowcount > 0:# se existir esse id
+        id_usuario = cur.fetchall()[0][0]
+    # verificar a existencia de uma linha na tabela canal_usuario para este usuário e este canal
+        cur.execute("select * from canal_usuario where id_canal = %s and id_usuario = %s", (id_canal, id_usuario))
+        return cur.rowcount > 0
+    return False
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -67,35 +91,33 @@ def editar_post(id_edit):
     edit_post(id_edit,conteudo)
     id_canal = request.args.get('canal')
     posts= getPosts(id_canal)
-    return render_template('posts.html', id_canal=id_canal,Posts=posts, canais=getcanais(), titulocanal=getChannel(id_canal), pode_editar = True)
+    return render_template('posts.html', id_canal=id_canal,Posts=posts, canais=getcanais(), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True)
 
 @app.route('/post', methods=['GET', 'POST'])
 def post():
     id_canal = request.args.get('canal')
     if request.method == "POST":  
+        arquivo = request.files['arquivo']
         conteudo = request.form['post']
-        posts = insere_post(id_canal,conteudo,date)
-        
-        return render_template('posts.html', id_canal=id_canal,Posts=posts, canais=getcanais(), titulocanal=getChannel(id_canal), pode_editar = True)
+        [posts, id_post] = insere_post(id_canal,conteudo,date)
+        if arquivo and allowed_file(arquivo.filename):
+            filename = str(id_post)+'_'+secure_filename(arquivo.filename)
+            arquivo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            salva_arquivo(id_post, filename)
+        posts=getPosts(id_canal)
+        return render_template('posts.html', id_canal=id_canal,Posts=posts, canais=getcanais(), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True)
         
 
     elif request.method == "GET": 
-        # pegar o email do usuário a partir do cookie 
-        email_logado = request.cookies.get('email_logado')
-        # descobrir id do usuário a partir do email
-        cur = mysql.connection.cursor()
-        cur.execute("SELECT id_usuario from usuario where email = %s", (email_logado,)) # busca o id do usuario com este email no banco
-        if cur.rowcount > 0:# se existir esse id
-            id_usuario = cur.fetchall()[0][0]
-        # verificar a existencia de uma linha na tabela canal_usuario para este usuário e este canal
-            cur.execute("select * from canal_usuario where id_canal = %s and id_usuario = %s", (id_canal, id_usuario))
-        if cur.rowcount > 0:
+        if getVerificaFuncao (id_canal):
             pode_editar = True
+            pode_deletar = True
         else:
             pode_editar = False
+            pode_deletar = False
         Posts = getPosts(id_canal)
 
-        return render_template("posts.html", id_canal=id_canal, Posts=Posts, canais=getcanais(), titulocanal =getChannel(id_canal), pode_editar = pode_editar)
+        return render_template("posts.html", id_canal=id_canal, Posts=Posts, canais=getcanais(), titulocanal =getChannel(id_canal), pode_editar = pode_editar, pode_deletar = pode_deletar)
 
     return render_template('posts.html', id_canal= id_canal, pode_editar = False)
 
