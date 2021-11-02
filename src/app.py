@@ -62,8 +62,9 @@ def post():
     id_canal = request.args.get('canal')
     if request.method == "POST":   
         conteudo = request.form['post']
+        titulo = request.form['titulo']
         cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO post(id_post, data_postagem, data_expiracao, conteudo, fk_canal, fk_usuario) VALUES (%s, %s, %s, %s, %s, %s)", (0, str(date.today()), str(date.today()), conteudo, id_canal, None))
+        cur.execute("INSERT INTO post(id_post, data_postagem, data_expiracao, conteudo, fk_canal, fk_usuario, titulo_post) VALUES (%s, %s, %s, %s, %s, %s, %s)", (0, str(date.today()), str(date.today()), conteudo, id_canal, None, titulo))
         mysql.connection.commit()
         Posts = getPosts(id_canal)
 
@@ -123,3 +124,67 @@ def criar_canal():
     cur.close()
     
     return redirect(url_for('post', canal = id_canal))
+
+# pesquisa avançada
+@app.route('/pesquisa_postagem', methods = ['POST'])
+def pesquisa_postagem():
+    id_canal = request.args.get('canal')
+    if request.method == "POST":   
+        conteudo = request.form['conteudo']
+        titulo = request.form['titulo']
+        data = data.getlist('data_postagem')
+        
+        cur = mysql.connection.cursor()
+        pesquisa_postagem(post) # adicona a lista de postagem e a data da postagem
+        cur.execute("SELECT id_post from post where conteudo = %s", (conteudo,)) # busca o do post na postagem 
+        if cur.rowcount > 0:# se existir essa postagem
+            id_post = cur.fetchall()[0][0]
+
+            mysql.connection.commit()
+            
+            cur.close()
+
+            return render_template("posts.html", id_canal=id_canal, id_post=id_post, Posts=Posts, titulocanal =getChannel(id_canal))
+        else:
+            return None
+
+    elif request.method == "POST":   
+        conteudo = request.form['conteudo']
+        titulo = request.form['titulo']
+        data = data.getlist('data_postagem')
+        
+        cur = mysql.connection.cursor()
+        pesquisa_postagem(titulo) # adicona a lista de titulos da postagem
+        cur.execute("SELECT id_post from post where titulo = %s", (titulo,)) # busca do titulo na postagem 
+        if cur.rowcount > 0:# se existir esse titulo
+            id_post = cur.fetchall()[0][0]
+
+            mysql.connection.commit()
+            
+            cur.close()
+
+            return render_template("posts.html", id_canal=id_canal, id_post=id_post, Posts=Posts, titulocanal =getChannel(id_canal))
+        else:
+            return None
+
+
+    elif request.method == "POST":   
+        conteudo = request.form['conteudo']
+        titulo = request.form['titulo']
+        data = data.getlist('data_postagem')
+        
+        cur = mysql.connection.cursor()
+        pesquisa_postagem(data_postagem) # adicona a lista da data da postagem
+        cur.execute("SELECT id_post from post where data_postagem = %s", (data_postagem,)) # busca da data na postagem 
+        if cur.rowcount > 0:# se existir essa data
+            id_post = cur.fetchall()[0][0]
+            
+            mysql.connection.commit()
+            
+            cur.close()
+
+            return render_template("posts.html", id_canal=id_canal, id_post=id_post, Posts=Posts, titulocanal =getChannel(id_canal))
+        else:
+            return None
+
+    return render_template('posts.html', id_canal= id_canal, pesquisa_postagem = False)

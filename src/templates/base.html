@@ -254,12 +254,22 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="pesquisa-avancada" name="formtest" method="post" action="cadastrado_com_sucesso_contato.html">
-
+        {% if pesquisa_postagem %}
+        <form class="pesquisa-avancada" name="formtest" action="/post?canal={{id_canal}}" method="POST">
           <fieldset class="p-avancada">
             <div class="preenchimento-p-avancada">
               <div class="campo-center px-4 mt-3">
-                <input type="text" class="form-control" name="nome" placeholder="Palavra-chave" required="required">
+                <input type="text" class="form-control" name="postagem" placeholder="postagem" required="required">
+              </div>
+            </div>
+
+            <div class="titulo-p-avancada mt-3 mb-3">
+              <h2 class="titulo-ou">OU</h2>
+            </div>
+
+            <div class="preenchimento-p-avancada">
+              <div class="campo-center px-4 mt-3">
+                <input type="text" class="form-control" name="titulo" placeholder="Título" required="required">
               </div>
             </div>
 
@@ -270,17 +280,17 @@
             <div class="preenchimento-p-avancada">
               <div class="campo-center px-4  mt-3">
                 <label for="nascimento"><strong>Data inicial</strong></label>
-                <input type="date" class="form-control" name="nascimento" id="nascimento" required>
+                <input type="date" class="form-control" name="data_incial" id="data_inicial" required>
               </div>
             </div>
 
             <div class="preenchimento-p-avancada">
               <div class="campo-center px-4  mt-3">
                 <label for="nascimento"><strong>Data final</strong></label>
-                <input type="date" class="form-control" name="nascimento" id="nascimento" required>
+                <input type="date" class="form-control" name="data_final" id="data_final" required>
               </div>
             </div>
-
+            
           </fieldset>
 
         </form>
@@ -295,13 +305,14 @@
           </div>
 
           <div class="campo-right d-grid gap-2 px-4 mb-3">
-            <button class="btn btn-light text-primary btn-block fw-bold border" data-bs-dismiss="modal">Filtrar</button>
+            <button class="btn btn-light text-primary btn-block fw-bold border">Filtrar</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+{% endif %}
 
 {% block modals %}
 
@@ -309,5 +320,6 @@
 
 {% block js %}
 {% endblock %}
+
 
 </html>

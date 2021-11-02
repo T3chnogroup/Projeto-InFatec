@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<title>InFate - Post</title>
+<title>InFatec - Post</title>
 {% endblock %}
 
 {% block css %}
@@ -51,18 +51,37 @@
                     </div>
                 {% endfor %}
     </div>
-    {% if pode_editar %}
-    <div class="text-area-wrapper">
-        <form action="/post?canal={{id_canal}}" method="POST">
-            <textarea name="post" id="post" cols="30" rows="5" class="form-control" placeholder="Crie uma nova publicação."></textarea>
-                <button type="submit" id="send-icon" class="user-icon-wrapper text-area-buttons">
-                    <i class="fas fa-paper-plane"></i>
-               <!-- <button id="clips-icon" class="user-icon-wrapper text-area-buttons">
-                    <i class="fas fa-paperclip"></i>
-                </button>--> <!--Inserir quando for feito a postagem de arquivo-->
-        </form>
-    </div>
-    {% endif %}
+
+    <form class="formulario-post" name="formtest" action="/post?canal={{id_canal}}" method="POST">
+        <div class="center-postagem">
+
+            <fieldset class="grupo-post">
+                <div class="preenchimento-post">
+                    <div class="textarea_div px-4 mt-3">
+                        <input type="text" class="form-control" name="titulo" id="exampleFormControlInput1" placeholder="Titulo da postagem" required="required">
+                    </div> 
+                </div>
+
+                <div class="preenchimento-post">
+                    <div class="textarea_div px-4 mt-3">
+                        <textarea type="textarea" class="form-control text_area" name="post" rows="3" placeholder="Digite aqui para uma nova publicação" required="required"></textarea>
+                    </div>
+                </div>
+
+               <div class="preenchimento-post">
+                    <div class="gap-2 px-4 mb-3 arquivo">
+                        <input class="form-control" type="file" id="add_arquivo">
+                    </div>
+                    <div class="gap-2 px-4 mb-3 envio">
+                        <button id="send-icon" class="botao_enviar btn btn-danger" type="submit"><span class="class_enviar">Enviar</span>
+                    </div>
+                </div>
+
+            </fieldset>
+
+        </div><!--center-post-->
+    </form><!--formulario-post-->
+
 </div>
 
 {% endblock %}
