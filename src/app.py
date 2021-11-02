@@ -50,8 +50,6 @@ def login():
 def redefinir():
     return render_template('redefinir_senha.html')
 
-
-
 @app.route('/')
 def inicio():
     return render_template('home.html', canais=getcanais(recuperar_id_usuario_logado()), )
