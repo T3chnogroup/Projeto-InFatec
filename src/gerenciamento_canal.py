@@ -42,7 +42,6 @@ def adicionar_email(email, id_canal): #adiciona membro no canal depois que o can
     cur.execute("SELECT id_usuario from usuario where email = %s", (email,)) # busca o id do usuario com este email no banco
     if cur.rowcount > 0:# se existir esse id
         id_usuario = cur.fetchall()[0][0]
-        print(f'Adicionando o usuario {id_usuario} ao canal {id_canal}')
         cur.execute("INSERT IGNORE INTO canal_usuario(id_canal, id_usuario, funcao) VALUES (%s, %s, 'participante')", (id_canal, id_usuario)) #inserir na tabela canal_usuario como participante
     mysql.connection.commit()
     cur.close()
@@ -67,7 +66,7 @@ def excluir_canal(id_canal):
     mysql.connection.commit()
     cur.close()
 
-def getcanais(id_usuario):
+def getcanais(id_usuario): 
     cursor = mysql.connection.cursor()
     cursor.execute("SELECT id_canal, nome FROM canal") # Seleciona a coluna id e a coluna nome do canal na tabela
 
@@ -75,15 +74,36 @@ def getcanais(id_usuario):
     todos_canais = []
     for canal in todos_canais_bd:
         id_canal = canal[0]
-        moderador = checagem_moderador(id_canal, id_usuario)
-        nova_tupla = canal + (moderador,)
+        moderador = checagem_moderador(id_canal, id_usuario) #Verifica se é moderador do canal
+        seguidor = segue_canal(id_canal, id_usuario) #Verifica se é seguidor do canal
+        nova_tupla = canal + (moderador, seguidor)
         todos_canais.append(nova_tupla)
     return todos_canais
 
-def checagem_moderador(id_canal,  id_usuario):
+def checagem_moderador(id_canal,  id_usuario):#Checka se um usuário é moderador do canal
     cursor = mysql.connection.cursor()
     cursor.execute("SELECT * from canal_usuario where id_canal = %s and id_usuario = %s and funcao = 'moderador'",(id_canal, id_usuario))
     if cursor.rowcount > 0:
         return True
     else:
         return False
+
+def segue_canal(id_canal, id_usuario): 
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT * from canal_usuario where id_canal = %s and id_usuario = %s",(id_canal, id_usuario))
+    if cursor.rowcount > 0:
+        return True
+    else:
+        return False
+
+def deixa_de_seguir(id_canal, id_usuario):
+    cursor = mysql.connection.cursor()
+    cursor.execute("DELETE from canal_usuario where id_canal = %s and id_usuario = %s", (id_canal, id_usuario))
+    mysql.connection.commit()
+    cursor.close()
+
+def seguir(id_canal, id_usuario):
+    cursor = mysql.connection.cursor()
+    cursor.execute("INSERT IGNORE INTO canal_usuario(id_canal, id_usuario, funcao) VALUES (%s, %s, 'participante')", (id_canal, id_usuario))
+    mysql.connection.commit()
+    cursor.close()

@@ -162,3 +162,17 @@
   }
 
 
+  .deixar-seguir-canal{
+    color: #9e1616;
+    font-weight: bold;
+    border-color: #9e1616;  
+  }
+
+  .deixar-seguir-canal:hover{
+    color: #fff;
+    background-color: #9e1616;
+  }
+
+
+
+

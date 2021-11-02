@@ -88,6 +88,8 @@
                 <a href="/gerenciamento-canal?canal={{canal[0]}}" class="pt-2">
                   <i class="bi bi-gear text-white" title="Gerenciar canal"></i>
                 </a>
+                {% elif canal[3] == True %}
+                <p class="seguindo">Seguindo</p>
                 {% endif %}
               </li>
             {% endfor %}
