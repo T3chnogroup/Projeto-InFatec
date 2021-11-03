@@ -20,7 +20,7 @@ mysql = MySQL(app)
 #Função que lista os usuarios
 def listar_usuario():
     cursor = mysql.connection.cursor()
-    cursor.execute('Select usuario.id_usuario, nome, email from usuario order by nome')
+    cursor.execute('Select usuario.id_usuario, nome, email, pode_gerenciar_usuario, pode_criar_canais from usuario order by nome')
     Usuarios = cursor.fetchall()
     return Usuarios
 
