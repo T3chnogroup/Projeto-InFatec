@@ -126,11 +126,13 @@
                     aria-expanded="false">
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Mais recente</a></li>
+                    <li action="/mais_recentes?canal={{id_canal}}" method="POST">
+                      <a class="dropdown-item" name="mais_recente" type="submit">Mais recente</a></li>
                     <li>
                       <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="#">Mais antigas</a></li>
+                    <li action="/mais_antigas?canal={{id_canal}}" method="POST">
+                      <a class="dropdown-item" name="mais_antigas" type="submit">Mais antigas</a></li>
                     <li>
                       <hr class="dropdown-divider">
                     </li>
@@ -254,19 +256,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        {% if pesquisa_postagem %}
-        <form class="pesquisa-avancada" name="formtest" action="/post?canal={{id_canal}}" method="POST">
+        <form class="pesquisa-avancada" name="formtest" action="/pesquisa_postagem?canal={{id_canal}}" method="POST">
           <fieldset class="p-avancada">
-            <div class="preenchimento-p-avancada">
-              <div class="campo-center px-4 mt-3">
-                <input type="text" class="form-control" name="postagem" placeholder="postagem" required="required">
-              </div>
-            </div>
-
-            <div class="titulo-p-avancada mt-3 mb-3">
-              <h2 class="titulo-ou">OU</h2>
-            </div>
-
             <div class="preenchimento-p-avancada">
               <div class="campo-center px-4 mt-3">
                 <input type="text" class="form-control" name="titulo" placeholder="Título" required="required">
@@ -280,7 +271,7 @@
             <div class="preenchimento-p-avancada">
               <div class="campo-center px-4  mt-3">
                 <label for="nascimento"><strong>Data inicial</strong></label>
-                <input type="date" class="form-control" name="data_incial" id="data_inicial" required>
+                <input type="date" class="form-control" name="data_inicial" id="data_inicial" required>
               </div>
             </div>
 
@@ -290,29 +281,25 @@
                 <input type="date" class="form-control" name="data_final" id="data_final" required>
               </div>
             </div>
+
+            <div class="modal-footer border-top-0">
+              <div class="preenchimento-p-avancada">
+                <div class="campo-left d-grid gap-2 px-4 mb-3">
+                  <button class="btn btn-light text-danger btn-block fw-bold border" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+      
+                <div class="campo-right d-grid gap-2 px-4 mb-3">
+                  <button class="btn btn-light text-primary btn-block fw-bold border" type="submit">Filtrar</button>
+                </div>
+              </div>
+            </div>
             
           </fieldset>
-
-        </form>
-        <!--conteúdo-->
-
       </div>
-
-      <div class="modal-footer border-top-0">
-        <div class="preenchimento-p-avancada">
-          <div class="campo-left d-grid gap-2 px-4 mb-3">
-            <button class="btn btn-light text-danger btn-block fw-bold border" data-bs-dismiss="modal">Cancelar</button>
-          </div>
-
-          <div class="campo-right d-grid gap-2 px-4 mb-3">
-            <button class="btn btn-light text-primary btn-block fw-bold border">Filtrar</button>
-          </div>
-        </div>
-      </div>
+    </form>
     </div>
   </div>
 </div>
-{% endif %}
 
 {% block modals %}
 
