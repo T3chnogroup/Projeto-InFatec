@@ -3,10 +3,9 @@ from flask import Flask, render_template, request, url_for, redirect
 from flask_mysqldb import MySQL
 from datetime import date
 from dotenv import load_dotenv
-from gerenciamento_post.post import getPosts, insere_post
-from gerenciamento_post.delete import delete_post
-from gerenciamento_post.edit import edit_post
+from gerenciamento.gerenciamento_post import getPosts, insere_post, delete_post, edit_post
 from werkzeug.utils import secure_filename
+from gerenciamento.gerenciamento_post import salva_arquivo
 
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
@@ -22,22 +21,15 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # configuração Conexão com o Banco de Dados Mysql
 app.config['MYSQL_Host'] = os.getenv("MYSQL_Host")
 #app.config['MYSQL_HOST'] = '0.0.0.0'
-app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_USER'] = os.getenv("MYSQL_USER")
 app.config['MYSQL_PASSWORD'] = os.getenv("MYSQL_PASSWORD")
 #app.config['MYSQL_PASSWORD'] = 'root'
 app.config['MYSQL_DB'] = os.getenv("MYSQL_DB")
 
 mysql = MySQL(app)
 
-'''def getPosts(id_canal): 
-    cursor = mysql.connection.cursor()
-    conteudo = cursor.execute(f'SELECT * FROM post where fk_canal={id_canal} order by id_post desc')
-    Posts = cursor.fetchall()
-    return Posts '''
-def salva_arquivo(id_post, arquivo):
-    cursor = mysql.connection.cursor()
-    cur = cursor.execute("INSERT into anexo(nome, fk_post, src) values(%s, %s, %s)",(arquivo, id_post, UPLOAD_FOLDER))
-    mysql.connection.commit()
+
+
 def getChannel(id_canal):
     cursor = mysql.connection.cursor()
     cur = cursor.execute("SELECT nome FROM canal where id_canal = %s", (id_canal,)) # Pega o nome do canal que veio da url
@@ -99,11 +91,12 @@ def post():
     if request.method == "POST":  
         arquivo = request.files['arquivo']
         conteudo = request.form['post']
-        [posts, id_post] = insere_post(id_canal,conteudo,date)
+        id_post = insere_post(id_canal,conteudo,date)
         if arquivo and allowed_file(arquivo.filename):
             filename = str(id_post)+'_'+secure_filename(arquivo.filename)
             arquivo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             salva_arquivo(id_post, filename)
+            
         posts=getPosts(id_canal)
         return render_template('posts.html', id_canal=id_canal,Posts=posts, canais=getcanais(), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True)
         
