@@ -130,9 +130,7 @@ def criar_canal():
 def pesquisa_postagem():
     id_canal = request.args.get('canal')
     if request.method == "POST":   
-        conteudo = request.form['conteudo']
-        titulo = request.form['titulo']
-        data = data.getlist('data_postagem')
+        conteudo = request.form['post']
         
         cur = mysql.connection.cursor()
         pesquisa_postagem(post) # adicona a lista de postagem e a data da postagem
@@ -149,9 +147,7 @@ def pesquisa_postagem():
             return None
 
     elif request.method == "POST":   
-        conteudo = request.form['conteudo']
         titulo = request.form['titulo']
-        data = data.getlist('data_postagem')
         
         cur = mysql.connection.cursor()
         pesquisa_postagem(titulo) # adicona a lista de titulos da postagem
@@ -169,8 +165,6 @@ def pesquisa_postagem():
 
 
     elif request.method == "POST":   
-        conteudo = request.form['conteudo']
-        titulo = request.form['titulo']
         data = data.getlist('data_postagem')
         
         cur = mysql.connection.cursor()
