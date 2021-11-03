@@ -32,3 +32,10 @@ def remover_usuario(id_usuario):
     cur.execute("DELETE from usuario where id_usuario = %s", (id_usuario,)) #Exclui usuario da aplicação
     mysql.connection.commit()
     cur.close()
+
+
+def editar_permissoes(id_usuario, pode_gerenciar_usuario, pode_criar_canais):
+    cur = mysql.connection.cursor()
+    cur.execute("UPDATE usuario SET pode_gerenciar_usuario = %s, pode_criar_canais = %s where id_usuario = %s", (pode_gerenciar_usuario,pode_criar_canais, id_usuario,)) 
+    mysql.connection.commit()
+    cur.close()

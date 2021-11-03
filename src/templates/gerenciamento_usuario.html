@@ -29,7 +29,7 @@
             <i class="bi bi-trash"></i>
           </button>
 
-          <button type="button" data-bs-toggle="modal" class="text-secundary" data-bs-target="#alterarModal" title="Alterar usua">
+          <button type="button" data-usuario="{{usuario[0]}}" data-bs-toggle="modal" class="text-secundary" data-bs-target="#alterarModal" title="Alterar usua">
             <i class="bi bi-pencil-square"></i>
           </button>
         </td>
@@ -44,25 +44,27 @@
   <!-- Modal -->
 <div class="modal fade" id="excluirModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <form action="/remover_usuario?usuario={{id_usuario}}" templete="/remover_usuario?&usuario=" method="POST">
-  <div class="modal-dialog modal-lg modal-width">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title text-white" id="exampleModalLabel">Excluir Usuário</h5>
-        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body"><i class="bi bi-exclamation-triangle text-danger"></i>
-        Deseja mesmo excluir esse usuário? <br> Esta ação não poderá ser desfeita!<i class="bi bi-exclamation-triangle text-danger"></i>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn fw-bold btn-nao" data-bs-dismiss="modal" aria-label="Close">Não</button>
-        <button type="submit" class="btn fw-bold btn-sim">Sim</button>
+    <div class="modal-dialog modal-lg modal-width">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-white" id="exampleModalLabel">Excluir Usuário</h5>
+          <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body"><i class="bi bi-exclamation-triangle text-danger"></i>
+          Deseja mesmo excluir esse usuário? <br> Esta ação não poderá ser desfeita e todos os dados serão perdidos!<i
+            class="bi bi-exclamation-triangle text-danger"></i>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn fw-bold btn-nao" data-bs-dismiss="modal" aria-label="Close">Não</button>
+          <button type="submit" class="btn fw-bold btn-sim">Sim</button>
+        </div>
       </div>
     </div>
-  </div>
   </form>
 </div>
 
 <div class="modal fade" id="alterarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <form action="/editar_permissoes?usuario={{id_usuario}}" templete="/editar_permissoes?&usuario=" method="POST">
   <div class="modal-dialog modal-lg modal-width">
     <div class="modal-content">
       <div class="modal-header text-white">
@@ -70,28 +72,26 @@
         <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="/gerenciamento_usuario" method="POST">
           <p>Selecione abaixo as permissões para este usuário</p>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" checked id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
+            <input class="form-check-input" name="gerenciar_usuarios" type="checkbox" checked id="gerenciar_usuarios" value="1" data-toggle="switch">
+            <label class="form-check-label" for="gerenciar_usuarios">
               Gerenciar Usuários
             </label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" checked id="flexCheckDefault">
-            <label class="form-check-label" for="flexCheckDefault">
+            <input class="form-check-input" name="criar_canais" type="checkbox" checked id="criar_canais" value="1" data-toggle="switch">
+            <label class="form-check-label" for="criar_canais">
               Criar Canais
             </label>
           </div>
           <div class="pt-3 div-salvar">
             <button type="submit" class="btn botao-salvar">Salvar</button>
           </div>
-        </form>
       </div>
-      
     </div>
   </div>
+  </form>
 </div>
 {% endblock %}
 
@@ -111,5 +111,15 @@
     formulario.attr('action', action) /*Coloca a URL completa no action do formulário*/ 
   })
 </script>
-
+<script type="text/javascript"> /*Alterar permissões dos usuários*/
+  $('#alterarModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) /*Botão que foi clicado*/
+    var id_user = button.data('usuario') /*Atribui à variável o atributo data-usuario do botão que foi clicado*/
+    var modal = $(this) /*Modal que está sendo aberto*/
+    var formulario = modal.find('form') /*Atribui à variável formulário o formulário que foi encontrado no modal*/
+    var action = formulario.attr('templete')
+    action = action + id_user /*Action monta a URL completa com o id do usuário*/
+    formulario.attr('action', action) /*Coloca a URL completa no action do formulário*/ 
+  })
+</script>
 {% endblock %}

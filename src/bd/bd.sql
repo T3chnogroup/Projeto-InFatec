@@ -84,3 +84,9 @@ ALTER TABLE canal_usuario ADD funcao varchar(30);
 -- Adição da coluna visibilidade (canal público ou privado) na tabela canal (referente ao gerenciamento do canal)
 ALTER TABLE canal ADD visibilidade varchar(30);
 
+-- Adição da coluna pode_gerenciar_usuario na tabela usuario (referente às permissões do gerenciamento de ususário)
+ALTER TABLE usuario ADD  pode_gerenciar_usuario boolean;
+
+-- Adição da coluna pode_criar_canais na tabela usuario (referente às permissões do gerenciamento de ususário)
+ALTER TABLE usuario ADD pode_criar_canais boolean;
+

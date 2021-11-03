@@ -5,7 +5,7 @@ from datetime import date
 from dotenv import load_dotenv
 
 from gerenciamento_canal import adicionar_lista_emails, deixa_de_seguir, excluir_canal, listar_moderador, listar_participante, alterar_funcao_membro, remover_membros, getcanais, segue_canal, seguir
-from gerenciamento_usuario import listar_usuario, remover_usuario
+from gerenciamento_usuario import editar_permissoes, listar_usuario, remover_usuario
 load_dotenv(".env")
 
 app = Flask(__name__)
@@ -81,17 +81,6 @@ def post():
         return render_template("posts.html", id_canal=id_canal, seguidor = seguidor, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), titulocanal =getChannel(id_canal), pode_editar = pode_editar)
 
     return render_template('posts.html', id_canal= id_canal, pode_editar = False)
-
-@app.route('/gerenciamento_usuario')
-def gerenciamentoUsuario():
-    Usuarios = listar_usuario()    
-    return render_template('gerenciamento_usuario.html', usuarios = Usuarios, canais=getcanais(recuperar_id_usuario_logado()), titulocanal = "Gerenciamento Usuários")
-
-@app.route('/remover_usuario', methods = ['POST'])
-def removerUsuarios():
-    id_usuario = request.args.get('usuario')
-    remover_usuario(id_usuario)
-    return redirect(url_for('gerenciamentoUsuario'))
 
 @app.route('/cadastro')
 def cadastro():
@@ -191,4 +180,28 @@ def rota_seguir():
     seguir (id_canal, id_usuario)
     return redirect(url_for('post', canal = id_canal))
 
+
+#Gerenciamento de usuários
+@app.route('/gerenciamento_usuario')
+def gerenciamentoUsuario():
+    Usuarios = listar_usuario()    
+    return render_template('gerenciamento_usuario.html', usuarios = Usuarios, canais=getcanais(recuperar_id_usuario_logado()), titulocanal = "Gerenciamento Usuários")
+
+@app.route('/remover_usuario', methods = ['POST'])
+def removerUsuarios():
+    id_usuario = request.args.get('usuario')
+    remover_usuario(id_usuario)
+    return redirect(url_for('gerenciamentoUsuario'))
+
+@app.route('/editar_permissoes', methods = ['POST'])
+def permissoes_usuarios():
+    id_usuario = request.args.get('usuario')
+    pode_gerenciar_usuario = request.form.get('gerenciar_usuarios')
+    if pode_gerenciar_usuario == None:
+        pode_gerenciar_usuario = 0
+    pode_criar_canais = request.form.get('criar_canais')
+    if pode_criar_canais == None:
+        pode_criar_canais = 0
+    editar_permissoes(id_usuario, pode_gerenciar_usuario, pode_criar_canais)
+    return redirect(url_for('gerenciamentoUsuario'))
 
