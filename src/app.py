@@ -5,6 +5,7 @@ from datetime import date
 from dotenv import load_dotenv
 
 from gerenciamento_canal import adicionar_lista_emails, deixa_de_seguir, excluir_canal, listar_moderador, listar_participante, alterar_funcao_membro, remover_membros, getcanais, segue_canal, seguir
+from gerenciamento_usuario import listar_usuario
 load_dotenv(".env")
 
 app = Flask(__name__)
@@ -83,7 +84,8 @@ def post():
 
 @app.route('/gerenciamento_usuario')
 def gerenciamentoUsuario():
-    return render_template('gerenciamento_usuario.html', canais=getcanais(recuperar_id_usuario_logado()), titulocanal = "Gerenciamento Usuários")
+    Usuarios = listar_usuario()    
+    return render_template('gerenciamento_usuario.html', usuarios = Usuarios, canais=getcanais(recuperar_id_usuario_logado()), titulocanal = "Gerenciamento Usuários")
 
 @app.route('/cadastro')
 def cadastro():

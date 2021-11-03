@@ -78,9 +78,9 @@ INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo chato", 1, 1);
 select * from post;
 
 
---Adição da coluna função (Moderador ou participante) na tabela canal_usuario (referente ao gerenciamento do canal)
+-- Adição da coluna função (Moderador ou participante) na tabela canal_usuario (referente ao gerenciamento do canal)
 ALTER TABLE canal_usuario ADD funcao varchar(30);
 
---Adição da coluna visibilidade (canal público ou privado) na tabela canal (referente ao gerenciamento do canal)
+-- Adição da coluna visibilidade (canal público ou privado) na tabela canal (referente ao gerenciamento do canal)
 ALTER TABLE canal ADD visibilidade varchar(30);
 

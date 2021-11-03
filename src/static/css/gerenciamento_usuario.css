@@ -4,18 +4,6 @@ button {
 }
 
 
-.btn-secondary:hover {
-  color: #fff;
-  background-color: #9e1616;
-  border-color: #9e1616;
-}
-
-.btn-secondary {
-  color: #fff;
-  background-color: #28292e;
-  border-color: #28292e;
-}
-
 input[type='file'] {
   display: none;
 }
@@ -28,14 +16,13 @@ input[type='file'] {
   width: 650px !important;
 }
 
-.no-border {
-  border: none !important;
+.modal-header{
+    background-color: #9e1616;
+
 }
 
-.save-button {
-  padding: 0 50px !important;
-
-  border-radius: 25px;
+.no-border {
+  border: none !important;
 }
 
 .form-check-input:checked {
@@ -59,4 +46,18 @@ input[type='file'] {
   .inputs-wrapper .inputs-first-column {
     margin-right: 0 !important;
   }
+}
+.div-salvar{
+  text-align: center;
+}
+
+.botao-salvar{
+  color: #2d2e33;
+  font-weight: bold;
+  border-color: #2d2e33;
+}
+
+.botao-salvar:hover{
+  color: #fff;
+  background-color: #2d2e33;
 }
