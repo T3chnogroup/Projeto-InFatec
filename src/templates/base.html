@@ -17,6 +17,8 @@
 
   <!-- Bootstrap core CSS -->
   <link href="{{url_for('static', filename='css/bootstrap/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{url_for('static', filename='css/bootstrap/icons-1.6.1/font/bootstrap-icons.css')}}" rel="stylesheet">
+
   <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
 
   <!-- Select2 JS e CSS -->
@@ -78,10 +80,17 @@
             </a> -->
             </li>
             {% for canal in canais %}
-              <li class="nav-item border-bottom nav-item-btn">
+              <li class="nav-item border-bottom nav-item-btn d-flex justify-content-between pe-2">
                 <a class="nav-link text-white p-2 sticky-top" href="/post?canal={{canal[0]}}">
                 <!--<i class="fas fa-lock"></i>--> {{canal[1]}} 
                 </a>
+                {% if canal[3] == True %}
+                <a href="/gerenciamento-canal?canal={{canal[0]}}" class="pt-2">
+                  <i class="bi bi-gear text-white" title="Gerenciar canal"></i>
+                </a>
+                {% elif canal[4] == True %}
+                <p class="seguindo">Seguindo</p>
+                {% endif %}
               </li>
             {% endfor %}
           </ul>
@@ -160,11 +169,14 @@
           <h5 class="modal-title">Criar Canal</h5>
           <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        
         <div class="modal-body">
+          
           <form action="/criarcanal" method="POST">
             <div class="d-flex justify-content-center mt-4 inputs-wrapper">
               <div class="inputs-first-column me-4 largura_input">
                 <input type="text" class="form-control mb-3 largura_input" placeholder="Nome" required name="nome">
+                <p>Defina qual o público alvo deste canal</p>
                 <div class="d-flex align-items-center justify-content-center mb-3">
                   <select class="adicionar-grupo select2-close-mask select2-dropdown" name="grupo"
                     multiple="multiple">
@@ -189,21 +201,34 @@
                 <div class="d-flex align-items-center justify-content-center mb-3">
                   <select class="adicionar-curso select2-close-mask select2-dropdown" name="curso"
                     multiple="multiple">
+                    <option value="0">Todos</option>
                     <option value="1">DSM</option>
                     <option value="2">ADS</option>
                     <option value="3">BD</option>
                   </select>
                 </div>
-                <div class="d-flex align-items-center justify-content-center mb-3">
-                      <select class="adicionar-membros select2-close-mask select2-dropdown" name="email"
-                    multiple="multiple">
-                    <option value="elen.petri@fatec.sp.gov.br">elen.petri@fatec.sp.gov.br</option>
-                    <option value="tais.salomao@fatec.sp.gov.br">tais.salomao@fatec.sp.gov.br</option>
-                    <option value="kevin.mirenda@fatec.sp.gov.br">kevin.mirenda@fatec.sp.gov.br</option>
-                    <option value="lucas.dias52@fatec.sp.gov.br">lucas.dias52@fatec.sp.gov.br</option>
-                    <option value="rodrigo.paula15@fatec.sp.gov.br">rodrigo.paula15@fatec.sp.gov.br</option>
-                    <option value="priscila.silva140@fatec.sp.gov.br">priscila.silva140@fatec.sp.gov.br</option>
-                  </select>
+
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input aria-expanded" type="radio" name="visibilidade" id="canal_publico" value="publico" data-bs-toggle="collapsed" href="#multiCollapseRadio2" role="button" aria-expanded="false" aria-controls="multiCollapseRadio2" onclick="collapse_remove()">
+                  <label class="form-check-label" for="canal_publico" >Canal público</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input aria-expanded" type="radio" name="visibilidade" id="canal_privado" value="privado" data-bs-toggle="collapse" href="#multiCollapseRadio2" role="button" aria-expanded="false" aria-controls="multiCollapseRadio2">
+                  <label class="form-check-label" for="canal_privado">Canal privado</label>
+                </div>
+
+                <div class="collapse multi-collapse" data-bs-target="#multiCollapseRadio2" id="multiCollapseRadio2" aria-expanded="false">
+                  <div class="d-flex align-items-center justify-content-center mb-3">
+                        <select class="adicionar-membros select2-close-mask select2-dropdown" name="email"
+                      multiple="multiple">
+                      <option value="elen.petri@fatec.sp.gov.br">elen.petri@fatec.sp.gov.br</option>
+                      <option value="tais.salomao@fatec.sp.gov.br">tais.salomao@fatec.sp.gov.br</option>
+                      <option value="kevin.mirenda@fatec.sp.gov.br">kevin.mirenda@fatec.sp.gov.br</option>
+                      <option value="lucas.dias52@fatec.sp.gov.br">lucas.dias52@fatec.sp.gov.br</option>
+                      <option value="rodrigo.paula15@fatec.sp.gov.br">rodrigo.paula15@fatec.sp.gov.br</option>
+                      <option value="priscila.silva140@fatec.sp.gov.br">priscila.silva140@fatec.sp.gov.br</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
@@ -232,10 +257,10 @@
       placeholder: "Grupos"
     });
     $('.adicionar-semestre').select2({
-      placeholder: "Semestre"
+      placeholder: "Semestres"
     });
     $('.adicionar-curso').select2({
-      placeholder: "Curso"
+      placeholder: "Cursos"
     });
     $('.adicionar-membros').select2({
       placeholder: "Adicionar moderadores"
@@ -244,6 +269,12 @@
     $('.select2-search__field').addClass("largura_input");
   });
 
+</script>
+
+<script>/*oculta o input de emails*/
+  function collapse_remove(){
+    document.getElementById('multiCollapseRadio2').classList.remove('show');
+  }
 </script>
 
 <!-- Modal Pesquisa Avançada-->

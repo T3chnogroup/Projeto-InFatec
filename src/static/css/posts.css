@@ -144,3 +144,35 @@
   .bg-button{
    border: 1px solid black;
   }
+
+  /*Descrição do canal*/
+  .alert-color{
+    background-color: #e9ecef;
+  }
+
+  .seguir-canal{
+    color: #2d2e33;
+    font-weight: bold;
+    border-color: #2d2e33;
+  }
+
+  .seguir-canal:hover{
+    color: #fff;
+    background-color: #2d2e33;
+  }
+
+
+  .deixar-seguir-canal{
+    color: #9e1616;
+    font-weight: bold;
+    border-color: #9e1616;  
+  }
+
+  .deixar-seguir-canal:hover{
+    color: #fff;
+    background-color: #9e1616;
+  }
+
+
+
+
