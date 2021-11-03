@@ -23,3 +23,12 @@ def listar_usuario():
     cursor.execute('Select usuario.id_usuario, nome, email from usuario order by nome')
     Usuarios = cursor.fetchall()
     return Usuarios
+
+#Remove usuário da aplicação
+def remover_usuario(id_usuario):
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE from post where fk_usuario = %s", (id_usuario,)) #Exclui todos os posts do canal
+    cur.execute("DELETE from canal_usuario where id_usuario = %s", (id_usuario,)) #Exclui usuário dos canais
+    cur.execute("DELETE from usuario where id_usuario = %s", (id_usuario,)) #Exclui usuario da aplicação
+    mysql.connection.commit()
+    cur.close()

@@ -25,11 +25,11 @@
         <td>{{usuario[1]}}</td>
         <td>{{usuario[2]}}</td>
         <td>
-          <button type="button" data-bs-toggle="modal" class="text-danger" data-bs-target="#excluirModal">
+          <button type="button" data-usuario="{{usuario[0]}}" class="text-danger" data-bs-target="#excluirModal" title="Remover membro" data-bs-toggle="modal">
             <i class="bi bi-trash"></i>
           </button>
 
-          <button type="button" data-bs-toggle="modal" class="text-secundary" data-bs-target="#alterarModal">
+          <button type="button" data-bs-toggle="modal" class="text-secundary" data-bs-target="#alterarModal" title="Alterar usua">
             <i class="bi bi-pencil-square"></i>
           </button>
         </td>
@@ -43,28 +43,30 @@
 {% block modals %}
   <!-- Modal -->
 <div class="modal fade" id="excluirModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <form action="/remover_usuario?usuario={{id_usuario}}" templete="/remover_usuario?&usuario=" method="POST">
   <div class="modal-dialog modal-lg modal-width">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Excluir Usuário</h5>
+        <h5 class="modal-title text-white" id="exampleModalLabel">Excluir Usuário</h5>
         <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body">
-        Deseja excluir esse usuário mesmo?
+      <div class="modal-body"><i class="bi bi-exclamation-triangle text-danger"></i>
+        Deseja mesmo excluir esse usuário? <br> Esta ação não poderá ser desfeita!<i class="bi bi-exclamation-triangle text-danger"></i>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary fw-bold">Não</button>
-        <button type="button" class="btn btn-danger fw-bold">Sim</button>
+        <button type="button" class="btn fw-bold btn-nao" data-bs-dismiss="modal" aria-label="Close">Não</button>
+        <button type="submit" class="btn fw-bold btn-sim">Sim</button>
       </div>
     </div>
   </div>
+  </form>
 </div>
 
 <div class="modal fade" id="alterarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-width">
     <div class="modal-content">
       <div class="modal-header text-white">
-        <h5 class="modal-title" id="exampleModalLabel">Alterar Usuário</h5>
+        <h5 class="modal-title text-white" id="exampleModalLabel">Alterar Usuário</h5>
         <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -97,5 +99,17 @@
 {% block js %}
 <script src="{{url_for('static', filename='js/index_gerenciamento.js')}}"></script>
 <script src="{{url_for('static', filename='js/jquery.mask.js')}}"></script>
+
+<script type="text/javascript"> /*Remover participante do canal*/
+  $('#excluirModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) /*Botão que foi clicado*/
+    var id_user = button.data('usuario') /*Atribui à variável o atributo data-usuario do botão que foi clicado*/
+    var modal = $(this) /*Modal que está sendo aberto*/
+    var formulario = modal.find('form') /*Atribui à variável formulário o formulário que foi encontrado no modal*/
+    var action = formulario.attr('templete')
+    action = action + id_user /*Action monta a URL completa com o id do usuário*/
+    formulario.attr('action', action) /*Coloca a URL completa no action do formulário*/ 
+  })
+</script>
 
 {% endblock %}
