@@ -67,6 +67,7 @@
 
         <div class="grupos">
           <ul class="nav flex-column">
+            {% if pode_criar_canal %}
             <!--"Criar canal"-->
             <li class="nav-item border-bottom nav-item-btn border-top mb-1">
               <button type="button" class="nav-link active text-white p-2 canais sticky-top create-channel-button"
@@ -74,11 +75,8 @@
                 <span data-feather="home"></span>
                 <i class="fas fa-plus"></i> Criar Canal
               </button>
-              <!-- <a class="nav-link active text-white p-2 canais sticky-top" aria-current="page" href="#">
-              <span data-feather="home"></span>
-              <i class="fas fa-plus"></i> Criar Canal
-            </a> -->
             </li>
+            {% endif %}
             {% for canal in canais %}
               <li class="nav-item border-bottom nav-item-btn d-flex justify-content-between pe-2">
                 <a class="nav-link text-white p-2 sticky-top" href="/post?canal={{canal[0]}}">
@@ -99,7 +97,9 @@
         <!--footer da lista-->
         <footer class="flex-row text-white d-flex justify-content-between ">
           <a href="" class="text-white"><i class="fas fa-cog"></i></a>
+          {% if pode_gerenciar_usuario %}
           <a href="/gerenciamento_usuario" class="text-white"><i class="fas fa-users"></i></a>
+          {% endif %}
           <a href="/login" class="text-white"><i class="fas fa-sign-out-alt"></i></a>
         </footer>
 
