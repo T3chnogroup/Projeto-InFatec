@@ -27,23 +27,24 @@ def delete_post(id):
 
 
 
-def edit_post(id_post,conteudo):
+def edit_post(id_post,conteudo,titulo_post):
     cur = mysql.connection.cursor()
-    cur.execute("UPDATE post SET conteudo=%s WHERE id_post=%s", (conteudo,id_post))
+    cur.execute("UPDATE post SET conteudo=%s,titulo_post=%s WHERE id_post=%s", (conteudo,titulo_post,id_post))
     mysql.connection.commit()
     cur.close()
 
 
 def getPosts(id_canal):
-    cursor = mysql.connection.cursor()
-    conteudo = cursor.execute(f'SELECT * FROM post left join anexo on anexo.fk_post=post.id_post where fk_canal={id_canal} order by id_post desc')
-    Posts = cursor.fetchall()
+    cur = mysql.connection.cursor()
+    conteudo = cur.execute(f'SELECT * FROM post left join anexo on anexo.fk_post=post.id_post where fk_canal={id_canal} order by id_post desc')
+    Posts = cur.fetchall()
+    cur.close()
     return Posts
 
 
-def insere_post (id_canal, conteudo, date):
+def insere_post (id_canal, conteudo, date, titulo_post):
     cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO post(id_post, data_postagem, data_expiracao, conteudo, fk_canal, fk_usuario) VALUES (%s, %s, %s, %s, %s, %s)", (0, str(date.today()), str(date.today()), conteudo, id_canal, None))
+    cur.execute("INSERT INTO post(id_post, data_postagem, data_expiracao, conteudo, fk_canal, fk_usuario, titulo_post) VALUES (%s, %s, %s, %s, %s, %s, %s)", (0, str(date.today()), str(date.today()), conteudo, id_canal, None, titulo_post))
     mysql.connection.commit()
     Posts = getPosts(id_canal)
     id = cur.lastrowid
@@ -52,6 +53,7 @@ def insere_post (id_canal, conteudo, date):
 
 
 def salva_arquivo(id_post, arquivo):
-    cursor = mysql.connection.cursor()
-    cur = cursor.execute("INSERT into anexo(nome, fk_post) values(%s, %s)",(arquivo, id_post))
+    cur = mysql.connection.cursor()
+    cur = cur.execute("INSERT into anexo(nome, fk_post) values(%s, %s)",(arquivo, str(id_post)))
     mysql.connection.commit()
+    cur.close()

@@ -80,7 +80,8 @@ def inicio():
 @app.route('/post/<id_edit>', methods=['POST'])
 def editar_post(id_edit):
     conteudo = request.form['text-editar-post']
-    edit_post(id_edit,conteudo)
+    titulo = request.form['titulo']
+    edit_post(id_edit,conteudo,titulo)
     id_canal = request.args.get('canal')
     posts= getPosts(id_canal)
     return render_template('posts.html', id_canal=id_canal,Posts=posts, canais=getcanais(), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True)
@@ -91,7 +92,8 @@ def post():
     if request.method == "POST":  
         arquivo = request.files['arquivo']
         conteudo = request.form['post']
-        id_post = insere_post(id_canal,conteudo,date)
+        titulo_post = request.form['titulo']
+        id_post = insere_post(id_canal,conteudo,date, titulo_post)
         if arquivo and allowed_file(arquivo.filename):
             filename = str(id_post)+'_'+secure_filename(arquivo.filename)
             arquivo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
