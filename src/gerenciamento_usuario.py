@@ -19,9 +19,9 @@ mysql = MySQL(app)
 
 #Função que lista os usuarios
 def listar_usuario():
-    cursor = mysql.connection.cursor()
-    cursor.execute('Select usuario.id_usuario, nome, email, pode_gerenciar_usuario, pode_criar_canais from usuario order by nome')
-    Usuarios = cursor.fetchall()
+    cur = mysql.connection.cursor()
+    cur.execute('Select usuario.id_usuario, nome, email, pode_gerenciar_usuario, pode_criar_canais from usuario order by nome')
+    Usuarios = cur.fetchall()
     return Usuarios
 
 #Remove usuário da aplicação
@@ -33,9 +33,29 @@ def remover_usuario(id_usuario):
     mysql.connection.commit()
     cur.close()
 
-
+#Edita as permissões do usuário
 def editar_permissoes(id_usuario, pode_gerenciar_usuario, pode_criar_canais):
     cur = mysql.connection.cursor()
     cur.execute("UPDATE usuario SET pode_gerenciar_usuario = %s, pode_criar_canais = %s where id_usuario = %s", (pode_gerenciar_usuario,pode_criar_canais, id_usuario,)) 
     mysql.connection.commit()
     cur.close()
+
+def pode_criar_canais(id_usuario):
+    cur= mysql.connection.cursor()
+    #Esse usuario pode criar canal?
+    cur.execute('Select id_usuario, pode_criar_canais from usuario where id_usuario = %s', (id_usuario,))
+    pode_criar_canais = cur.fetchall()[0][1]
+    if pode_criar_canais == 1:
+        return True
+    else:
+        return False
+
+def pode_gerenciar_usuarios(id_usuario):
+    cur= mysql.connection.cursor()
+    #Esse usuario pode gerenciar usuario?
+    cur.execute('Select id_usuario, pode_gerenciar_usuario from usuario where id_usuario = %s', (id_usuario,))
+    pode_criar_canais = cur.fetchall()[0][1]
+    if pode_criar_canais == 1:
+        return True
+    else:
+        return False
