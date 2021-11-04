@@ -90,3 +90,6 @@ ALTER TABLE usuario ADD  pode_gerenciar_usuario boolean;
 -- Adição da coluna pode_criar_canais na tabela usuario (referente às permissões do gerenciamento de ususário)
 ALTER TABLE usuario ADD pode_criar_canais boolean;
 
+-- Adição do usuário administrador
+INSERT INTO usuario VALUES (8, 'Administrador', 'administrador@fatec.sp.gov.br', 'admin123', '88888888888', 1, 1);
+
