@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS post (
 	conteudo TEXT NOT NULL,
 	fk_canal INT,
 	fk_usuario INT,
+	titulo_post varchar(100) NOT NULL,
 	FOREIGN KEY (fk_canal) REFERENCES canal (id_canal),
 	FOREIGN KEY (fk_usuario) REFERENCES usuario (id_usuario)
 ) ENGINE=INNODB;
@@ -73,8 +74,8 @@ INSERT INTO canal(nome, grupo, semestre, curso) VALUES ("geral", null, null, nul
 select * from canal;
 
 -- Inserção tabela post
-INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo legal", 1, 1);
-INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo chato", 1, 1);
+INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo legal", 1, 1, "titulo legal");
+INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo chato", 1, 1, "titulo chato");
 select * from post;
 
 
