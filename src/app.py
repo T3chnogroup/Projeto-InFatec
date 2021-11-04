@@ -3,33 +3,52 @@ from flask import Flask, render_template, request, url_for, redirect
 from flask_mysqldb import MySQL
 from datetime import date
 from dotenv import load_dotenv
-
+from gerenciamento.gerenciamento_post import getPosts, insere_post, delete_post, edit_post
+from werkzeug.utils import secure_filename
+from gerenciamento.gerenciamento_post import salva_arquivo
 from gerenciamento_canal import adicionar_lista_emails, deixa_de_seguir, excluir_canal, listar_moderador, listar_participante, alterar_funcao_membro, remover_membros, getcanais, segue_canal, seguir
 load_dotenv(".env")
 
-app = Flask(__name__)
+UPLOAD_FOLDER = 'static/uploads'
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+app = Flask(__name__)      
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # configuração Conexão com o Banco de Dados Mysql
 app.config['MYSQL_Host'] = os.getenv("MYSQL_Host")
 #app.config['MYSQL_HOST'] = '0.0.0.0'
-app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_USER'] = os.getenv("MYSQL_USER")
 app.config['MYSQL_PASSWORD'] = os.getenv("MYSQL_PASSWORD")
 #app.config['MYSQL_PASSWORD'] = 'root'
 app.config['MYSQL_DB'] = os.getenv("MYSQL_DB")
 
 mysql = MySQL(app)
 
-def getPosts(id_canal):
-    cursor = mysql.connection.cursor()
-    conteudo = cursor.execute(f'SELECT * FROM post where fk_canal={id_canal} order by id_post desc')
-    Posts = cursor.fetchall()
-    return Posts
+
 
 def getChannel(id_canal):
     cursor = mysql.connection.cursor()
     cur = cursor.execute("SELECT nome FROM canal where id_canal = %s", (id_canal,)) # Pega o nome do canal que veio da url
     nome_canal = cursor.fetchall()[0][0]
     return nome_canal
+
+def getVerificaFuncao (id_canal):
+    # pegar o email do usuário a partir do cookie 
+    email_logado = request.cookies.get('email_logado')
+    # descobrir id do usuário a partir do email
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT id_usuario from usuario where email = %s", (email_logado,)) # busca o id do usuario com este email no banco
+    if cur.rowcount > 0:# se existir esse id
+        id_usuario = cur.fetchall()[0][0]
+    # verificar a existencia de uma linha na tabela canal_usuario para este usuário e este canal
+        cur.execute("select * from canal_usuario where id_canal = %s and id_usuario = %s", (id_canal, id_usuario))
+        return cur.rowcount > 0
+    return False
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
@@ -54,6 +73,15 @@ def redefinir():
 def inicio():
     return render_template('home.html', canais=getcanais(recuperar_id_usuario_logado()), )
 
+@app.route('/post/<id_edit>', methods=['POST'])
+def editar_post(id_edit):
+    conteudo = request.form['text-editar-post']
+    titulo = request.form['titulo']
+    edit_post(id_edit,conteudo,titulo)
+    id_canal = request.args.get('canal')
+    posts= getPosts(id_canal)
+    return render_template('posts.html', id_canal=id_canal,Posts=posts, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True)
+
 @app.route('/post', methods=['GET', 'POST'])
 def post():
     id_canal = request.args.get('canal')
@@ -61,23 +89,28 @@ def post():
     seguidor = segue_canal(id_canal, id_usuario) #Saber se o usuário é seguidor ou não
     if request.method == "POST":   
         conteudo = request.form['post']
-        cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO post(id_post, data_postagem, data_expiracao, conteudo, fk_canal, fk_usuario) VALUES (%s, %s, %s, %s, %s, %s)", (0, str(date.today()), str(date.today()), conteudo, id_canal, None))
-        mysql.connection.commit()
-        Posts = getPosts(id_canal)
+        arquivo = request.files['arquivo']
+        titulo_post = request.form['titulo']
+        id_post = insere_post(id_canal,conteudo,date, titulo_post)
+        if arquivo and allowed_file(arquivo.filename):
+            filename = str(id_post)+'_'+secure_filename(arquivo.filename)
+            arquivo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            salva_arquivo(id_post, filename)
+            
+        posts=getPosts(id_canal)
+        return render_template('posts.html', id_canal=id_canal,Posts=posts, canais=getcanais(id_usuario), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True, seguidor=seguidor)
+        
 
-        cur.close()
-        return render_template('posts.html', id_canal=id_canal,Posts=Posts, canais=getcanais(id_usuario), titulocanal=getChannel(id_canal), pode_editar = True, seguidor=seguidor)
     elif request.method == "GET": 
-        cur = mysql.connection.cursor()
-        # verificar a existencia de uma linha na tabela canal_usuario para este usuário e este canal
-        cur.execute("select * from canal_usuario where id_canal = %s and id_usuario = %s and funcao = 'moderador'", (id_canal, id_usuario))
-        if cur.rowcount > 0:
+        if getVerificaFuncao (id_canal):
             pode_editar = True
+            pode_deletar = True
         else:
             pode_editar = False
+            pode_deletar = False
         Posts = getPosts(id_canal)
-        return render_template("posts.html", id_canal=id_canal, seguidor = seguidor, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), titulocanal =getChannel(id_canal), pode_editar = pode_editar)
+
+        return render_template("posts.html", id_canal=id_canal, seguidor = seguidor, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), titulocanal =getChannel(id_canal), pode_editar = pode_editar, pode_deletar = pode_deletar)
 
     return render_template('posts.html', id_canal= id_canal, pode_editar = False)
 
@@ -118,6 +151,11 @@ def criar_canal():
     
     return redirect(url_for('post', canal = id_canal))
 
+@app.route('/delete_post/<id_canal>/<id_post>')
+def delete_post_by_id(id_canal,id_post): 
+    delete_post(id_post)
+    return redirect(url_for('post',canal=id_canal))
+   
 
 #Configurações do Canal
 @app.route('/gerenciamento-canal')
