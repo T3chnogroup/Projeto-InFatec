@@ -54,6 +54,6 @@ def insere_post (id_canal, conteudo, date, titulo_post):
 
 def salva_arquivo(id_post, arquivo):
     cur = mysql.connection.cursor()
-    cur = cur.execute("INSERT into anexo(nome, fk_post) values(%s, %s)",(arquivo, str(id_post)))
+    cur.execute("INSERT into anexo(nome, fk_post) values(%s, %s)",(arquivo, str(id_post)))
     mysql.connection.commit()
     cur.close()
