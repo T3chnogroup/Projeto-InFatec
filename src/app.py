@@ -53,7 +53,8 @@ def redefinir():
 
 @app.route('/')
 def inicio():
-    if recuperar_id_usuario_logado() 
+    if recuperar_id_usuario_logado() == None:
+        return redirect(url_for('login'))
     return render_template('home.html', canais=getcanais(recuperar_id_usuario_logado()), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()) )
 
 @app.route('/post', methods=['GET', 'POST'])
@@ -160,6 +161,8 @@ def recuperar_id_usuario_logado():
     email_logado = request.cookies.get('email_logado')
     if email_logado == None or email_logado == '':
         email_logado = request.args.get('email')
+    if email_logado == None or email_logado == '':
+        return None
     # descobrir id do usuário a partir do email
     cur = mysql.connection.cursor()
     cur.execute("SELECT id_usuario from usuario where email = %s", (email_logado,)) # busca o id do usuario com este email no banco
