@@ -1,0 +1,191 @@
+{% extends 'base.html' %}
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/styles_gerenciamento.css')}}">
+{% endblock %}
+
+{% block title %}
+  <title>inFATEC-Gerenciamento-Usuario</title>
+  {% endblock %}
+{% block conteudo%}
+<div class="container mt-3">
+  <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#cadastroModal">
+    Cadastrar
+  </button>
+  <label class="btn btn-secondary" for="arquivo">
+    Importar
+  </label>
+  <input type="file" name="arquivo" id="arquivo">
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Curso</th>
+        <th scope="col">Função</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Lucas Braz Dias</td>
+        <td>DSM</td>
+        <td>Aluno</td>
+        <td>
+          <button type="button" data-bs-toggle="modal" class="text-danger" data-bs-target="#excluirModal">
+            <i class="far fa-trash-alt"></i>
+          </button>
+
+          <button type="button" data-bs-toggle="modal" class="text-secundary" data-bs-target="#alterarModal">
+            <i class="far fa-edit"></i>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td>Jeffinho</td>
+        <td>ADS</td>
+        <td>Coordenador</td>
+        <td>
+          <button type="button" data-bs-toggle="modal" class="text-danger" data-bs-target="#excluirModal">
+            <i class="far fa-trash-alt"></i>
+          </button>
+
+          <button type="button" data-bs-toggle="modal" class="text-secundary" data-bs-target="#alterarModal">
+            <i class="far fa-edit"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+
+{% block modals %}
+  <!-- Modal -->
+<div class="modal fade" id="excluirModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-width">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Excluir Usuário</h5>
+        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Deseja excluir esse usuário mesmo?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary fw-bold">Não</button>
+        <button type="button" class="btn btn-danger fw-bold">Sim</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="cadastroModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-width">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="exampleModalLabel">Cadastro</h5>
+        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="">
+          <div class="d-flex justify-content-center mt-4 inputs-wrapper">
+            <div class="inputs-first-column me-4">
+              <input type="text" class="form-control form-control mb-3" placeholder="Nome">
+              <select class="form-select mb-3" aria-label="Default select example">
+                <option>Curso</option>
+                <option value="1">DSM</option>
+                <option value="2">ADS</option>
+                <option value="3">BD</option>
+              </select>
+              <input type="email" class="form-control" placeholder="E-mail">
+            </div>
+            <div class="inputs-second-column">
+              <input type="text" class="form-control form-control mb-3 cpf" placeholder="CPF: 000.000.000-00">
+              <select class="form-select mb-3" aria-label="Default select example">
+                <option>Função</option>
+                <option value="1">Administrador</option>
+                <option value="2">Coordenador</option>
+                <option value="3">Professor</option>
+                <option value="4">Aluno</option>
+              </select>
+              <input type="password" class="form-control" placeholder="Password">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer d-flex justify-content-center no-border">
+        <button type="button" class="btn btn-danger fw-bold save-button">Cadastrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="alterarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-width">
+    <div class="modal-content">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="exampleModalLabel">Alterar Usuário</h5>
+        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="">
+          <div class="d-flex flex-column">
+            <div class="d-flex justify-content-center mt-4 inputs-wrapper">
+              <div class="inputs-first-column me-4">
+                <input type="text" value="Lucas" class="form-control form-control mb-3" placeholder="Nome">
+                <select class="form-select mb-3" aria-label="Default select example">
+                  <option>Curso</option>
+                  <option value="1" selected>DSM</option>
+                  <option value="2">ADS</option>
+                  <option value="3">BD</option>
+                </select>
+                <input type="email" class="form-control" placeholder="E-mail" value="lucasbrzdias@gmail.com">
+              </div>
+              <div class="inputs-second-column">
+                <input type="text" class="form-control form-control mb-3 cpf" placeholder="CPF: 000.000.000-00" value="50238395839">
+                <select class="form-select mb-3" aria-label="Default select example">
+                  <option>Função</option>
+                  <option value="1">Administrador</option>
+                  <option value="2">Coordenador</option>
+                  <option value="3" selected>Aluno</option>
+                </select>
+                <input type="password" class="form-control" placeholder="Password" value="000000">
+              </div>
+            </div>
+            <div class="d-flex justify-content-between mt-3 me-3 ms-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" checked id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Publicar
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" checked id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Gerenciar Usuários
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" checked id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  Criar Canais
+                </label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer d-flex justify-content-center no-border">
+        <button type="button" class="btn btn-danger fw-bold save-button">Salvar</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script src="{{url_for('static', filename='js/index_gerenciamento.js')}}"></script>
+<script src="{{url_for('static', filename='js/jquery.mask.js')}}"></script>
+
+{% endblock %}

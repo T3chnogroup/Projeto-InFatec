@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>InFatec - Post</title>
+{% endblock %}
+
+{% block css %}
+<!-- CSS Global -->
+<link rel="stylesheet" href="{{url_for('static', filename='css/globals.css')}}"> 
+<!-- CSS local -->
+<link rel="stylesheet" href="{{url_for('static', filename='css/posts.css')}}">
+{% endblock %}
+
+{% block conteudo %}
+<div class="container">
+    <div class="posts-wrapper">
+                {% for post in Posts %}
+                    <div class="card post-card">
+                        <div class="card-body post-container">
+                            <div class="post-actions">
+                                <button class="action-button" data-bs-toggle="modal" data-bs-target="#edit-modal">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                <button class="action-button" data-bs-toggle="modal" data-bs-target="#visibility-modal">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-button" data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                    <i class="fas fa-times"></i>
+                                </button> 
+                            </div>
+                            <div id="user-icon" class="user-icon-wrapper">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="post-content">
+                                <div class="post-header">
+                                    <p class="posted-info">
+                                        <span>@{{titulocanal}}</span> fez uma publicação. <br>
+                                    </p>
+                                    <p class="date-posted-text">
+                                        Postado em {{post[1].strftime('%d/%m/%Y')}}</p>
+                                </div>
+                               
+
+                                <div class="post-main">
+                                    <p class="posted-info">
+                                        {{post[3]}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+    </div>
+
+    <form class="formulario-post" name="formtest" action="/pesquisa_postagem?canal={{id_canal}}" method="POST">
+        <div class="center-postagem">
+
+            <fieldset class="grupo-post">
+                <div class="preenchimento-post">
+                    <div class="textarea_div px-4 mt-3">
+                        <input type="text" class="form-control" name="titulo" id="exampleFormControlInput1" placeholder="Titulo da postagem" required="required">
+                    </div> 
+                </div>
+
+                <div class="preenchimento-post">
+                    <div class="textarea_div px-4 mt-3">
+                        <textarea type="textarea" class="form-control text_area" name="post" rows="3" placeholder="Digite aqui para uma nova publicação" required="required"></textarea>
+                    </div>
+                </div>
+
+               <div class="preenchimento-post">
+                    <div class="gap-2 px-4 mb-3 arquivo">
+                        <input class="form-control" type="file" id="add_arquivo">
+                    </div>
+                    <div class="gap-2 px-4 mb-3 envio">
+                        <button id="send-icon" class="botao_enviar btn btn-danger" type="submit"><span class="class_enviar">Enviar</span>
+                    </div>
+                </div>
+
+            </fieldset>
+
+        </div><!--center-post-->
+    </form><!--formulario-post-->
+
+</div>
+
+{% endblock %}
+
+{% block modals %}
+<!-- Modal Edição -->
+<div class="modal fade" id="edit-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Alterar Post</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Deseja realmente alterar este post?
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+        <button type="button" class="btn btn-primary">Sim</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- Modal Visibilidade -->
+<div class="modal fade" id="visibility-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Alterar Visibilidade do Post</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Deseja realmente deixar de ver este post?
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+        <button type="button" class="btn btn-primary">Sim</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- Modal Visibilidade -->
+<div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Excluir Post</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            Deseja realmente excluir este post?
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+        <button type="button" class="btn btn-danger">Sim</button>
+        </div>
+    </div>
+    </div>
+</div>
+<script>//Não Remover! Seta o tamanho do text-area de acordo com as postagens
+        $('#post').width($($('.posts-wrapper')[0]).width()-10)
+</script>
+{% endblock %}
