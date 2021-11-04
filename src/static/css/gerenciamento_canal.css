@@ -1,0 +1,166 @@
+.search{
+    float: left;
+    display: block;
+    padding: .375rem .75rem;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+.search:focus{
+    background-color: #ced4da26; 
+}
+#container, .adicionarmembros{ /*estilização do posicionamento das abas e do botão de adicionar membros*/
+    text-align: right;
+    padding: 0;
+    padding-left: 0px;
+    padding-right: 0px;
+    display: flex;
+    justify-content: space-between;
+}
+@media(max-width: 500px){
+    .adicionarmembros{
+        flex-direction: column-reverse;
+    }
+    .button-adicionarmembros{
+        margin-bottom: 9px ;
+    }
+}
+.btn-secondary { /*Estilização do botão de adicionar membros*/
+    color: #fff;
+    background-color: #28292e;
+    border-color: #28292e;
+}
+
+.btn-secondary:hover {
+    color: #fff;
+    background-color: #9e1616;
+    border-color: #9e1616;
+}
+
+.word-breakable{
+    word-break: break-all;
+}
+
+.area-conteudo{
+    text-align: justify;
+}
+#funcao{ /*Tamamaho do select*/
+    width:auto;
+}
+
+.backgroundselect{
+    background-color: #9e1616;
+}
+
+.botaonao{
+    color: #2d2e33;
+    font-weight: bold;
+    border-color: #2d2e33;
+}
+
+.botaonao:hover{
+    color: #fff;
+    background-color: #2d2e33;
+}
+
+.botaosim{
+    color: #9e1616;
+    font-weight: bold;
+    border-color: #9e1616;
+}
+
+.botaosim:hover{
+    color: #fff;
+    background-color: #9e1616;
+}
+
+
+/*CSS ABA DE CONFIGURAÇÕES*/
+.form-select {
+    display: block;
+    width: auto;
+}
+.nav-link:focus, .nav-link:hover {
+    color: white; /*Cor da letra ao passar o mouse em cima da aba que está "inativa" */
+}
+
+.nav-link{
+    color:#28292e; /*Cor da letra da aba que está "inativa*/
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
+    font-weight: bold; /*Deixa a letra da aba selecionada em negrito*/
+}
+
+
+/*Botão adicionar membros*/
+.button-adicionarmembros{
+    color: #2d2e33;
+    font-weight: bold;
+    border-color: #2d2e33;
+}
+
+.button-adicionarmembros:hover{
+    color: #fff;
+    background-color: #2d2e33;
+}
+
+
+/*Estilização do modal de adiconar membros*/
+.modal-header{
+    background-color: #9e1616;
+}
+
+.btn-save{
+    color: #fff;
+    background-color: #9e1616;
+    border-color: #9e1616;
+}
+
+.btn-save:hover{
+    color: #fff;
+    background-color: #9e1616;
+    border-color: #9e1616;
+}
+
+.btn-close{
+    color: #fff;
+}
+
+
+/*Estilização do gerenciamento*/
+
+.select2-container .select2-search--inline .select2-search__field{
+    height: 25px!important;
+}
+
+
+.form-check-input:checked {
+    background-color: #28292e;
+    border-color: #28292e;
+}
+
+
+.salvarconfig{
+    color: #2d2e33;
+    font-weight: bold;
+    border-color: #2d2e33;
+}
+
+.salvarconfig:hover{
+    color: #fff;
+    background-color: #2d2e33;
+}
+
+.excluircanal{
+    color: #9e1616;
+    font-weight: bold;
+    border-color: #9e1616;
+}
+
+.excluircanal:hover{
+    color: #fff;
+    background-color: #9e1616;
+}
+

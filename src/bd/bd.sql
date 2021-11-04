@@ -66,7 +66,7 @@ INSERT INTO usuario VALUES (2, "Elen", "elen.petri@fatec.sp.gov.br", "123456", "
 (5, "Lucas", "lucas.dias52@fatec.sp.gov.br", "123456", "55555555555"),(6, "Rodrigo", "rodrigo.paula15@fatec.sp.gov.br", "123456", "66666666666"),
 (7, "Priscila", "priscila.silva140@fatec.sp.gov.br", "123456", "77777777777");
 
--- Consulta todos os
+-- Consulta todos os usuários
 select * from usuario;
 
 -- Inserção tabela canal
@@ -78,4 +78,10 @@ INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo legal", 1, 1, 
 INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo chato", 1, 1, "titulo chato");
 select * from post;
 
+
+-- Adição da coluna função (Moderador ou participante) na tabela canal_usuario (referente ao gerenciamento do canal)
+ALTER TABLE canal_usuario ADD funcao varchar(30);
+
+-- Adição da coluna visibilidade (canal público ou privado) na tabela canal (referente ao gerenciamento do canal)
+ALTER TABLE canal ADD visibilidade varchar(30);
 

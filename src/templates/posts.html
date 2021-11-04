@@ -14,6 +14,25 @@
 {% block conteudo %}
 <div class="container">
     <div class="posts-wrapper">
+        <div class="alert alert-color mt-2" role="alert">
+            <h4 class="alert-heading">Bem vindo!</h4>
+            <p>Este canal foi designdado para: <b>Coordenadores</b> de <b>todos os cursos</b> e de <b>todos os semetres</b>!</p>
+            <hr>
+            {% if seguidor %}
+            <form action="/deixar-de-seguir?canal={{id_canal}}" method="POST">
+                <div class="py-2 pb-3 mb-0 small lh-sm border-bottom w-100">
+                    <button type="submit" class="btn deixar-seguir-canal">Deixar de seguir canal</button>
+                </div>
+            </form>
+            
+            {% else %}
+            <form action="/seguir?canal={{id_canal}}" method="POST">
+                <div class="py-2 pb-3 mb-0 small lh-sm border-bottom w-100">
+                    <button type="submit" class="btn seguir-canal">Seguir canal</button>
+                </div>
+            </form>
+            {% endif %}
+          </div>
                 {% for post in Posts %}
                     <div class="card post-card">
                         <div class="card-body post-container">
@@ -43,8 +62,6 @@
                                     <p class="date-posted-text">
                                         Postado em {{post[1].strftime('%d/%m/%Y')}}</p>
                                 </div>
-                               
-
                                 <div class="post-main">
                                     <h4>
                                         {{post[6]}}
