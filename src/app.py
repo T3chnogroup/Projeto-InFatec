@@ -179,7 +179,7 @@ def pesquisa_postagem():
         data_inicial = request.form['data_inicial']
         data_final = request.form['data_final']
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * from post where titulo_post like %s", (titulo)) # busca do titulo ou da data da postagem 
+        cur.execute("SELECT * from post where titulo_post like '{0}'".format(titulo)) # busca do titulo ou da data da postagem 
         if cur.rowcount > 0:# se existir esta postagem
             Posts = cur.fetchall()[0][0]
 
