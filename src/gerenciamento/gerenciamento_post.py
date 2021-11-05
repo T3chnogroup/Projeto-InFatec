@@ -36,7 +36,7 @@ def edit_post(id_post,conteudo,titulo_post):
 
 def getPosts(id_canal):
     cur = mysql.connection.cursor()
-    conteudo = cur.execute(f'SELECT * FROM post left join anexo on anexo.fk_post=post.id_post where fk_canal={id_canal} order by id_post desc')
+    conteudo = cur.execute(f'SELECT * FROM post left join anexo on anexo.fk_post=post.id_post where fk_canal={id_canal} order by data_postagem desc')
     Posts = cur.fetchall()
     cur.close()
     return Posts
