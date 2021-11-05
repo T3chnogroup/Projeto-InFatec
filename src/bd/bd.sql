@@ -5,8 +5,8 @@ USE infatec;
 CREATE TABLE IF NOT EXISTS usuario (
 	id_usuario INT AUTO_INCREMENT PRIMARY KEY,
 	nome VARCHAR(100) NOT NULL,
-	email VARCHAR(100) NOT NULL,
-	senha VARCHAR(15) NOT NULL,
+	email VARCHAR(100) UNIQUE NOT NULL,
+	senha VARCHAR(15) UNIQUE NOT NULL,
 	cpf CHAR(11) NOT NULL,
 	valido tinyint(1)
 ) ENGINE=INNODB;
@@ -92,5 +92,5 @@ ALTER TABLE usuario ADD  pode_gerenciar_usuario boolean;
 ALTER TABLE usuario ADD pode_criar_canais boolean;
 
 -- Adição do usuário administrador
-INSERT INTO usuario VALUES (8, 'Administrador', 'administrador@fatec.sp.gov.br', 'admin123', '88888888888', 1, 1);
+INSERT INTO usuario VALUES (8, 'Administrador', 'administrador@fatec.sp.gov.br', 'admin123', '88888888888', 1, 1, 1);
 

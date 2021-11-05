@@ -24,11 +24,12 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # configuração Conexão com o Banco de Dados Mysql
-app.config['MYSQL_Host'] = os.getenv("MYSQL_Host")
-#app.config['MYSQL_HOST'] = '0.0.0.0'
-app.config['MYSQL_USER'] = os.getenv("MYSQL_USER")
-app.config['MYSQL_PASSWORD'] = os.getenv("MYSQL_PASSWORD")
-#app.config['MYSQL_PASSWORD'] = 'root'
+# app.config['MYSQL_Host'] = os.getenv("MYSQL_Host")
+app.config['MYSQL_HOST'] = '0.0.0.0'
+# app.config['MYSQL_USER'] = os.getenv("MYSQL_USER")
+app.config['MYSQL_USER'] = 'root'
+# app.config['MYSQL_PASSWORD'] = os.getenv("MYSQL_PASSWORD")
+app.config['MYSQL_PASSWORD'] = 'root'
 app.config['MYSQL_DB'] = os.getenv("MYSQL_DB")
 
 mysql = MySQL(app)
@@ -128,12 +129,16 @@ def cadastro():
         cpf = request.form['cpf']
         password = request.form['password']
         confirmacao_senha = request.form['confirmacao_senha']
+        cur = mysql.connection.cursor()
+        if usuario.registeredEmail(cur, mysql, email):
+            return render_template('cadastro.html', erro = 'Email já cadastrado')
+        if usuario.registeredCpf(cur, mysql, cpf):
+            return render_template('cadastro.html', erro = 'CPF já cadastrado')
         if validatePassword.validatePassword(password, confirmacao_senha):
-            cur = mysql.connection.cursor()
             usuario.insertUser(cur, mysql, nome, email, password, cpf)
             return render_template('cadastro.html', resposta = 'True')   
         else:
-            return render_template('cadastro.html', resposta = 'Senhas incompativeis')
+            return render_template('cadastro.html', erro = 'Senhas incompativeis')
     return render_template('cadastro.html')
 
 @app.route('/criarcanal', methods = ['POST'])
