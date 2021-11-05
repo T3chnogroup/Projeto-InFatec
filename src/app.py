@@ -150,20 +150,19 @@ def criar_canal():
 @app.route('/mais_recentes', methods = ['GET'])
 def mais_recentes():
     id_canal = request.args.get('canal')
+    id_usuario = recuperar_id_usuario_logado()
+    seguidor = segue_canal(id_canal, id_usuario) #Saber se o usuário é seguidor ou não
 
     if request.method == "GET":
         print(request.form)   
-        mais_recentes= request.form['mais_recentes']
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * from post order by data_postagem BETWEEN '{0}' desc", (mais_recentes)) # busca da data da postagem  
+        cur.execute("SELECT * from post order by data_postagem desc") # busca da data da postagem  
         if cur.rowcount > 0:# se existir esta postagem
-            Posts = cur.fetchall()[0][0]
-
-            mysql.connection.commit()
+            Posts = cur.fetchall()
             
             cur.close()
 
-            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
+            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), seguidor=seguidor,  titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
 
     return render_template('posts.html', id_canal= id_canal, mais_recentes = False)
 
