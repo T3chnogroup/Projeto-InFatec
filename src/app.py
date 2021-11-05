@@ -47,7 +47,7 @@ def getVerificaFuncao (id_canal):
     if cur.rowcount > 0:# se existir esse id
         id_usuario = cur.fetchall()[0][0]
     # verificar a existencia de uma linha na tabela canal_usuario para este usuário e este canal
-        cur.execute("select * from canal_usuario where id_canal = %s and id_usuario = %s", (id_canal, id_usuario))
+        cur.execute("select * from canal_usuario where id_canal = %s and id_usuario = %s and funcao = 'moderador'", (id_canal, id_usuario))
         return cur.rowcount > 0
     return False
 
