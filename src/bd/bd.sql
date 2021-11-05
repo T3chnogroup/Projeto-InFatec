@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS usuario (
 	nome VARCHAR(100) NOT NULL,
 	email VARCHAR(100) NOT NULL,
 	senha VARCHAR(15) NOT NULL,
-	cpf CHAR(11) NOT NULL
+	cpf CHAR(11) NOT NULL,
+	valido tinyint(1)
 ) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS canal (
@@ -59,11 +60,10 @@ CREATE TABLE IF NOT EXISTS canal_usuario (
 -- Inserção tabela usuario
 delete from canal_usuario where id_usuario >=0;
 Delete from usuario where id_usuario >=0; 
-INSERT INTO usuario VALUES (0, "Lucas", "lucasbrzdias@gmail.com", "123456", "33333333333");
-INSERT INTO usuario VALUES (2, "Elen", "elen.petri@fatec.sp.gov.br", "123456", "22222222222"),
-(3, "Tais", "tais.salomao@fatec.sp.gov.br", "123456", "33333333332"),(4, "Kevin", "kevin.mirenda@fatec.sp.gov.br", "123456", "44444444444"),
-(5, "Lucas", "lucas.dias52@fatec.sp.gov.br", "123456", "55555555555"),(6, "Rodrigo", "rodrigo.paula15@fatec.sp.gov.br", "123456", "66666666666"),
-(7, "Priscila", "priscila.silva140@fatec.sp.gov.br", "123456", "77777777777");
+INSERT INTO usuario VALUES (2, "Elen", "elen.petri@fatec.sp.gov.br", "123456", "22222222222", 1),
+(3, "Tais", "tais.salomao@fatec.sp.gov.br", "123456", "33333333332", 1),(4, "Kevin", "kevin.mirenda@fatec.sp.gov.br", "123456", "44444444444",1),
+(5, "Lucas", "lucas.dias52@fatec.sp.gov.br", "123456", "55555555555", 1),(6, "Rodrigo", "rodrigo.paula15@fatec.sp.gov.br", "123456", "66666666666",1),
+(7, "Priscila", "priscila.silva140@fatec.sp.gov.br", "123456", "77777777777",1);
 
 -- Consulta todos os
 select * from usuario;
