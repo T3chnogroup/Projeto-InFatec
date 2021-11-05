@@ -153,6 +153,13 @@ def mais_recentes():
     id_usuario = recuperar_id_usuario_logado()
     seguidor = segue_canal(id_canal, id_usuario) #Saber se o usuário é seguidor ou não
 
+    if getVerificaFuncao (id_canal):
+        pode_editar = True
+        pode_deletar = True
+    else:
+        pode_editar = False
+        pode_deletar = False
+
     if request.method == "GET":
         print(request.form)   
         cur = mysql.connection.cursor()
@@ -162,7 +169,7 @@ def mais_recentes():
             
             cur.close()
 
-            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), seguidor=seguidor,  titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()),pode_editar = True, pode_deletar = True)
+            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), seguidor=seguidor,  titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), pode_editar = pode_editar, pode_deletar = pode_deletar)
 
     return render_template('posts.html', id_canal= id_canal, mais_recentes = False)
 
@@ -172,6 +179,12 @@ def mais_antigas():
     id_canal = request.args.get('canal')
     id_usuario = recuperar_id_usuario_logado()
     seguidor = segue_canal(id_canal, id_usuario) #Saber se o usuário é seguidor ou não
+    if getVerificaFuncao (id_canal):
+        pode_editar = True
+        pode_deletar = True
+    else:
+        pode_editar = False
+        pode_deletar = False
 
     if request.method == "GET":
         print(request.form)   
@@ -182,7 +195,7 @@ def mais_antigas():
             
             cur.close()
 
-            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), seguidor=seguidor,  titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), pode_editar = True, pode_deletar = True)
+            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), seguidor=seguidor,  titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), pode_editar = pode_editar, pode_deletar = pode_deletar)
 
     return render_template('posts.html', id_canal= id_canal, mais_antigas = False)
 
@@ -192,6 +205,13 @@ def pesquisa_postagem():
     id_canal = request.args.get('canal')
     id_usuario = recuperar_id_usuario_logado()
     seguidor = segue_canal(id_canal, id_usuario) #Saber se o usuário é seguidor ou não
+
+    if getVerificaFuncao (id_canal):
+        pode_editar = True
+        pode_deletar = True
+    else:
+        pode_editar = False
+        pode_deletar = False
 
     if request.method == "POST":
         print(request.form)   
@@ -215,7 +235,7 @@ def pesquisa_postagem():
             
             cur.close()
             print (Posts)
-        return render_template('posts.html', id_canal=id_canal, Posts=Posts, seguidor=seguidor, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), pode_editar = True, pode_deletar = True)
+        return render_template('posts.html', id_canal=id_canal, Posts=Posts, seguidor=seguidor, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), pode_editar = pode_editar, pode_deletar = pode_deletar)
 
     return render_template('posts.html', id_canal= id_canal, pesquisa_postagem = False)
 
