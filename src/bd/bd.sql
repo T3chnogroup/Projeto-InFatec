@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS post (
 	conteudo TEXT NOT NULL,
 	fk_canal INT,
 	fk_usuario INT,
+	titulo_post varchar(100) NOT NULL,
 	FOREIGN KEY (fk_canal) REFERENCES canal (id_canal),
 	FOREIGN KEY (fk_usuario) REFERENCES usuario (id_usuario)
 ) ENGINE=INNODB;
@@ -65,7 +66,7 @@ INSERT INTO usuario VALUES (2, "Elen", "elen.petri@fatec.sp.gov.br", "123456", "
 (5, "Lucas", "lucas.dias52@fatec.sp.gov.br", "123456", "55555555555", 1),(6, "Rodrigo", "rodrigo.paula15@fatec.sp.gov.br", "123456", "66666666666",1),
 (7, "Priscila", "priscila.silva140@fatec.sp.gov.br", "123456", "77777777777",1);
 
--- Consulta todos os
+-- Consulta todos os usuários
 select * from usuario;
 
 -- Inserção tabela canal
@@ -73,6 +74,23 @@ INSERT INTO canal(nome, grupo, semestre, curso) VALUES ("geral", null, null, nul
 select * from canal;
 
 -- Inserção tabela post
-INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo legal", 1, 1);
-INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo chato", 1, 1);
+INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo legal", 1, 1, "titulo legal");
+INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo chato", 1, 1, "titulo chato");
 select * from post;
+
+
+-- Adição da coluna função (Moderador ou participante) na tabela canal_usuario (referente ao gerenciamento do canal)
+ALTER TABLE canal_usuario ADD funcao varchar(30);
+
+-- Adição da coluna visibilidade (canal público ou privado) na tabela canal (referente ao gerenciamento do canal)
+ALTER TABLE canal ADD visibilidade varchar(30);
+
+-- Adição da coluna pode_gerenciar_usuario na tabela usuario (referente às permissões do gerenciamento de ususário)
+ALTER TABLE usuario ADD  pode_gerenciar_usuario boolean;
+
+-- Adição da coluna pode_criar_canais na tabela usuario (referente às permissões do gerenciamento de ususário)
+ALTER TABLE usuario ADD pode_criar_canais boolean;
+
+-- Adição do usuário administrador
+INSERT INTO usuario VALUES (8, 'Administrador', 'administrador@fatec.sp.gov.br', 'admin123', '88888888888', 1, 1);
+

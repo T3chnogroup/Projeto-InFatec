@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<title>InFate - Post</title>
+<title>InFatec - Post</title>
 {% endblock %}
 
 {% block css %}
@@ -14,19 +14,42 @@
 {% block conteudo %}
 <div class="container">
     <div class="posts-wrapper">
+        <div class="alert alert-color mt-2" role="alert">
+            <h4 class="alert-heading">Bem vindo!</h4>
+            <p>Este canal foi designdado para: <b>Coordenadores</b> de <b>todos os cursos</b> e de <b>todos os semetres</b>!</p>
+            <hr>
+            {% if seguidor %}
+            <form action="/deixar-de-seguir?canal={{id_canal}}" method="POST">
+                <div class="py-2 pb-3 mb-0 small lh-sm border-bottom w-100">
+                    <button type="submit" class="btn deixar-seguir-canal">Deixar de seguir canal</button>
+                </div>
+            </form>
+            
+            {% else %}
+            <form action="/seguir?canal={{id_canal}}" method="POST">
+                <div class="py-2 pb-3 mb-0 small lh-sm border-bottom w-100">
+                    <button type="submit" class="btn seguir-canal">Seguir canal</button>
+                </div>
+            </form>
+            {% endif %}
+          </div>
                 {% for post in Posts %}
                     <div class="card post-card">
                         <div class="card-body post-container">
                             <div class="post-actions">
-                                <button class="action-button" data-bs-toggle="modal" data-bs-target="#edit-modal">
+                                {% if pode_editar %}
+                                <button class="action-button" data-bs-toggle="modal" data-bs-target="#edit-modal" onclick="edit_post('{{post[0]}}','{{post[3]}}', '{{post[6]}}')">
                                     <i class="far fa-edit"></i>
                                 </button>
-                                <button class="action-button" data-bs-toggle="modal" data-bs-target="#visibility-modal">
+                                {% endif %}
+                                <!-- <button class="action-button" data-bs-toggle="modal" data-bs-target="#visibility-modal">
                                     <i class="fas fa-eye"></i>
-                                </button>
-                                <button class="action-button" data-bs-toggle="modal" data-bs-target="#delete-modal">
+                                </button> -->
+                                {% if pode_deletar %}
+                                <button class="action-button" data-bs-toggle="modal" data-bs-target="#delete-modal" onclick="delete_post('{{post[0]}}')">
                                     <i class="fas fa-times"></i>
                                 </button> 
+                                {% endif %}
                             </div>
                             <div id="user-icon" class="user-icon-wrapper">
                                 <i class="fas fa-user"></i>
@@ -39,30 +62,55 @@
                                     <p class="date-posted-text">
                                         Postado em {{post[1].strftime('%d/%m/%Y')}}</p>
                                 </div>
-                               
-
                                 <div class="post-main">
+                                    <h4>
+                                        {{post[6]}}
+                                    </h4>
                                     <p class="posted-info">
                                         {{post[3]}}
                                     </p>
+                                    {% if post[8] %}
+                                    <p><a href="{{url_for('static', filename='uploads/')}}{{post[8]}}" target="_blank" download>{{post[8]}}</a></p>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
     </div>
+
     {% if pode_editar %}
-    <div class="text-area-wrapper">
-        <form action="/post?canal={{id_canal}}" method="POST">
-            <textarea name="post" id="post" cols="30" rows="5" class="form-control" placeholder="Crie uma nova publicação."></textarea>
-                <button type="submit" id="send-icon" class="user-icon-wrapper text-area-buttons">
-                    <i class="fas fa-paper-plane"></i>
-               <!-- <button id="clips-icon" class="user-icon-wrapper text-area-buttons">
-                    <i class="fas fa-paperclip"></i>
-                </button>--> <!--Inserir quando for feito a postagem de arquivo-->
-        </form>
-    </div>
+    <form class="formulario-post" name="formtest" action="/post?canal={{id_canal}}" method="POST" enctype="multipart/form-data">
+        <div class="center-postagem">
+
+            <fieldset class="grupo-post">
+                <div class="preenchimento-post">
+                    <div class="textarea_div px-4 mt-3">
+                        <input type="text" class="form-control" name="titulo" id="exampleFormControlInput1" placeholder="Titulo da postagem" required="required">
+                    </div> 
+                </div>
+
+                <div class="preenchimento-post">
+                    <div class="textarea_div px-4 mt-3">
+                        <textarea type="textarea" class="form-control text_area" name="post" rows="3" placeholder="Digite aqui para uma nova publicação" required="required"></textarea>
+                    </div>
+                </div>
+
+               <div class="preenchimento-post">
+                    <div class="gap-2 px-4 mb-3 arquivo">
+                        <input class="form-control" type="file" id="add_arquivo" name="arquivo">
+
+                    </div>
+                    <div class="gap-2 px-4 mb-3 envio">
+                        <button id="send-icon" class="botao_enviar btn btn-danger" type="submit"><span class="class_enviar">Enviar</span>
+                    </div>
+                </div>
+            </fieldset>
+
+        </div><!--center-post-->
+    </form><!--formulario-post-->
     {% endif %}
+
 </div>
 
 {% endblock %}
@@ -75,20 +123,30 @@
         <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Alterar Post</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            Deseja realmente alterar este post?
-        </div>
-        <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
-        <button type="button" class="btn btn-primary">Sim</button>
-        </div>
+        </div> 
+        <form id="formEditaPost" method="POST">
+            <div class="modal-body">
+                    <div class="form-group">
+                        <label>Título</label>
+                        <input type="text" id="titulo-editar-post" name="titulo" class="form-control">
+                    </div>
+                    <div class="form-group mt-3">
+                        <textarea id="text-editar-post" name="text-editar-post" class="textarea-editar w-100 form-control">  
+                        </textarea>
+                    </div>
+                
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+            <button type="submit" class="btn btn-danger">Sim</button>
+            </div>
+        </form>
     </div>
     </div>
 </div>
 
 <!-- Modal Visibilidade -->
-<div class="modal fade" id="visibility-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="visibility-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
@@ -104,7 +162,7 @@
         </div>
     </div>
     </div>
-</div>
+</div> -->
 
 <!-- Modal Visibilidade -->
 <div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -119,12 +177,23 @@
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
-        <button type="button" class="btn btn-danger">Sim</button>
+        <a id="btn-apagar-post" class="btn btn-danger">Sim</a>
         </div>
     </div>
     </div>
 </div>
-<script>//Não Remover! Seta o tamanho do text-area de acordo com as postagens
-        $('#post').width($($('.posts-wrapper')[0]).width()-10)
-</script>
+
 {% endblock %}
+{%block js%}
+<script>//Não Remover! Seta o tamanho do text-area de acordo com as postagens
+    $('#post').width($($('.posts-wrapper')[0]).width()-10)
+    function delete_post(id){
+        $("#btn-apagar-post").attr("href","delete_post/{{id_canal}}/"+id) 
+    }
+    function edit_post(id,conteudo,titulo){
+        $("#text-editar-post").val(conteudo)
+        $("#formEditaPost").attr("action",'/post/'+id+"?canal={{id_canal}}")
+        $("#titulo-editar-post").val(titulo)
+    }
+</script>
+{%endblock%}
