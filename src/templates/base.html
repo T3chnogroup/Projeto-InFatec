@@ -136,12 +136,12 @@
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <li action="/mais_recentes?canal={{id_canal}}" method="POST">
-                      <a class="dropdown-item" name="mais_recente" type="submit">Mais recente</a>
+                      <a class="dropdown-item" name="mais_recentes" action="/mais_recentes?canal={{id_canal}}" method="POST">Mais recentes</a>
                     <li>
                       <hr class="dropdown-divider">
                     </li>
                     <li>
-                      <button class="dropdown-item" name="mais_antigas" href="/mais_antigas?canal={{id_canal}}" method="POST" type="submit">Mais antigas</button>
+                      <a class="dropdown-item" name="mais_antigas" action="/mais_antigas?canal={{id_canal}}" method="POST">Mais antigas</a>
                     <li>
                       <hr class="dropdown-divider">
                     </li>

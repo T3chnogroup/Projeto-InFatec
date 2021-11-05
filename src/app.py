@@ -153,9 +153,9 @@ def mais_recentes():
 
     if request.method == "POST":
         print(request.form)   
-        mais_recentes = request.form['mais_recentes']
+        mais_recentes= request.form['mais_recentes']
         cur = mysql.connection.cursor()
-        cur.execute("SELECT id_post from post order by data_postagem BETWEEN %s and %s desc", (mais_recentes)) # busca da data da postagem 
+        cur.execute("SELECT * from post order by data_postagem BETWEEN '{0}' desc", (mais_recentes)) # busca da data da postagem  
         if cur.rowcount > 0:# se existir esta postagem
             Posts = cur.fetchall()[0][0]
 
@@ -163,7 +163,7 @@ def mais_recentes():
             
             cur.close()
 
-            return render_template("posts.html", id_canal=id_canal, Posts=Posts, titulocanal=getChannel(id_canal))
+            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
 
     return render_template('posts.html', id_canal= id_canal, mais_recentes = False)
 
@@ -172,11 +172,11 @@ def mais_recentes():
 def mais_antigas():
     id_canal = request.args.get('canal')
 
-    if request.method == "POST":
+    if request.method == "GET":
         print(request.form)   
         mais_antigas= request.form['mais_antigas']
         cur = mysql.connection.cursor()
-        cur.execute("SELECT id_post from post order by data_postagem BETWEEN %s and %s asc", (mais_antigas)) # busca da data da postagem 
+        cur.execute("SELECT * from post order by data_postagem BETWEEN '{0}' asc", (mais_antigas)) # busca da data da postagem  
         if cur.rowcount > 0:# se existir esta postagem
             Posts = cur.fetchall()[0][0]
 
@@ -184,7 +184,7 @@ def mais_antigas():
             
             cur.close()
 
-            return render_template("posts.html", id_canal=id_canal, Posts=Posts, titulocanal=getChannel(id_canal))
+            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
 
     return render_template('posts.html', id_canal= id_canal, mais_antigas = False)
 
