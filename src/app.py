@@ -156,13 +156,13 @@ def mais_recentes():
     if request.method == "GET":
         print(request.form)   
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * from post order by data_postagem desc") # busca da data da postagem  
+        cur.execute("SELECT * from post where fk_canal = %s order by data_postagem desc",(id_canal,)) # busca da data da postagem  
         if cur.rowcount > 0:# se existir esta postagem
             Posts = cur.fetchall()
             
             cur.close()
 
-            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), seguidor=seguidor,  titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
+            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), seguidor=seguidor,  titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()),pode_editar = True, pode_deletar = True)
 
     return render_template('posts.html', id_canal= id_canal, mais_recentes = False)
 
@@ -176,13 +176,13 @@ def mais_antigas():
     if request.method == "GET":
         print(request.form)   
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * from post order by data_postagem asc") # busca da data da postagem  
+        cur.execute("SELECT * from post where fk_canal = %s order by data_postagem asc",(id_canal,)) # busca da data da postagem  
         if cur.rowcount > 0:# se existir esta postagem
             Posts = cur.fetchall()
             
             cur.close()
 
-            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), seguidor=seguidor,  titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
+            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), seguidor=seguidor,  titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), pode_editar = True, pode_deletar = True)
 
     return render_template('posts.html', id_canal= id_canal, mais_antigas = False)
 
@@ -207,6 +207,7 @@ def pesquisa_postagem():
         print(query)
         cur = mysql.connection.cursor()
         cur.execute("SELECT * from post {0}".format(query)) # busca do titulo ou da data da postagem 
+        Posts = []
         if cur.rowcount > 0:# se existir esta postagem
             Posts = cur.fetchall()
 
@@ -214,7 +215,7 @@ def pesquisa_postagem():
             
             cur.close()
             print (Posts)
-        return render_template('posts.html', id_canal=id_canal, Posts=Posts, seguidor=seguidor, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
+        return render_template('posts.html', id_canal=id_canal, Posts=Posts, seguidor=seguidor, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), pode_editar = True, pode_deletar = True)
 
     return render_template('posts.html', id_canal= id_canal, pesquisa_postagem = False)
 
