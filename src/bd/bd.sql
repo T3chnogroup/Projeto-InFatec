@@ -48,13 +48,6 @@ CREATE TABLE IF NOT EXISTS visualizado_por (
 	FOREIGN KEY (fk_post) REFERENCES post (id_post)
 );
 
-CREATE TABLE IF NOT EXISTS usuario_canal (
-	fk_usuario INT,
-	fk_canal INT,
-	PRIMARY KEY (fk_usuario, fk_canal),
-	FOREIGN KEY (fk_usuario) REFERENCES usuario (id_usuario),
-	FOREIGN KEY (fk_canal) REFERENCES canal (id_canal)
-);
  -- Se não existir, cria tabela de ralacionamento entre canal e usuário
 CREATE TABLE IF NOT EXISTS canal_usuario (
 	id_canal INT,
@@ -73,7 +66,7 @@ INSERT INTO usuario VALUES (2, "Elen", "elen.petri@fatec.sp.gov.br", "123456", "
 (5, "Lucas", "lucas.dias52@fatec.sp.gov.br", "123456", "55555555555"),(6, "Rodrigo", "rodrigo.paula15@fatec.sp.gov.br", "123456", "66666666666"),
 (7, "Priscila", "priscila.silva140@fatec.sp.gov.br", "123456", "77777777777");
 
--- Consulta todos os
+-- Consulta todos os usuários
 select * from usuario;
 
 -- Inserção tabela canal
@@ -84,3 +77,20 @@ select * from canal;
 INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo legal", 1, 1, "titulo legal");
 INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo chato", 1, 1, "titulo chato");
 select * from post;
+
+
+-- Adição da coluna função (Moderador ou participante) na tabela canal_usuario (referente ao gerenciamento do canal)
+ALTER TABLE canal_usuario ADD funcao varchar(30);
+
+-- Adição da coluna visibilidade (canal público ou privado) na tabela canal (referente ao gerenciamento do canal)
+ALTER TABLE canal ADD visibilidade varchar(30);
+
+-- Adição da coluna pode_gerenciar_usuario na tabela usuario (referente às permissões do gerenciamento de ususário)
+ALTER TABLE usuario ADD  pode_gerenciar_usuario boolean;
+
+-- Adição da coluna pode_criar_canais na tabela usuario (referente às permissões do gerenciamento de ususário)
+ALTER TABLE usuario ADD pode_criar_canais boolean;
+
+-- Adição do usuário administrador
+INSERT INTO usuario VALUES (8, 'Administrador', 'administrador@fatec.sp.gov.br', 'admin123', '88888888888', 1, 1);
+

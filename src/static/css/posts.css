@@ -14,29 +14,37 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border: none !important;
 }
+.post-actions .fa-edit, .post-actions .fa-eye, .post-actions .fa-times {
+    position: absolute;
+    cursor: pointer;
+}
+
 
 .post-actions .fa-edit {
-  position: absolute;
   top: 10px;
   right: 10px;
 }
 
 .post-actions .fa-eye {
-  position: absolute;
   top: 35px;
   right: 10px;
 }
 
 .post-actions .fa-times {
-  position: absolute;
-  top: 55px;
-  right: 12.5px;
+  top: 30px;
+  right: 14.5px;
 }
 
 .post-container #user-icon {
   margin-right: 5px;
 
   background: rgba(37, 37, 37, .6);
+}
+
+.textarea-editar{
+    min-height: 9rem;
+    resize: none;
+
 }
 
 .action-button {
@@ -55,7 +63,7 @@
 .post-header {
   display: flex;
   flex-direction: row;
-  margin-bottom: 2.1rem;
+  margin-bottom: 1rem;
 }
 
 .posted-info p{
@@ -169,3 +177,39 @@
     margin-right: 5px;
   }
 }
+
+  .bg-button{
+   border: 1px solid black;
+  }
+
+  /*Descrição do canal*/
+  .alert-color{
+    background-color: #e9ecef;
+  }
+
+  .seguir-canal{
+    color: #2d2e33;
+    font-weight: bold;
+    border-color: #2d2e33;
+  }
+
+  .seguir-canal:hover{
+    color: #fff;
+    background-color: #2d2e33;
+  }
+
+
+  .deixar-seguir-canal{
+    color: #9e1616;
+    font-weight: bold;
+    border-color: #9e1616;  
+  }
+
+  .deixar-seguir-canal:hover{
+    color: #fff;
+    background-color: #9e1616;
+  }
+
+
+
+
