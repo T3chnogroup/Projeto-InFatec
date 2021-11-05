@@ -290,6 +290,11 @@ input:focus{
   .select2-dropdown{/*Deixa a listagem de emails na frente do modal*/
     z-index: 9999 !important;
   }
+
+  .form-check-input:checked {
+    background-color: #28292e;
+    border-color: #28292e;
+}
   
   @media (max-width: 650px) { /*tamanho dos campos para mobile*/
     .largura_input{
