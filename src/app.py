@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template, request, url_for, redirect
 from flask_mysqldb import MySQL
 from datetime import date
+from hashlib import sha1
 from dotenv import load_dotenv
 from functions import validatePassword
 from models import usuario
@@ -62,7 +63,7 @@ def login():
         cursor = mysql.connection.cursor()
         cpf = request.form['login']
         password = request.form['password']
-        cur = cursor.execute("select email from usuario where cpf = %s and senha = %s", (cpf,password)) # Recupera e-mail a partir do cpf
+        cur = cursor.execute("select email from usuario where cpf = %s and senha = %s", (cpf,sha1(password.encode('utf-8')).hexdigest())) # Recupera e-mail a partir do cpf
         if cursor.rowcount > 0:
             lista_emails = cursor.fetchall()
             return redirect(url_for('inicio', email = lista_emails[0][0]))
@@ -135,7 +136,7 @@ def cadastro():
         if usuario.registeredCpf(cur, mysql, cpf):
             return render_template('cadastro.html', erro = 'CPF já cadastrado')
         if validatePassword.validatePassword(password, confirmacao_senha):
-            usuario.insertUser(cur, mysql, nome, email, password, cpf)
+            usuario.insertUser(cur, mysql, nome, email, sha1(password.encode('utf-8')).hexdigest(), cpf)
             return render_template('cadastro.html', resposta = 'True')   
         else:
             return render_template('cadastro.html', erro = 'Senhas incompativeis')
