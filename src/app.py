@@ -60,13 +60,16 @@ def login():
         # fazer aqui validação de login
         cursor = mysql.connection.cursor()
         cpf = request.form['login']
-        cur = cursor.execute("select email from usuario where cpf = %s", (cpf,)) # Recupera e-mail a partir do cpf
+        password = request.form['password']
+        cur = cursor.execute("select email from usuario where cpf = %s and senha = %s", (cpf,password)) # Recupera e-mail a partir do cpf
         if cursor.rowcount > 0:
             lista_emails = cursor.fetchall()
             return redirect(url_for('inicio', email = lista_emails[0][0]))
         else:
-            return redirect(url_for('inicio'))
+            return render_template('login.html')
     else:
+        if recuperar_id_usuario_logado() != None:
+            return redirect(url_for('inicio'))
         return render_template('login.html')
 
 @app.route('/redefinir')
@@ -116,10 +119,6 @@ def post():
         return render_template("posts.html", id_canal=id_canal, seguidor = seguidor, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), titulocanal =getChannel(id_canal), pode_editar = pode_editar, pode_deletar = pode_deletar, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
 
     return render_template('posts.html', id_canal= id_canal, pode_editar = False)
-
-@app.route('/gerenciamento_usuario')
-def gerenciamentoUsuario():
-    return render_template('gerenciamento_usuario.html', canais=getcanais(), titulocanal = "Gerenciamento Usuários")
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
