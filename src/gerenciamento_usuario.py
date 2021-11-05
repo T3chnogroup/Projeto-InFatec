@@ -44,7 +44,7 @@ def pode_criar_canais(id_usuario):
     cur= mysql.connection.cursor()
     #Esse usuario pode criar canal?
     cur.execute('Select id_usuario, pode_criar_canais from usuario where id_usuario = %s', (id_usuario,))
-    pode_criar_canais = cur.fetchall()[0][1]
+    pode_criar_canais = cur.fetchall()[0][0]
     if pode_criar_canais == 1:
         return True
     else:
