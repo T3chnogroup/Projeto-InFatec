@@ -61,12 +61,12 @@ CREATE TABLE IF NOT EXISTS canal_usuario (
 -- Inserção tabela usuario
 delete from canal_usuario where id_usuario >=0;
 Delete from usuario where id_usuario >=0; 
-INSERT INTO usuario VALUES (2, "Elen", "elen.petri@fatec.sp.gov.br", "123456", "22222222222", 1, 1, 1),
-(3, "Tais", "tais.salomao@fatec.sp.gov.br", "123456", "33333333332",1 , 1, 1),
-(4, "Kevin", "kevin.mirenda@fatec.sp.gov.br", "123456", "44444444444",1 , 1, 1),
-(5, "Lucas", "lucas.dias52@fatec.sp.gov.br", "123456", "55555555555", 1 , 1, 1),
-(6, "Rodrigo", "rodrigo.paula15@fatec.sp.gov.br", "123456", "66666666666",1 , 1, 1),
-(7, "Priscila", "priscila.silva140@fatec.sp.gov.br", "123456", "77777777777",1 , 1, 1);
+INSERT INTO usuario VALUES (2, "Elen", "elen.petri@fatec.sp.gov.br", "123456", "22222222222", 1),
+(3, "Tais", "tais.salomao@fatec.sp.gov.br", "123456", "33333333332",1),
+(4, "Kevin", "kevin.mirenda@fatec.sp.gov.br", "123456", "44444444444",1),
+(5, "Lucas", "lucas.dias52@fatec.sp.gov.br", "123456", "55555555555", 1),
+(6, "Rodrigo", "rodrigo.paula15@fatec.sp.gov.br", "123456", "66666666666",1),
+(7, "Priscila", "priscila.silva140@fatec.sp.gov.br", "123456", "77777777777",1);
 
 -- Consulta todos os usuários
 select * from usuario;
@@ -76,8 +76,8 @@ INSERT INTO canal(nome, grupo, semestre, curso) VALUES ("geral", null, null, nul
 select * from canal;
 
 -- Inserção tabela post
-INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo legal", 1, 1, "titulo legal");
-INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo chato", 1, 1, "titulo chato");
+INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo legal", 1, 2, "titulo legal");
+INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo chato", 1, 2, "titulo chato");
 select * from post;
 
 
