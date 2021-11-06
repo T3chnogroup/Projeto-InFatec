@@ -67,6 +67,7 @@
 
         <div class="grupos">
           <ul class="nav flex-column">
+            {% if pode_criar_canal %}
             <!--"Criar canal"-->
             <li class="nav-item border-bottom nav-item-btn border-top mb-1">
               <button type="button" class="nav-link active text-white p-2 canais sticky-top create-channel-button"
@@ -74,11 +75,8 @@
                 <span data-feather="home"></span>
                 <i class="fas fa-plus"></i> Criar Canal
               </button>
-              <!-- <a class="nav-link active text-white p-2 canais sticky-top" aria-current="page" href="#">
-              <span data-feather="home"></span>
-              <i class="fas fa-plus"></i> Criar Canal
-            </a> -->
             </li>
+            {% endif %}
             {% for canal in canais %}
               <li class="nav-item border-bottom nav-item-btn d-flex justify-content-between pe-2">
                 <a class="nav-link text-white p-2 sticky-top" href="/post?canal={{canal[0]}}">
@@ -99,8 +97,11 @@
         <!--footer da lista-->
         <footer class="flex-row text-white d-flex justify-content-between ">
           <a href="" class="text-white"><i class="fas fa-cog"></i></a>
+          {% if pode_gerenciar_usuario %}
           <a href="/gerenciamento_usuario" class="text-white"><i class="fas fa-users"></i></a>
-          <a href="/login" class="text-white"><i class="fas fa-sign-out-alt"></i></a>
+          {% endif %}
+          <button class="text-white sign-out"><i class="fas fa-sign-out-alt"></i></button>
+          <!-- esse -->
         </footer>
 
       </nav>
@@ -135,11 +136,13 @@
                     aria-expanded="false">
                   </a>
                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">Mais recente</a></li>
+                    <li action="/mais_recentes?canal={{id_canal}}" method="POST">
+                      <a class="dropdown-item" name="mais_recentes" href="/mais_recentes?canal={{id_canal}}" method="POST">Mais recentes</a>
                     <li>
                       <hr class="dropdown-divider">
                     </li>
-                    <li><a class="dropdown-item" href="#">Mais antigas</a></li>
+                    <li>
+                      <a class="dropdown-item" name="mais_antigas" href="/mais_antigas?canal={{id_canal}}" method="POST">Mais antigas</a>
                     <li>
                       <hr class="dropdown-divider">
                     </li>
@@ -209,7 +212,7 @@
                 </div>
 
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input aria-expanded" type="radio" name="visibilidade" id="canal_publico" value="publico" data-bs-toggle="collapsed" href="#multiCollapseRadio2" role="button" aria-expanded="false" aria-controls="multiCollapseRadio2" onclick="collapse_remove()">
+                  <input class="form-check-input aria-expanded" type="radio" name="visibilidade" id="canal_publico" checked value="publico" data-bs-toggle="collapsed" href="#multiCollapseRadio2" role="button" aria-expanded="false" aria-controls="multiCollapseRadio2" onclick="collapse_remove()">
                   <label class="form-check-label" for="canal_publico" >Canal público</label>
                 </div>
                 <div class="form-check form-check-inline">
@@ -247,9 +250,29 @@
 
 <script>
   $(document).ready(() => {
+    function get_cookie(name){
+        return document.cookie.split(';').some(c => {
+            return c.trim().startsWith(name + '=');
+        });
+    } 
+
+    function delete_cookie( name, path, domain ) {
+      if( get_cookie( name ) ) {
+        document.cookie = name + "=" +
+          ((path) ? ";path="+path:"")+
+          ((domain)?";domain="+domain:"") +
+          ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+      }
+    }
+
     $('.form-control').on('keydown', e => {
       if (e.which === 13) e.preventDefault()
     });
+
+    $('.sign-out').click(() => {
+      delete_cookie('email_logado', '/', '127.0.0.1')
+      window.location.href = "/login";
+    })
   })
   //Select2
   $(document).ready(function () {
@@ -285,12 +308,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="pesquisa-avancada" name="formtest" method="post" action="cadastrado_com_sucesso_contato.html">
-
+        <form class="pesquisa-avancada" name="formtest" action="/pesquisa_postagem?canal={{id_canal}}" method="POST">
           <fieldset class="p-avancada">
             <div class="preenchimento-p-avancada">
               <div class="campo-center px-4 mt-3">
-                <input type="text" class="form-control" name="nome" placeholder="Palavra-chave" required="required">
+                <input type="text" class="form-control" name="titulo" placeholder="Título">
               </div>
             </div>
 
@@ -301,35 +323,32 @@
             <div class="preenchimento-p-avancada">
               <div class="campo-center px-4  mt-3">
                 <label for="nascimento"><strong>Data inicial</strong></label>
-                <input type="date" class="form-control" name="nascimento" id="nascimento" required>
+                <input type="date" class="form-control" name="data_inicial" id="data_inicial">
               </div>
             </div>
 
             <div class="preenchimento-p-avancada">
               <div class="campo-center px-4  mt-3">
                 <label for="nascimento"><strong>Data final</strong></label>
-                <input type="date" class="form-control" name="nascimento" id="nascimento" required>
+                <input type="date" class="form-control" name="data_final" id="data_final">
               </div>
             </div>
 
+            <div class="modal-footer border-top-0">
+              <div class="preenchimento-p-avancada">
+                <div class="campo-left d-grid gap-2 px-4 mb-3">
+                  <button class="btn btn-light text-danger btn-block fw-bold border" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+      
+                <div class="campo-right d-grid gap-2 px-4 mb-3">
+                  <button class="btn btn-light text-primary btn-block fw-bold border" type="submit">Filtrar</button>
+                </div>
+              </div>
+            </div>
+            
           </fieldset>
-
-        </form>
-        <!--conteúdo-->
-
       </div>
-
-      <div class="modal-footer border-top-0">
-        <div class="preenchimento-p-avancada">
-          <div class="campo-left d-grid gap-2 px-4 mb-3">
-            <button class="btn btn-light text-danger btn-block fw-bold border" data-bs-dismiss="modal">Cancelar</button>
-          </div>
-
-          <div class="campo-right d-grid gap-2 px-4 mb-3">
-            <button class="btn btn-light text-primary btn-block fw-bold border" data-bs-dismiss="modal">Filtrar</button>
-          </div>
-        </div>
-      </div>
+    </form>
     </div>
   </div>
 </div>

@@ -1,59 +1,47 @@
 {% extends 'base.html' %}
 {% block css %}
-<link rel="stylesheet" href="{{url_for('static', filename='css/styles_gerenciamento.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/gerenciamento_usuario.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/globals.css')}}">
+
 {% endblock %}
 
 {% block title %}
   <title>inFATEC-Gerenciamento-Usuario</title>
   {% endblock %}
+
+{% block nav %}
+  <!-- Aqui fica o nav -->
+{% endblock %}
+
 {% block conteudo%}
 <div class="container mt-3">
-  <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#cadastroModal">
-    Cadastrar
-  </button>
-  <label class="btn btn-secondary" for="arquivo">
-    Importar
-  </label>
+
   <input type="file" name="arquivo" id="arquivo">
 
   <table class="table table-striped">
     <thead>
       <tr>
         <th scope="col">Nome</th>
-        <th scope="col">Curso</th>
-        <th scope="col">Função</th>
+        <th scope="col">Email</th>
         <th scope="col">Ações</th>
       </tr>
     </thead>
     <tbody>
+      {% for usuario in usuarios %}
       <tr>
-        <td>Lucas Braz Dias</td>
-        <td>DSM</td>
-        <td>Aluno</td>
+        <td>{{usuario[1]}}</td>
+        <td>{{usuario[2]}}</td>
         <td>
-          <button type="button" data-bs-toggle="modal" class="text-danger" data-bs-target="#excluirModal">
-            <i class="far fa-trash-alt"></i>
+          <button type="button" data-usuario="{{usuario[0]}}" class="text-danger" data-bs-target="#excluirModal" title="Remover membro" data-bs-toggle="modal">
+            <i class="bi bi-trash"></i>
           </button>
 
-          <button type="button" data-bs-toggle="modal" class="text-secundary" data-bs-target="#alterarModal">
-            <i class="far fa-edit"></i>
+          <button type="button" data-gerenciar="{{usuario[3]}}"  data-criarcanais="{{usuario[4]}}" data-usuario="{{usuario[0]}}" data-bs-toggle="modal" class="text-secundary" data-bs-target="#alterarModal" title="Alterar usua">
+            <i class="bi bi-pencil-square"></i>
           </button>
         </td>
       </tr>
-      <tr>
-        <td>Jeffinho</td>
-        <td>ADS</td>
-        <td>Coordenador</td>
-        <td>
-          <button type="button" data-bs-toggle="modal" class="text-danger" data-bs-target="#excluirModal">
-            <i class="far fa-trash-alt"></i>
-          </button>
-
-          <button type="button" data-bs-toggle="modal" class="text-secundary" data-bs-target="#alterarModal">
-            <i class="far fa-edit"></i>
-          </button>
-        </td>
-      </tr>
+      {% endfor %}
     </tbody>
   </table>
 </div>
@@ -62,124 +50,55 @@
 {% block modals %}
   <!-- Modal -->
 <div class="modal fade" id="excluirModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-width">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Excluir Usuário</h5>
-        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Deseja excluir esse usuário mesmo?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary fw-bold">Não</button>
-        <button type="button" class="btn btn-danger fw-bold">Sim</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="cadastroModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-width">
-    <div class="modal-content">
-      <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title" id="exampleModalLabel">Cadastro</h5>
-        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form action="">
-          <div class="d-flex justify-content-center mt-4 inputs-wrapper">
-            <div class="inputs-first-column me-4">
-              <input type="text" class="form-control form-control mb-3" placeholder="Nome">
-              <select class="form-select mb-3" aria-label="Default select example">
-                <option>Curso</option>
-                <option value="1">DSM</option>
-                <option value="2">ADS</option>
-                <option value="3">BD</option>
-              </select>
-              <input type="email" class="form-control" placeholder="E-mail">
-            </div>
-            <div class="inputs-second-column">
-              <input type="text" class="form-control form-control mb-3 cpf" placeholder="CPF: 000.000.000-00">
-              <select class="form-select mb-3" aria-label="Default select example">
-                <option>Função</option>
-                <option value="1">Administrador</option>
-                <option value="2">Coordenador</option>
-                <option value="3">Professor</option>
-                <option value="4">Aluno</option>
-              </select>
-              <input type="password" class="form-control" placeholder="Password">
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer d-flex justify-content-center no-border">
-        <button type="button" class="btn btn-danger fw-bold save-button">Cadastrar</button>
+  <form action="/remover_usuario?usuario={{id_usuario}}" templete="/remover_usuario?&usuario=" method="POST">
+    <div class="modal-dialog modal-lg modal-width">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-white" id="exampleModalLabel">Excluir Usuário</h5>
+          <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body"><i class="bi bi-exclamation-triangle text-danger"></i>
+          Deseja mesmo excluir esse usuário? <br> Esta ação não poderá ser desfeita e todos os dados serão perdidos!<i
+            class="bi bi-exclamation-triangle text-danger"></i>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn fw-bold btn-nao" data-bs-dismiss="modal" aria-label="Close">Não</button>
+          <button type="submit" class="btn fw-bold btn-sim">Sim</button>
+        </div>
       </div>
     </div>
-  </div>
+  </form>
 </div>
 
 <div class="modal fade" id="alterarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <form action="/editar_permissoes?usuario={{id_usuario}}" templete="/editar_permissoes?&usuario=" method="POST">
   <div class="modal-dialog modal-lg modal-width">
     <div class="modal-content">
-      <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title" id="exampleModalLabel">Alterar Usuário</h5>
+      <div class="modal-header text-white">
+        <h5 class="modal-title text-white" id="exampleModalLabel">Alterar Usuário</h5>
         <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="">
-          <div class="d-flex flex-column">
-            <div class="d-flex justify-content-center mt-4 inputs-wrapper">
-              <div class="inputs-first-column me-4">
-                <input type="text" value="Lucas" class="form-control form-control mb-3" placeholder="Nome">
-                <select class="form-select mb-3" aria-label="Default select example">
-                  <option>Curso</option>
-                  <option value="1" selected>DSM</option>
-                  <option value="2">ADS</option>
-                  <option value="3">BD</option>
-                </select>
-                <input type="email" class="form-control" placeholder="E-mail" value="lucasbrzdias@gmail.com">
-              </div>
-              <div class="inputs-second-column">
-                <input type="text" class="form-control form-control mb-3 cpf" placeholder="CPF: 000.000.000-00" value="50238395839">
-                <select class="form-select mb-3" aria-label="Default select example">
-                  <option>Função</option>
-                  <option value="1">Administrador</option>
-                  <option value="2">Coordenador</option>
-                  <option value="3" selected>Aluno</option>
-                </select>
-                <input type="password" class="form-control" placeholder="Password" value="000000">
-              </div>
-            </div>
-            <div class="d-flex justify-content-between mt-3 me-3 ms-3">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" checked id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
-                  Publicar
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" checked id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
-                  Gerenciar Usuários
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" checked id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
-                  Criar Canais
-                </label>
-              </div>
-            </div>
+          <p>Selecione abaixo as permissões para este usuário</p>
+          <div class="form-check">
+            <input class="form-check-input" name="gerenciar_usuarios" type="checkbox" checked id="gerenciar_usuarios" value="1" data-toggle="switch">
+            <label class="form-check-label" for="gerenciar_usuarios">
+              Gerenciar Usuários
+            </label>
           </div>
-        </form>
-      </div>
-      <div class="modal-footer d-flex justify-content-center no-border">
-        <button type="button" class="btn btn-danger fw-bold save-button">Salvar</button>
+          <div class="form-check">
+            <input class="form-check-input" name="criar_canais" type="checkbox" checked id="criar_canais" value="1" data-toggle="switch">
+            <label class="form-check-label" for="criar_canais">
+              Criar Canais
+            </label>
+          </div>
+          <div class="pt-3 div-salvar">
+            <button type="submit" class="btn botao-salvar">Salvar</button>
+          </div>
       </div>
     </div>
   </div>
+  </form>
 </div>
 {% endblock %}
 
@@ -188,4 +107,47 @@
 <script src="{{url_for('static', filename='js/index_gerenciamento.js')}}"></script>
 <script src="{{url_for('static', filename='js/jquery.mask.js')}}"></script>
 
+<script type="text/javascript"> /*Remover participante do canal*/
+  $('#excluirModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) /*Botão que foi clicado*/
+    var id_user = button.data('usuario') /*Atribui à variável o atributo data-usuario do botão que foi clicado*/
+    var modal = $(this) /*Modal que está sendo aberto*/
+    var formulario = modal.find('form') /*Atribui à variável formulário o formulário que foi encontrado no modal*/
+    var action = formulario.attr('templete')
+    action = action + id_user /*Action monta a URL completa com o id do usuário*/
+    formulario.attr('action', action) /*Coloca a URL completa no action do formulário*/ 
+  })
+</script>
+<script type="text/javascript"> /*Alterar permissões dos usuários*/
+  $('#alterarModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) 
+    var id_user = button.data('usuario') 
+    var modal = $(this) 
+    var formulario = modal.find('form') 
+    var action = formulario.attr('templete')
+    action = action + id_user
+    formulario.attr('action', action) 
+    var pode_gerenciar = button.data('gerenciar')/*pega dados que estão salvos no botão*/
+    var pode_criar = button.data('criarcanais')
+    input_gerenciar = formulario.find('#gerenciar_usuarios')
+    input_criarcanais = formulario.find('#criar_canais')
+    if (pode_gerenciar == 1){
+      //mudar input criar canal para checked
+      input_gerenciar.prop( "checked", true );
+    }
+    else{
+      //mudar input criar canal para não checked
+      input_gerenciar.prop( "checked", false );
+    }
+
+    if (pode_criar == 1){
+      //mudar input criar canal para checked
+      input_criarcanais.prop( "checked", true );
+    }
+    else{
+      //mudar input criar canal para não checked
+      input_criarcanais.prop( "checked", false );
+    }
+  })
+</script>
 {% endblock %}

@@ -40,7 +40,7 @@ def getPosts(id_canal, id_usuario):
         left join anexo on anexo.fk_post=post.id_post 
         left join visualizado_por as v on post.id_post=v.fk_post 
             where fk_canal={id_canal} AND (v.fk_usuario<>{id_usuario} OR v.fk_usuario IS NULL) 
-            order by id_post desc''')
+            order by data_postagem desc''')
     Posts = cur.fetchall()
     cur.close()
     return Posts

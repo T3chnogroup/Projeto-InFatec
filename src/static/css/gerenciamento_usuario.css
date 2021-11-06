@@ -1,0 +1,85 @@
+button {
+  border: none;
+  background: none;
+}
+
+
+input[type='file'] {
+  display: none;
+}
+
+.form-modal {
+  background: #E5E9F2;
+}
+
+.modal-width {
+  width: 650px !important;
+}
+
+.modal-header{
+    background-color: #9e1616;
+
+}
+
+.no-border {
+  border: none !important;
+}
+
+.form-check-input:checked {
+  background-color: #28292e;
+  border-color: #28292e;
+}
+
+.btn-nao{
+  color: #2d2e33;
+  font-weight: bold;
+  border-color: #2d2e33;
+}
+ 
+.btn-nao:hover{
+  color: #fff;
+  background-color: #2d2e33;
+}
+
+.btn-sim{
+  color: #9e1616;
+  font-weight: bold;
+  border-color: #9e1616;
+}
+
+.btn-sim:hover{
+  color: #fff;
+  background-color: #9e1616;
+}
+
+@media (max-width: 576px) {
+  .modal-width {
+    width: 95.5% !important;
+  }
+
+  .inputs-wrapper {
+    flex-direction: column !important;
+  }
+
+  .inputs-wrapper .inputs-second-column {
+    margin-top: 1rem;
+  }
+
+  .inputs-wrapper .inputs-first-column {
+    margin-right: 0 !important;
+  }
+}
+.div-salvar{
+  text-align: center;
+}
+
+.botao-salvar{
+  color: #2d2e33;
+  font-weight: bold;
+  border-color: #2d2e33;
+}
+
+.botao-salvar:hover{
+  color: #fff;
+  background-color: #2d2e33;
+}
