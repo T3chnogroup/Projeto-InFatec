@@ -33,7 +33,6 @@ app.config['MYSQL_DB'] = os.getenv("MYSQL_DB")
 mysql = MySQL(app)
 
 
-
 def getChannel(id_canal):
     cursor = mysql.connection.cursor()
     cur = cursor.execute("SELECT nome FROM canal where id_canal = %s", (id_canal,)) # Pega o nome do canal que veio da url
@@ -167,6 +166,78 @@ def criar_canal():
     cur.close()
     
     return redirect(url_for('post', canal = id_canal))
+
+#mais recentes
+@app.route('/mais_recentes', methods = ['GET'])
+def mais_recentes():
+    id_canal = request.args.get('canal')
+    id_usuario = recuperar_id_usuario_logado()
+    seguidor = segue_canal(id_canal, id_usuario) #Saber se o usuário é seguidor ou não
+
+    if request.method == "GET":
+        print(request.form)   
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * from post order by data_postagem desc") # busca da data da postagem  
+        if cur.rowcount > 0:# se existir esta postagem
+            Posts = cur.fetchall()
+            
+            cur.close()
+
+            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), seguidor=seguidor,  titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
+
+    return render_template('posts.html', id_canal= id_canal, mais_recentes = False)
+
+#mais antigas
+@app.route('/mais_antigas', methods = ['GET'])
+def mais_antigas():
+    id_canal = request.args.get('canal')
+    id_usuario = recuperar_id_usuario_logado()
+    seguidor = segue_canal(id_canal, id_usuario) #Saber se o usuário é seguidor ou não
+
+    if request.method == "GET":
+        print(request.form)   
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * from post order by data_postagem asc") # busca da data da postagem  
+        if cur.rowcount > 0:# se existir esta postagem
+            Posts = cur.fetchall()
+            
+            cur.close()
+
+            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), seguidor=seguidor,  titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
+
+    return render_template('posts.html', id_canal= id_canal, mais_antigas = False)
+
+# pesquisa avançada
+@app.route('/pesquisa_postagem', methods = ['GET', 'POST'])
+def pesquisa_postagem():
+    id_canal = request.args.get('canal')
+    id_usuario = recuperar_id_usuario_logado()
+    seguidor = segue_canal(id_canal, id_usuario) #Saber se o usuário é seguidor ou não
+
+    if request.method == "POST":
+        print(request.form)   
+        query = ""
+        titulo = request.form['titulo']
+        data_inicial = request.form['data_inicial']
+        data_final = request.form['data_final']
+        if titulo != "":
+            query = "where titulo_post like '%{0}%'".format(titulo)
+        
+        else:
+            query = "where data_postagem BETWEEN '{0}' and '{1}'".format(data_inicial, data_final)
+        print(query)
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * from post {0}".format(query)) # busca do titulo ou da data da postagem 
+        if cur.rowcount > 0:# se existir esta postagem
+            Posts = cur.fetchall()
+
+            mysql.connection.commit()
+            
+            cur.close()
+            print (Posts)
+        return render_template('posts.html', id_canal=id_canal, Posts=Posts, seguidor=seguidor, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
+
+    return render_template('posts.html', id_canal= id_canal, pesquisa_postagem = False)
 
 @app.route('/delete_post/<id_canal>/<id_post>')
 def delete_post_by_id(id_canal,id_post): 
