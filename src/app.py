@@ -12,7 +12,8 @@ from werkzeug.utils import secure_filename
 from .gerenciamento import salva_arquivo, insere_visualizado
 from .gerenciamento import adicionar_lista_emails, deixa_de_seguir, excluir_canal, listar_moderador, listar_participante, alterar_funcao_membro, remover_membros, getcanais, segue_canal, seguir
 from .gerenciamento import editar_permissoes, listar_usuario, pode_criar_canais, pode_gerenciar_usuarios, remover_usuario
-load_dotenv(".env")
+if (not os.getenv('CLEARDB_DATABASE_URL')):
+    load_dotenv(".env")
 
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
