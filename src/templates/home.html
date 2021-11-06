@@ -6,6 +6,8 @@
 
 {% block css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/globals.css')}}">
+
 
 {% endblock %}
 
@@ -13,13 +15,16 @@
    <!--Header pagina-->  
       <header class= "navbar navbar-red flex-md-nowrap p-0 fundovermelho w-100">
         <!--Texto Header-->
-          <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 textoheader font-weight-bold text-white" >Bem Vindo(a)!</a>
+        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 textoheader font-weight-bold text-white">
+          Bem-vindo
+        </a>
         <!--botao-->  
           <button class="navbar-toggler position-absolute d-md-none collapsed pt-3" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon text-white">
+              <i class="fas fa-bars"></i>
             </span>
           </button>
-        </header>
+      </header>
  {% endblock %}
 
 
