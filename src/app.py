@@ -32,8 +32,8 @@ app.config['MYSQL_DB'] = os.getenv("MYSQL_DB")
 
 print(app.config)
 
-mysql = MySQL(app)
-
+mysql = MySQL()
+mysql.init_app(app)
 
 def getChannel(id_canal):
     cursor = mysql.connection.cursor()
