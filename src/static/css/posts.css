@@ -14,7 +14,7 @@
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border: none !important;
 }
-.post-actions .fa-edit, .post-actions .fa-eye, .post-actions .fa-times {
+.post-actions .fa-edit, .post-actions .fa-trash-alt, .post-actions .fa-times {
     position: absolute;
     cursor: pointer;
 }
@@ -25,9 +25,9 @@
   right: 10px;
 }
 
-.post-actions .fa-eye {
+.post-actions .fa-trash-alt {
   top: 35px;
-  right: 10px;
+  right: 14.5px;
 }
 
 .post-actions .fa-times {

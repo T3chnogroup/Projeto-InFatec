@@ -34,9 +34,13 @@ def edit_post(id_post,conteudo,titulo_post):
     cur.close()
 
 
-def getPosts(id_canal):
+def getPosts(id_canal, id_usuario):
     cur = mysql.connection.cursor()
-    conteudo = cur.execute(f'SELECT * FROM post left join anexo on anexo.fk_post=post.id_post where fk_canal={id_canal} order by id_post desc')
+    conteudo = cur.execute(f'''SELECT * FROM post 
+        left join anexo on anexo.fk_post=post.id_post 
+        left join visualizado_por as v on post.id_post=v.fk_post 
+            where fk_canal={id_canal} AND (v.fk_usuario<>{id_usuario} OR v.fk_usuario IS NULL) 
+            order by id_post desc''')
     Posts = cur.fetchall()
     cur.close()
     return Posts
@@ -54,6 +58,14 @@ def insere_post (id_canal, conteudo, date, titulo_post):
 
 def salva_arquivo(id_post, arquivo):
     cur = mysql.connection.cursor()
-    cur = cur.execute("INSERT into anexo(nome, fk_post) values(%s, %s)",(arquivo, str(id_post)))
+    cur.execute("INSERT into anexo(nome, fk_post) values(%s, %s)",(arquivo, str(id_post)))
     mysql.connection.commit()
     cur.close()
+
+
+def insere_visualizado(id_post, usuario, date):
+    cur = mysql.connection.cursor()
+    cur.execute("INSERT into visualizado_por(fk_usuario, fk_post, data_visualizacao) values(%s, %s, %s)",(str(usuario),str(id_post),str(date.today())))
+    mysql.connection.commit()
+    cur.close()
+    

@@ -42,13 +42,14 @@
                                     <i class="far fa-edit"></i>
                                 </button>
                                 {% endif %}
-                                <!-- <button class="action-button" data-bs-toggle="modal" data-bs-target="#visibility-modal">
-                                    <i class="fas fa-eye"></i>
-                                </button> -->
                                 {% if pode_deletar %}
                                 <button class="action-button" data-bs-toggle="modal" data-bs-target="#delete-modal" onclick="delete_post('{{post[0]}}')">
-                                    <i class="fas fa-times"></i>
+                                    <i class="fas fa-trash-alt"></i>
                                 </button> 
+                                {% else %}
+                                <button class="action-button" data-bs-toggle="modal" data-bs-target="#visibility-modal" onclick="altera_a_visibilidade('{{post[0]}}')">
+                                    <i class="fas fa-times"></i>
+                                </button>
                                 {% endif %}
                             </div>
                             <div id="user-icon" class="user-icon-wrapper">
@@ -146,7 +147,7 @@
 </div>
 
 <!-- Modal Visibilidade -->
-<!-- <div class="modal fade" id="visibility-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="visibility-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
@@ -158,11 +159,11 @@
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
-        <button type="button" class="btn btn-primary">Sim</button>
+        <a id="btn-altera-a-visibilidade" class="btn btn-danger">Sim</a>
         </div>
     </div>
     </div>
-</div> -->
+
 
 <!-- Modal Visibilidade -->
 <div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -195,5 +196,9 @@
         $("#formEditaPost").attr("action",'/post/'+id+"?canal={{id_canal}}")
         $("#titulo-editar-post").val(titulo)
     }
+    function altera_a_visibilidade(id_post) {
+        $("#btn-altera-a-visibilidade").attr("href", "/insere_visualizado/" +id_post+"?canal={{id_canal}}")
+    }
+
 </script>
 {%endblock%}

@@ -5,7 +5,7 @@ from datetime import date
 from dotenv import load_dotenv
 from gerenciamento.gerenciamento_post import getPosts, insere_post, delete_post, edit_post
 from werkzeug.utils import secure_filename
-from gerenciamento.gerenciamento_post import salva_arquivo
+from gerenciamento.gerenciamento_post import salva_arquivo, insere_visualizado
 from gerenciamento_canal import adicionar_lista_emails, deixa_de_seguir, excluir_canal, listar_moderador, listar_participante, alterar_funcao_membro, remover_membros, getcanais, segue_canal, seguir
 load_dotenv(".env")
 
@@ -79,8 +79,9 @@ def editar_post(id_edit):
     titulo = request.form['titulo']
     edit_post(id_edit,conteudo,titulo)
     id_canal = request.args.get('canal')
-    posts= getPosts(id_canal)
-    return render_template('posts.html', id_canal=id_canal,Posts=posts, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True)
+    id_usuario = recuperar_id_usuario_logado()
+    posts= getPosts(id_canal, id_usuario)
+    return render_template('posts.html', id_canal=id_canal,Posts=posts, canais=getcanais(id_usuario), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True)
 
 @app.route('/post', methods=['GET', 'POST'])
 def post():
@@ -97,7 +98,7 @@ def post():
             arquivo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             salva_arquivo(id_post, filename)
             
-        posts=getPosts(id_canal)
+        posts=getPosts(id_canal, id_usuario)
         return render_template('posts.html', id_canal=id_canal,Posts=posts, canais=getcanais(id_usuario), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True, seguidor=seguidor)
         
 
@@ -108,7 +109,7 @@ def post():
         else:
             pode_editar = False
             pode_deletar = False
-        Posts = getPosts(id_canal)
+        Posts = getPosts(id_canal, id_usuario)
 
         return render_template("posts.html", id_canal=id_canal, seguidor = seguidor, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), titulocanal =getChannel(id_canal), pode_editar = pode_editar, pode_deletar = pode_deletar)
 
@@ -219,4 +220,12 @@ def rota_seguir():
     id_canal = request.args.get('canal')
     id_usuario = recuperar_id_usuario_logado()
     seguir (id_canal, id_usuario)
+    return redirect(url_for('post', canal = id_canal))
+
+
+@app.route('/insere_visualizado/<id_post>', methods = ['GET'])
+def deixar_de_visualizar(id_post):
+    id_canal = request.args.get('canal')
+    id_usuario = recuperar_id_usuario_logado()
+    insere_visualizado(id_post, id_usuario, date)
     return redirect(url_for('post', canal = id_canal))

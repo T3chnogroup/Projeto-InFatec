@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS anexo (
 	id_anexo INT AUTO_INCREMENT PRIMARY KEY,
 	nome VARCHAR(30) NOT NULL,
 	fk_post INT,
-	FOREIGN KEY (fk_post) REFERENCES post (id_post)
+	FOREIGN KEY (fk_post) REFERENCES post (id_post) ON DELETE CASCADE 
 ) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS visualizado_por (
