@@ -23,7 +23,7 @@
 <body>
 
     <main class="px-5">
-        <form method="GET" action="/login">
+        <form method="POST" action="/cadastro">
             <!--Inserido Get apenas para validar, posteriormente será feito integração com backend -->
             <img class="logo mb-4" src="{{url_for('static', filename='imagens/logoinfatec.png')}}" alt="Logo InFatec" width="150">
             <div>
@@ -31,11 +31,14 @@
                 <p>Para o seu primeiro acesso, preencha os campos abaixo.</p>
             </div>
             <div class="input input-group mb-3">
+                <input class="form-control" id="nome" name="nome" placeholder="Nome" type="text">
+            </div>
+            <div class="input input-group mb-3">
                 <input class="form-control" id="email" name="email" placeholder="Email Institucional" type="email">
             </div>
 
-            <div class="input mb-4">
-                <input type="text" class="form-control" id="cpf" placeholder="CPF">
+            <div class="input mb-3">
+                <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF">
             </div>
 
             <div class="input-group mb-3">
@@ -55,9 +58,14 @@
                   <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
                 </svg>
             </div>
+            {% if erro %}
+            <span class="text-danger">{{erro}}</span>
+            {% endif %}
+            <br />
+            <br />
 
-            <button class="button botao-voltar btn btn-light mb-4 " type="submit">Voltar</button>
-            <button class="button botao-enviar btn btn-light mb-4" onclick="mostrar_msg_sucesso()" value="Exibir Alert" type="button">Enviar</button>
+            <a href="/login" class="button botao-voltar btn btn-light mb-4 " type="button">Voltar</a>
+            <button class="button botao-enviar btn btn-light mb-4" value="Exibir Alert" type="submit">Enviar</button>
 
             <div id="cadastro" class="alert alert-warning alert-dismissible fade" role="alert">
                 Enviado com sucesso!
@@ -86,12 +94,11 @@
 
     </main>
 
+    <script src="../static/js/jquery.min.js" ></script>
+    <script src="../static/js/jquery.mask.js" ></script>
+    <script src="../static/js/cadastro.js" ></script>
+
     <script>
-        function mostrar_msg_sucesso() {
-            document.getElementById('cadastro').classList.add('show'); /*mostra a mensagem de enviado com sucesso*/ 
-            document.getElementById('usuario').value='';/*limpa o campo usuário ao clicar em enviar*/ 
-            document.getElementById('email').value='';/*limpa o campo email ao clicar em enviar*/ 
-        }
         
         function botao_fechar_msg_sucesso(){
             document.getElementById('cadastro').classList.remove('show');/*função do botão de fechar mensagem de sucesso*/
