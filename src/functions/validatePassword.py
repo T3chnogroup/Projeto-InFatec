@@ -1,4 +1,4 @@
-def validatePassword(password, secondPassword):
+def validate_password(password, secondPassword):
   if password == secondPassword:
     return True
   else:

@@ -4,14 +4,14 @@ from flask_mysqldb import MySQL
 from datetime import date
 from hashlib import sha1
 from dotenv import load_dotenv
-from functions import validatePassword
-from models import usuario
+from .functions import validatePassword
+from .models import usuario
 
-from gerenciamento.gerenciamento_post import getPosts, insere_post, delete_post, edit_post
+from .gerenciamento import getPosts, insere_post, delete_post, edit_post
 from werkzeug.utils import secure_filename
-from gerenciamento.gerenciamento_post import salva_arquivo, insere_visualizado
-from gerenciamento_canal import adicionar_lista_emails, deixa_de_seguir, excluir_canal, listar_moderador, listar_participante, alterar_funcao_membro, remover_membros, getcanais, segue_canal, seguir
-from gerenciamento_usuario import editar_permissoes, listar_usuario, pode_criar_canais, pode_gerenciar_usuarios, remover_usuario
+from .gerenciamento import salva_arquivo, insere_visualizado
+from .gerenciamento import adicionar_lista_emails, deixa_de_seguir, excluir_canal, listar_moderador, listar_participante, alterar_funcao_membro, remover_membros, getcanais, segue_canal, seguir
+from .gerenciamento import editar_permissoes, listar_usuario, pode_criar_canais, pode_gerenciar_usuarios, remover_usuario
 load_dotenv(".env")
 
 UPLOAD_FOLDER = 'static/uploads'
