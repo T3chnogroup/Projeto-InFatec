@@ -50,7 +50,6 @@ def insere_post (id_canal, conteudo, date, titulo_post):
     cur = mysql.connection.cursor()
     cur.execute("INSERT INTO post(id_post, data_postagem, data_expiracao, conteudo, fk_canal, fk_usuario, titulo_post) VALUES (%s, %s, %s, %s, %s, %s, %s)", (0, str(date.today()), str(date.today()), conteudo, id_canal, None, titulo_post))
     mysql.connection.commit()
-    Posts = getPosts(id_canal)
     id = cur.lastrowid
     cur.close()
     return id
