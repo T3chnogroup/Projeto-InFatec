@@ -12,26 +12,23 @@ from werkzeug.utils import secure_filename
 from .gerenciamento import salva_arquivo, insere_visualizado
 from .gerenciamento import adicionar_lista_emails, deixa_de_seguir, excluir_canal, listar_moderador, listar_participante, alterar_funcao_membro, remover_membros, getcanais, segue_canal, seguir
 from .gerenciamento import editar_permissoes, listar_usuario, pode_criar_canais, pode_gerenciar_usuarios, remover_usuario
-if (not os.getenv('CLEARDB_DATABASE_URL')):
-    load_dotenv(".env")
 
-UPLOAD_FOLDER = 'static/uploads'
+load_dotenv(".env")
+
+UPLOAD_FOLDER = 'src/static/uploads'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-
 app = Flask(__name__)      
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # configuração Conexão com o Banco de Dados Mysql
-app.config['MYSQL_Host'] = os.getenv("MYSQL_Host")
+app.config['MYSQL_HOST'] = os.getenv("MYSQL_HOST")
 app.config['MYSQL_USER'] = os.getenv("MYSQL_USER")
 app.config['MYSQL_PASSWORD'] = os.getenv("MYSQL_PASSWORD")
 app.config['MYSQL_DB'] = os.getenv("MYSQL_DB")
-
-print(app.config)
 
 mysql = MySQL()
 mysql.init_app(app)
@@ -50,7 +47,7 @@ def getVerificaFuncao (id_canal):
     cur.execute("SELECT id_usuario from usuario where email = %s", (email_logado,)) # busca o id do usuario com este email no banco
     if cur.rowcount > 0:# se existir esse id
         id_usuario = cur.fetchall()[0][0]
-    # verificar a existencia de uma linha na tabela canal_usuario para este usuário e este canal
+    # verificar a existencia 3de uma linha na tabela canal_usuario para este usuário e este canal
         cur.execute("select * from canal_usuario where id_canal = %s and id_usuario = %s and funcao = 'moderador'", (id_canal, id_usuario))
         return cur.rowcount > 0
     return False
@@ -135,7 +132,7 @@ def cadastro():
             return render_template('cadastro.html', erro = 'Email já cadastrado')
         if usuario.registeredCpf(cur, mysql, cpf):
             return render_template('cadastro.html', erro = 'CPF já cadastrado')
-        if validatePassword.validatePassword(password, confirmacao_senha):
+        if validatePassword(password, confirmacao_senha):
             usuario.insertUser(cur, mysql, nome, email, sha1(password.encode('utf-8')).hexdigest(), cpf)
             return render_template('cadastro.html', resposta = 'True')   
         else:
@@ -308,7 +305,7 @@ def deixar_de_seguir():
     id_canal = request.args.get('canal')
     id_usuario = recuperar_id_usuario_logado()
     deixa_de_seguir(id_canal, id_usuario)
-    return redirect(url_for('post', canal = id_canal))
+    return redirect(url_for('inicio'))
 
 @app.route('/seguir', methods = ['Post'])
 def rota_seguir():

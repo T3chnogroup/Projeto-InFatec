@@ -8,16 +8,12 @@ load_dotenv(".env")
 app = Flask(__name__)
 
 # configuração Conexão com o Banco de Dados Mysql
-app.config['MYSQL_Host'] = os.getenv("MYSQL_Host")
-#app.config['MYSQL_HOST'] = '0.0.0.0'
+app.config['MYSQL_HOST'] = os.getenv("MYSQL_HOST")
 app.config['MYSQL_USER'] = os.getenv("MYSQL_USER")
 app.config['MYSQL_PASSWORD'] = os.getenv("MYSQL_PASSWORD")
-#app.config['MYSQL_PASSWORD'] = 'root'
 app.config['MYSQL_DB'] = os.getenv("MYSQL_DB")
 
 mysql = MySQL(app)
-
-
 
 def delete_post(id):
     cur = mysql.connection.cursor()
@@ -46,7 +42,7 @@ def getPosts(id_canal, id_usuario):
     return Posts
 
 
-def insere_post (id_canal, conteudo, date, titulo_post):
+def insere_post(id_canal, conteudo, date, titulo_post):
     cur = mysql.connection.cursor()
     cur.execute("INSERT INTO post(id_post, data_postagem, data_expiracao, conteudo, fk_canal, fk_usuario, titulo_post) VALUES (%s, %s, %s, %s, %s, %s, %s)", (0, str(date.today()), str(date.today()), conteudo, id_canal, None, titulo_post))
     mysql.connection.commit()
