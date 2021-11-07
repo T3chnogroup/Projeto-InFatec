@@ -12,6 +12,7 @@ from werkzeug.utils import secure_filename
 from .gerenciamento import salva_arquivo, insere_visualizado
 from .gerenciamento import adicionar_lista_emails, deixa_de_seguir, excluir_canal, listar_moderador, listar_participante, alterar_funcao_membro, remover_membros, getcanais, segue_canal, seguir
 from .gerenciamento import editar_permissoes, listar_usuario, pode_criar_canais, pode_gerenciar_usuarios, remover_usuario
+
 load_dotenv(".env")
 
 UPLOAD_FOLDER = 'src/static/uploads'
@@ -29,7 +30,8 @@ app.config['MYSQL_USER'] = os.getenv("MYSQL_USER")
 app.config['MYSQL_PASSWORD'] = os.getenv("MYSQL_PASSWORD")
 app.config['MYSQL_DB'] = os.getenv("MYSQL_DB")
 
-mysql = MySQL(app)
+mysql = MySQL()
+mysql.init_app(app)
 
 def getChannel(id_canal):
     cursor = mysql.connection.cursor()
