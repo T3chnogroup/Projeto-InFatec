@@ -305,7 +305,7 @@ def deixar_de_seguir():
     id_canal = request.args.get('canal')
     id_usuario = recuperar_id_usuario_logado()
     deixa_de_seguir(id_canal, id_usuario)
-    return redirect(url_for('post', canal = id_canal))
+    return redirect(url_for('inicio'))
 
 @app.route('/seguir', methods = ['Post'])
 def rota_seguir():
