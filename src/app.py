@@ -87,8 +87,10 @@ def editar_post(id_edit):
     edit_post(id_edit,conteudo,titulo)
     id_canal = request.args.get('canal')
     id_usuario = recuperar_id_usuario_logado()
+    seguidor = segue_canal(id_canal, id_usuario) #Saber se o usuário é seguidor ou não
+
     posts= getPosts(id_canal, id_usuario)
-    return render_template('posts.html', id_canal=id_canal,Posts=posts, canais=getcanais(id_usuario), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True)
+    return render_template('posts.html', id_canal=id_canal,Posts=posts, seguidor = seguidor, canais=getcanais(id_usuario), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True,pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
 
 @app.route('/post', methods=['GET', 'POST'])
 def post():
