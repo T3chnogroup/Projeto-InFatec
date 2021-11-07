@@ -180,7 +180,7 @@ def mais_recentes():
     if request.method == "GET":
         print(request.form)   
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * from post order by data_postagem desc") # busca da data da postagem  
+        cur.execute("SELECT * from post where fk_canal = %s order by data_postagem desc", (id_canal,)) # busca da data da postagem  
         if cur.rowcount > 0:# se existir esta postagem
             Posts = cur.fetchall()
             
@@ -200,7 +200,7 @@ def mais_antigas():
     if request.method == "GET":
         print(request.form)   
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * from post order by data_postagem asc") # busca da data da postagem  
+        cur.execute("SELECT * from post where fk_canal = %s order by data_postagem asc", (id_canal,)) # busca da data da postagem  
         if cur.rowcount > 0:# se existir esta postagem
             Posts = cur.fetchall()
             
