@@ -123,7 +123,7 @@ Usuario logado como administrador e suas permissões
 Usuario logado como moderador de canal e suas permissões
 ![Sistema](./imagens/gif2.gif)
 
-Usuário logado com permissões de criar canal e gerenciar usuários. O Gif mostra o que acontece quando as permissões desse usuário são removidas
+Usuario logado com permissões de criar canal e gerenciar usuários. O Gif mostra o que acontece quando as permissões desse usuário são removidas
 ![Sistema](./imagens/gif3.gif)
 
 Aplicação utilizada por usuário/alunos sem permissões especiais 
