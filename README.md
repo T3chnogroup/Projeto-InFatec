@@ -125,4 +125,4 @@ MYSQL_DB = infatec
 | ------ | ------ |
 |    19/09/2021    |[Sprint 1](https://github.com/T3chnogroup/Projeto-InFatec/releases/tag/Sprint-01)|
 |    10/10/2021    |[Sprint 2](https://github.com/T3chnogroup/Projeto-InFatec/releases/tag/Sprint-02)|
-|    10/10/2021    |[Sprint 3](https://github.com/T3chnogroup/Projeto-InFatec/releases/tag/Sprint-03)|
+|    07/11/2021    |[Sprint 3](https://github.com/T3chnogroup/Projeto-InFatec/releases/tag/Sprint-03)|
