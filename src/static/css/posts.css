@@ -103,7 +103,7 @@
   min-width: 300px !important;
   max-width: 1293px !important;
   display: block !important;
-  position: fixed;
+  position: sticky;
   margin-top: 25%;
   width: 80%;
   background-color: rgba(245,245,245,255) !important;
