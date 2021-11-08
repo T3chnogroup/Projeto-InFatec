@@ -4,7 +4,9 @@ from flask_mysqldb import MySQL
 from datetime import date
 from hashlib import sha1
 from dotenv import load_dotenv
-from .functions import validatePassword
+
+from .functions.validatePassword import validate_password
+
 from .models import usuario
 
 from .gerenciamento import getPosts, insere_post, delete_post, edit_post
@@ -134,7 +136,7 @@ def cadastro():
             return render_template('cadastro.html', erro = 'Email já cadastrado')
         if usuario.registeredCpf(cur, mysql, cpf):
             return render_template('cadastro.html', erro = 'CPF já cadastrado')
-        if validatePassword(password, confirmacao_senha):
+        if validate_password(password, confirmacao_senha):
             usuario.insertUser(cur, mysql, nome, email, sha1(password.encode('utf-8')).hexdigest(), cpf)
             return render_template('cadastro.html', resposta = 'True')   
         else:
