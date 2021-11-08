@@ -105,7 +105,7 @@
   display: block !important;
   position: sticky;
   margin-top: 25%;
-  width: 80%;
+  width: 100%;
   background-color: rgba(245,245,245,255) !important;
   border-radius: 5px;
   flex-direction: column;
