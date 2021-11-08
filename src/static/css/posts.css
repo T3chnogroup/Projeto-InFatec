@@ -137,7 +137,7 @@
 
 @media(max-width: 767px){
   .formulario-post {
-    position: fixed;
+    position: sticky;
     margin: 0 auto;
     width: 80%;
     margin-left:10px;
@@ -170,7 +170,7 @@
 
 @media(max-width: 600px){
   .formulario-post {
-    position: fixed;
+    position: sticky;
     margin: 0 auto;
     width: 90%;
     margin-left:5px;
