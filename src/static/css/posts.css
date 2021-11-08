@@ -105,7 +105,7 @@
   display: block !important;
   position: sticky;
   margin-top: 25%;
-  width: 80%;
+  width: 100%;
   background-color: rgba(245,245,245,255) !important;
   border-radius: 5px;
   flex-direction: column;
@@ -139,9 +139,6 @@
   .formulario-post {
     position: sticky;
     margin: 0 auto;
-    width: 80%;
-    margin-left:10px;
-    margin-right: 10px;
   }
 
   .arquivo{
@@ -172,9 +169,6 @@
   .formulario-post {
     position: sticky;
     margin: 0 auto;
-    width: 90%;
-    margin-left:5px;
-    margin-right: 5px;
   }
 }
 
