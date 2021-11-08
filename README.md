@@ -117,14 +117,18 @@ MYSQL_DB = infatec
 
 ## Sistema Desenvolvido 
 
-Aplicação utilizada por usuário/alunos sem permissões especiais
+Usuario logado como administrador e suas permissões
 ![Sistema](./imagens/gif1.gif)
 
-
+Usuario logado como moderador de canal e suas permissões
 ![Sistema](./imagens/gif2.gif)
 
-
+Usuário logado com permissões de criar canal e gerenciar usuários. O Gif mostra o que acontece quando as permissões desse usuário são removidas
 ![Sistema](./imagens/gif3.gif)
+
+Aplicação utilizada por usuário/alunos sem permissões especiais 
+![Sistema](./imagens/gif4.gif)
+
 
 ## Cronograma de Entregas
 
