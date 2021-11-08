@@ -118,13 +118,13 @@ MYSQL_DB = infatec
 ## Sistema Desenvolvido 
 
 Usuário logado como administrador e suas permissões
-![Sistema](./imagens/api_gif1.gif)
+![Sistema](./imagens/gif1.gif)
 
 Usuário logado como moderador de canal e suas permissões
-![Sistema](./imagens/api_gif2.gif)
+![Sistema](./imagens/gif2.gif)
 
 Usuário logado com permissões de criar canal e gerenciar usuários. O sistema mostra o que acontece quando as permissões desse usuário são removidas
-![Sistema](./imagens/api_gif3.gif)
+![Sistema](./imagens/gif3.gif)
 
 ## Cronograma de Entregas
 
