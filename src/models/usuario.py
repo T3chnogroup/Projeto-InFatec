@@ -11,11 +11,23 @@ def registeredEmail(cursor, mysql, email):
   if cursor.rowcount > 0:
     return True
   else:
-    return False;
+    return False
 
 def registeredCpf(cursor, mysql, cpf):
   cursor.execute("SELECT cpf FROM usuario where cpf = %s", (cpf,))
   if cursor.rowcount > 0:
     return True
   else:
-    return False;
+    return False
+
+def validUser(cursor, id_usuario):
+  cursor.execute("SELECT valido FROM usuario where id_usuario = %s and valido = 1", (id_usuario,))
+  if cursor.rowcount > 0:
+    return True
+  else:
+    return False
+
+def edit_post(cursor, mysql, id_usuario):
+    cursor.execute('update usuario set valido = %s where id_usuario = %s', (1, id_usuario))
+    mysql.connection.commit()
+    cursor.close()

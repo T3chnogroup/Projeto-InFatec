@@ -4,6 +4,7 @@ from flask_mysqldb import MySQL
 from datetime import date
 from hashlib import sha1
 from dotenv import load_dotenv
+from flask_mail import Mail, Message
 
 from .functions.validatePassword import validate_password
 
@@ -32,6 +33,14 @@ app.config['MYSQL_USER'] = os.getenv("MYSQL_USER")
 app.config['MYSQL_PASSWORD'] = os.getenv("MYSQL_PASSWORD")
 app.config['MYSQL_DB'] = os.getenv("MYSQL_DB")
 
+# configuração email
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 't3chnogroup3@gmail.com'
+app.config['MAIL_PASSWORD'] = 'Grupo3fatec'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+
 mysql = MySQL()
 mysql.init_app(app)
 
@@ -53,6 +62,16 @@ def getVerificaFuncao (id_canal):
         cur.execute("select * from canal_usuario where id_canal = %s and id_usuario = %s and funcao = 'moderador'", (id_canal, id_usuario))
         return cur.rowcount > 0
     return False
+
+@app.route('/confirmacao_email')
+def confirmacao_email():
+    id_usuario = request.args.get('id_usuario')
+    cursor = mysql.connection.cursor()
+    if usuario.validUser(cursor, mysql, id_usuario):
+        return render_template('login.html', validado = False)
+    else:
+        usuario.edit_post(cursor, mysql, id_usuario)
+        return render_template('login.html', validado = True)
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
