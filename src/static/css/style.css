@@ -47,7 +47,7 @@
 
   footer {
     background-color: #000000 ;
-    position: relative;
+    position: sticky;
     height: 9%;
     font-size: 1.8rem;
     padding: 0.9rem;
@@ -56,6 +56,7 @@
   .grupos {
     height: 82%;
     background-color: #28292e;
+    position: relative;
   }
 
   .nav li:hover{
