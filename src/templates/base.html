@@ -78,9 +78,12 @@
             </li>
             {% endif %}
             {% for canal in canais %}
-              <li class="nav-item border-bottom nav-item-btn d-flex justify-content-between pe-2">
+              <li class="nav-item border-bottom nav-item-btn d-flex pe-2">
+                {% if canal[2] == 'privado' %}
+                <i class="bi bi-lock-fill text-white pt-2" title="Canal privado"></i> 
+                {% endif %}
                 <a class="nav-link text-white p-2 sticky-top" href="/post?canal={{canal[0]}}">
-                <!--<i class="fas fa-lock"></i>--> {{canal[1]}} 
+               {{canal[1]}} 
                 </a>
                 {% if canal[3] == True %}
                 <a href="/gerenciamento-canal?canal={{canal[0]}}" class="pt-2">

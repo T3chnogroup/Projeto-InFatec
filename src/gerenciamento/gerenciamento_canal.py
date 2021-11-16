@@ -118,3 +118,18 @@ def seguir(id_canal, id_usuario):
     cursor.execute("INSERT IGNORE INTO canal_usuario(id_canal, id_usuario, funcao) VALUES (%s, %s, 'participante')", (id_canal, id_usuario))
     mysql.connection.commit()
     cursor.close()
+
+#Gerenciamento da visibilidade do canal (Público / Privado)
+def editar_visibilidade(id_canal, visibilidade_canal):
+    cursor = mysql.connection.cursor()
+    cursor.execute("UPDATE canal SET visibilidade = %s where id_canal = %s",(visibilidade_canal, id_canal))
+    mysql.connection.commit()
+    cursor.close()
+
+def recuperar_visibilidade_canal(id_canal):
+    cursor = mysql.connection.cursor()
+    cursor.execute("SELECT visibilidade from canal where id_canal = %s", (id_canal,))
+    visibilidade = cursor.fetchall()[0][0]
+    cursor.close()
+    return visibilidade
+

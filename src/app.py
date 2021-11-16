@@ -4,7 +4,6 @@ from flask_mysqldb import MySQL
 from datetime import date
 from hashlib import sha1
 from dotenv import load_dotenv
-
 from .functions.validatePassword import validate_password
 
 from .models import usuario
@@ -13,7 +12,7 @@ from .gerenciamento import getPosts, insere_post, delete_post, edit_post
 from werkzeug.utils import secure_filename
 from .gerenciamento import salva_arquivo, insere_visualizado
 from .gerenciamento import adicionar_lista_emails, deixa_de_seguir, excluir_canal, listar_moderador, listar_participante, alterar_funcao_membro, remover_membros, getcanais, segue_canal, seguir
-from .gerenciamento import editar_permissoes, listar_usuario, pode_criar_canais, pode_gerenciar_usuarios, remover_usuario
+from .gerenciamento import editar_permissoes, listar_usuario, pode_criar_canais, pode_gerenciar_usuarios, remover_usuario, editar_visibilidade,recuperar_visibilidade_canal
 
 load_dotenv(".env")
 
@@ -279,7 +278,8 @@ def configuracao_canal():
     moderadores = listar_moderador(id_canal)
     participantes = listar_participante(id_canal)
     nome_canal = getChannel(id_canal)
-    return render_template('gerenciamento_canal.html', id_canal=id_canal, canais=getcanais(recuperar_id_usuario_logado()), titulocanal = nome_canal,  moderadores = moderadores, participantes = participantes, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
+    visibilidade_canal = recuperar_visibilidade_canal(id_canal)
+    return render_template('gerenciamento_canal.html', id_canal=id_canal, canais=getcanais(recuperar_id_usuario_logado()), titulocanal = nome_canal,  moderadores = moderadores, participantes = participantes, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), visibilidade_canal=visibilidade_canal)
 
 @app.route('/adicionar-membros', methods = ['POST'])
 def adicionar_membros():
@@ -371,3 +371,10 @@ def permissoes_usuarios():
     editar_permissoes(id_usuario, pode_gerenciar_usuario, pode_criar_canais)
     return redirect(url_for('gerenciamentoUsuario'))
 
+#Gerenciamento da visibilidade do canal (Público / Privado)
+@app.route('/editar_canal', methods = ['POST'])
+def editar_canal():
+    id_canal = request.args.get('canal')
+    visibilidade_canal = request.form.get('visibilidade_canal')
+    editar_visibilidade(id_canal, visibilidade_canal)
+    return redirect(url_for('configuracao_canal', canal=id_canal))
