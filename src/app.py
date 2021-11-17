@@ -76,6 +76,14 @@ def login():
 def redefinir():
     return render_template('redefinir_senha.html')
 
+@app.route('/gerenciamento_perfil')
+def gerenciamento_perfil():
+    return render_template('gerenciamento_perfil.html')
+
+@app.route('/home')
+def home():
+    return render_template('home.html')
+
 @app.route('/')
 def inicio():
     if recuperar_id_usuario_logado() == None:
