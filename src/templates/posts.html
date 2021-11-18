@@ -16,7 +16,7 @@
     <div class="posts-wrapper">
         <div class="alert alert-color mt-2" role="alert">
             <h4 class="alert-heading">Bem vindo!</h4>
-            <p>Este canal foi designdado para: <b>Coordenadores</b> de <b>todos os cursos</b> e de <b>todos os semetres</b>!</p>
+            <p>Este canal foi designdado para: <b>{{lista_de_grupos}}</b> de <b>{{lista_de_cursos}}</b>!</p>
             <hr>
             {% if seguidor %}
             <form action="/deixar-de-seguir?canal={{id_canal}}" method="POST">
