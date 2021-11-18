@@ -191,26 +191,19 @@
                     <option value="3">Alunos</option>
                   </select>
                 </div>
-                <div class="d-flex align-items-center justify-content-center mb-3">
-                  <select class="adicionar-semestre select2-close-mask select2-dropdown" name="semestre"
-                    multiple="multiple">
-                    <option value="0">Todos</option>
-                    <option value="1">1º semestre</option>
-                    <option value="2">2º semestre</option>
-                    <option value="3">3º semestre</option>
-                    <option value="4">4º semestre</option>
-                    <option value="5">5º semestre</option>
-                    <option value="6">6º semestre</option>
-                  </select>
-                </div>
                 <!--Select2-->
                 <div class="d-flex align-items-center justify-content-center mb-3">
                   <select class="adicionar-curso select2-close-mask select2-dropdown" name="curso"
                     multiple="multiple">
-                    <option value="0">Todos</option>
-                    <option value="1">DSM</option>
-                    <option value="2">ADS</option>
-                    <option value="3">BD</option>
+                    <option value="Todos">Todos</option>
+                    <option value="Análise e Desenvolvimento de Sistemas">Análise e Desenvolvimento de Sistemas</option>
+                    <option value="Banco de Dados">Banco de Dados</option>
+                    <option value="Desenvolvimento de Software Multiplataforma">Desenvolvimento de Software Multiplataforma</option>
+                    <option value="Gestão da Produção Industrial">Gestão da Produção Industrial</option>
+                    <option value="Logística">Logística</option>
+                    <option value="Manufatura Avançada">Manufatura Avançada</option>
+                    <option value="Manutenção de Aeronaves">Manutenção de Aeronaves</option>
+                    <option value="Projetos de Estruturas Aeronáuticas">Projetos de Estruturas Aeronáuticas</option>             
                   </select>
                 </div>
 
@@ -283,9 +276,6 @@
   $(document).ready(function () {
     $('.adicionar-grupo').select2({
       placeholder: "Grupos"
-    });
-    $('.adicionar-semestre').select2({
-      placeholder: "Semestres"
     });
     $('.adicionar-curso').select2({
       placeholder: "Cursos"

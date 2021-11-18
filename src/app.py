@@ -4,6 +4,7 @@ from flask_mysqldb import MySQL
 from datetime import date
 from hashlib import sha1
 from dotenv import load_dotenv
+
 from .functions.validatePassword import validate_password
 
 from .models import usuario
@@ -12,7 +13,7 @@ from .gerenciamento import getPosts, insere_post, delete_post, edit_post
 from werkzeug.utils import secure_filename
 from .gerenciamento import salva_arquivo, insere_visualizado
 from .gerenciamento import adicionar_lista_emails, deixa_de_seguir, excluir_canal, listar_moderador, listar_participante, alterar_funcao_membro, remover_membros, getcanais, segue_canal, seguir
-from .gerenciamento import editar_permissoes, listar_usuario, pode_criar_canais, pode_gerenciar_usuarios, remover_usuario, editar_visibilidade,recuperar_visibilidade_canal
+from .gerenciamento import editar_permissoes, listar_usuario, pode_criar_canais, pode_gerenciar_usuarios, remover_usuario, editar_visibilidade,recuperar_visibilidade_canal, criar_canal, retorna_cursos, retorna_grupos
 
 load_dotenv(".env")
 
@@ -96,6 +97,8 @@ def editar_post(id_edit):
 @app.route('/post', methods=['GET', 'POST'])
 def post():
     id_canal = request.args.get('canal')
+    grupos = retorna_grupos(id_canal)
+    cursos = retorna_cursos(id_canal)
     id_usuario = recuperar_id_usuario_logado()
     seguidor = segue_canal(id_canal, id_usuario) #Saber se o usuário é seguidor ou não
     if request.method == "POST":   
@@ -107,9 +110,8 @@ def post():
             filename = str(id_post)+'_'+secure_filename(arquivo.filename)
             arquivo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             salva_arquivo(id_post, filename)
-            
         posts=getPosts(id_canal, id_usuario)
-        return render_template('posts.html', id_canal=id_canal,Posts=posts, canais=getcanais(id_usuario), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True, seguidor=seguidor, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
+        return render_template('posts.html', id_canal=id_canal,Posts=posts, canais=getcanais(id_usuario), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True, seguidor=seguidor, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), lista_de_grupos = grupos, lista_de_cursos = cursos)
     elif request.method == "GET": 
         if getVerificaFuncao (id_canal):
             pode_editar = True
@@ -118,7 +120,7 @@ def post():
             pode_editar = False
             pode_deletar = False
         Posts = getPosts(id_canal, id_usuario)
-        return render_template("posts.html", id_canal=id_canal, seguidor = seguidor, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), titulocanal =getChannel(id_canal), pode_editar = pode_editar, pode_deletar = pode_deletar, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
+        return render_template("posts.html", id_canal=id_canal, seguidor = seguidor, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), titulocanal =getChannel(id_canal), pode_editar = pode_editar, pode_deletar = pode_deletar, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), lista_de_grupos = grupos, lista_de_cursos = cursos)
 
     return render_template('posts.html', id_canal= id_canal, pode_editar = False)
 
@@ -143,32 +145,14 @@ def cadastro():
     return render_template('cadastro.html')
 
 @app.route('/criarcanal', methods = ['POST'])
-def criar_canal():
+def rota_criar_canal():
     data = request.form 
     nome = data['nome']
-    grupo = data['grupo']
-    semestre = data['semestre']
-    curso = data['curso']
     visibilidade = data['visibilidade']
     emails = data.getlist('email')
-    
-    cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO canal(nome, grupo, semestre, curso, visibilidade) VALUES (%s, %s, %s, %s, %s)", (nome, grupo, semestre, curso, visibilidade))
-    cur.execute("SELECT max(id_canal) FROM canal where nome = %s", (nome,)) # Select utilizado por ter nomes de canal duplicado
-    id_canal = cur.fetchall()[0]
-
-    #Saber qual o id do usuário
-    email_logado = request.cookies.get('email_logado')
-    adicionar_lista_emails(emails, id_canal, email_logado) # adicona a lista de emails ao canal
-    cur.execute("SELECT id_usuario from usuario where email = %s", (email_logado,)) # busca o id do usuario com este email no banco
-    if cur.rowcount > 0:# se existir esse id
-        id_usuario = cur.fetchall()[0][0]
-        cur.execute("INSERT INTO canal_usuario(id_canal, id_usuario, funcao) VALUES (%s, %s, 'moderador')", (id_canal, id_usuario)) #inserir na tabela canal_usuario como moderador
-
-    mysql.connection.commit()
-        
-    cur.close()
-    
+    grupos = data.getlist('grupo')
+    cursos = data.getlist('curso')
+    id_canal = criar_canal(nome, visibilidade, emails, grupos, cursos)
     return redirect(url_for('post', canal = id_canal))
 
 #mais recentes
