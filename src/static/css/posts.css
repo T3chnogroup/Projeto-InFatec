@@ -181,25 +181,25 @@
     background-color: #e9ecef;
   }
 
-  .seguir-canal{
+  .fixar-canal{
     color: #2d2e33;
     font-weight: bold;
     border-color: #2d2e33;
   }
 
-  .seguir-canal:hover{
+  .fixar-canal:hover{
     color: #fff;
     background-color: #2d2e33;
   }
 
 
-  .deixar-seguir-canal{
+  .desafixar-canal{
     color: #9e1616;
     font-weight: bold;
     border-color: #9e1616;  
   }
 
-  .deixar-seguir-canal:hover{
+  .desafixar-canal:hover{
     color: #fff;
     background-color: #9e1616;
   }

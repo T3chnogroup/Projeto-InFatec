@@ -18,17 +18,23 @@
             <h4 class="alert-heading">Bem vindo!</h4>
             <p>Este canal foi designdado para: <b>{{lista_de_grupos}}</b> de <b>{{lista_de_cursos}}</b>!</p>
             <hr>
-            {% if seguidor %}
-            <form action="/deixar-de-seguir?canal={{id_canal}}" method="POST">
+            {% if fixado %}
+            <form action="/desafixar-canal?canal={{id_canal}}" method="POST">
                 <div class="py-2 pb-3 mb-0 small lh-sm border-bottom w-100">
-                    <button type="submit" class="btn deixar-seguir-canal">Deixar de seguir canal</button>
+                    <button type="submit" class="btn desafixar-canal">
+                        {% if visibilidade_canal == 'privado' %}
+                        Sair do canal
+                        {% else %}
+                        Desafixar canal
+                        {% endif %}
+                    </button>
                 </div>
             </form>
             
             {% else %}
-            <form action="/seguir?canal={{id_canal}}" method="POST">
+            <form action="/fixar-canal?canal={{id_canal}}" method="POST">
                 <div class="py-2 pb-3 mb-0 small lh-sm border-bottom w-100">
-                    <button type="submit" class="btn seguir-canal">Seguir canal</button>
+                    <button type="submit" class="btn fixar-canal">Fixar canal</button>
                 </div>
             </form>
             {% endif %}
