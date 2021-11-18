@@ -12,7 +12,7 @@ from .models import usuario
 from .gerenciamento import getPosts, insere_post, delete_post, edit_post
 from werkzeug.utils import secure_filename
 from .gerenciamento import salva_arquivo, insere_visualizado
-from .gerenciamento import adicionar_lista_emails, deixa_de_seguir, excluir_canal, listar_moderador, listar_participante, alterar_funcao_membro, remover_membros, getcanais, segue_canal, seguir
+from .gerenciamento import adicionar_lista_emails, desafixa_canal, excluir_canal, listar_moderador, listar_participante, alterar_funcao_membro, remover_membros, getcanais, canal_fixado, fixar_canal
 from .gerenciamento import editar_permissoes, listar_usuario, pode_criar_canais, pode_gerenciar_usuarios, remover_usuario, editar_visibilidade,recuperar_visibilidade_canal, criar_canal, retorna_cursos, retorna_grupos
 
 load_dotenv(".env")
@@ -89,10 +89,10 @@ def editar_post(id_edit):
     edit_post(id_edit,conteudo,titulo)
     id_canal = request.args.get('canal')
     id_usuario = recuperar_id_usuario_logado()
-    seguidor = segue_canal(id_canal, id_usuario) #Saber se o usuário é seguidor ou não
+    fixado = canal_fixado(id_canal, id_usuario) #Saber se o canal é fixado ou não
 
     posts= getPosts(id_canal, id_usuario)
-    return render_template('posts.html', id_canal=id_canal,Posts=posts, seguidor = seguidor, canais=getcanais(id_usuario), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True,pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario())
+    return render_template('posts.html', id_canal=id_canal,Posts=posts, fixado = fixado, canais=getcanais(id_usuario), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True,pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
 
 @app.route('/post', methods=['GET', 'POST'])
 def post():
@@ -100,7 +100,7 @@ def post():
     grupos = retorna_grupos(id_canal)
     cursos = retorna_cursos(id_canal)
     id_usuario = recuperar_id_usuario_logado()
-    seguidor = segue_canal(id_canal, id_usuario) #Saber se o usuário é seguidor ou não
+    fixado = canal_fixado(id_canal, id_usuario) #Saber se o canal é fixado ou não
     if request.method == "POST":   
         conteudo = request.form['post']
         arquivo = request.files['arquivo']
@@ -111,7 +111,7 @@ def post():
             arquivo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             salva_arquivo(id_post, filename)
         posts=getPosts(id_canal, id_usuario)
-        return render_template('posts.html', id_canal=id_canal,Posts=posts, canais=getcanais(id_usuario), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True, seguidor=seguidor, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), lista_de_grupos = grupos, lista_de_cursos = cursos, emails = listar_usuario())
+        return render_template('posts.html', id_canal=id_canal,Posts=posts, canais=getcanais(id_usuario), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True, fixado=fixado, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), lista_de_grupos = grupos, lista_de_cursos = cursos, emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
     elif request.method == "GET": 
         if getVerificaFuncao (id_canal):
             pode_editar = True
@@ -120,9 +120,9 @@ def post():
             pode_editar = False
             pode_deletar = False
         Posts = getPosts(id_canal, id_usuario)
-        return render_template("posts.html", id_canal=id_canal, seguidor = seguidor, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), titulocanal =getChannel(id_canal), pode_editar = pode_editar, pode_deletar = pode_deletar, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), lista_de_grupos = grupos, lista_de_cursos = cursos, emails = listar_usuario())
+        return render_template("posts.html", id_canal=id_canal, fixado = fixado, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), titulocanal =getChannel(id_canal), pode_editar = pode_editar, pode_deletar = pode_deletar, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), lista_de_grupos = grupos, lista_de_cursos = cursos, emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
 
-    return render_template('posts.html', id_canal= id_canal, pode_editar = False)
+    return render_template('posts.html', id_canal= id_canal, pode_editar = False, visibilidade_canal = recuperar_visibilidade_canal(id_canal))
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
@@ -160,7 +160,7 @@ def rota_criar_canal():
 def mais_recentes():
     id_canal = request.args.get('canal')
     id_usuario = recuperar_id_usuario_logado()
-    seguidor = segue_canal(id_canal, id_usuario) #Saber se o usuário é seguidor ou não
+    fixado = canal_fixado(id_canal, id_usuario) #Saber se o usuário é fixado ou não
 
     if request.method == "GET":
         print(request.form)   
@@ -179,16 +179,16 @@ def mais_recentes():
             
             cur.close()
 
-            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), seguidor=seguidor, pode_editar=pode_editar, pode_deletar=pode_deletar, titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario())
+            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), fixado=fixado, pode_editar=pode_editar, pode_deletar=pode_deletar, titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
 
-    return render_template('posts.html', id_canal= id_canal, mais_recentes = False, emails = listar_usuario())
+    return render_template('posts.html', id_canal= id_canal, mais_recentes = False, emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
 
 #mais antigas
 @app.route('/mais_antigas', methods = ['GET'])
 def mais_antigas():
     id_canal = request.args.get('canal')
     id_usuario = recuperar_id_usuario_logado()
-    seguidor = segue_canal(id_canal, id_usuario) #Saber se o usuário é seguidor ou não
+    fixado = canal_fixado(id_canal, id_usuario) #Saber se o usuário é fixado ou não
 
     if getVerificaFuncao (id_canal):
             pode_editar = True
@@ -206,16 +206,16 @@ def mais_antigas():
             
             cur.close()
 
-            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), seguidor=seguidor,pode_editar=pode_editar, pode_deletar=pode_deletar, titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario())
+            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), fixado=fixado,pode_editar=pode_editar, pode_deletar=pode_deletar, titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
 
-    return render_template('posts.html', id_canal= id_canal, mais_antigas = False, emails = listar_usuario())
+    return render_template('posts.html', id_canal= id_canal, mais_antigas = False, emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
 
 # pesquisa avançada
 @app.route('/pesquisa_postagem', methods = ['GET', 'POST'])
 def pesquisa_postagem():
     id_canal = request.args.get('canal')
     id_usuario = recuperar_id_usuario_logado()
-    seguidor = segue_canal(id_canal, id_usuario) #Saber se o usuário é seguidor ou não
+    fixado = canal_fixado(id_canal, id_usuario) #Saber se o usuário é fixado ou não
 
     if getVerificaFuncao (id_canal):
         pode_editar = True
@@ -245,9 +245,9 @@ def pesquisa_postagem():
             
             cur.close()
             print (Posts)
-        return render_template('posts.html', id_canal=id_canal, Posts=Posts, seguidor=seguidor,pode_editar=pode_editar, pode_deletar=pode_deletar, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario())
+        return render_template('posts.html', id_canal=id_canal, Posts=Posts, fixado=fixado,pode_editar=pode_editar, pode_deletar=pode_deletar, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
 
-    return render_template('posts.html', id_canal= id_canal, pesquisa_postagem = False, emails = listar_usuario())
+    return render_template('posts.html', id_canal= id_canal, pesquisa_postagem = False, emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
 
 @app.route('/delete_post/<id_canal>/<id_post>')
 def delete_post_by_id(id_canal,id_post): 
@@ -310,18 +310,18 @@ def recuperar_id_usuario_logado():
     else:
         return None
 
-@app.route('/deixar-de-seguir', methods = ['POST'])
-def deixar_de_seguir():
+@app.route('/desafixar-canal', methods = ['POST'])
+def desafixar_canal():
     id_canal = request.args.get('canal')
     id_usuario = recuperar_id_usuario_logado()
-    deixa_de_seguir(id_canal, id_usuario)
+    desafixa_canal(id_canal, id_usuario)
     return redirect(url_for('inicio'))
 
-@app.route('/seguir', methods = ['Post'])
-def rota_seguir():
+@app.route('/fixar-canal', methods = ['Post'])
+def rota_fixar_canal():
     id_canal = request.args.get('canal')
     id_usuario = recuperar_id_usuario_logado()
-    seguir (id_canal, id_usuario)
+    fixar_canal (id_canal, id_usuario)
     return redirect(url_for('post', canal = id_canal))
 
 @app.route('/insere_visualizado/<id_post>', methods = ['GET'])

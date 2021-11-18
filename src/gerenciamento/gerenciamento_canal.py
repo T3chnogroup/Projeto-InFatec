@@ -81,11 +81,11 @@ def getcanais(id_usuario):
     for canal in todos_canais_bd:
         id_canal = canal[0]
         moderador = checagem_moderador(id_canal, id_usuario) #Verifica se é moderador do canal
-        seguidor = segue_canal(id_canal, id_usuario) #Verifica se é seguidor do canal
+        fixado = canal_fixado(id_canal, id_usuario) #Verifica se o canal é fixo
         if canal[2] == 'privado':
-            if not seguidor:
+            if not fixado:
                 continue
-        nova_tupla = canal + (moderador, seguidor)
+        nova_tupla = canal + (moderador, fixado)
         todos_canais.append(nova_tupla)
     return todos_canais
 
@@ -98,8 +98,8 @@ def checagem_moderador(id_canal,  id_usuario):
     else:
         return False
 
-#Função que verifica se o usuário segue o canal
-def segue_canal(id_canal, id_usuario): 
+#Função que verifica se o usuário fixou o canal
+def canal_fixado(id_canal, id_usuario): 
     cursor = mysql.connection.cursor()
     cursor.execute("SELECT * from canal_usuario where id_canal = %s and id_usuario = %s",(id_canal, id_usuario))
     if cursor.rowcount > 0:
@@ -107,15 +107,15 @@ def segue_canal(id_canal, id_usuario):
     else:
         return False
 
-#Função que exclui o usuário do canal caso o mesmo clique no botão "Deixar de seguir canal"
-def deixa_de_seguir(id_canal, id_usuario):
+#Função que exclui o usuário do canal caso o mesmo clique no botão "Desafixar canal"
+def desafixa_canal(id_canal, id_usuario):
     cursor = mysql.connection.cursor()
     cursor.execute("DELETE from canal_usuario where id_canal = %s and id_usuario = %s", (id_canal, id_usuario))
     mysql.connection.commit()
     cursor.close()
 
-#Função que insere usuário como participante no canal caso o mesmo clique no botão "Seguir canal"
-def seguir(id_canal, id_usuario):
+#Função que insere usuário como participante no canal caso o mesmo clique no botão "Fixar canal"
+def fixar_canal(id_canal, id_usuario):
     cursor = mysql.connection.cursor()
     cursor.execute("INSERT IGNORE INTO canal_usuario(id_canal, id_usuario, funcao) VALUES (%s, %s, 'participante')", (id_canal, id_usuario))
     mysql.connection.commit()
