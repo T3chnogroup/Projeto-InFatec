@@ -94,3 +94,24 @@ ALTER TABLE usuario ADD pode_criar_canais boolean;
 
 -- Adição do usuário administrador
 INSERT INTO usuario VALUES (8, 'Administrador', 'administrador@fatec.sp.gov.br', 'f865b53623b121fd34ee5426c792e5c33af8c227', '88888888888', 1, 1, 1);
+
+-- Criação da tabela de grupos do canal (Modal criar canal)
+CREATE TABLE IF NOT EXISTS canal_grupo (
+	id_canal INT,
+	id_grupo INT,
+    FOREIGN KEY(id_canal) REFERENCES canal (id_canal),
+    PRIMARY KEY (id_canal, id_grupo)
+) ENGINE=INNODB;
+
+-- Criação da tabela de cursos do canal (Modal criar canal)
+CREATE TABLE IF NOT EXISTS canal_curso (
+	id_canal INT,
+	nome_curso VARCHAR (100),
+    FOREIGN KEY(id_canal) REFERENCES canal (id_canal),
+    PRIMARY KEY (id_canal, nome_curso)
+) ENGINE=INNODB;
+
+-- Remove as colunas que não são mais necessárias na tabela canal
+ALTER TABLE canal DROP COLUMN grupo;
+ALTER TABLE canal DROP COLUMN semestre;
+ALTER TABLE canal DROP COLUMN curso;
