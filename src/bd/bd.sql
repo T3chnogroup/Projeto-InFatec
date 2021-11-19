@@ -64,7 +64,6 @@ Delete from usuario where id_usuario >=0;
 INSERT INTO usuario VALUES (2, "Elen", "elen.petri@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "22222222222", 1),
 (3, "Tais", "tais.salomao@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "33333333332",1),
 (4, "Kevin", "kevin.mirenda@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "44444444444",1),
-(5, "Lucas", "lucas.dias52@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "55555555555", 1),
 (6, "Rodrigo", "rodrigo.paula15@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "66666666666",1),
 (7, "Priscila", "priscila.silva140@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "77777777777",1);
 

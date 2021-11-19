@@ -28,9 +28,9 @@ app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # configuração Conexão com o Banco de Dados Mysql
-app.config['MYSQL_HOST'] = os.getenv("MYSQL_HOST")
-app.config['MYSQL_USER'] = os.getenv("MYSQL_USER")
-app.config['MYSQL_PASSWORD'] = os.getenv("MYSQL_PASSWORD")
+app.config['MYSQL_HOST'] = '0.0.0.0'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'root'
 app.config['MYSQL_DB'] = os.getenv("MYSQL_DB")
 
 # configuração email
@@ -43,6 +43,8 @@ app.config['MAIL_USE_SSL'] = True
 
 mysql = MySQL()
 mysql.init_app(app)
+
+mail = Mail(app)
 
 def getChannel(id_canal):
     cursor = mysql.connection.cursor()
@@ -67,10 +69,10 @@ def getVerificaFuncao (id_canal):
 def confirmacao_email():
     id_usuario = request.args.get('id_usuario')
     cursor = mysql.connection.cursor()
-    if usuario.validUser(cursor, mysql, id_usuario):
+    if usuario.validUser(cursor, id_usuario):
         return render_template('login.html', validado = False)
     else:
-        usuario.edit_post(cursor, mysql, id_usuario)
+        usuario.validateUser(cursor, mysql, id_usuario)
         return render_template('login.html', validado = True)
 
 @app.route('/login', methods=['POST', 'GET'])
@@ -80,7 +82,7 @@ def login():
         cursor = mysql.connection.cursor()
         cpf = request.form['login']
         password = request.form['password']
-        cur = cursor.execute("select email from usuario where cpf = %s and senha = %s", (cpf,sha1(password.encode('utf-8')).hexdigest())) # Recupera e-mail a partir do cpf
+        cur = cursor.execute("select email from usuario where cpf = %s and senha = %s and valido = 1", (cpf,sha1(password.encode('utf-8')).hexdigest())) # Recupera e-mail a partir do cpf
         if cursor.rowcount > 0:
             lista_emails = cursor.fetchall()
             return redirect(url_for('inicio', email = lista_emails[0][0]))
@@ -157,6 +159,9 @@ def cadastro():
             return render_template('cadastro.html', erro = 'CPF já cadastrado')
         if validate_password(password, confirmacao_senha):
             usuario.insertUser(cur, mysql, nome, email, sha1(password.encode('utf-8')).hexdigest(), cpf)
+            teste = usuario.searchUserByCpf(cur, cpf)
+            usuario.sendConfirmationEmail(Message, mail, email, f'http://localhost:5000/confirmacao_email?id_usuario={teste[0]}')
+            cur.close()
             return render_template('cadastro.html', resposta = 'True')   
         else:
             return render_template('cadastro.html', erro = 'Senhas incompativeis')

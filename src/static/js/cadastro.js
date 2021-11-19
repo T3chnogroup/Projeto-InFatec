@@ -10,8 +10,16 @@ $(document).ready(() => {
     let password = $('#password').val();
     let confirmacao_senha = $('#confirmacao_senha').val();
 
-    if (nome.length < 3 || email.length < 3 || cpf.length !== 11 || password.length < 4 || confirmacao_senha.length < 4)
+    if (
+      nome.length < 3 ||
+      email.length < 3 ||
+      cpf.length !== 11 ||
+      password.length < 4 ||
+      confirmacao_senha.length < 4 ||
+      email.split('@')[1] !== 'fatec.sp.gov.br'
+    ) {
       e.preventDefault();
+    }
     
     if (nome.length < 3) $('#nome').addClass('is-invalid')
     else {
@@ -21,6 +29,13 @@ $(document).ready(() => {
 
     if (email.length < 3) $('#email').addClass('is-invalid');
     else $('#email').removeClass('is-invalid');
+
+    if (email.split('@')[1] !== 'fatec.sp.gov.br') {
+      $('#email').addClass('is-invalid');
+      $('#email-validation-error').show()
+    } else {
+      $('#email').removeClass('is-invalid');
+    }
 
     if (cpf.length !== 11) {
       $('#cpf').mask('000.000.000-00', {reverse: true});

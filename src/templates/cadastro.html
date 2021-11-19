@@ -58,6 +58,9 @@
                   <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
                 </svg>
             </div>
+            <div style="display: none;" id='email-validation-error'>
+                <span class="text-danger">Email inválido, utilize o email institucional da Fatec</span>
+            </div>
             {% if erro %}
             <span class="text-danger">{{erro}}</span>
             {% endif %}
@@ -71,24 +74,26 @@
                 Enviado com sucesso!
                 <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="botao_fechar_msg_sucesso()" aria-label="Fechar"></button>
             </div>
-
-              <div id="atencao" class="px-2">
-                <p>
-                    <strong>Atenção!</strong>
-                </p>
-                <p>
-                   Email de confirmação de cadastro enviado! Em caso do não recebimento do email enviado pelo InFatec em aproximadamente 5 minutos, entre em
-                    contato com
-                    o Gestor de Usuários ou o Diretor Acadêmico de sua Unidade de Ensino para que proceda os ajustes em
-                    sua
-                    conta.
-                </p>
-                <p>
-                    Verifique sua caixa de SPAM, LIXEIRA ou LIXO ELETRÔNICO, pois seu serviço de email poderá realizar
-                    um
-                    redirecionamento
-                    indevido para essas caixas.
-                </p>
+            {% if resposta %}
+                <div id="cadastro" class="px-2">
+                    <p>
+                        <strong>Enviado com sucesso!</strong>
+                    </p>
+                    <p>
+                    Email de confirmação de cadastro enviado! Em caso do não recebimento do email enviado pelo InFatec em aproximadamente 5 minutos, entre em
+                        contato com
+                        o Gestor de Usuários ou o Diretor Acadêmico de sua Unidade de Ensino para que proceda os ajustes em
+                        sua
+                        conta.
+                    </p>
+                    <p>
+                        Verifique sua caixa de SPAM, LIXEIRA ou LIXO ELETRÔNICO, pois seu serviço de email poderá realizar
+                        um
+                        redirecionamento
+                        indevido para essas caixas.
+                    </p>
+                </div>
+            {% endif %}
             </div>
         </form>
 
