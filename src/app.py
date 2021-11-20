@@ -92,7 +92,7 @@ def editar_post(id_edit):
     fixado = canal_fixado(id_canal, id_usuario) #Saber se o canal é fixado ou não
 
     posts= getPosts(id_canal, id_usuario)
-    return render_template('posts.html', id_canal=id_canal,Posts=posts, fixado = fixado, canais=getcanais(id_usuario), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True,pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
+    return redirect(url_for('post',canal=id_canal))
 
 @app.route('/post', methods=['GET', 'POST'])
 def post():
