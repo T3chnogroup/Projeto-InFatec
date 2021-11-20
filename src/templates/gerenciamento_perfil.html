@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 {% block css %}
-<link rel="stylesheet" href="{{url_for('static', filename='css/gerenciamento_usuario.css')}}">
+<!--<link rel="stylesheet" href="{{url_for('static', filename='css/gerenciamento_usuario.css')}}">-->
 <link rel="stylesheet" href="{{url_for('static', filename='css/globals.css')}}">
 <link rel="stylesheet" href="../static/css/gerenciamento_perfil.css">
+
 {% endblock %}
 
 {% block title %}
-  <title>inFATEC-Gerenciamento-Usuario</title>
+  <title>inFATEC-Gerenciamento-Perfil</title>
   {% endblock %}
 
 {% block nav %}
@@ -53,7 +54,7 @@
             <div>
                 <h3>Edite seu Perfil</h3>
             </div>
-            <label class="input input-group mb-1">Nome Usuáio</label>
+            <label class="input input-group mb-1">Nome Usuário</label>
             <div class="input input-group mb-3">
                 <input class="form-control" id="nome" name="nome" placeholder="Nome" type="text">
             </div>
@@ -81,7 +82,7 @@
             <br />
 
             <a href="/home" class="button botao-voltar btn btn-light mb-4 " type="button">Voltar</a>
-            <button class="button botao-enviar btn btn-light mb-4" value="Exibir Alert" type="submit">Enviar</button>
+            <button class="button botao-enviar btn btn-light mb-4" value="Exibir Alert" type="submit">Salvar</button>
         </form>
     <script>
             const togglePassword = document.querySelector("#togglePassword");
@@ -101,5 +102,22 @@
         const confirmacao_senha = document.querySelector("#confirmacao_senha");
     </script>
 </body>
+
+{%block js%}
+<script>
+    function altera_username(id){
+        $("#btn-apagar-post").attr("href","delete_post/{{id_canal}}/"+id) 
+    }
+    function edit_post(id,conteudo,titulo){
+        $("#text-editar-post").val(conteudo)
+        $("#formEditaPost").attr("action",'/post/'+id+"?canal={{id_canal}}")
+        $("#titulo-editar-post").val(titulo)
+    }
+    function altera_a_visibilidade(id_post) {
+        $("#btn-altera-a-visibilidade").attr("href", "/insere_visualizado/" +id_post+"?canal={{id_canal}}")
+    }
+</script>
+{%endblock%}
+
 {% endblock %}
 
