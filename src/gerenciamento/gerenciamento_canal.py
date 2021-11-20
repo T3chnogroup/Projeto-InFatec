@@ -203,3 +203,47 @@ def retorna_cursos(id_canal):
         if indice < tamanho_cursos - 1:
             cursos_str = cursos_str + ', '
     return cursos_str
+
+#Função que retorna se Coordenadores estão selecionados no canal
+def coordenadores_selecionados(id_canal):
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * from canal_grupo where id_grupo = 1 and id_canal = %s", (id_canal,))
+    if cur.rowcount > 0:
+        existe = True
+    else:
+        existe = False
+    cur.close()
+    return existe
+
+#Função que retorna se Professores estão selecionados no canal
+def professores_selecionados(id_canal):
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * from canal_grupo where id_grupo = 2 and id_canal = %s", (id_canal,))
+    if cur.rowcount > 0:
+        existe = True
+    else:
+        existe = False
+    cur.close()
+    return existe
+
+#Função que retorna se Alunos estão selecionados no canal
+def alunos_selecionados(id_canal):
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT * from canal_grupo where id_grupo = 3 and id_canal = %s", (id_canal,))
+    if cur.rowcount > 0:
+        existe = True
+    else:
+        existe = False
+    cur.close()
+    return existe
+
+#Função que retorna a lista de cursos que estão selecionados no canal
+def lista_cursos(id_canal):
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT nome_curso from canal_curso where id_canal = %s", (id_canal,))
+    tuplas =  cur.fetchall()
+    cur.close()
+    lista = []
+    for linha in tuplas:
+        lista.append(linha[0])
+    return lista
