@@ -5,14 +5,14 @@ def insertUser(cur, mysql, nome, email, senha, cpf):
   else:
     return False
 
-def registeredEmail(cursor, mysql, email):
+def registeredEmail(cursor, email):
   cursor.execute("SELECT email FROM usuario where email = %s", (email,))
   if cursor.rowcount > 0:
     return True
   else:
     return False
 
-def registeredCpf(cursor, mysql, cpf):
+def registeredCpf(cursor, cpf):
   cursor.execute("SELECT cpf FROM usuario where cpf = %s", (cpf,))
   if cursor.rowcount > 0:
     return True
@@ -36,8 +36,18 @@ def searchUserByCpf(cursor, cpf):
   user = cursor.fetchone()
   return user
 
+def searchUserByEmail(cursor, email):
+  cursor.execute("SELECT id_usuario FROM usuario where email = %s", (email,))
+  user = cursor.fetchone()
+  return user
+
+def changePassword(cursor, mysql, nova_senha, id_usuario):
+  cursor.execute('update usuario set senha = %s where id_usuario = %s', (nova_senha, id_usuario))
+  mysql.connection.commit()
+  cursor.close()
+
 def sendConfirmationEmail(message, mail, recipient, confirmationLink):
   msg = message('Email de confirmação', sender = 'Grupo3fatec', recipients = [recipient])
-  msg.body = f'Confirme o seu cadastro: {confirmationLink}'
+  msg.body = confirmationLink
   mail.send(msg)
   return 'Email enviado'

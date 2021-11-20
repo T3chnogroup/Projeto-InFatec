@@ -93,9 +93,31 @@ def login():
             return redirect(url_for('inicio'))
         return render_template('login.html')
 
-@app.route('/redefinir')
+@app.route('/redefinir', methods=['POST', 'GET'])
 def redefinir():
+    if request.method == 'POST':
+        email = request.form['email']
+        cur = mysql.connection.cursor()
+        if not usuario.registeredEmail(cur, email):
+            return render_template('redefinir_senha.html', erro='Email ainda não cadastrado')
+        else:
+            email_usuario = usuario.searchUserByEmail(cur, email)
+            usuario.sendConfirmationEmail(Message, mail, email, f'Redefina sua senha neste link: http://localhost:5000/redefinir_senha?id_usuario={email_usuario[0]}')
+            cur.close()
+            return render_template('redefinir_senha.html', resposta='True')
     return render_template('redefinir_senha.html')
+
+@app.route('/redefinir_senha', methods=['GET', 'POST'])
+def redefinir_by_id():
+    if not pode_recuperar_senha():
+        return redirect(url_for('login'))
+    if request.method == 'POST':
+        nova_senha = request.form['senha1']
+        id_usuario = request.form['id_usuario']
+        cur = mysql.connection.cursor()
+        usuario.changePassword(cur, mysql, sha1(nova_senha.encode('utf-8')).hexdigest(), id_usuario)
+        return redirect(url_for('login'))
+    return render_template('nova_senha.html')
 
 @app.route('/')
 def inicio():
@@ -154,14 +176,14 @@ def cadastro():
         password = request.form['password']
         confirmacao_senha = request.form['confirmacao_senha']
         cur = mysql.connection.cursor()
-        if usuario.registeredEmail(cur, mysql, email):
+        if usuario.registeredEmail(cur, email):
             return render_template('cadastro.html', erro = 'Email já cadastrado')
-        if usuario.registeredCpf(cur, mysql, cpf):
+        if usuario.registeredCpf(cur, cpf):
             return render_template('cadastro.html', erro = 'CPF já cadastrado')
         if validate_password(password, confirmacao_senha):
             usuario.insertUser(cur, mysql, nome, email, sha1(password.encode('utf-8')).hexdigest(), cpf)
-            teste = usuario.searchUserByCpf(cur, cpf)
-            usuario.sendConfirmationEmail(Message, mail, email, f'http://localhost:5000/confirmacao_email?id_usuario={teste[0]}')
+            cpf_usuario = usuario.searchUserByCpf(cur, cpf)
+            usuario.sendConfirmationEmail(Message, mail, email, f'Confirme o seu cadastro: http://localhost:5000/confirmacao_email?id_usuario={cpf_usuario[0]}')
             cur.close()
             return render_template('cadastro.html', resposta = 'True')   
         else:
@@ -333,6 +355,12 @@ def recuperar_id_usuario_logado():
         return id_usuario
     else:
         return None
+
+def pode_recuperar_senha():
+    if request.cookies.get('changePassword'):
+        return True
+    else:
+        return False
 
 @app.route('/desafixar-canal', methods = ['POST'])
 def desafixar_canal():
