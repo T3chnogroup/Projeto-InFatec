@@ -231,13 +231,17 @@ def pesquisa_postagem():
         data_inicial = request.form['data_inicial']
         data_final = request.form['data_final']
         if titulo != "":
-            query = "where titulo_post like '%{0}%'".format(titulo)
-        
+            query = "where c.id_canal={0} and p.titulo_post like '%{1}%'".format(id_canal, titulo)
+        elif data_inicial != "" and data_final != '':
+            query = "where c.id_canal={0} and p.data_postagem BETWEEN '{1}' and '{2}'".format(id_canal, data_inicial, data_final)
+        elif data_inicial == "" and data_final != '':
+            query = "where c.id_canal={0} and p.data_postagem='{1}'".format(id_canal, data_final)
         else:
-            query = "where data_postagem BETWEEN '{0}' and '{1}'".format(data_inicial, data_final)
+            query = "where c.id_canal={0} and p.data_postagem='{1}'".format(id_canal, data_inicial)
+
         print(query)
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * from post {0}".format(query)) # busca do titulo ou da data da postagem 
+        cur.execute("SELECT p.* from post p inner join canal c on p.fk_canal=c.id_canal {0}".format(query)) # busca do titulo ou da data da postagem 
         if cur.rowcount > 0:# se existir esta postagem
             Posts = cur.fetchall()
 
@@ -245,7 +249,10 @@ def pesquisa_postagem():
             
             cur.close()
             print (Posts)
-        return render_template('posts.html', id_canal=id_canal, Posts=Posts, fixado=fixado,pode_editar=pode_editar, pode_deletar=pode_deletar, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
+            return render_template('posts.html', id_canal=id_canal, Posts=Posts, fixado=fixado,pode_editar=pode_editar, pode_deletar=pode_deletar, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
+        else:
+            Posts = []
+            return render_template('posts.html', id_canal=id_canal, Posts=Posts, fixado=fixado,pode_editar=pode_editar, pode_deletar=pode_deletar, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
 
     return render_template('posts.html', id_canal= id_canal, pesquisa_postagem = False, emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
 
