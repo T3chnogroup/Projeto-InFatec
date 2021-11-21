@@ -82,16 +82,6 @@ INSERT INTO post VALUES (0, "2021-10-10", "2021-10-12", "Conteudo chato", 1, 2, 
 select * from post;
 
 select * from visualizado_por;
-delete from visualizado_por where fk_usuario = 9;
-
-select p.* from usuario u 
-inner join visualizado_por vp
-on u.id_usuario = vp.fk_usuario
-inner join post p
-on p.id_post = vp.fk_post
-where vp.fk_usuario = 9
-and p.fk_canal=1;
-
 
 -- Adição da coluna função (Moderador ou participante) na tabela canal_usuario (referente ao gerenciamento do canal)
 ALTER TABLE canal_usuario ADD funcao varchar(30);

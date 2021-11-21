@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, url_for, redirect
 from flask_mysqldb import MySQL
 from datetime import date
 from dotenv import load_dotenv
+from werkzeug.local import F
 load_dotenv(".env")
 
 app = Flask(__name__)
@@ -63,4 +64,22 @@ def insere_visualizado(id_post, usuario, date):
     cur.execute("INSERT into visualizado_por(fk_usuario, fk_post, data_visualizacao) values(%s, %s, %s)",(str(usuario),str(id_post),str(date.today())))
     mysql.connection.commit()
     cur.close()
-    
+
+def posts_visualizado(id_usuario, id_canal):
+    cur = mysql.connection.cursor()
+    conteudo = cur.execute(f'''select p.* from usuario u 
+        inner join visualizado_por vp
+        on u.id_usuario=vp.fk_usuario
+        inner join post p
+        on p.id_post=vp.fk_post
+            where vp.fk_usuario={id_usuario}
+            and p.fk_canal={id_canal}''')
+    Posts = cur.fetchall()
+    cur.close()
+    return Posts
+
+def volta_visualizado(id_post):
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE FROM visualizado_por WHERE fk_post = %s", [id_post])
+    mysql.connection.commit()
+    cur.close()

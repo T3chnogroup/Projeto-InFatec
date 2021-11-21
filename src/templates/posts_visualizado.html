@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>InFatec - Post</title>
+{% endblock %}
+
+{% block css %}
+<!-- CSS Global -->
+<link rel="stylesheet" href="{{url_for('static', filename='css/globals.css')}}"> 
+<!-- CSS local -->
+<link rel="stylesheet" href="{{url_for('static', filename='css/posts.css')}}">
+{% endblock %}
+
+{% block conteudo %}
+<div class="container">
+    <div class="posts-wrapper">
+                {% for post in Posts %}
+                    <div class="card post-card">
+                        <div class="card-body post-container">
+                            <div class="post-actions">
+                                {% if pode_editar %}
+                                <button class="action-button" data-bs-toggle="modal" data-bs-target="#edit-modal" onclick="edit_post('{{post[0]}}','{{post[3]}}', '{{post[6]}}')">
+                                    <i class="far fa-edit"></i>
+                                </button>
+                                {% endif %}
+                                {% if pode_deletar %}
+                                <button class="action-button" data-bs-toggle="modal" data-bs-target="#delete-modal" onclick="delete_post('{{post[0]}}')">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button> 
+                                {% else %}
+                                <button class="action-button" data-bs-toggle="modal" data-bs-target="#visibility-modal" onclick="altera_a_visibilidade('{{post[0]}}')">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                                {% endif %}
+                            </div>
+                            <div id="user-icon" class="user-icon-wrapper">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="post-content">
+                                <div class="post-header">
+                                    <p class="posted-info">
+                                        <span>@{{titulocanal}}</span> fez uma publicação. <br>
+                                    </p>
+                                    <p class="date-posted-text">
+                                        Postado em {{post[1].strftime('%d/%m/%Y')}}</p>
+                                </div>
+                                <div class="post-main">
+                                    <h4>
+                                        {{post[6]}}
+                                    </h4>
+                                    <p class="posted-info">
+                                        {{post[3]}}
+                                    </p>
+                                    {% if post[8] %}
+                                    <p><a href="{{url_for('static', filename='uploads/')}}{{post[8]}}" target="_blank" download>{{post[8]}}</a></p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+    </div>
+
+    {% if pode_editar %}
+    <form class="formulario-post" name="formtest" action="/post?canal={{id_canal}}" method="POST" enctype="multipart/form-data">
+        <div class="center-postagem">
+
+            <fieldset class="grupo-post">
+                <div class="preenchimento-post">
+                    <div class="textarea_div px-4 mt-3">
+                        <input type="text" class="form-control" name="titulo" id="exampleFormControlInput1" placeholder="Titulo da postagem" required="required">
+                    </div> 
+                </div>
+
+                <div class="preenchimento-post">
+                    <div class="textarea_div px-4 mt-3">
+                        <textarea type="textarea" class="form-control text_area" name="post" rows="3" placeholder="Digite aqui para uma nova publicação" required="required"></textarea>
+                    </div>
+                </div>
+
+               <div class="preenchimento-post">
+                    <div class="gap-2 px-4 mb-3 arquivo">
+                        <input class="form-control" type="file" id="add_arquivo" name="arquivo">
+
+                    </div>
+                    <div class="gap-2 px-4 mb-3 envio">
+                        <button id="send-icon" class="botao_enviar btn btn-danger" type="submit"><span class="class_enviar">Enviar</span>
+                    </div>
+                </div>
+            </fieldset>
+
+        </div><!--center-post-->
+    </form><!--formulario-post-->
+    {% endif %}
+
+</div>
+
+{% endblock %}
+
+{% block modals %}
+<!-- Modal Edição -->
+<div class="modal fade" id="edit-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Alterar Post</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div> 
+        <form id="formEditaPost" method="POST">
+            <div class="modal-body">
+                    <div class="form-group">
+                        <label>Título</label>
+                        <input type="text" id="titulo-editar-post" name="titulo" class="form-control">
+                    </div>
+                    <div class="form-group mt-3">
+                        <textarea id="text-editar-post" name="text-editar-post" class="textarea-editar w-100 form-control">  
+                        </textarea>
+                    </div>
+                
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+            <button type="submit" class="btn btn-danger">Sim</button>
+            </div>
+        </form>
+    </div>
+    </div>
+</div>
+
+<!-- Modal Visibilidade -->
+<div class="modal fade" id="visibility-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Alterar Visibilidade do Post</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Deseja realmente voltar a ver este post?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                <a id="btn-altera-a-visibilidade" class="btn btn-danger">Sim</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Modal Excluir -->
+<div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Excluir Post</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Deseja realmente excluir este post?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                <a id="btn-apagar-post" class="btn btn-danger">Sim</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+{%block js%}
+<script>//Não Remover! Seta o tamanho do text-area de acordo com as postagens
+    $('#post').width($($('.posts-wrapper')[0]).width()-10)
+    function delete_post(id){
+        $("#btn-apagar-post").attr("href","delete_post/{{id_canal}}/"+id) 
+    }
+    function edit_post(id,conteudo,titulo){
+        $("#text-editar-post").val(conteudo)
+        $("#formEditaPost").attr("action",'/post/'+id+"?canal={{id_canal}}")
+        $("#titulo-editar-post").val(titulo)
+    }
+    function altera_a_visibilidade(id_post) {
+        $("#btn-altera-a-visibilidade").attr("href", "/deixar_visualizado/" +id_post+"?canal={{id_canal}}")
+    }
+
+</script>
+{%endblock%}

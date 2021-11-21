@@ -12,7 +12,7 @@ from .models import usuario
 
 from .gerenciamento import getPosts, insere_post, delete_post, edit_post
 from werkzeug.utils import secure_filename
-from .gerenciamento import salva_arquivo, insere_visualizado
+from .gerenciamento import salva_arquivo, insere_visualizado, posts_visualizado, volta_visualizado
 from .gerenciamento import adicionar_lista_emails, desafixa_canal, excluir_canal, listar_moderador, listar_participante, alterar_funcao_membro, remover_membros, getcanais, canal_fixado, fixar_canal
 from .gerenciamento import editar_permissoes, listar_usuario, pode_criar_canais, pode_gerenciar_usuarios, remover_usuario, editar_visibilidade,recuperar_visibilidade_canal, criar_canal, retorna_cursos, retorna_grupos
 
@@ -135,7 +135,7 @@ def editar_post(id_edit):
     fixado = canal_fixado(id_canal, id_usuario) #Saber se o canal é fixado ou não
 
     posts= getPosts(id_canal, id_usuario)
-    return render_template('posts.html', id_canal=id_canal,Posts=posts, fixado = fixado, canais=getcanais(id_usuario), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True,pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
+    return redirect(url_for('post',canal=id_canal))
 
 @app.route('/post', methods=['GET', 'POST'])
 def post():
@@ -166,6 +166,25 @@ def post():
         return render_template("posts.html", id_canal=id_canal, fixado = fixado, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), titulocanal =getChannel(id_canal), pode_editar = pode_editar, pode_deletar = pode_deletar, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), lista_de_grupos = grupos, lista_de_cursos = cursos, emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
 
     return render_template('posts.html', id_canal= id_canal, pode_editar = False, visibilidade_canal = recuperar_visibilidade_canal(id_canal))
+
+@app.route('/posts_visualizado')
+def posts_visualizados():
+    id_canal = request.args.get('canal')
+    grupos = retorna_grupos(id_canal)
+    cursos = retorna_cursos(id_canal)
+    id_usuario = recuperar_id_usuario_logado()
+    fixado = canal_fixado(id_canal, id_usuario) #Saber se o canal é fixado ou não
+    if not getVerificaFuncao (id_canal):
+        pode_editar = False
+        pode_deletar = False
+    Posts = posts_visualizado(id_usuario, id_canal)
+    return render_template("posts_visualizado.html", id_canal=id_canal, fixado = fixado, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), titulocanal =getChannel(id_canal), pode_editar = pode_editar, pode_deletar = pode_deletar, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), lista_de_grupos = grupos, lista_de_cursos = cursos, emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
+
+@app.route('/deixar_visualizado/<id_post>', methods = ['GET'])
+def voltar_de_visualizar(id_post):
+    id_canal = request.args.get('canal')
+    volta_visualizado(id_post)
+    return redirect(url_for('posts_visualizados', canal = id_canal))
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
@@ -389,6 +408,7 @@ def deixar_de_visualizar(id_post):
     id_usuario = recuperar_id_usuario_logado()
     insere_visualizado(id_post, id_usuario, date)
     return redirect(url_for('post', canal = id_canal))
+
 #Gerenciamento de usuários
 @app.route('/gerenciamento_usuario')
 def gerenciamentoUsuario():
