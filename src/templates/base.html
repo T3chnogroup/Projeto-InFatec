@@ -25,6 +25,8 @@
   <link rel="stylesheet" href="{{url_for('static', filename='css/select2/select2.min.css')}}">
   <script src="{{url_for('static', filename='js/select2/select2.min.js')}}"></script>
 
+  <script src="{{url_for('static', filename='js/pesquisa_avancada.js')}}"></script>
+
   <!-- Favicons -->
   <link rel="icon" href="{{url_for('static', filename='imagens/icon1.png')}}" sizes="32x32" type="image/png">
   <meta name="theme-color" content="#7952b3">
@@ -336,7 +338,7 @@
           <fieldset class="p-avancada">
             <div class="preenchimento-p-avancada">
               <div class="campo-center px-4 mt-3">
-                <input type="text" class="form-control" name="titulo" placeholder="Título">
+                <input type="text" class="form-control" name="titulo" id="titulo" name="titulo" placeholder="Título">
               </div>
             </div>
 
@@ -358,6 +360,10 @@
               </div>
             </div>
 
+            <div id="erro-preenchimento" class="ms-3" style="display: none;">
+              <span class="text-danger">Preencha pelo menos um campo</span>
+            </div>
+
             <div class="modal-footer border-top-0">
               <div class="preenchimento-p-avancada">
                 <div class="campo-left d-grid gap-2 px-4 mb-3">
@@ -365,7 +371,7 @@
                 </div>
       
                 <div class="campo-right d-grid gap-2 px-4 mb-3">
-                  <button class="btn btn-light text-primary btn-block fw-bold border" type="submit">Filtrar</button>
+                  <button class="btn btn-light text-primary btn-block fw-bold border" id="btn_filtrar" type="submit">Filtrar</button>
                 </div>
               </div>
             </div>

@@ -34,7 +34,7 @@
       <div class="tab-pane fade show active area-conteudo" id="membros" role="tabpanel" aria-labelledby="membros-tab">
         <!--Botão de adicionar membros-->
         <div class="container mt-3 adicionarmembros py-3">
-          <input class="search " type="text" placeholder="Pesquisar Membro" aria-label="Search">
+          <input id="pesquisar_membros" class="search " type="text" placeholder="Pesquisar Membro" aria-label="Search">
           <button type="button" class="btn  button-adicionarmembros" data-bs-toggle="modal"
             data-bs-target="#adicionar-membros">
             <i class="bi bi-person-plus"></i>
@@ -53,7 +53,7 @@
           <tbody>
             <!--Tabela Moderadores-->
             {% for membro in moderadores %}
-            <tr>
+            <tr class="linha-pesquisada">
               <td>{{membro[1]}}</td>
               <td class="word-breakable">{{membro[2]}}</td>
               <td>
@@ -87,7 +87,7 @@
             </thead>
             <tbody>
               {% for membro in participantes %}
-              <tr>
+              <tr class="linha-pesquisada">
                 <td>{{membro[1]}}</td>
                 <td class="word-breakable">{{membro[2]}}</td>
                 <td>
@@ -317,6 +317,26 @@
     action = action + id_user /*Action monta a URL completa com o id do usuário*/
     formulario.attr('action', action) /*Coloca a URL completa no action do formulário*/
   })
+</script>
+
+<!--Funções de pesquisar membros do canal-->
+<script>
+  $('#pesquisar_membros').keyup(function() {
+    var texto = $(this).val().toLowerCase()
+    $('.linha-pesquisada').each(function() {
+     var nome = $($(this).find('td')[0]).text().toLowerCase()
+     var email = $($(this).find('td')[1]).text().toLowerCase()
+     $(this).addClass('d-none')
+     if (nome.indexOf(texto)>=0){
+       $(this).removeClass('d-none')
+     }
+     if (email.indexOf(texto)>=0){
+       $(this).removeClass('d-none')
+     }
+    }
+    )
+  }
+  )
 </script>
 
 {% endblock %}
