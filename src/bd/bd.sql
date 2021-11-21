@@ -64,7 +64,6 @@ Delete from usuario where id_usuario >=0;
 INSERT INTO usuario VALUES (2, "Elen", "elen.petri@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "22222222222", 1),
 (3, "Tais", "tais.salomao@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "33333333332",1),
 (4, "Kevin", "kevin.mirenda@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "44444444444",1),
-(5, "Lucas", "lucas.dias52@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "55555555555", 1),
 (6, "Rodrigo", "rodrigo.paula15@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "66666666666",1),
 (7, "Priscila", "priscila.silva140@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "77777777777",1);
 
@@ -78,7 +77,20 @@ select * from canal;
 -- Inserção tabela post
 INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo legal", 1, 2, "titulo legal");
 INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo chato", 1, 2, "titulo chato");
+INSERT INTO post VALUES (0, "2021-10-09", "2021-10-12", "Conteudo chato", 1, 2, "titulo chato");
+INSERT INTO post VALUES (0, "2021-10-10", "2021-10-12", "Conteudo chato", 1, 2, "titulo chato");
 select * from post;
+
+select * from visualizado_por;
+delete from visualizado_por where fk_usuario = 9;
+
+select p.* from usuario u 
+inner join visualizado_por vp
+on u.id_usuario = vp.fk_usuario
+inner join post p
+on p.id_post = vp.fk_post
+where vp.fk_usuario = 9
+and p.fk_canal=1;
 
 
 -- Adição da coluna função (Moderador ou participante) na tabela canal_usuario (referente ao gerenciamento do canal)

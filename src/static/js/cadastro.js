@@ -14,10 +14,7 @@ $(document).ready(() => {
       e.preventDefault();
     
     if (nome.length < 3) $('#nome').addClass('is-invalid')
-    else {
-      $('#nome').removeClass('is-invalid')
-      
-    }
+    else $('#nome').removeClass('is-invalid')
 
     if (email.length < 3) $('#email').addClass('is-invalid');
     else $('#email').removeClass('is-invalid');
