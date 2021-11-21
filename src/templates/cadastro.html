@@ -61,6 +61,9 @@
             <div style="display: none;" id='email-validation-error'>
                 <span class="text-danger">Email inválido, utilize o email institucional da Fatec</span>
             </div>
+            <div style="display: none;" id='cpf-validation-error'>
+                <span class="text-danger">CPF inválido, utilize um cpf válido</span>
+            </div>
             {% if erro %}
             <span class="text-danger">{{erro}}</span>
             {% endif %}
@@ -99,6 +102,7 @@
 
     </main>
 
+    <script src="../static/js/validateCpf.js" ></script>
     <script src="../static/js/jquery.min.js" ></script>
     <script src="../static/js/jquery.mask.js" ></script>
     <script src="../static/js/cadastro.js" ></script>
