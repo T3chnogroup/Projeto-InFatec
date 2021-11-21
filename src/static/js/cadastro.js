@@ -14,6 +14,7 @@ $(document).ready(() => {
       nome.length < 3 ||
       email.length < 3 ||
       cpf.length !== 11 ||
+      !validateCpf(cpf) ||
       password.length < 4 ||
       confirmacao_senha.length < 4 ||
       email.split('@')[1] !== 'fatec.sp.gov.br'
@@ -37,6 +38,13 @@ $(document).ready(() => {
     if (cpf.length !== 11) {
       $('#cpf').mask('000.000.000-00', {reverse: true});
       $('#cpf').addClass('is-invalid')
+    }
+    else  $('#cpf').removeClass('is-invalid');
+
+    if (!validateCpf(cpf)) {
+      $('#cpf').mask('000.000.000-00', {reverse: true});
+      $('#cpf').addClass('is-invalid')
+      $('#cpf-validation-error').show()
     }
     else  $('#cpf').removeClass('is-invalid');
 
