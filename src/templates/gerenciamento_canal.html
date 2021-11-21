@@ -15,110 +15,114 @@
 {% block conteudo%}
 <!--Conteúdo da página de membros em gerenciamento de canal-->
 <div class="container mt-3">
-     <!--Abas das Guias-->
-    <div class="py-2">
-      <ul class="nav nav-tabs " id="myTab" role="tablist">
-        <!--Aba membros-->
-        <li class="nav-item" role="presentation">
-          <button class="nav-link active" id="membros-tab" data-bs-toggle="tab" data-bs-target="#membros" type="button"
-            role="tab" aria-controls="membros" aria-selected="true">Membros</button>
-        </li>
-        <!--Aba configurações-->
-        <li class="nav-item" role="presentation">
-          <button class="nav-link" id="configuracao-tab" data-bs-toggle="tab" data-bs-target="#configuracao"
-            type="button" role="tab" aria-controls="configuracao" aria-selected="false">Configurações</button>
-        </li>
-      </ul>
-      <div class="tab-content" id="tabs">
-        <!--Aba Configurações-->
-        <div class="tab-pane fade show active area-conteudo" id="membros" role="tabpanel" aria-labelledby="membros-tab">
-          <!--Botão de adicionar membros-->
-          <div class="container mt-3 adicionarmembros py-3">
-            <input class="search " type="text" placeholder="Pesquisar Membro" aria-label="Search">
-            <button type="button" class="btn  button-adicionarmembros" data-bs-toggle="modal" data-bs-target="#adicionar-membros">
-              <i class="bi bi-person-plus"></i>
-              Adicionar Membros
-            </button>
-          </div>
+  <!--Abas das Guias-->
+  <div class="py-2">
+    <ul class="nav nav-tabs " id="myTab" role="tablist">
+      <!--Aba membros-->
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="membros-tab" data-bs-toggle="tab" data-bs-target="#membros" type="button"
+          role="tab" aria-controls="membros" aria-selected="true">Membros</button>
+      </li>
+      <!--Aba configurações-->
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="configuracao-tab" data-bs-toggle="tab" data-bs-target="#configuracao" type="button"
+          role="tab" aria-controls="configuracao" aria-selected="false">Configurações</button>
+      </li>
+    </ul>
+    <div class="tab-content" id="tabs">
+      <!--Aba Configurações-->
+      <div class="tab-pane fade show active area-conteudo" id="membros" role="tabpanel" aria-labelledby="membros-tab">
+        <!--Botão de adicionar membros-->
+        <div class="container mt-3 adicionarmembros py-3">
+          <input id="pesquisar_membros" class="search " type="text" placeholder="Pesquisar Membro" aria-label="Search">
+          <button type="button" class="btn  button-adicionarmembros" data-bs-toggle="modal"
+            data-bs-target="#adicionar-membros">
+            <i class="bi bi-person-plus"></i>
+            Adicionar Membros
+          </button>
+        </div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Moderadores</th>
+              <th scope="col">Email</th>
+              <th scope="col">Função</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!--Tabela Moderadores-->
+            {% for membro in moderadores %}
+            <tr class="linha-pesquisada">
+              <td>{{membro[1]}}</td>
+              <td class="word-breakable">{{membro[2]}}</td>
+              <td>
+                <select id="funcao" class="form-select form-select-sm select-funcao"
+                  aria-label=".form-select-sm example">
+                  <option value="{{membro[0]}} - {{id_canal}} - moderador - moderador" selected>Moderador</option>
+                  <option value="{{membro[0]}} - {{id_canal}} - moderador - participante">Participante</option>
+                </select>
+              </td>
+              <!--Botão de excluir membro-->
+              <td class=>
+                <button type="button" data-usuario="{{membro[0]}}" data-bs-toggle="modal" class="text-danger"
+                  data-bs-target="#excluirModal" title="Remover Membro">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <!--Tabela Participantes-->
+        <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="membros-tab">
           <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col">Moderadores</th>
+                <th scope="col">Participantes</th>
                 <th scope="col">Email</th>
                 <th scope="col">Função</th>
                 <th scope="col">Ações</th>
               </tr>
             </thead>
             <tbody>
-              <!--Tabela Moderadores-->
-              {% for membro in moderadores %}
-                <tr>
-                  <td>{{membro[1]}}</td>
-                  <td class="word-breakable">{{membro[2]}}</td>
-                  <td>
-                    <select id="funcao" class="form-select form-select-sm select-funcao" aria-label=".form-select-sm example">
-                      <option value="{{membro[0]}} - {{id_canal}} - moderador - moderador" selected>Moderador</option>
-                      <option value="{{membro[0]}} - {{id_canal}} - moderador - participante">Participante</option>
-                    </select>
-                  </td>
-                  <!--Botão de excluir membro-->
-                  <td class=>
-                    <button type="button" data-usuario="{{membro[0]}}" data-bs-toggle="modal" class="text-danger" data-bs-target="#excluirModal"
-                      title="Remover Membro">
-                      <i class="bi bi-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-                {% endfor %}
+              {% for membro in participantes %}
+              <tr class="linha-pesquisada">
+                <td>{{membro[1]}}</td>
+                <td class="word-breakable">{{membro[2]}}</td>
+                <td>
+                  <select id="funcao" class="form-select form-select-sm select-funcao"
+                    aria-label=".form-select-sm example">
+                    <option value="{{membro[0]}} - {{id_canal}} - participante - moderador">Moderador</option>
+                    <option value="{{membro[0]}} - {{id_canal}} - participante - participante" selected>Participante
+                    </option>
+                  </select>
+                </td>
+                <!--Botão de excluir membro-->
+                <td>
+                  <button type="button" data-usuario="{{membro[0]}}" data-bs-toggle="modal" class="text-danger"
+                    data-bs-target="#excluirModal" title="Remover Membro">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              {% endfor %}
+
             </tbody>
           </table>
-          <!--Tabela Participantes-->
-          <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="membros-tab">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">Participantes</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Função</th>
-                  <th scope="col">Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for membro in participantes %}
-                <tr>
-                  <td>{{membro[1]}}</td>
-                  <td class="word-breakable">{{membro[2]}}</td>
-                  <td>
-                    <select id="funcao" class="form-select form-select-sm select-funcao" aria-label=".form-select-sm example">
-                      <option value="{{membro[0]}} - {{id_canal}} - participante - moderador">Moderador</option>
-                      <option value="{{membro[0]}} - {{id_canal}} - participante - participante" selected>Participante</option>
-                    </select>
-                  </td>
-                  <!--Botão de excluir membro-->
-                  <td>
-                    <button type="button" data-usuario="{{membro[0]}}" data-bs-toggle="modal" class="text-danger" data-bs-target="#excluirModal"
-                      title="Remover Membro">
-                      <i class="bi bi-trash"></i>
-                    </button>
-                  </td>
-                </tr>
-                {% endfor %}
-
-              </tbody>
-            </table>
-          </div>
         </div>
-        <!--Aba Configurações-->
-        <div class="tab-pane fade area-conteudo" id="configuracao" role="tabpanel" aria-labelledby="configuracao-tab">
-          <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="membros-tab">
-            <table class="table table-striped">
-              <div class="my-3 p-3 rounded shadow-sm">
-                <h6 class="border-bottom pb-2 mb-0">Opções do canal</h6>
-                
-                <!-- <form action="/gerenciamento-canal" method="POST">
-                  <div class="d-flex mt-4 inputs-wrapper " style="display: none" >
-                    <div class="inputs-first-column me-4 ">
-                      <p>Selecione abaixo o público alvo do seu canal</p>
+      </div>
+      <!--Aba Configurações-->
+      <div class="tab-pane fade area-conteudo" id="configuracao" role="tabpanel" aria-labelledby="configuracao-tab">
+        <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="membros-tab">
+          <table class="table table-striped">
+            <div class="my-3 p-3 rounded shadow-sm">
+              <h6 class="border-bottom pb-2 mb-0">Opções do canal</h6>
+
+              <form action="/editar_canal?canal={{id_canal}}" method="POST">
+                <div class="d-flex mt-4 inputs-wrapper">
+                  <div class="inputs-first-column me-4 ">
+                    <!--<p>Selecione abaixo o público alvo do seu canal</p>
                              
                         <div class="d-flex align-items-center justify-content-center mb-3">
                           <select class="adicionar-grupo select2-close-mask select2-dropdown" name="grupo" multiple="multiple">
@@ -128,62 +132,61 @@
                           </select>
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-3">
-                          <select class="adicionar-semestre select2-close-mask select2-dropdown" name="semestre" multiple="multiple">
-                            <option value="0">Todos</option>
-                            <option value="1">1º semestre</option>
-                            <option value="2">2º semestre</option>
-                            <option value="3">3º semestre</option>
-                            <option value="4">4º semestre</option>
-                            <option value="5">5º semestre</option>
-                            <option value="6">6º semestre</option>
-                          </select>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-3">
                           <select class="adicionar-curso select2-close-mask select2-dropdown" name="curso" multiple="multiple">
                             <option value="0">Todos</option>
                             <option value="1">DSM</option>
                             <option value="2">ADS</option>
                             <option value="3">BD</option>
                           </select>
-                        </div>
-                      <div class="form-check pt-3">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                        <label class="form-check-label" for="flexRadioDefault1">
-                          <p class="">
-                            Canal público
-                            <i class="bi bi-unlock"></i>
-                          </p>
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                        <label class="form-check-label" for="flexRadioDefault2">
-                          <p>
-                            Canal privado
-                            <i class="bi bi-lock"></i>
-                          </p>
-                        </label>
-                      </div>
+                        </div>-->
+                    
+                    <div class="form-check pt-3">
+                      {% if visibilidade_canal == 'publico' %} 
+                      <input class="form-check-input" type="radio" name="visibilidade_canal" id="flexRadioDefault1" value="publico" checked>
+                      {% else %}
+                      <input class="form-check-input" type="radio" name="visibilidade_canal" id="flexRadioDefault1" value="publico">
+                      {% endif %}
+                      <label class="form-check-label" for="flexRadioDefault1">
+                        <p class="">
+                          Canal público
+                          <i class="bi bi-unlock"></i>
+                        </p>
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      {% if visibilidade_canal == 'privado' %} 
+                      <input class="form-check-input" type="radio" name="visibilidade_canal" id="flexRadioDefault2" value="privado" checked>
+                      {% else %}
+                      <input class="form-check-input" type="radio" name="visibilidade_canal" id="flexRadioDefault2" value="privado">
+                      {% endif %}
+                      <label class="form-check-label" for="flexRadioDefault2">
+                        <p>
+                          Canal privado
+                          <i class="bi bi-lock"></i>
+                        </p>
+                      </label>
                     </div>
                   </div>
-                <div class="py-2 pb-3 mb-0 small lh-sm border-bottom w-100" style="display: none">
+                </div>
+                <div class="py-2 pb-3 mb-0 small lh-sm border-bottom w-100">
                   <button type="submit" class="btn salvarconfig">Salvar alterações</button>
                 </div>
-                </form> -->
-                <!--Área excluir canal-->
-                <div class="py-2 pb-3 mb-0 small lh-sm border-bottom w-100">
-                  <button type="button" data-bs-toggle="modal" class="btn excluircanal mt-2" data-bs-target="#excluir-canal">
-                    <i class="bi bi-trash"></i>
-                    Excluir canal
-                  </button>
-                </div>
+              </form>
+              <!--Área excluir canal-->
+              <div class="py-2 pb-3 mb-0 small lh-sm border-bottom w-100">
+                <button type="button" data-bs-toggle="modal" class="btn excluircanal mt-2"
+                  data-bs-target="#excluir-canal">
+                  <i class="bi bi-trash"></i>
+                  Excluir canal
+                </button>
               </div>
-            </table>
-          </div>
+            </div>
+          </table>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
 {% endblock %}
 
@@ -204,12 +207,9 @@
             <div class="inputs-first-column me-4 largura_input">
               <div class="d-flex align-items-center justify-content-center mb-3">
                 <select class="adicionar-membros select2-close-mask select2-dropdown" name="email" multiple="multiple">
-                  <option value="elen.petri@fatec.sp.gov.br">elen.petri@fatec.sp.gov.br</option>
-                  <option value="tais.salomao@fatec.sp.gov.br">tais.salomao@fatec.sp.gov.br</option>
-                  <option value="kevin.mirenda@fatec.sp.gov.br">kevin.mirenda@fatec.sp.gov.br</option>
-                  <option value="lucas.dias52@fatec.sp.gov.br">lucas.dias52@fatec.sp.gov.br</option>
-                  <option value="rodrigo.paula15@fatec.sp.gov.br">rodrigo.paula15@fatec.sp.gov.br</option>
-                  <option value="priscila.silva140@fatec.sp.gov.br">priscila.silva140@fatec.sp.gov.br</option>
+                  {% for email in emails %}
+                  <option value="{{email[2]}}">{{email[2]}}</option>
+                  {% endfor %}
                 </select>
               </div>
             </div>
@@ -224,8 +224,9 @@
 </div>
 <!--Modal que exclui membro-->
 
-  <div class="modal fade" id="excluirModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <form action="/remover-membros?canal={{id_canal}}&usuario={{id_usuario}}" templete="/remover-membros?canal={{id_canal}}&usuario=" method="POST">
+<div class="modal fade" id="excluirModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <form action="/remover-membros?canal={{id_canal}}&usuario={{id_usuario}}"
+    templete="/remover-membros?canal={{id_canal}}&usuario=" method="POST">
     <div class="modal-dialog modal-lg modal-width">
       <div class="modal-content">
         <div class="modal-header text-white">
@@ -243,8 +244,8 @@
         </div>
       </div>
     </div>
-    </form>
-  </div>
+  </form>
+</div>
 
 
 <!--Modal que exclui canal-->
@@ -257,9 +258,10 @@
           <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-  
-          <p> <i class="bi bi-exclamation-triangle text-danger"></i> Deseja mesmo excluir esse canal? <i class="bi bi-exclamation-triangle text-danger"></i></p> 
-          
+
+          <p> <i class="bi bi-exclamation-triangle text-danger"></i> Deseja mesmo excluir esse canal? <i
+              class="bi bi-exclamation-triangle text-danger"></i></p>
+
           <p>Esta ação não poderá ser desfeita e todas as informações serão perdidas.</p>
         </div>
         <div class="modal-footer">
@@ -286,8 +288,7 @@
 </script>
 
 <script>
-  $( ".select-funcao" ).change(function(event) {
-    console.log('Vamos mudar a funçao do usuário ? no canal ? de ? para ?')
+  $(".select-funcao").change(function (event) {
     console.log($(this).val())
     var dados = $(this).val()
     var posicao_primeiro_espaco = dados.indexOf(' ')
@@ -303,7 +304,7 @@
     var url = `/editar-funcao-membro-canal?usuario=${usuario}&canal=${canal}&funcao=${funcao_para}`
 
     window.location.href = url
-});
+  });
 </script>
 
 <script type="text/javascript"> /*Remover participante do canal*/
@@ -314,8 +315,28 @@
     var formulario = modal.find('form') /*Atribui à variável formulário o formulário que foi encontrado no modal*/
     var action = formulario.attr('templete')
     action = action + id_user /*Action monta a URL completa com o id do usuário*/
-    formulario.attr('action', action) /*Coloca a URL completa no action do formulário*/ 
+    formulario.attr('action', action) /*Coloca a URL completa no action do formulário*/
   })
+</script>
+
+<!--Funções de pesquisar membros do canal-->
+<script>
+  $('#pesquisar_membros').keyup(function() {
+    var texto = $(this).val().toLowerCase()
+    $('.linha-pesquisada').each(function() {
+     var nome = $($(this).find('td')[0]).text().toLowerCase()
+     var email = $($(this).find('td')[1]).text().toLowerCase()
+     $(this).addClass('d-none')
+     if (nome.indexOf(texto)>=0){
+       $(this).removeClass('d-none')
+     }
+     if (email.indexOf(texto)>=0){
+       $(this).removeClass('d-none')
+     }
+    }
+    )
+  }
+  )
 </script>
 
 {% endblock %}

@@ -22,58 +22,32 @@
 <body>
 
     <main class="px-5">
-        <form method="POST" action="/redefinir">
+        <form method="POST" action="/redefinir_senha?canal={{id_canal}}">
             <!--Inserido Get apenas para validar, posteriormente será feito integração com backend -->
             <img class="logo mb-4" src="{{url_for('static', filename='imagens/logoinfatec.png')}}" alt="Logo InFatec" width="150">
             <div>
                 <h1>Redefinir senha</h1>
-                <p>Para gerar uma senha temporária para ingresso ao InFatec, forneça seu usuário e o email cadastrado no
-                    sistema.</p>
+            </div>
+            <div class="input input-group mb-3" style="display: none;">
+                <input class="form-control" id="id_usuario" name="id_usuario" placeholder="id_usuario" type="text">
             </div>
             <div class="input input-group mb-3">
-                <input class="form-control" id="email" name="email" placeholder="Email" type="email">
+                <input class="form-control" id="senha1" name="senha1" placeholder="Nova senha" type="password">
             </div>
-            <a class="button botao-voltar btn btn-light mb-4 " type="button" href="/login">Voltar</a>
+            <div class="input input-group mb-3">
+                <input class="form-control" id="senha2" name="senha2" placeholder="Repita senha" type="password">
+            </div>
             <button class="button botao-enviar btn btn-light mb-4" value="Exibir Alert" type="submit">Enviar</button>
 
-            <div style="display: none;" id='email-validation-error'>
-                <span class="text-danger">Email inválido, utilize o email institucional da Fatec</span>
+            <div style="display: none;" id='senha-validation-error'>
+                <span class="text-danger">As senhas estão diferentes</span>
             </div>
-            <br>
-            {% if erro %}
-            <span class="text-danger">{{erro}}</span>
-            {% endif %}
-
-            <!-- <div id="recuperado" class="alert alert-warning alert-dismissible fade" role="alert">
-                Enviado com sucesso!
-                <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="botao_fechar_msg_sucesso()" aria-label="Fechar"></button>
-              </div> -->
-              {% if resposta %}
-              <div id="atencao">
-                <p>
-                    <strong>Enviado com sucesso!</strong>
-                </p>
-                <p>
-                    Em caso do não recebimento do email enviado pelo InFatec em aproximadamente 5 minutos, entre em
-                    contato com
-                    o Gestor de Usuários ou o Diretor Acadêmico de sua Unidade de Ensino para que proceda os ajustes em
-                    sua
-                    conta.
-                </p>
-                <p>
-                    Verifique sua caixa de SPAM, LIXEIRA ou LIXO ELETRÔNICO, pois seu serviço de email poderá realizar
-                    um
-                    redirecionamento
-                    indevido para essas caixas.
-                </p>
-            </div>
-            {% endif %}
         </form>
 
     </main>
 
     <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
-    <script src="{{url_for('static', filename='js/redefinir_senha.js')}}"></script>
+    <script src="{{url_for('static', filename='js/nova_senha.js')}}"></script>
     <script>
         function mostrar_msg_sucesso() {
             document.getElementById('recuperado').classList.add('show'); /*mostra a mensagem de enviado com sucesso*/ 

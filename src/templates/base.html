@@ -25,6 +25,8 @@
   <link rel="stylesheet" href="{{url_for('static', filename='css/select2/select2.min.css')}}">
   <script src="{{url_for('static', filename='js/select2/select2.min.js')}}"></script>
 
+  <script src="{{url_for('static', filename='js/pesquisa_avancada.js')}}"></script>
+
   <!-- Favicons -->
   <link rel="icon" href="{{url_for('static', filename='imagens/icon1.png')}}" sizes="32x32" type="image/png">
   <meta name="theme-color" content="#7952b3">
@@ -78,18 +80,53 @@
             </li>
             {% endif %}
             {% for canal in canais %}
-              <li class="nav-item border-bottom nav-item-btn d-flex justify-content-between pe-2">
-                <a class="nav-link text-white p-2 sticky-top" href="/post?canal={{canal[0]}}">
-                <!--<i class="fas fa-lock"></i>--> {{canal[1]}} 
-                </a>
-                {% if canal[3] == True %}
-                <a href="/gerenciamento-canal?canal={{canal[0]}}" class="pt-2">
-                  <i class="bi bi-gear text-white" title="Gerenciar canal"></i>
-                </a>
-                {% elif canal[4] == True %}
-                <p class="seguindo">Seguindo</p>
+            {% if canal[4] == True %}
+            <li class="nav-item border-bottom nav-item-btn d-flex justify-content-between pe-2">
+              <a class="nav-link text-white p-2 sticky-top" href="/post?canal={{canal[0]}}">
+                {% if canal[2] == 'privado' %}
+                <i class="bi bi-lock-fill text-white pt-2" title="Canal privado"></i>
                 {% endif %}
-              </li>
+                {{canal[1]}}
+              </a>
+              {% if canal[3] == True %}
+              <a href="/gerenciamento-canal?canal={{canal[0]}}" class="pt-2">
+                <i class="bi bi-gear text-white" title="Gerenciar canal"></i>
+              </a>
+              {% elif canal[4] == True %}
+             
+                <form action="/desafixar-canal?canal={{canal[0]}}" method="POST" class="fixado">
+                  <div>
+                      <button type="submit">
+                        <i class="bi bi-pin-angle-fill text-white "></i>
+                      </button>
+                  </div>
+              </form>
+                
+             
+              {% endif %}
+            </li>
+            {% endif %}
+            {% endfor %}
+            {% for canal in canais %}
+            {% if canal[4] != True %}
+            <li class="nav-item border-bottom nav-item-btn d-flex justify-content-between pe-2">
+              <a class="nav-link text-white p-2 sticky-top" href="/post?canal={{canal[0]}}">
+                {% if canal[2] == 'privado' %}
+                <i class="bi bi-lock-fill text-white pt-2" title="Canal privado"></i>
+                {% endif %}
+                {{canal[1]}}
+              </a>
+              {% if canal[3] == True %}
+              <a href="/gerenciamento-canal?canal={{canal[0]}}" class="pt-2">
+                <i class="bi bi-gear text-white" title="Gerenciar canal"></i>
+              </a>
+              {% elif canal[4] == True %}
+              <p class="fixado">
+                <i class="bi bi-pin-angle-fill text-white "></i>
+              </p>
+              {% endif %}
+            </li>
+            {% endif %}
             {% endfor %}
           </ul>
           <div class="bg-lista"></div>
@@ -188,26 +225,19 @@
                     <option value="3">Alunos</option>
                   </select>
                 </div>
-                <div class="d-flex align-items-center justify-content-center mb-3">
-                  <select class="adicionar-semestre select2-close-mask select2-dropdown" name="semestre"
-                    multiple="multiple">
-                    <option value="0">Todos</option>
-                    <option value="1">1º semestre</option>
-                    <option value="2">2º semestre</option>
-                    <option value="3">3º semestre</option>
-                    <option value="4">4º semestre</option>
-                    <option value="5">5º semestre</option>
-                    <option value="6">6º semestre</option>
-                  </select>
-                </div>
                 <!--Select2-->
                 <div class="d-flex align-items-center justify-content-center mb-3">
                   <select class="adicionar-curso select2-close-mask select2-dropdown" name="curso"
                     multiple="multiple">
-                    <option value="0">Todos</option>
-                    <option value="1">DSM</option>
-                    <option value="2">ADS</option>
-                    <option value="3">BD</option>
+                    <option value="Todos">Todos</option>
+                    <option value="Análise e Desenvolvimento de Sistemas">Análise e Desenvolvimento de Sistemas</option>
+                    <option value="Banco de Dados">Banco de Dados</option>
+                    <option value="Desenvolvimento de Software Multiplataforma">Desenvolvimento de Software Multiplataforma</option>
+                    <option value="Gestão da Produção Industrial">Gestão da Produção Industrial</option>
+                    <option value="Logística">Logística</option>
+                    <option value="Manufatura Avançada">Manufatura Avançada</option>
+                    <option value="Manutenção de Aeronaves">Manutenção de Aeronaves</option>
+                    <option value="Projetos de Estruturas Aeronáuticas">Projetos de Estruturas Aeronáuticas</option>             
                   </select>
                 </div>
 
@@ -224,12 +254,9 @@
                   <div class="d-flex align-items-center justify-content-center mb-3">
                         <select class="adicionar-membros select2-close-mask select2-dropdown" name="email"
                       multiple="multiple">
-                      <option value="elen.petri@fatec.sp.gov.br">elen.petri@fatec.sp.gov.br</option>
-                      <option value="tais.salomao@fatec.sp.gov.br">tais.salomao@fatec.sp.gov.br</option>
-                      <option value="kevin.mirenda@fatec.sp.gov.br">kevin.mirenda@fatec.sp.gov.br</option>
-                      <option value="lucas.dias52@fatec.sp.gov.br">lucas.dias52@fatec.sp.gov.br</option>
-                      <option value="rodrigo.paula15@fatec.sp.gov.br">rodrigo.paula15@fatec.sp.gov.br</option>
-                      <option value="priscila.silva140@fatec.sp.gov.br">priscila.silva140@fatec.sp.gov.br</option>
+                      {% for email in emails %}
+                      <option value="{{email[2]}}">{{email[2]}}</option>
+                      {% endfor %}
                     </select>
                   </div>
                 </div>
@@ -281,9 +308,6 @@
     $('.adicionar-grupo').select2({
       placeholder: "Grupos"
     });
-    $('.adicionar-semestre').select2({
-      placeholder: "Semestres"
-    });
     $('.adicionar-curso').select2({
       placeholder: "Cursos"
     });
@@ -314,7 +338,7 @@
           <fieldset class="p-avancada">
             <div class="preenchimento-p-avancada">
               <div class="campo-center px-4 mt-3">
-                <input type="text" class="form-control" name="titulo" placeholder="Título">
+                <input type="text" class="form-control" name="titulo" id="titulo" name="titulo" placeholder="Título">
               </div>
             </div>
 
@@ -336,6 +360,10 @@
               </div>
             </div>
 
+            <div id="erro-preenchimento" class="ms-3" style="display: none;">
+              <span class="text-danger">Preencha pelo menos um campo</span>
+            </div>
+
             <div class="modal-footer border-top-0">
               <div class="preenchimento-p-avancada">
                 <div class="campo-left d-grid gap-2 px-4 mb-3">
@@ -343,7 +371,7 @@
                 </div>
       
                 <div class="campo-right d-grid gap-2 px-4 mb-3">
-                  <button class="btn btn-light text-primary btn-block fw-bold border" type="submit">Filtrar</button>
+                  <button class="btn btn-light text-primary btn-block fw-bold border" id="btn_filtrar" type="submit">Filtrar</button>
                 </div>
               </div>
             </div>

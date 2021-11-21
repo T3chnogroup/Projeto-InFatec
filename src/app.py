@@ -4,6 +4,7 @@ from flask_mysqldb import MySQL
 from datetime import date
 from hashlib import sha1
 from dotenv import load_dotenv
+from flask_mail import Mail, Message
 
 from .functions.validatePassword import validate_password
 
@@ -12,8 +13,8 @@ from .models import usuario
 from .gerenciamento import getPosts, insere_post, delete_post, edit_post
 from werkzeug.utils import secure_filename
 from .gerenciamento import salva_arquivo, insere_visualizado
-from .gerenciamento import adicionar_lista_emails, deixa_de_seguir, excluir_canal, listar_moderador, listar_participante, alterar_funcao_membro, remover_membros, getcanais, segue_canal, seguir
-from .gerenciamento import editar_permissoes, listar_usuario, pode_criar_canais, pode_gerenciar_usuarios, remover_usuario
+from .gerenciamento import adicionar_lista_emails, desafixa_canal, excluir_canal, listar_moderador, listar_participante, alterar_funcao_membro, remover_membros, getcanais, canal_fixado, fixar_canal
+from .gerenciamento import editar_permissoes, listar_usuario, pode_criar_canais, pode_gerenciar_usuarios, remover_usuario, editar_visibilidade,recuperar_visibilidade_canal, criar_canal, retorna_cursos, retorna_grupos
 
 load_dotenv(".env")
 
@@ -32,8 +33,18 @@ app.config['MYSQL_USER'] = os.getenv("MYSQL_USER")
 app.config['MYSQL_PASSWORD'] = os.getenv("MYSQL_PASSWORD")
 app.config['MYSQL_DB'] = os.getenv("MYSQL_DB")
 
+# configuração email
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 't3chnogroup3@gmail.com'
+app.config['MAIL_PASSWORD'] = 'Grupo3fatec'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+
 mysql = MySQL()
 mysql.init_app(app)
+
+mail = Mail(app)
 
 def getChannel(id_canal):
     cursor = mysql.connection.cursor()
@@ -54,6 +65,16 @@ def getVerificaFuncao (id_canal):
         return cur.rowcount > 0
     return False
 
+@app.route('/confirmacao_email')
+def confirmacao_email():
+    id_usuario = request.args.get('id_usuario')
+    cursor = mysql.connection.cursor()
+    if usuario.validUser(cursor, id_usuario):
+        return render_template('login.html', validado = False)
+    else:
+        usuario.validateUser(cursor, mysql, id_usuario)
+        return render_template('login.html', validado = True)
+
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
@@ -61,7 +82,7 @@ def login():
         cursor = mysql.connection.cursor()
         cpf = request.form['login']
         password = request.form['password']
-        cur = cursor.execute("select email from usuario where cpf = %s and senha = %s", (cpf,sha1(password.encode('utf-8')).hexdigest())) # Recupera e-mail a partir do cpf
+        cur = cursor.execute("select email from usuario where cpf = %s and senha = %s and valido = 1", (cpf,sha1(password.encode('utf-8')).hexdigest())) # Recupera e-mail a partir do cpf
         if cursor.rowcount > 0:
             lista_emails = cursor.fetchall()
             return redirect(url_for('inicio', email = lista_emails[0][0]))
@@ -72,15 +93,37 @@ def login():
             return redirect(url_for('inicio'))
         return render_template('login.html')
 
-@app.route('/redefinir')
+@app.route('/redefinir', methods=['POST', 'GET'])
 def redefinir():
+    if request.method == 'POST':
+        email = request.form['email']
+        cur = mysql.connection.cursor()
+        if not usuario.registeredEmail(cur, email):
+            return render_template('redefinir_senha.html', erro='Email ainda não cadastrado')
+        else:
+            email_usuario = usuario.searchUserByEmail(cur, email)
+            usuario.sendConfirmationEmail(Message, mail, email, f'Redefina sua senha neste link: http://localhost:5000/redefinir_senha?id_usuario={email_usuario[0]}')
+            cur.close()
+            return render_template('redefinir_senha.html', resposta='True')
     return render_template('redefinir_senha.html')
+
+@app.route('/redefinir_senha', methods=['GET', 'POST'])
+def redefinir_by_id():
+    if not pode_recuperar_senha():
+        return redirect(url_for('login'))
+    if request.method == 'POST':
+        nova_senha = request.form['senha1']
+        id_usuario = request.form['id_usuario']
+        cur = mysql.connection.cursor()
+        usuario.changePassword(cur, mysql, sha1(nova_senha.encode('utf-8')).hexdigest(), id_usuario)
+        return redirect(url_for('login'))
+    return render_template('nova_senha.html')
 
 @app.route('/')
 def inicio():
     if recuperar_id_usuario_logado() == None:
         return redirect(url_for('login'))
-    return render_template('home.html', canais=getcanais(recuperar_id_usuario_logado()), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()) )
+    return render_template('home.html', canais=getcanais(recuperar_id_usuario_logado()), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario())
 
 @app.route('/post/<id_edit>', methods=['POST'])
 def editar_post(id_edit):
@@ -89,16 +132,18 @@ def editar_post(id_edit):
     edit_post(id_edit,conteudo,titulo)
     id_canal = request.args.get('canal')
     id_usuario = recuperar_id_usuario_logado()
-    seguidor = segue_canal(id_canal, id_usuario) #Saber se o usuário é seguidor ou não
+    fixado = canal_fixado(id_canal, id_usuario) #Saber se o canal é fixado ou não
 
     posts= getPosts(id_canal, id_usuario)
-    return render_template('posts.html', id_canal=id_canal,Posts=posts, seguidor = seguidor, canais=getcanais(id_usuario), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True,pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
+    return render_template('posts.html', id_canal=id_canal,Posts=posts, fixado = fixado, canais=getcanais(id_usuario), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True,pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
 
 @app.route('/post', methods=['GET', 'POST'])
 def post():
     id_canal = request.args.get('canal')
+    grupos = retorna_grupos(id_canal)
+    cursos = retorna_cursos(id_canal)
     id_usuario = recuperar_id_usuario_logado()
-    seguidor = segue_canal(id_canal, id_usuario) #Saber se o usuário é seguidor ou não
+    fixado = canal_fixado(id_canal, id_usuario) #Saber se o canal é fixado ou não
     if request.method == "POST":   
         conteudo = request.form['post']
         arquivo = request.files['arquivo']
@@ -108,9 +153,8 @@ def post():
             filename = str(id_post)+'_'+secure_filename(arquivo.filename)
             arquivo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             salva_arquivo(id_post, filename)
-            
         posts=getPosts(id_canal, id_usuario)
-        return render_template('posts.html', id_canal=id_canal,Posts=posts, canais=getcanais(id_usuario), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True, seguidor=seguidor, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
+        return render_template('posts.html', id_canal=id_canal,Posts=posts, canais=getcanais(id_usuario), titulocanal=getChannel(id_canal), pode_editar = True, pode_deletar = True, fixado=fixado, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), lista_de_grupos = grupos, lista_de_cursos = cursos, emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
     elif request.method == "GET": 
         if getVerificaFuncao (id_canal):
             pode_editar = True
@@ -119,9 +163,9 @@ def post():
             pode_editar = False
             pode_deletar = False
         Posts = getPosts(id_canal, id_usuario)
-        return render_template("posts.html", id_canal=id_canal, seguidor = seguidor, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), titulocanal =getChannel(id_canal), pode_editar = pode_editar, pode_deletar = pode_deletar, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
+        return render_template("posts.html", id_canal=id_canal, fixado = fixado, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), titulocanal =getChannel(id_canal), pode_editar = pode_editar, pode_deletar = pode_deletar, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), lista_de_grupos = grupos, lista_de_cursos = cursos, emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
 
-    return render_template('posts.html', id_canal= id_canal, pode_editar = False)
+    return render_template('posts.html', id_canal= id_canal, pode_editar = False, visibilidade_canal = recuperar_visibilidade_canal(id_canal))
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
@@ -132,44 +176,29 @@ def cadastro():
         password = request.form['password']
         confirmacao_senha = request.form['confirmacao_senha']
         cur = mysql.connection.cursor()
-        if usuario.registeredEmail(cur, mysql, email):
+        if usuario.registeredEmail(cur, email):
             return render_template('cadastro.html', erro = 'Email já cadastrado')
-        if usuario.registeredCpf(cur, mysql, cpf):
+        if usuario.registeredCpf(cur, cpf):
             return render_template('cadastro.html', erro = 'CPF já cadastrado')
         if validate_password(password, confirmacao_senha):
             usuario.insertUser(cur, mysql, nome, email, sha1(password.encode('utf-8')).hexdigest(), cpf)
+            cpf_usuario = usuario.searchUserByCpf(cur, cpf)
+            usuario.sendConfirmationEmail(Message, mail, email, f'Confirme o seu cadastro: http://localhost:5000/confirmacao_email?id_usuario={cpf_usuario[0]}')
+            cur.close()
             return render_template('cadastro.html', resposta = 'True')   
         else:
             return render_template('cadastro.html', erro = 'Senhas incompativeis')
     return render_template('cadastro.html')
 
 @app.route('/criarcanal', methods = ['POST'])
-def criar_canal():
+def rota_criar_canal():
     data = request.form 
     nome = data['nome']
-    grupo = data['grupo']
-    semestre = data['semestre']
-    curso = data['curso']
     visibilidade = data['visibilidade']
     emails = data.getlist('email')
-    
-    cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO canal(nome, grupo, semestre, curso, visibilidade) VALUES (%s, %s, %s, %s, %s)", (nome, grupo, semestre, curso, visibilidade))
-    cur.execute("SELECT max(id_canal) FROM canal where nome = %s", (nome,)) # Select utilizado por ter nomes de canal duplicado
-    id_canal = cur.fetchall()[0]
-
-    #Saber qual o id do usuário
-    email_logado = request.cookies.get('email_logado')
-    adicionar_lista_emails(emails, id_canal, email_logado) # adicona a lista de emails ao canal
-    cur.execute("SELECT id_usuario from usuario where email = %s", (email_logado,)) # busca o id do usuario com este email no banco
-    if cur.rowcount > 0:# se existir esse id
-        id_usuario = cur.fetchall()[0][0]
-        cur.execute("INSERT INTO canal_usuario(id_canal, id_usuario, funcao) VALUES (%s, %s, 'moderador')", (id_canal, id_usuario)) #inserir na tabela canal_usuario como moderador
-
-    mysql.connection.commit()
-        
-    cur.close()
-    
+    grupos = data.getlist('grupo')
+    cursos = data.getlist('curso')
+    id_canal = criar_canal(nome, visibilidade, emails, grupos, cursos)
     return redirect(url_for('post', canal = id_canal))
 
 #mais recentes
@@ -177,7 +206,7 @@ def criar_canal():
 def mais_recentes():
     id_canal = request.args.get('canal')
     id_usuario = recuperar_id_usuario_logado()
-    seguidor = segue_canal(id_canal, id_usuario) #Saber se o usuário é seguidor ou não
+    fixado = canal_fixado(id_canal, id_usuario) #Saber se o usuário é fixado ou não
 
     if request.method == "GET":
         print(request.form)   
@@ -196,16 +225,16 @@ def mais_recentes():
             
             cur.close()
 
-            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), seguidor=seguidor, pode_editar=pode_editar, pode_deletar=pode_deletar, titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
+            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), fixado=fixado, pode_editar=pode_editar, pode_deletar=pode_deletar, titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
 
-    return render_template('posts.html', id_canal= id_canal, mais_recentes = False)
+    return render_template('posts.html', id_canal= id_canal, mais_recentes = False, emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
 
 #mais antigas
 @app.route('/mais_antigas', methods = ['GET'])
 def mais_antigas():
     id_canal = request.args.get('canal')
     id_usuario = recuperar_id_usuario_logado()
-    seguidor = segue_canal(id_canal, id_usuario) #Saber se o usuário é seguidor ou não
+    fixado = canal_fixado(id_canal, id_usuario) #Saber se o usuário é fixado ou não
 
     if getVerificaFuncao (id_canal):
             pode_editar = True
@@ -223,16 +252,16 @@ def mais_antigas():
             
             cur.close()
 
-            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), seguidor=seguidor,pode_editar=pode_editar, pode_deletar=pode_deletar, titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
+            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), fixado=fixado,pode_editar=pode_editar, pode_deletar=pode_deletar, titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
 
-    return render_template('posts.html', id_canal= id_canal, mais_antigas = False)
+    return render_template('posts.html', id_canal= id_canal, mais_antigas = False, emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
 
 # pesquisa avançada
 @app.route('/pesquisa_postagem', methods = ['GET', 'POST'])
 def pesquisa_postagem():
     id_canal = request.args.get('canal')
     id_usuario = recuperar_id_usuario_logado()
-    seguidor = segue_canal(id_canal, id_usuario) #Saber se o usuário é seguidor ou não
+    fixado = canal_fixado(id_canal, id_usuario) #Saber se o usuário é fixado ou não
 
     if getVerificaFuncao (id_canal):
         pode_editar = True
@@ -248,13 +277,17 @@ def pesquisa_postagem():
         data_inicial = request.form['data_inicial']
         data_final = request.form['data_final']
         if titulo != "":
-            query = "where titulo_post like '%{0}%'".format(titulo)
-        
+            query = "where c.id_canal={0} and p.titulo_post like '%{1}%'".format(id_canal, titulo)
+        elif data_inicial != "" and data_final != '':
+            query = "where c.id_canal={0} and p.data_postagem BETWEEN '{1}' and '{2}'".format(id_canal, data_inicial, data_final)
+        elif data_inicial == "" and data_final != '':
+            query = "where c.id_canal={0} and p.data_postagem='{1}'".format(id_canal, data_final)
         else:
-            query = "where data_postagem BETWEEN '{0}' and '{1}'".format(data_inicial, data_final)
+            query = "where c.id_canal={0} and p.data_postagem='{1}'".format(id_canal, data_inicial)
+
         print(query)
         cur = mysql.connection.cursor()
-        cur.execute("SELECT * from post {0}".format(query)) # busca do titulo ou da data da postagem 
+        cur.execute("SELECT p.* from post p inner join canal c on p.fk_canal=c.id_canal {0}".format(query)) # busca do titulo ou da data da postagem 
         if cur.rowcount > 0:# se existir esta postagem
             Posts = cur.fetchall()
 
@@ -262,9 +295,12 @@ def pesquisa_postagem():
             
             cur.close()
             print (Posts)
-        return render_template('posts.html', id_canal=id_canal, Posts=Posts, seguidor=seguidor,pode_editar=pode_editar, pode_deletar=pode_deletar, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
+            return render_template('posts.html', id_canal=id_canal, Posts=Posts, fixado=fixado,pode_editar=pode_editar, pode_deletar=pode_deletar, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
+        else:
+            Posts = []
+            return render_template('posts.html', id_canal=id_canal, Posts=Posts, fixado=fixado,pode_editar=pode_editar, pode_deletar=pode_deletar, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
 
-    return render_template('posts.html', id_canal= id_canal, pesquisa_postagem = False)
+    return render_template('posts.html', id_canal= id_canal, pesquisa_postagem = False, emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
 
 @app.route('/delete_post/<id_canal>/<id_post>')
 def delete_post_by_id(id_canal,id_post): 
@@ -279,7 +315,8 @@ def configuracao_canal():
     moderadores = listar_moderador(id_canal)
     participantes = listar_participante(id_canal)
     nome_canal = getChannel(id_canal)
-    return render_template('gerenciamento_canal.html', id_canal=id_canal, canais=getcanais(recuperar_id_usuario_logado()), titulocanal = nome_canal,  moderadores = moderadores, participantes = participantes, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
+    visibilidade_canal = recuperar_visibilidade_canal(id_canal)
+    return render_template('gerenciamento_canal.html', id_canal=id_canal, canais=getcanais(recuperar_id_usuario_logado()), titulocanal = nome_canal,  moderadores = moderadores, participantes = participantes, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), visibilidade_canal=visibilidade_canal, emails = listar_usuario())
 
 @app.route('/adicionar-membros', methods = ['POST'])
 def adicionar_membros():
@@ -326,20 +363,25 @@ def recuperar_id_usuario_logado():
     else:
         return None
 
-@app.route('/deixar-de-seguir', methods = ['POST'])
-def deixar_de_seguir():
+def pode_recuperar_senha():
+    if request.cookies.get('changePassword'):
+        return True
+    else:
+        return False
+
+@app.route('/desafixar-canal', methods = ['POST'])
+def desafixar_canal():
     id_canal = request.args.get('canal')
     id_usuario = recuperar_id_usuario_logado()
-    deixa_de_seguir(id_canal, id_usuario)
+    desafixa_canal(id_canal, id_usuario)
     return redirect(url_for('inicio'))
 
-@app.route('/seguir', methods = ['Post'])
-def rota_seguir():
+@app.route('/fixar-canal', methods = ['Post'])
+def rota_fixar_canal():
     id_canal = request.args.get('canal')
     id_usuario = recuperar_id_usuario_logado()
-    seguir (id_canal, id_usuario)
+    fixar_canal (id_canal, id_usuario)
     return redirect(url_for('post', canal = id_canal))
-
 
 @app.route('/insere_visualizado/<id_post>', methods = ['GET'])
 def deixar_de_visualizar(id_post):
@@ -351,7 +393,7 @@ def deixar_de_visualizar(id_post):
 @app.route('/gerenciamento_usuario')
 def gerenciamentoUsuario():
     Usuarios = listar_usuario()    
-    return render_template('gerenciamento_usuario.html', usuarios = Usuarios, canais=getcanais(recuperar_id_usuario_logado()), titulocanal = "Gerenciamento Usuários", pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
+    return render_template('gerenciamento_usuario.html', usuarios = Usuarios, canais=getcanais(recuperar_id_usuario_logado()), titulocanal = "Gerenciamento Usuários", pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario())
 
 @app.route('/remover_usuario', methods = ['POST'])
 def removerUsuarios():
@@ -371,3 +413,10 @@ def permissoes_usuarios():
     editar_permissoes(id_usuario, pode_gerenciar_usuario, pode_criar_canais)
     return redirect(url_for('gerenciamentoUsuario'))
 
+#Gerenciamento da visibilidade do canal (Público / Privado)
+@app.route('/editar_canal', methods = ['POST'])
+def editar_canal():
+    id_canal = request.args.get('canal')
+    visibilidade_canal = request.form.get('visibilidade_canal')
+    editar_visibilidade(id_canal, visibilidade_canal)
+    return redirect(url_for('configuracao_canal', canal=id_canal))
