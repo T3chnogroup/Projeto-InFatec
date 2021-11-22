@@ -77,8 +77,8 @@ select * from canal;
 -- Inserção tabela post
 INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo legal", 1, 2, "titulo legal");
 INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo chato", 1, 2, "titulo chato");
-INSERT INTO post VALUES (0, "2021-10-09", "2021-10-12", "Conteudo chato", 1, 2, "titulo chato");
-INSERT INTO post VALUES (0, "2021-10-10", "2021-10-12", "Conteudo chato", 1, 2, "titulo chato");
+INSERT INTO post VALUES (0, "2021-10-09", "2021-10-12", "Conteudo normal", 1, 2, "titulo normal");
+INSERT INTO post VALUES (0, "2021-10-10", "2021-10-12", "Conteudo anormal", 1, 2, "Conteudo anormal");
 select * from post;
 
 select * from visualizado_por;

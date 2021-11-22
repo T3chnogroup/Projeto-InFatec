@@ -182,8 +182,9 @@ def posts_visualizados():
 
 @app.route('/deixar_visualizado/<id_post>', methods = ['GET'])
 def voltar_de_visualizar(id_post):
+    id_usuario = recuperar_id_usuario_logado()
     id_canal = request.args.get('canal')
-    volta_visualizado(id_post)
+    volta_visualizado(id_post, id_usuario)
     return redirect(url_for('posts_visualizados', canal = id_canal))
 
 @app.route('/cadastro', methods=['GET', 'POST'])
