@@ -55,9 +55,6 @@
                 <button id="btn-toggle-mobile" class="navbar-toggler position-absolute collapsed pt-1" type="button"
                   data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu"
                   aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon text-white">
-                    <i class="fas fa-bars"></i>
-                  </span>
                 </button>
               </div>
 
@@ -150,11 +147,10 @@
             {% block titulo_cabecalho %}{{titulocanal}}{% endblock %}
           </a>
           <!--botao-->
-          <button class="navbar-toggler position-absolute d-md-none collapsed pt-3" type="button"
+          <button class="navbar-toggler position-absolute d-md-none collapsed pt-3 second-button" type="button"
             data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
             aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon text-white">
-              <i class="fas fa-bars"></i>
+            <div class="animated-icon2"><span></span><span></span><span></span><span></span></div>
             </span>
           </button>
         </header>
@@ -322,6 +318,13 @@
   function collapse_remove(){
     document.getElementById('multiCollapseRadio2').classList.remove('show');
   }
+</script>
+
+<script>
+document.querySelector('.second-button').addEventListener('click', function () {
+
+document.querySelector('.animated-icon2').classList.toggle('open');
+});
 </script>
 
 <!--Funções de pesquisar o canal-->
