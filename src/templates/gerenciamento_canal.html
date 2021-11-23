@@ -125,7 +125,7 @@
                     <p>Selecione abaixo o público alvo do canal</p>
                              
                         <div class="d-flex align-items-center justify-content-center mb-3">
-                          <select class="adicionar-grupo select2-close-mask select2-dropdown" name="grupo" multiple="multiple">
+                          <select class="adicionar-grupo select2-close-mask select2-dropdown" name="grupo" multiple="multiple" required>
                             {% if coordenadores_selecionados %}
                             <option value="1" selected>Coordenadores</option>
                             {% else %}
@@ -144,7 +144,7 @@
                           </select>
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-3">
-                          <select class="adicionar-curso select2-close-mask select2-dropdown" name="curso" multiple="multiple">
+                          <select class="adicionar-curso select2-close-mask select2-dropdown" name="curso" multiple="multiple" required>
                             {% if 'Todos os Cursos' in lista_cursos %}
                             <option value="Todos os Cursos" selected>Todos os cursos</option>
                             {% else %}
@@ -372,7 +372,7 @@
   })
 </script>
 
-<!--Funções de pesquisar membros do canal-->
+<!--Função de pesquisar membros do canal-->
 <script>
   $('#pesquisar_membros').keyup(function() {
     var texto = $(this).val().toLowerCase()

@@ -247,3 +247,16 @@ def lista_cursos(id_canal):
     for linha in tuplas:
         lista.append(linha[0])
     return lista
+
+#Função que edita os destinatários de um canal (Ex: destinado à ALUNOS de TODOS OS CURSOS)
+def editar_destinatarios_canal(id_canal, grupos, cursos):
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE from canal_curso where id_canal = %s", (id_canal,))
+    cur.execute("DELETE from canal_grupo where id_canal = %s", (id_canal,))
+    for curso in cursos:
+        cur.execute("INSERT INTO canal_curso VALUES (%s, %s)", (id_canal, curso,))
+    for grupo in grupos:
+        cur.execute("INSERT INTO canal_grupo VALUES (%s, %s)", (id_canal, grupo))
+    mysql.connection.commit()
+    cur.close()
+    
