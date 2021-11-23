@@ -14,31 +14,6 @@
 {% block conteudo %}
 <div class="container">
     <div class="posts-wrapper">
-        <div class="alert alert-color mt-2" role="alert">
-            <h4 class="alert-heading">Bem vindo!</h4>
-            <p>Este canal foi designdado para: <b>{{lista_de_grupos}}</b> de <b>{{lista_de_cursos}}</b>!</p>
-            <hr>
-            {% if fixado %}
-            <form action="/desafixar-canal?canal={{id_canal}}" method="POST">
-                <div class="py-2 pb-3 mb-0 small lh-sm border-bottom w-100">
-                    <button type="submit" class="btn desafixar-canal">
-                        {% if visibilidade_canal == 'privado' %}
-                        Sair do canal
-                        {% else %}
-                        Desafixar canal
-                        {% endif %}
-                    </button>
-                </div>
-            </form>
-            
-            {% else %}
-            <form action="/fixar-canal?canal={{id_canal}}" method="POST">
-                <div class="py-2 pb-3 mb-0 small lh-sm border-bottom w-100">
-                    <button type="submit" class="btn fixar-canal">Fixar canal</button>
-                </div>
-            </form>
-            {% endif %}
-          </div>
                 {% for post in Posts %}
                     <div class="card post-card">
                         <div class="card-body post-container">
@@ -161,7 +136,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Deseja realmente deixar de ver este post?
+                Deseja realmente voltar a ver este post?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
@@ -203,7 +178,7 @@
         $("#titulo-editar-post").val(titulo)
     }
     function altera_a_visibilidade(id_post) {
-        $("#btn-altera-a-visibilidade").attr("href", "/insere_visualizado/" +id_post+"?canal={{id_canal}}")
+        $("#btn-altera-a-visibilidade").attr("href", "/deixar_visualizado/" +id_post+"?canal={{id_canal}}")
     }
 
 </script>
