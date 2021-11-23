@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, flash
 from flask_mysqldb import MySQL
 from datetime import date
 from hashlib import sha1
@@ -14,10 +14,9 @@ from werkzeug.utils import secure_filename
 from .gerenciamento import salva_arquivo, insere_visualizado
 from .gerenciamento import adicionar_lista_emails, deixa_de_seguir, excluir_canal, listar_moderador, listar_participante, alterar_funcao_membro, remover_membros, getcanais, segue_canal, seguir
 from .gerenciamento import editar_permissoes, listar_usuario, pode_criar_canais, pode_gerenciar_usuarios, remover_usuario
-from .gerenciamento import editar_perfil
+from .gerenciamento import busca_user_id, editando_usuario
 
 load_dotenv(".env")
-
 UPLOAD_FOLDER = 'src/static/uploads'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 def allowed_file(filename):
@@ -77,9 +76,28 @@ def login():
 def redefinir():
     return render_template('redefinir_senha.html')
 
+# Rotas para gerenciar perfil
+
 @app.route('/gerenciamento_perfil')
 def gerenciamento_perfil():
-    return render_template('gerenciamento_perfil.html')
+    id_usuario = recuperar_id_usuario_logado()
+    usuario_logado = busca_user_id(id_usuario)
+    return render_template('gerenciamento_perfil.html', 
+    usuario_logado = usuario_logado, canais=getcanais(id_usuario), 
+    pode_criar_canal = pode_criar_canais(id_usuario), 
+    pode_gerenciar_usuario = pode_gerenciar_usuarios(id_usuario))
+
+
+@app.route('/editar',methods=['POST','GET'])
+def editar_perfil():
+
+    if request.method == 'POST':
+        nome = request.form['nome']
+        email = request.form['email']
+        cpf = request.form['cpf']
+        editando_usuario(nome, email, cpf, recuperar_id_usuario_logado())
+    return redirect(url_for('gerenciamento_perfil'))
+
 
 @app.route('/home')
 def home():
@@ -89,7 +107,7 @@ def home():
 def inicio():
     if recuperar_id_usuario_logado() == None:
         return redirect(url_for('login'))
-    return render_template('home.html', canais=getcanais(recuperar_id_usuario_logado()), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()) )
+    return render_template('home.html', canais=getcanais(recuperar_id_usuario_logado()), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()))
 
 @app.route('/post/<id_edit>', methods=['POST'])
 def editar_post(id_edit):

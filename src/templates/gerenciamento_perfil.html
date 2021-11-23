@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block css %}
-<!--<link rel="stylesheet" href="{{url_for('static', filename='css/gerenciamento_usuario.css')}}">-->
+<link rel="stylesheet" href="{{url_for('static', filename='css/gerenciamento_usuario.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='css/globals.css')}}">
 <link rel="stylesheet" href="../static/css/gerenciamento_perfil.css">
 
@@ -28,6 +28,8 @@
          </span>
        </button>
    </header>
+
+    <tbody>
 {% endblock %}
 
 {% block conteudo%}
@@ -45,79 +47,90 @@
     
   </script>
 
-<body class="text-center" cz-shortcut-listen="true">
+
+<body cz-shortcut-listen="true">
     
     <main class="px-5">
         <form method="POST" action="/cadastro">
             <!--Inserido Get apenas para validar, posteriormente será feito integração com backend -->
-            <img class="logo mb-4" src="{{url_for('static', filename='imagens/logoinfatec.png')}}" alt="Logo InFatec" width="150">
-            <div>
-                <h3>Edite seu Perfil</h3>
-            </div>
-            <label class="input input-group mb-1">Nome Usuário</label>
-            <div class="input input-group mb-3">
-                <input class="form-control" id="nome" name="nome" placeholder="Nome" type="text">
-            </div>
-            <label class="input input-group mb-1">Email Institucional</label>
-            <div class="input input-group mb-3">
-                <input class="form-control" id="email" name="email" placeholder="Email Institucional" type="email">
-            </div>
-            <label class="input input-group mb-1">CPF</label>
-            <div class="input mb-3">
-                <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF">
-            </div>
-            <label class="input input-group mb-1">Nova Senha</label>
-            <div class="input-group mb-3">
-                <input class="form-control password-form" id="password" name="password" placeholder="Crie sua senha" type="password" value="">
-                <span class="input-group-text height-eye" >
-                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" id="togglePassword" fill="currentColor" style="cursor: pointer" class="bi bi-eye" viewBox="0 0 16 16">
-                  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
-                  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
-                </svg>
-            </div>
-            {% if erro %}
-            <span class="text-danger">{{erro}}</span>
-            {% endif %}
-            <br />
-            <br />
+            <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="membros-tab">
+          <!--Tabela Participantes-->
+          <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="membros-tab">
+            <table class="table table-striped text-center">
+              <thead>
+                <tr>
+                  <th scope="col">Nome</th>
+                  <th scope="col">E-mail</th>
+                  <th scope="col">CPF</th>
+                  <th scope="col">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
 
-            <a href="/home" class="button botao-voltar btn btn-light mb-4 " type="button">Voltar</a>
-            <button class="button botao-enviar btn btn-light mb-4" value="Exibir Alert" type="submit">Salvar</button>
+                <td>{{usuario_logado[1]}}</td>
+                <td>{{usuario_logado[2]}}</td>
+                <td>{{usuario_logado[3]}}</td>
+                <td>
+                    <!-- Button trigger modal -->
+                    <button title="Editar" type="button" class="text-secundary" data-bs-toggle="modal" data-bs-target="#modalEditar">
+                    <i class=" bi bi-pencil-square"></i>
+                    </button>
+                    
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         </form>
-    <script>
-            const togglePassword = document.querySelector("#togglePassword");
-        const password = document.querySelector("#password");
-        
-        togglePassword.addEventListener("click", function () {
-           
-          // toggle the type attribute
-          const type = password.getAttribute("type") === "password" ? "text" : "password";
-          password.setAttribute("type", type);
-          // toggle the eye icon
-          this.classList.toggle('bi-eye');
-          this.classList.toggle('bi-eye-slash');
-        });
-    
-        const toggleConfirmacao_senha = document.querySelector("#toggleConfirmacao_senha");
-        const confirmacao_senha = document.querySelector("#confirmacao_senha");
-    </script>
 </body>
+
+{% endblock %}
 
 {%block js%}
 <script>
-    function altera_username(id){
-        $("#btn-apagar-post").attr("href","delete_post/{{id_canal}}/"+id) 
-    }
-    function edit_post(id,conteudo,titulo){
-        $("#text-editar-post").val(conteudo)
-        $("#formEditaPost").attr("action",'/post/'+id+"?canal={{id_canal}}")
-        $("#titulo-editar-post").val(titulo)
-    }
-    function altera_a_visibilidade(id_post) {
-        $("#btn-altera-a-visibilidade").attr("href", "/insere_visualizado/" +id_post+"?canal={{id_canal}}")
-    }
+var myModal = document.getElementById('modalEditar')
+var myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', function () {
+  myInput.focus()
+})
 </script>
 {%endblock%}
 
+
+{%block modals%}
+<div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Perfil</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ url_for('editar_perfil')}}" method="POST">
+          <div class="mb-3 form-group">
+            <label class="text-left">Nome</label>
+            <input type="text" class="form-control"  name="nome" value="{{usuario_logado[1]}}">
+          </div>
+          <div class="mb-3 form-group">
+            <label class="text-left">E-mail</label>
+            <input type="text" class="form-control"  name="email" value="{{usuario_logado[2]}}">
+          </div>
+          <div class="mb-3 form-group">
+            <label class="text-left">CPF</label>
+            <input type="text" class="form-control"  name="cpf" value="{{usuario_logado[3]}}">
+          </div>
+        </div>
+          <div class="modal-footer">
+            <button type="button" class="button botao-voltar btn btn-light mb-4" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="button botao-voltar btn btn-light mb-4">Salvar</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
 {% endblock %}
 
