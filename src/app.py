@@ -14,7 +14,7 @@ from .gerenciamento import getPosts, insere_post, delete_post, edit_post
 from werkzeug.utils import secure_filename
 from .gerenciamento import salva_arquivo, insere_visualizado, posts_visualizado, volta_visualizado
 from .gerenciamento import adicionar_lista_emails, desafixa_canal, excluir_canal, listar_moderador, listar_participante, alterar_funcao_membro, remover_membros, getcanais, canal_fixado, fixar_canal
-from .gerenciamento import editar_permissoes, listar_usuario, pode_criar_canais, pode_gerenciar_usuarios, remover_usuario, editar_visibilidade,recuperar_visibilidade_canal, criar_canal, retorna_cursos, retorna_grupos
+from .gerenciamento import editar_permissoes, listar_usuario, pode_criar_canais, pode_gerenciar_usuarios, remover_usuario, editar_visibilidade,recuperar_visibilidade_canal, criar_canal, retorna_cursos, retorna_grupos, alunos_selecionados, coordenadores_selecionados, professores_selecionados, lista_cursos, editar_destinatarios_canal
 
 load_dotenv(".env")
 
@@ -336,7 +336,7 @@ def configuracao_canal():
     participantes = listar_participante(id_canal)
     nome_canal = getChannel(id_canal)
     visibilidade_canal = recuperar_visibilidade_canal(id_canal)
-    return render_template('gerenciamento_canal.html', id_canal=id_canal, canais=getcanais(recuperar_id_usuario_logado()), titulocanal = nome_canal,  moderadores = moderadores, participantes = participantes, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), visibilidade_canal=visibilidade_canal, emails = listar_usuario())
+    return render_template('gerenciamento_canal.html', id_canal=id_canal, canais=getcanais(recuperar_id_usuario_logado()), titulocanal = nome_canal,  moderadores = moderadores, participantes = participantes, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), visibilidade_canal=visibilidade_canal, emails = listar_usuario(), coordenadores_selecionados = coordenadores_selecionados(id_canal), professores_selecionados = professores_selecionados(id_canal), alunos_selecionados = alunos_selecionados(id_canal), lista_cursos = lista_cursos(id_canal))
 
 @app.route('/adicionar-membros', methods = ['POST'])
 def adicionar_membros():
@@ -434,10 +434,13 @@ def permissoes_usuarios():
     editar_permissoes(id_usuario, pode_gerenciar_usuario, pode_criar_canais)
     return redirect(url_for('gerenciamentoUsuario'))
 
-#Gerenciamento da visibilidade do canal (Público / Privado)
+#Gerenciamento da visibilidade do canal (Público / Privado) dos grupos(aluno, professor e ou coordenador) e dos cursos
 @app.route('/editar_canal', methods = ['POST'])
 def editar_canal():
     id_canal = request.args.get('canal')
     visibilidade_canal = request.form.get('visibilidade_canal')
+    grupos_canal = request.form.getlist('grupo')
+    cursos_canal = request.form.getlist('curso')
     editar_visibilidade(id_canal, visibilidade_canal)
+    editar_destinatarios_canal(id_canal, grupos_canal, cursos_canal)
     return redirect(url_for('configuracao_canal', canal=id_canal))

@@ -122,23 +122,76 @@
               <form action="/editar_canal?canal={{id_canal}}" method="POST">
                 <div class="d-flex mt-4 inputs-wrapper">
                   <div class="inputs-first-column me-4 ">
-                    <!--<p>Selecione abaixo o público alvo do seu canal</p>
+                    <p>Selecione abaixo o público alvo do canal</p>
                              
                         <div class="d-flex align-items-center justify-content-center mb-3">
-                          <select class="adicionar-grupo select2-close-mask select2-dropdown" name="grupo" multiple="multiple">
+                          <select class="adicionar-grupo select2-close-mask select2-dropdown" name="grupo" multiple="multiple" required>
+                            {% if coordenadores_selecionados %}
+                            <option value="1" selected>Coordenadores</option>
+                            {% else %}
                             <option value="1">Coordenadores</option>
+                            {% endif %}
+                            {% if professores_selecionados %}
+                            <option value="2" selected>Professores</option>
+                            {% else %}
                             <option value="2">Professores</option>
+                            {% endif %}
+                            {% if alunos_selecionados %}
+                            <option value="3" selected>Alunos</option>
+                            {% else %}
                             <option value="3">Alunos</option>
+                            {% endif %}
                           </select>
                         </div>
                         <div class="d-flex align-items-center justify-content-center mb-3">
-                          <select class="adicionar-curso select2-close-mask select2-dropdown" name="curso" multiple="multiple">
-                            <option value="0">Todos</option>
-                            <option value="1">DSM</option>
-                            <option value="2">ADS</option>
-                            <option value="3">BD</option>
+                          <select class="adicionar-curso select2-close-mask select2-dropdown" name="curso" multiple="multiple" required>
+                            {% if 'Todos os Cursos' in lista_cursos %}
+                            <option value="Todos os Cursos" selected>Todos os cursos</option>
+                            {% else %}
+                            <option value="Todos os Cursos">Todos os cursos</option>
+                            {% endif %}
+                            {% if 'Análise e Desenvolvimento de Sistemas' in lista_cursos %}
+                            <option value="Análise e Desenvolvimento de Sistemas"selected>Análise e Desenvolvimento de Sistemas</option>
+                            {% else %}
+                            <option value="Análise e Desenvolvimento de Sistemas">Análise e Desenvolvimento de Sistemas</option>
+                            {% endif %}
+                            {% if 'Banco de Dados' in lista_cursos %}
+                            <option value="Banco de Dados" selected>Banco de Dados</option>
+                            {% else %}
+                            <option value="Banco de Dados">Banco de Dados</option>
+                            {% endif %}
+                            {% if 'Desenvolvimento de Software Multiplataforma' in lista_cursos %}
+                            <option value="Desenvolvimento de Software Multiplataforma" selected>Desenvolvimento de Software Multiplataforma</option>
+                            {% else %}
+                            <option value="Desenvolvimento de Software Multiplataforma">Desenvolvimento de Software Multiplataforma</option>
+                            {% endif %}
+                            {% if 'Gestão da Produção Industrial'in lista_cursos %}
+                            <option value="Gestão da Produção Industrial" selected>Gestão da Produção Industrial</option>
+                            {% else %}
+                            <option value="Gestão da Produção Industrial">Gestão da Produção Industrial</option>
+                            {% endif %}
+                            {% if 'Logística' in lista_cursos %}
+                            <option value="Logística" selected>Logística</option>
+                            {% else %}
+                            <option value="Logística">Logística</option>
+                            {% endif %}
+                            {% if 'Manufatura Avançada' in lista_cursos %}
+                            <option value="Manufatura Avançada" selected>Manufatura Avançada</option>
+                            {% else %}
+                            <option value="Manufatura Avançada">Manufatura Avançada</option>
+                            {% endif %}
+                            {%if 'Manutenção de Aeronaves' in lista_cursos %}
+                            <option value="Manutenção de Aeronaves" selected>Manutenção de Aeronaves</option>
+                            {% else %}
+                            <option value="Manutenção de Aeronaves">Manutenção de Aeronaves</option>
+                            {% endif %}
+                            {% if 'Projetos de Estruturas Aeronáuticas' in lista_cursos %}
+                            <option value="Projetos de Estruturas Aeronáuticas" selected>Projetos de Estruturas Aeronáuticas</option>
+                            {% else %}
+                            <option value="Projetos de Estruturas Aeronáuticas">Projetos de Estruturas Aeronáuticas</option>
+                            {% endif %}
                           </select>
-                        </div>-->
+                        </div>
                     
                     <div class="form-check pt-3">
                       {% if visibilidade_canal == 'publico' %} 
@@ -319,7 +372,7 @@
   })
 </script>
 
-<!--Funções de pesquisar membros do canal-->
+<!--Função de pesquisar membros do canal-->
 <script>
   $('#pesquisar_membros').keyup(function() {
     var texto = $(this).val().toLowerCase()
