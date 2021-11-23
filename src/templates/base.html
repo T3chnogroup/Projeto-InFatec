@@ -217,7 +217,7 @@
                 <p>Defina qual o público alvo deste canal</p>
                 <div class="d-flex align-items-center justify-content-center mb-3">
                   <select class="adicionar-grupo select2-close-mask select2-dropdown" name="grupo"
-                    multiple="multiple">
+                    multiple="multiple" required>
                     <option value="1">Coordenadores</option>
                     <option value="2">Professores</option>
                     <option value="3">Alunos</option>
@@ -226,7 +226,7 @@
                 <!--Select2-->
                 <div class="d-flex align-items-center justify-content-center mb-3">
                   <select class="adicionar-curso select2-close-mask select2-dropdown" name="curso"
-                    multiple="multiple">
+                    multiple="multiple" required>
                     <option value="Todos os Cursos">Todos os cursos</option>
                     <option value="Análise e Desenvolvimento de Sistemas">Análise e Desenvolvimento de Sistemas</option>
                     <option value="Banco de Dados">Banco de Dados</option>
@@ -310,7 +310,7 @@
       placeholder: "Cursos"
     });
     $('.adicionar-membros').select2({
-      placeholder: "Adicionar moderadores"
+      placeholder: "Adicionar membros"
     });
 
     $('.select2-search__field').addClass("largura_input");
