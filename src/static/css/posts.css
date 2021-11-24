@@ -103,9 +103,9 @@
   min-width: 300px !important;
   max-width: 1293px !important;
   display: block !important;
-  position: fixed;
+  position: sticky;
   margin-top: 25%;
-  width: 80%;
+  width: 100%;
   background-color: rgba(245,245,245,255) !important;
   border-radius: 5px;
   flex-direction: column;
@@ -137,11 +137,8 @@
 
 @media(max-width: 767px){
   .formulario-post {
-    position: fixed;
+    position: sticky;
     margin: 0 auto;
-    width: 80%;
-    margin-left:10px;
-    margin-right: 10px;
   }
 
   .arquivo{
@@ -170,11 +167,8 @@
 
 @media(max-width: 600px){
   .formulario-post {
-    position: fixed;
+    position: sticky;
     margin: 0 auto;
-    width: 90%;
-    margin-left:5px;
-    margin-right: 5px;
   }
 }
 
@@ -187,25 +181,25 @@
     background-color: #e9ecef;
   }
 
-  .seguir-canal{
+  .fixar-canal{
     color: #2d2e33;
     font-weight: bold;
     border-color: #2d2e33;
   }
 
-  .seguir-canal:hover{
+  .fixar-canal:hover{
     color: #fff;
     background-color: #2d2e33;
   }
 
 
-  .deixar-seguir-canal{
+  .desafixar-canal{
     color: #9e1616;
     font-weight: bold;
     border-color: #9e1616;  
   }
 
-  .deixar-seguir-canal:hover{
+  .desafixar-canal:hover{
     color: #fff;
     background-color: #9e1616;
   }

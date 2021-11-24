@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, url_for, redirect
 from flask_mysqldb import MySQL
 from datetime import date
 from dotenv import load_dotenv
+from werkzeug.local import F
 load_dotenv(".env")
 
 app = Flask(__name__)
@@ -32,11 +33,15 @@ def edit_post(id_post,conteudo,titulo_post):
 
 def getPosts(id_canal, id_usuario):
     cur = mysql.connection.cursor()
-    conteudo = cur.execute(f'''SELECT * FROM post 
-        left join anexo on anexo.fk_post=post.id_post 
-        left join visualizado_por as v on post.id_post=v.fk_post 
-            where fk_canal={id_canal} AND (v.fk_usuario<>{id_usuario} OR v.fk_usuario IS NULL) 
-            order by data_postagem desc''')
+    conteudo = cur.execute(f'''select * from post p
+        left join anexo a on a.fk_post=p.id_post
+        where p.fk_canal={id_canal} and 
+        p.id_post NOT IN(
+            select vp.fk_post from post p
+            inner join visualizado_por vp
+            on p.id_post=vp.fk_post
+            where vp.fk_usuario={id_usuario} and p.fk_canal={id_canal}
+        )''')
     Posts = cur.fetchall()
     cur.close()
     return Posts
@@ -63,4 +68,22 @@ def insere_visualizado(id_post, usuario, date):
     cur.execute("INSERT into visualizado_por(fk_usuario, fk_post, data_visualizacao) values(%s, %s, %s)",(str(usuario),str(id_post),str(date.today())))
     mysql.connection.commit()
     cur.close()
-    
+
+def posts_visualizado(id_usuario, id_canal):
+    cur = mysql.connection.cursor()
+    conteudo = cur.execute(f'''select p.* from usuario u 
+        inner join visualizado_por vp
+        on u.id_usuario=vp.fk_usuario
+        inner join post p
+        on p.id_post=vp.fk_post
+            where vp.fk_usuario={id_usuario}
+            and p.fk_canal={id_canal}''')
+    Posts = cur.fetchall()
+    cur.close()
+    return Posts
+
+def volta_visualizado(id_post,id_usuario):
+    cur = mysql.connection.cursor()
+    cur.execute("DELETE FROM visualizado_por WHERE fk_post = %s AND fk_usuario = %s", [id_post, id_usuario])
+    mysql.connection.commit()
+    cur.close()

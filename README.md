@@ -58,6 +58,14 @@ O objetivo do projeto se baseou no problema que começou devido a pandemia do no
 ![Tecnologias](./imagens/4.png)
 
 
+## Acesse a Aplicação em:
+[https://infatec-sjc.herokuapp.com/](https://infatec-sjc.herokuapp.com/)
+
+## Login Administrador
+CPF: 888.888.888.88
+
+SENHA: admin123
+
 ## Passo a passo da instalação do sistema
 
 ```bash
@@ -117,7 +125,18 @@ MYSQL_DB = infatec
 
 ## Sistema Desenvolvido 
 
-![Sistema]()
+Usuario logado como administrador e suas permissões
+![Sistema](./imagens/gif1.gif)
+
+Usuario logado como moderador de canal e suas permissões
+![Sistema](./imagens/gif2.gif)
+
+Usuario logado com permissões de criar canal e gerenciar usuários. O Gif mostra o que acontece quando as permissões desse usuário são removidas
+![Sistema](./imagens/gif3.gif)
+
+Aplicação utilizada por usuário/alunos sem permissões especiais 
+![Sistema](./imagens/gif4.gif)
+
 
 ## Cronograma de Entregas
 
@@ -125,4 +144,4 @@ MYSQL_DB = infatec
 | ------ | ------ |
 |    19/09/2021    |[Sprint 1](https://github.com/T3chnogroup/Projeto-InFatec/releases/tag/Sprint-01)|
 |    10/10/2021    |[Sprint 2](https://github.com/T3chnogroup/Projeto-InFatec/releases/tag/Sprint-02)|
-|    10/10/2021    |[Sprint 3](https://github.com/T3chnogroup/Projeto-InFatec/releases/tag/Sprint-03)|
+|    07/11/2021    |[Sprint 3](https://github.com/T3chnogroup/Projeto-InFatec/releases/tag/Sprint-03)|
