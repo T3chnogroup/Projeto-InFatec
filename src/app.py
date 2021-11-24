@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, url_for, redirect
+from flask import Flask, render_template, request, url_for, redirect, flash
 from flask_mysqldb import MySQL
 from datetime import date
 from hashlib import sha1
@@ -14,10 +14,10 @@ from .gerenciamento import getPosts, insere_post, delete_post, edit_post
 from werkzeug.utils import secure_filename
 from .gerenciamento import salva_arquivo, insere_visualizado, posts_visualizado, volta_visualizado
 from .gerenciamento import adicionar_lista_emails, desafixa_canal, excluir_canal, listar_moderador, listar_participante, alterar_funcao_membro, remover_membros, getcanais, canal_fixado, fixar_canal
-from .gerenciamento import editar_permissoes, listar_usuario, pode_criar_canais, pode_gerenciar_usuarios, remover_usuario, editar_visibilidade,recuperar_visibilidade_canal, criar_canal, retorna_cursos, retorna_grupos
+from .gerenciamento import editar_permissoes, listar_usuario, pode_criar_canais, pode_gerenciar_usuarios, remover_usuario, editar_visibilidade,recuperar_visibilidade_canal, criar_canal, retorna_cursos, retorna_grupos, alunos_selecionados, coordenadores_selecionados, professores_selecionados, lista_cursos, editar_destinatarios_canal
+from .gerenciamento import busca_user_id, editando_usuario
 
 load_dotenv(".env")
-
 UPLOAD_FOLDER = 'src/static/uploads'
 ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 def allowed_file(filename):
@@ -107,6 +107,33 @@ def redefinir():
             return render_template('redefinir_senha.html', resposta='True')
     return render_template('redefinir_senha.html')
 
+# Rotas para gerenciar perfil
+
+@app.route('/gerenciamento_perfil')
+def gerenciamento_perfil():
+    id_usuario = recuperar_id_usuario_logado()
+    usuario_logado = busca_user_id(id_usuario)
+    return render_template('gerenciamento_perfil.html', 
+    usuario_logado = usuario_logado, canais=getcanais(id_usuario), 
+    pode_criar_canal = pode_criar_canais(id_usuario), 
+    pode_gerenciar_usuario = pode_gerenciar_usuarios(id_usuario))
+
+
+@app.route('/editar',methods=['POST','GET'])
+def editar_perfil():
+
+    if request.method == 'POST':
+        nome = request.form['nome']
+        email = request.form['email']
+        cpf = request.form['cpf']
+        editando_usuario(nome, email, cpf, recuperar_id_usuario_logado())
+    return redirect(url_for('gerenciamento_perfil'))
+
+
+@app.route('/home')
+def home():
+    return render_template('home.html')
+    
 @app.route('/redefinir_senha', methods=['GET', 'POST'])
 def redefinir_by_id():
     if not pode_recuperar_senha():
@@ -227,27 +254,29 @@ def mais_recentes():
     id_canal = request.args.get('canal')
     id_usuario = recuperar_id_usuario_logado()
     fixado = canal_fixado(id_canal, id_usuario) #Saber se o usuário é fixado ou não
+    grupos = retorna_grupos(id_canal)
+    cursos = retorna_cursos(id_canal)
+
+    if getVerificaFuncao (id_canal):
+         pode_editar = True
+         pode_deletar = True
+    else:
+        pode_editar = False
+        pode_deletar = False
 
     if request.method == "GET":
         print(request.form)   
         cur = mysql.connection.cursor()
         cur.execute("SELECT * from post where fk_canal = %s order by data_postagem desc", (id_canal,)) # busca da data da postagem  
 
-        if getVerificaFuncao (id_canal):
-            pode_editar = True
-            pode_deletar = True
-        else:
-            pode_editar = False
-            pode_deletar = False
-
         if cur.rowcount > 0:# se existir esta postagem
             Posts = cur.fetchall()
             
             cur.close()
 
-            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), fixado=fixado, pode_editar=pode_editar, pode_deletar=pode_deletar, titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
+            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), fixado=fixado, pode_editar=pode_editar, pode_deletar=pode_deletar, titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal), lista_de_grupos = grupos, lista_de_cursos = cursos)
 
-    return render_template('posts.html', id_canal= id_canal, mais_recentes = False, emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
+    return render_template('posts.html', id_canal=id_canal, mais_recentes = False, canais=getcanais(recuperar_id_usuario_logado()), fixado=fixado,pode_editar=pode_editar, pode_deletar=pode_deletar, titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()),pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal), lista_de_grupos = grupos, lista_de_cursos = cursos)
 
 #mais antigas
 @app.route('/mais_antigas', methods = ['GET'])
@@ -255,6 +284,8 @@ def mais_antigas():
     id_canal = request.args.get('canal')
     id_usuario = recuperar_id_usuario_logado()
     fixado = canal_fixado(id_canal, id_usuario) #Saber se o usuário é fixado ou não
+    grupos = retorna_grupos(id_canal)
+    cursos = retorna_cursos(id_canal)
 
     if getVerificaFuncao (id_canal):
             pode_editar = True
@@ -272,9 +303,10 @@ def mais_antigas():
             
             cur.close()
 
-            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), fixado=fixado,pode_editar=pode_editar, pode_deletar=pode_deletar, titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
-
-    return render_template('posts.html', id_canal= id_canal, mais_antigas = False, emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
+            return render_template('posts.html', id_canal=id_canal, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), fixado=fixado, pode_editar=pode_editar, pode_deletar=pode_deletar, titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal), lista_de_grupos = grupos, lista_de_cursos = cursos)
+    
+    return render_template('posts.html', id_canal=id_canal, mais_antigas = False, canais=getcanais(recuperar_id_usuario_logado()), fixado=fixado, pode_editar=pode_editar, pode_deletar=pode_deletar, titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()),pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal), lista_de_grupos = grupos, lista_de_cursos = cursos)
+   
 
 # pesquisa avançada
 @app.route('/pesquisa_postagem', methods = ['GET', 'POST'])
@@ -282,6 +314,8 @@ def pesquisa_postagem():
     id_canal = request.args.get('canal')
     id_usuario = recuperar_id_usuario_logado()
     fixado = canal_fixado(id_canal, id_usuario) #Saber se o usuário é fixado ou não
+    grupos = retorna_grupos(id_canal)
+    cursos = retorna_cursos(id_canal)
 
     if getVerificaFuncao (id_canal):
         pode_editar = True
@@ -315,12 +349,12 @@ def pesquisa_postagem():
             
             cur.close()
             print (Posts)
-            return render_template('posts.html', id_canal=id_canal, Posts=Posts, fixado=fixado,pode_editar=pode_editar, pode_deletar=pode_deletar, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
+            return render_template('posts.html', id_canal=id_canal, Posts=Posts, fixado=fixado,pode_editar=pode_editar, pode_deletar=pode_deletar, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal), lista_de_grupos = grupos, lista_de_cursos = cursos)
         else:
             Posts = []
-            return render_template('posts.html', id_canal=id_canal, Posts=Posts, fixado=fixado,pode_editar=pode_editar, pode_deletar=pode_deletar, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
+            return render_template('posts.html', id_canal=id_canal, Posts=Posts, fixado=fixado,pode_editar=pode_editar, pode_deletar=pode_deletar, canais=getcanais(recuperar_id_usuario_logado()), titulocanal=getChannel(id_canal), pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal), lista_de_grupos = grupos, lista_de_cursos = cursos)
 
-    return render_template('posts.html', id_canal= id_canal, pesquisa_postagem = False, emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
+    return render_template('posts.html', id_canal= id_canal, pesquisa_postagem = False, fixado=fixado, emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal), lista_de_grupos = grupos, lista_de_cursos = cursos)
 
 @app.route('/delete_post/<id_canal>/<id_post>')
 def delete_post_by_id(id_canal,id_post): 
@@ -336,7 +370,7 @@ def configuracao_canal():
     participantes = listar_participante(id_canal)
     nome_canal = getChannel(id_canal)
     visibilidade_canal = recuperar_visibilidade_canal(id_canal)
-    return render_template('gerenciamento_canal.html', id_canal=id_canal, canais=getcanais(recuperar_id_usuario_logado()), titulocanal = nome_canal,  moderadores = moderadores, participantes = participantes, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), visibilidade_canal=visibilidade_canal, emails = listar_usuario())
+    return render_template('gerenciamento_canal.html', id_canal=id_canal, canais=getcanais(recuperar_id_usuario_logado()), titulocanal = nome_canal,  moderadores = moderadores, participantes = participantes, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), visibilidade_canal=visibilidade_canal, emails = listar_usuario(), coordenadores_selecionados = coordenadores_selecionados(id_canal), professores_selecionados = professores_selecionados(id_canal), alunos_selecionados = alunos_selecionados(id_canal), lista_cursos = lista_cursos(id_canal))
 
 @app.route('/adicionar-membros', methods = ['POST'])
 def adicionar_membros():
@@ -434,10 +468,13 @@ def permissoes_usuarios():
     editar_permissoes(id_usuario, pode_gerenciar_usuario, pode_criar_canais)
     return redirect(url_for('gerenciamentoUsuario'))
 
-#Gerenciamento da visibilidade do canal (Público / Privado)
+#Gerenciamento da visibilidade do canal (Público / Privado) dos grupos(aluno, professor e ou coordenador) e dos cursos
 @app.route('/editar_canal', methods = ['POST'])
 def editar_canal():
     id_canal = request.args.get('canal')
     visibilidade_canal = request.form.get('visibilidade_canal')
+    grupos_canal = request.form.getlist('grupo')
+    cursos_canal = request.form.getlist('curso')
     editar_visibilidade(id_canal, visibilidade_canal)
+    editar_destinatarios_canal(id_canal, grupos_canal, cursos_canal)
     return redirect(url_for('configuracao_canal', canal=id_canal))
