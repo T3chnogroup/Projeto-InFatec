@@ -26,11 +26,7 @@ def busca_user_id(id_usuario):
 
 def editando_usuario(nome, email, cpf, id_usuario):
     cur = mysql.connection.cursor()
-    cur.execute("""
-        UPDATE usuario
-        SET nome=%s, email=%s, cpf=%s
-        WHERE id_usuario = %s
-    """, (nome, email, cpf, id_usuario))
+    cur.execute("""UPDATE usuario SET nome=%s, email=%s, cpf=%s WHERE id_usuario = %s""", (nome, email, cpf, id_usuario))
     mysql.connection.commit()
     cur.close()
     
