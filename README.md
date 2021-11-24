@@ -51,11 +51,11 @@ O objetivo do projeto se baseou no problema que começou devido a pandemia do no
 |    Docente e Discente   | Quero ver as informações tanto no desktop quanto no celular. | Responsividade do site. |
 
 
-![Cronograma](./imagens/3.png)
+![Backlog](./imagens/2.png)
 
 
 
-![Tecnologias](./imagens/4.png)
+![Tecnologias](./imagens/3.png)
 
 
 ## Acesse a Aplicação em:
@@ -145,3 +145,4 @@ Aplicação utilizada por usuário/alunos sem permissões especiais
 |    19/09/2021    |[Sprint 1](https://github.com/T3chnogroup/Projeto-InFatec/releases/tag/Sprint-01)|
 |    10/10/2021    |[Sprint 2](https://github.com/T3chnogroup/Projeto-InFatec/releases/tag/Sprint-02)|
 |    07/11/2021    |[Sprint 3](https://github.com/T3chnogroup/Projeto-InFatec/releases/tag/Sprint-03)|
+|    28/11/2021    |[Sprint 4](https://github.com/T3chnogroup/Projeto-InFatec/releases/tag/Sprint-04)|
