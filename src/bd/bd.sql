@@ -9,15 +9,15 @@ CREATE TABLE IF NOT EXISTS usuario (
 	senha VARCHAR(40) NOT NULL,
 	cpf CHAR(11) UNIQUE NOT NULL,
 	valido boolean,
-  pode_gerenciar_usuario boolean,
-  pode_criar_canais boolean
+	pode_gerenciar_usuario boolean,
+	pode_criar_canais boolean
 ) ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS canal (
 	id_canal INT AUTO_INCREMENT PRIMARY KEY,
 	nome VARCHAR(30) NOT NULL,
 	fk_usuario INT,
-  visibilidade varchar(30),
+	visibilidade varchar(30),
 	FOREIGN KEY (fk_usuario) REFERENCES usuario (id_usuario)
 ) ENGINE=INNODB;
 
@@ -75,18 +75,18 @@ CREATE TABLE IF NOT EXISTS canal_curso (
 -- Inserção tabela usuario
 delete from canal_usuario where id_usuario >=0;
 Delete from usuario where id_usuario >=0; 
-INSERT INTO usuario VALUES (0, 'Administrador', 'administrador@fatec.sp.gov.br', 'f865b53623b121fd34ee5426c792e5c33af8c227', '88888888888', 1, 1, 1),
-(0, "Elen", "elen.petri@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "22222222222", 1),
-(0, "Tais", "tais.salomao@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "33333333332",1),
-(0, "Kevin", "kevin.mirenda@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "44444444444",1),
-(0, "Rodrigo", "rodrigo.paula15@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "66666666666",1),
-(0, "Priscila", "priscila.silva140@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "77777777777",1);
+INSERT INTO usuario VALUES (1, 'Administrador', 'administrador@fatec.sp.gov.br', 'f865b53623b121fd34ee5426c792e5c33af8c227', '88888888888', 1, 1, 1),
+(2, "Elen", "elen.petri@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "22222222222", 1, 0, 0),
+(3, "Tais", "tais.salomao@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "33333333332", 1, 0, 0),
+(4, "Kevin", "kevin.mirenda@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "44444444444", 1, 0, 0),
+(5, "Rodrigo", "rodrigo.paula15@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "66666666666", 1, 0, 0),
+(6, "Priscila", "priscila.silva140@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "77777777777", 1, 0, 0);
 
 -- Inserção tabela canal
-INSERT INTO canal(nome, grupo, semestre, curso) VALUES ("geral", null, null, null);
+INSERT INTO canal VALUES (0, "geral", null, null);
 
 -- Inserção tabela post
-INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo legal", 1, 2, "titulo legal");
-INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo chato", 1, 2, "titulo chato");
-INSERT INTO post VALUES (0, "2021-10-09", "2021-10-12", "Conteudo normal", 1, 2, "titulo normal");
-INSERT INTO post VALUES (0, "2021-10-10", "2021-10-12", "Conteudo anormal", 1, 2, "Conteudo anormal");
+INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo legal", 1, 2, "titulo legal"),
+(0, "2021-10-08", "2021-10-12", "Conteudo chato", 1, 2, "titulo chato"),
+(0, "2021-10-09", "2021-10-12", "Conteudo normal", 1, 2, "titulo normal"),
+(0, "2021-10-10", "2021-10-12", "Conteudo anormal", 1, 2, "Conteudo anormal");
