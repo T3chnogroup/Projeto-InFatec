@@ -24,7 +24,6 @@ CREATE TABLE IF NOT EXISTS canal (
 CREATE TABLE IF NOT EXISTS post (
 	id_post INT AUTO_INCREMENT PRIMARY KEY,
 	data_postagem DATE NOT NULL,
-	data_expiracao DATE NOT NULL,
 	conteudo TEXT NOT NULL,
 	fk_canal INT,
 	fk_usuario INT,
@@ -84,9 +83,3 @@ INSERT INTO usuario VALUES (1, 'Administrador', 'administrador@fatec.sp.gov.br',
 
 -- Inserção tabela canal
 INSERT INTO canal VALUES (0, "geral", null, null);
-
--- Inserção tabela post
-INSERT INTO post VALUES (0, "2021-10-08", "2021-10-12", "Conteudo legal", 1, 2, "titulo legal"),
-(0, "2021-10-08", "2021-10-12", "Conteudo chato", 1, 2, "titulo chato"),
-(0, "2021-10-09", "2021-10-12", "Conteudo normal", 1, 2, "titulo normal"),
-(0, "2021-10-10", "2021-10-12", "Conteudo anormal", 1, 2, "Conteudo anormal");
