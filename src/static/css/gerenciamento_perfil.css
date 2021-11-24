@@ -1,21 +1,21 @@
-.botao-voltar.btn-light{
+.botao-cancelar.btn-light{
     color: #9e1616;
     font-weight: bold;
     border-color: #9e1616;  
 }
 
-.botao-voltar.btn-light:hover {
+.botao-cancelar.btn-light:hover {
     color: #fff;
     background-color: #9e1616;
 }
 
-.botao-enviar.btn-light {
+.botao-salvar.btn-light {
     color: #2d2e33;
     font-weight: bold;
     border-color: #2d2e33;  
 }
 
-.botao-enviar.btn-light:hover {
+.botao-salvar.btn-light:hover {
     color: #fff;
     background-color: #2d2e33;
 }
@@ -43,9 +43,7 @@
 .input, .input-group{
     max-width: 278px;
     margin-left: 40%;
-}
-body{
-    background-color: #E5E9F2;
+
 }
 @media(max-width:600px){
     .input, .input-group{
