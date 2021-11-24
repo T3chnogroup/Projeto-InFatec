@@ -44,7 +44,7 @@
             <div class="d-flex justify-content-between">
 
               <div class="col-md-10 col-9 mt-1 px-2 position-relative">
-                <input type="text" class="form-control inputp">
+                <input type="text" id="pesquisar_canais" class="form-control inputp">
                 <span class="icone-lupa font-azul">
                   <i class="fas fa-search"></i>
                 </span>
@@ -81,7 +81,7 @@
             {% endif %}
             {% for canal in canais %}
             {% if canal[4] == True %}
-            <li class="nav-item border-bottom nav-item-btn d-flex justify-content-between pe-2">
+            <li class="nav-item border-bottom nav-item-btn d-flex justify-content-between pe-2 linha-pesquisada-canal">
               <a class="nav-link text-white p-2 sticky-top" href="/post?canal={{canal[0]}}">
                 {% if canal[2] == 'privado' %}
                 <i class="bi bi-lock-fill text-white pt-2" title="Canal privado"></i>
@@ -325,6 +325,22 @@
   function collapse_remove(){
     document.getElementById('multiCollapseRadio2').classList.remove('show');
   }
+</script>
+
+<!--Funções de pesquisar o canal-->
+<script>
+  $('#pesquisar_canais').keyup(function() {
+    var texto = $(this).val().toLowerCase()
+    $('.linha-pesquisada-canal').each(function() {
+     var canal = $($(this).find('a')[0]).text().toLowerCase()
+     $(this).addClass('d-none')
+     if (canal.indexOf(texto)>=0){
+       $(this).removeClass('d-none')
+     }
+    }
+    )
+  }
+  )
 </script>
 
 <!-- Modal Pesquisa Avançada-->
