@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% block css %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/gerenciamento_usuario.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/globals.css')}}">
+<link rel="stylesheet" href="../static/css/gerenciamento_perfil.css">
+
+{% endblock %}
+
+{% block title %}
+  <title>inFATEC-Gerenciamento-Perfil</title>
+  {% endblock %}
+
+{% block nav %}
+  <!-- Aqui fica o nav -->
+{% endblock %}
+
+{% block header %}
+<!--Header pagina-->  
+   <header class= "navbar navbar-red flex-md-nowrap p-0 fundovermelho w-100">
+     <!--Texto Header-->
+     <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 textoheader font-weight-bold text-white">
+       Gerenciamento de Perfil
+     </a>
+     <!--botao-->  
+       <button class="navbar-toggler position-absolute d-md-none collapsed pt-3" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+         <span class="navbar-toggler-icon text-white">
+           <i class="fas fa-bars"></i>
+         </span>
+       </button>
+   </header>
+
+    <tbody>
+{% endblock %}
+
+{% block conteudo%}
+<script>
+    //Recupera o email da URL
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const email = urlParams.get('email')
+    //Redireciona para a home sem o parâmetro de email
+    if (email){
+      //Criando cookie
+      document.cookie = 'email_logado=' + email;
+      window.location.href = "/";
+    }
+    
+  </script>
+
+
+<body cz-shortcut-listen="true">
+    
+    <main class="px-5">
+        <form method="POST" action="/cadastro">
+            <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="membros-tab">
+          <!--Tabela Participantes-->
+          <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="membros-tab">
+            <table class="table table-striped text-center">
+              <thead>
+                <tr>
+                  <th scope="col">Nome</th>
+                  <th scope="col">E-mail</th>
+                  <th scope="col">CPF</th>
+                  <th scope="col">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <td>{{usuario_logado[1]}}</td>
+                <td>{{usuario_logado[2]}}</td>
+                <td>{{usuario_logado[3]}}</td>
+                <td>
+                    <!-- Button trigger modal -->
+                    <button title="Editar" type="button" class="text-secundary" data-bs-toggle="modal" data-bs-target="#modalEditar">
+                    <i class=" bi bi-pencil-square"></i>
+                    </button>
+                    
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        </form>
+</body>
+
+{% endblock %}
+
+{%block js%}
+<script>
+var myModal = document.getElementById('modalEditar')
+var myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', function () {
+  myInput.focus()
+})
+</script>
+{%endblock%}
+
+
+{%block modals%}
+<div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Perfil</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ url_for('editar_perfil')}}" method="POST">
+          <div class="mb-3 form-group">
+            <label class="text-left">Nome</label>
+            <input type="text" class="form-control"  name="nome" value="{{usuario_logado[1]}}">
+          </div>
+          <div class="mb-3 form-group">
+            <label class="text-left">E-mail</label>
+            <input type="text" class="form-control"  name="email" value="{{usuario_logado[2]}}">
+          </div>
+          <div class="mb-3 form-group">
+            <label class="text-left">CPF</label>
+            <input type="text" class="form-control"  name="cpf" value="{{usuario_logado[3]}}">
+          </div>
+        </div>
+          <div class="modal-footer">
+            <button type="button" class="button botao-voltar btn btn-light mb-4" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="button botao-voltar btn btn-light mb-4">Salvar</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+
