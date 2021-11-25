@@ -54,7 +54,8 @@
                 </span>
                 <button id="btn-toggle-mobile" class="navbar-toggler position-absolute collapsed pt-1" type="button"
                   data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu"
-                  aria-expanded="false" aria-label="Toggle navigation">
+                  aria-expanded="false" aria-label="Abrir Menu">
+                      <span id="hamburguer"></span>
                 </button>
               </div>
 
@@ -147,11 +148,10 @@
             {% block titulo_cabecalho %}{{titulocanal}}{% endblock %}
           </a>
           <!--botao-->
-          <button class="navbar-toggler position-absolute d-md-none collapsed pt-3 second-button" type="button"
-            data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <div class="animated-icon2"><span></span><span></span><span></span><span></span></div>
-            </span>
+          <button class="navbar-toggler position-absolute collapsed pt-3" type="button"
+            data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu"
+            aria-expanded="false" aria-label="Abrir Menu">
+                <span id="hamburguer"></span>
           </button>
         </header>
         {% endblock %}
@@ -320,13 +320,6 @@
   }
 </script>
 
-<script>
-document.querySelector('.second-button').addEventListener('click', function () {
-
-document.querySelector('.animated-icon2').classList.toggle('open');
-});
-</script>
-
 <!--Funções de pesquisar o canal-->
 <script>
   $('#pesquisar_canais').keyup(function() {
@@ -341,6 +334,30 @@ document.querySelector('.animated-icon2').classList.toggle('open');
     )
   }
   )
+</script>
+
+<script>
+  const btnMobile = document.getElementById('btn-toggle-mobile');
+
+  function toggleMenu(event) {
+    if(event.type === 'touchstart') event.preventDefault()
+    const nav = document.getElementById('sidebarMenu');
+    nav.classList.toggle('active');
+    btnMobile.classList.toggle('active');
+    
+    const active = nav.classList.contains('active')
+    /*toggle = adiciona caso não tenha, remova caso tenha*/
+    event.currentTarget.setAttribute /*acessibilidade*/('aria-expanded', active);
+    if(active) {
+        event.currentTarget.setAttribute('aria-label', 'Fechar Menu');
+    } 
+    else {
+        event.currentTarget.setAttribute('aria-label', 'Abrir Menu');
+    }
+  }
+
+  btnMobile.addEventListener('click', toggleMenu); /*ao clicar ativa a função*/
+  btnMobile.addEventListener('touchstart', toggleMenu);
 </script>
 
 <!-- Modal Pesquisa Avançada-->
