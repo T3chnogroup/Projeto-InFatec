@@ -26,8 +26,8 @@ input[type='file'] {
 }
 
 .form-check-input:checked {
-  background-color: #28292e;
-  border-color: #28292e;
+  background-color: #2d2e33;
+  border-color: #2d2e33;
 }
 
 .btn-nao{
