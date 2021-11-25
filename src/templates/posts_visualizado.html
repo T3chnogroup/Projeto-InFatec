@@ -19,7 +19,7 @@
                         <div class="card-body post-container">
                             <div class="post-actions">
                                 {% if pode_editar %}
-                                <button class="action-button" data-bs-toggle="modal" data-bs-target="#edit-modal" onclick="edit_post('{{post[0]}}','{{post[3]}}', '{{post[6]}}')">
+                                <button class="action-button" data-bs-toggle="modal" data-bs-target="#edit-modal" onclick="edit_post('{{post[0]}}','{{post[2]}}', '{{post[5]}}')">
                                     <i class="far fa-edit"></i>
                                 </button>
                                 {% endif %}
@@ -46,13 +46,13 @@
                                 </div>
                                 <div class="post-main">
                                     <h4>
-                                        {{post[6]}}
+                                        {{post[5]}}
                                     </h4>
                                     <p class="posted-info">
-                                        {{post[3]}}
+                                        {{post[2]}}
                                     </p>
-                                    {% if post[8] %}
-                                    <p><a href="{{url_for('static', filename='uploads/')}}{{post[8]}}" target="_blank" download>{{post[8]}}</a></p>
+                                    {% if post[7] %}
+                                    <p><a href="{{url_for('static', filename='uploads/')}}{{post[7]}}" target="_blank" download>{{post[7]}}</a></p>
                                     {% endif %}
                                 </div>
                             </div>
