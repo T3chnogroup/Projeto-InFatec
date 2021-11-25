@@ -6,6 +6,14 @@ html, body{
 max-width: 278px;
 }
 
+fieldset, ::after{
+    background-color: #E5E9F2;
+}
+
+fieldset{
+    width: 330px;
+}
+
 .botao-voltar.btn-light {
     color: #9e1616;
     font-weight: bold;
