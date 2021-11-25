@@ -64,7 +64,7 @@
                             <div class="post-content">
                                 <div class="post-header">
                                     <p class="posted-info">
-                                        <span>@{{titulocanal}}</span> fez uma publicação. <br>
+                                        <span>@{{post[17]}}</span> fez uma publicação. <br>
                                     </p>
                                     <p class="date-posted-text">
                                         Postado em {{post[1].strftime('%d/%m/%Y')}}</p>
@@ -76,8 +76,8 @@
                                     <p class="posted-info">
                                         {{post[2]}}
                                     </p>
-                                    {% if post[7] %}
-                                    <p><a href="{{url_for('static', filename='uploads/')}}{{post[7]}}" target="_blank" download>{{post[7]}}</a></p>
+                                    {% if post[15] %}
+                                    <p><a href="{{url_for('static', filename='uploads/')}}{{post[15]}}" target="_blank" download>{{post[15]}}</a></p>
                                     {% endif %}
                                 </div>
                             </div>

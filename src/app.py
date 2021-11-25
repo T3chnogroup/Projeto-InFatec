@@ -175,7 +175,7 @@ def post():
         conteudo = request.form['post']
         arquivo = request.files['arquivo']
         titulo_post = request.form['titulo']
-        id_post = insere_post(id_canal,conteudo,date, titulo_post)
+        id_post = insere_post(id_canal,conteudo,date, titulo_post, id_usuario)
         if arquivo and allowed_file(arquivo.filename):
             filename = str(id_post)+'_'+secure_filename(arquivo.filename)
             arquivo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -201,11 +201,8 @@ def posts_visualizados():
     cursos = retorna_cursos(id_canal)
     id_usuario = recuperar_id_usuario_logado()
     fixado = canal_fixado(id_canal, id_usuario) #Saber se o canal é fixado ou não
-    if not getVerificaFuncao (id_canal):
-        pode_editar = False
-        pode_deletar = False
     Posts = posts_visualizado(id_usuario, id_canal)
-    return render_template("posts_visualizado.html", id_canal=id_canal, fixado = fixado, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), titulocanal =getChannel(id_canal), pode_editar = pode_editar, pode_deletar = pode_deletar, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), lista_de_grupos = grupos, lista_de_cursos = cursos, emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
+    return render_template("posts_visualizado.html", id_canal=id_canal, fixado = fixado, Posts=Posts, canais=getcanais(recuperar_id_usuario_logado()), titulocanal =getChannel(id_canal), pode_editar = False, pode_deletar = False, pode_criar_canal = pode_criar_canais(recuperar_id_usuario_logado()), pode_gerenciar_usuario = pode_gerenciar_usuarios(recuperar_id_usuario_logado()), lista_de_grupos = grupos, lista_de_cursos = cursos, emails = listar_usuario(), visibilidade_canal = recuperar_visibilidade_canal(id_canal))
 
 @app.route('/deixar_visualizado/<id_post>', methods = ['GET'])
 def voltar_de_visualizar(id_post):

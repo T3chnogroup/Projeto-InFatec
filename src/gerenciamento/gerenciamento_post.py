@@ -33,23 +33,24 @@ def edit_post(id_post,conteudo,titulo_post):
 
 def getPosts(id_canal, id_usuario):
     cur = mysql.connection.cursor()
-    conteudo = cur.execute(f'''select * from post p
-        left join anexo a on a.fk_post=p.id_post
-        where p.fk_canal={id_canal} and 
-        p.id_post NOT IN(
-            select vp.fk_post from post p
-            inner join visualizado_por vp
-            on p.id_post=vp.fk_post
-            where vp.fk_usuario={id_usuario} and p.fk_canal={id_canal}
-        )''')
+    conteudo = cur.execute(f'''select *, u.nome as criador from post p
+    right join usuario u on p.fk_usuario=u.id_usuario
+    left join anexo a on a.fk_post=p.id_post
+    where p.fk_canal={id_canal} and 
+    p.id_post NOT IN(
+        select vp.fk_post from post p
+        inner join visualizado_por vp
+        on p.id_post=vp.fk_post
+        where vp.fk_usuario={id_usuario} and p.fk_canal={id_canal}
+    )''')
     Posts = cur.fetchall()
     cur.close()
     return Posts
 
 
-def insere_post(id_canal, conteudo, date, titulo_post):
+def insere_post(id_canal, conteudo, date, titulo_post, id_usuario):
     cur = mysql.connection.cursor()
-    cur.execute("INSERT INTO post(id_post, data_postagem, conteudo, fk_canal, fk_usuario, titulo_post) VALUES (%s, %s, %s, %s, %s, %s)", (0, str(date.today()), conteudo, id_canal, None, titulo_post))
+    cur.execute("INSERT INTO post(id_post, data_postagem, conteudo, fk_canal, fk_usuario, titulo_post) VALUES (%s, %s, %s, %s, %s, %s)", (0, str(date.today()), conteudo, id_canal, id_usuario, titulo_post))
     mysql.connection.commit()
     id = cur.lastrowid
     cur.close()
