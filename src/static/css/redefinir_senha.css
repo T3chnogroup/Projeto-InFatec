@@ -53,10 +53,12 @@ fieldset{
     margin-right: 10px;
 }
 
-#atencao{
-    max-width: 50%;
-    color: #9e1616;
-    background-color: #ec0f0f17;
+#msg_sucesso{
+    color: #0f5132;
+    background-color: #d1e7dd;
     border: 0px;
     border-radius: 5px;
+    max-width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
 }

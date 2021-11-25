@@ -43,10 +43,11 @@
                 <span class="text-danger">{{erro}}</span>
                 {% endif %}
                   {% if resposta %}
-                  <div id="atencao">
+                <div id="msg_sucesso">
                     <p>
                         <strong>Enviado com sucesso!</strong>
                     </p>
+
                     <p>
                         Em caso do não recebimento do email enviado pelo InFatec em aproximadamente 5 minutos, entre em
                         contato com
@@ -60,6 +61,7 @@
                         redirecionamento
                         indevido para essas caixas.
                     </p>
+
                 </div>
                 {% endif %}
             </form>
@@ -71,14 +73,11 @@
     <script src="{{url_for('static', filename='js/redefinir_senha.js')}}"></script>
     <script>
         function mostrar_msg_sucesso() {
-            document.getElementById('recuperado').classList.add('show'); /*mostra a mensagem de enviado com sucesso*/ 
+            document.getElementById('msg_sucesso').classList.add('show'); /*mostra a mensagem de enviado com sucesso*/ 
             document.getElementById('usuario').value='';/*limpa o campo usuário ao clicar em enviar*/ 
             document.getElementById('email').value='';/*limpa o campo email ao clicar em enviar*/ 
         }
         
-        function botao_fechar_msg_sucesso(){
-            document.getElementById('recuperado').classList.remove('show');/*função do botão de fechar mensagem de sucesso*/
-        }
     </script>
 
 
