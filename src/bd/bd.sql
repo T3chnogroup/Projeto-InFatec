@@ -80,6 +80,3 @@ INSERT INTO usuario VALUES (1, 'Administrador', 'administrador@fatec.sp.gov.br',
 (4, "Kevin", "kevin.mirenda@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "44444444444", 1, 0, 0),
 (5, "Rodrigo", "rodrigo.paula15@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "66666666666", 1, 0, 0),
 (6, "Priscila", "priscila.silva140@fatec.sp.gov.br", "7c4a8d09ca3762af61e59520943dc26494f8941b", "77777777777", 1, 0, 0);
-
--- Inserção tabela canal
-INSERT INTO canal VALUES (0, "geral", null, null);
