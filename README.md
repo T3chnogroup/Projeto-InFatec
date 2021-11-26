@@ -36,7 +36,7 @@
 
 
 ## Objetivo do Projeto
-O objetivo do projeto se baseou no problema que começou devido a pandemia do novo Coronavirus. O volume de informações da parte administrativa trocadas com os alunos e professores através do e-mail vieram tendo um aumento significativo fazendo com que muitas informações importantes passassem a ser lidas fora do seu tempo apropriado, ou seja, perda informações importantes. Para solucionar esse problema decidimos criar uma aplicação web onde os docentes e discentes possam ver as informações de forma seletiva e controlada, sendo eles avisos gerais ou específicos dos cursos.
+O objetivo do projeto se baseou no problema que começou devido a pandemia do novo Coronavirus. O volume de informações da parte administrativa trocadas com os alunos e professores através do e-mail vieram tendo um aumento significativo, fazendo com que muitas informações importantes passassem a ser lidas fora do seu tempo apropriado, ou seja, perda informações importantes. Para solucionar esse problema, decidimos criar uma aplicação web onde os docentes e discentes possam ver as informações de forma seletiva e controlada, sendo eles avisos gerais ou específicos dos cursos.
 
 
 ## *User Story*
@@ -51,11 +51,11 @@ O objetivo do projeto se baseou no problema que começou devido a pandemia do no
 |    Docente e Discente   | Quero ver as informações tanto no desktop quanto no celular. | Responsividade do site. |
 
 
-![Cronograma](./imagens/3.png)
+![Backlog](./imagens/2.png)
 
 
 
-![Tecnologias](./imagens/4.png)
+![Tecnologias](./imagens/3.png)
 
 
 ## Acesse a Aplicação em:
@@ -145,3 +145,4 @@ Aplicação utilizada por usuário/alunos sem permissões especiais
 |    19/09/2021    |[Sprint 1](https://github.com/T3chnogroup/Projeto-InFatec/releases/tag/Sprint-01)|
 |    10/10/2021    |[Sprint 2](https://github.com/T3chnogroup/Projeto-InFatec/releases/tag/Sprint-02)|
 |    07/11/2021    |[Sprint 3](https://github.com/T3chnogroup/Projeto-InFatec/releases/tag/Sprint-03)|
+|    28/11/2021    |[Sprint 4](https://github.com/T3chnogroup/Projeto-InFatec/releases/tag/Sprint-04)|

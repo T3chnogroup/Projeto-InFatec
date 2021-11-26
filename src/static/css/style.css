@@ -1,5 +1,5 @@
 .fundovermelho {
-    background-color: #B22D30;
+    background-color: #9e1616;
     height: 9%;
     
   }
@@ -34,7 +34,7 @@
   .icone-lupa {
     position: absolute;
     right: 1rem;
-    bottom: 2px;
+    bottom: 0;
   }
   .font-azul {
     color: #0F3456;
@@ -55,7 +55,7 @@
   }
   .grupos {
     height: 82%;
-    background-color: #28292e;
+    background-color: #2d2e33;
   }
 
   .nav li:hover{
@@ -121,36 +121,62 @@
     left: 385px;
   }
 
- .navbar-toggler{
-    display: none;
-  }
-
-  #btn-mobile {
-    display: flex;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    border: none;
-    background: none;
+  .animated-menu-responsivo {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    margin-top: 0;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: .5s ease-in-out;
+    -moz-transition: .5s ease-in-out;
+    -o-transition: .5s ease-in-out;
+    transition: .5s ease-in-out;
     cursor: pointer;
+    }
+
+   #hamburguer{
+    border-top: 2px solid;
+    width: 20px;
+    display: block;
+    color: #e3f2fd;
+    margin-top: 0;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: .5s ease-in-out;
+    -moz-transition: .5s ease-in-out;
+    -o-transition: .5s ease-in-out;
+    transition: .5s ease-in-out;
   }
 
-    #hamburguer{
-      color: rgba(248, 226, 226, 0.856);
-      display: block;
-      border-top: 2px solid;
-      width: 20px;
-    }
+   #hamburguer::after,
+   #hamburguer::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: currentColor;
+    margin-top: 5px;
+    transition: 0.3s;
+    position: relative;
+  }
 
-    #hamburguer::after, #hamburguer::before{
-      content: '';
-      display: block;
-      width: 20px;
-      height: 2px;
-      background: currentColor;
-      margin-top: 5px;
-      transition: .3s;
-      position: relative;
-    }
+  .animated-menu-responsivo.active #hamburguer{
+    border-top-color: transparent;
+  }
+
+  .animated-menu-responsivo.active #hamburguer::before {
+    transform: rotate(135deg);
+  }
+
+  .animated-menu-responsivo.active #hamburguer::after {
+    transform: rotate(-135deg);
+    top: -7px;
+  }
   
   @media (max-width: 576px) {
     .modal-width {
@@ -174,23 +200,6 @@
   @media (max-width: 767px) {
     .conteudo {
       width: 100%;
-    }
-
-    .navbar-toggler{
-      display: block;
-    }
-
-    #sidebarMenu.active #hamburguer{ /*deixa X quando o menu etá ativo*/
-      border-top-color: transparent;
-    }
-
-    #sidebarMenu.active #hamburguer::before{
-        transform: rotate(135deg);
-    }
-
-    #sidebarMenu.active #hamburguer::after{
-        transform: rotate(-135deg);
-        top:-7px;
     }
   }
   @media (max-width: 650px) {
@@ -219,7 +228,7 @@
       opacity: 1;
     }
     .grupos {
-      background-color: #28292e;
+      background-color: #2d2e33;
     }
   }
 
@@ -340,8 +349,8 @@ input:focus{
   }
 
   .form-check-input:checked {
-    background-color: #28292e;
-    border-color: #28292e;
+    background-color: #2d2e33;
+    border-color: #2d2e33;
 }
   
   @media (max-width: 650px) { /*tamanho dos campos para mobile*/
