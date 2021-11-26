@@ -21,54 +21,51 @@
 
 <body>
 
-    <main class="px-5">
-        <form method="POST" action="/redefinir">
-            <!--Inserido Get apenas para validar, posteriormente será feito integração com backend -->
-            <img class="logo mb-4" src="{{url_for('static', filename='imagens/logoinfatec.png')}}" alt="Logo InFatec" width="150">
-            <div>
-                <h1>Redefinir senha</h1>
-                <p>Para gerar uma senha temporária para ingresso ao InFatec, forneça seu usuário e o email cadastrado no
-                    sistema.</p>
-            </div>
-            <div class="input input-group mb-3">
-                <input class="form-control" id="email" name="email" placeholder="Email" type="email">
-            </div>
-            <a class="button botao-voltar btn btn-light mb-4 " type="button" href="/login">Voltar</a>
-            <button class="button botao-enviar btn btn-light mb-4" value="Exibir Alert" type="submit">Enviar</button>
+    <main class="form-signin">
+        <fieldset class="text-center">
+            <form method="POST" action="/redefinir">
+                <img class="logo" src="{{url_for('static', filename='imagens/logoinfatec.png')}}" alt="Logo InFatec" width="200">
+                <div>
+                    <h1>Redefinir senha</h1>
+                    <p>Para gerar uma nova senha, forneça o email cadastrado no
+                        sistema.</p>
+                </div>
+                <div class="input input-group mb-3 me-auto ms-auto">
+                    <input class="form-control" id="email" name="email" placeholder="Email" type="email">
+                </div>
+                <a class="button botao-voltar btn btn-light mb-5 " type="button" href="/login">Voltar</a>
+                <button class="button botao-enviar btn btn-light mb-5" value="Exibir Alert" type="submit">Enviar</button>
+                <div style="display: none;" id='email-validation-error'>
+                    <span class="text-danger">Email inválido, utilize o email institucional da Fatec</span>
+                </div>
+                <br>
+                {% if erro %}
+                <span class="text-danger">{{erro}}</span>
+                {% endif %}
+                  {% if resposta %}
+                <div id="msg_sucesso">
+                    <p>
+                        <strong>Enviado com sucesso!</strong>
+                    </p>
 
-            <div style="display: none;" id='email-validation-error'>
-                <span class="text-danger">Email inválido, utilize o email institucional da Fatec</span>
-            </div>
-            <br>
-            {% if erro %}
-            <span class="text-danger">{{erro}}</span>
-            {% endif %}
+                    <p>
+                        Em caso do não recebimento do email enviado pelo InFatec em aproximadamente 5 minutos, entre em
+                        contato com
+                        o Gestor de Usuários ou o Diretor Acadêmico de sua Unidade de Ensino para que proceda os ajustes em
+                        sua
+                        conta.
+                    </p>
+                    <p>
+                        Verifique sua caixa de SPAM, LIXEIRA ou LIXO ELETRÔNICO, pois seu serviço de email poderá realizar
+                        um
+                        redirecionamento
+                        indevido para essas caixas.
+                    </p>
 
-            <!-- <div id="recuperado" class="alert alert-warning alert-dismissible fade" role="alert">
-                Enviado com sucesso!
-                <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="botao_fechar_msg_sucesso()" aria-label="Fechar"></button>
-              </div> -->
-              {% if resposta %}
-              <div id="atencao">
-                <p>
-                    <strong>Enviado com sucesso!</strong>
-                </p>
-                <p>
-                    Em caso do não recebimento do email enviado pelo InFatec em aproximadamente 5 minutos, entre em
-                    contato com
-                    o Gestor de Usuários ou o Diretor Acadêmico de sua Unidade de Ensino para que proceda os ajustes em
-                    sua
-                    conta.
-                </p>
-                <p>
-                    Verifique sua caixa de SPAM, LIXEIRA ou LIXO ELETRÔNICO, pois seu serviço de email poderá realizar
-                    um
-                    redirecionamento
-                    indevido para essas caixas.
-                </p>
-            </div>
-            {% endif %}
-        </form>
+                </div>
+                {% endif %}
+            </form>
+        </fieldset>
 
     </main>
 
@@ -76,14 +73,11 @@
     <script src="{{url_for('static', filename='js/redefinir_senha.js')}}"></script>
     <script>
         function mostrar_msg_sucesso() {
-            document.getElementById('recuperado').classList.add('show'); /*mostra a mensagem de enviado com sucesso*/ 
+            document.getElementById('msg_sucesso').classList.add('show'); /*mostra a mensagem de enviado com sucesso*/ 
             document.getElementById('usuario').value='';/*limpa o campo usuário ao clicar em enviar*/ 
             document.getElementById('email').value='';/*limpa o campo email ao clicar em enviar*/ 
         }
         
-        function botao_fechar_msg_sucesso(){
-            document.getElementById('recuperado').classList.remove('show');/*função do botão de fechar mensagem de sucesso*/
-        }
     </script>
 
 

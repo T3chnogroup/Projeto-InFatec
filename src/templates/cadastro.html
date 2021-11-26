@@ -22,83 +22,75 @@
 
 <body>
 
-    <main class="px-5">
-        <form method="POST" action="/cadastro">
-            <!--Inserido Get apenas para validar, posteriormente será feito integração com backend -->
-            <img class="logo mb-4" src="{{url_for('static', filename='imagens/logoinfatec.png')}}" alt="Logo InFatec" width="150">
-            <div>
-                <h1>Primeiro Acesso</h1>
-                <p>Para o seu primeiro acesso, preencha os campos abaixo.</p>
-            </div>
-            <div class="input input-group mb-3">
-                <input class="form-control" id="nome" name="nome" placeholder="Nome" type="text">
-            </div>
-            <div class="input input-group mb-3">
-                <input class="form-control" id="email" name="email" placeholder="Email Institucional" type="email">
-            </div>
-
-            <div class="input mb-3">
-                <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF">
-            </div>
-
-            <div class="input-group mb-3">
-                <input class="form-control password-form" id="password" name="password" placeholder="Crie sua senha" type="password" value="">
-                <span class="input-group-text height-eye" >
-                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" id="togglePassword" fill="currentColor" style="cursor: pointer" class="bi bi-eye" viewBox="0 0 16 16">
-                  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
-                  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
-                </svg>
-            </div>
-
-            <div class="input-group mb-3">
-                <input class="form-control password-form" id="confirmacao_senha" name="confirmacao_senha" placeholder="Repita sua senha" type="password" value="">
-                <span class="input-group-text height-eye" >
-                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" id="toggleConfirmacao_senha" fill="currentColor" style="cursor: pointer" class="bi bi-eye" viewBox="0 0 16 16">
-                  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
-                  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
-                </svg>
-            </div>
-            <div style="display: none;" id='email-validation-error'>
-                <span class="text-danger">Email inválido, utilize o email institucional da Fatec</span>
-            </div>
-            <div style="display: none;" id='cpf-validation-error'>
-                <span class="text-danger">CPF inválido, utilize um cpf válido</span>
-            </div>
-            {% if erro %}
-            <span class="text-danger">{{erro}}</span>
-            {% endif %}
-            <br />
-            <br />
-
-            <a href="/login" class="button botao-voltar btn btn-light mb-4 " type="button">Voltar</a>
-            <button class="button botao-enviar btn btn-light mb-4" value="Exibir Alert" type="submit">Enviar</button>
-
-            <div id="cadastro" class="alert alert-warning alert-dismissible fade" role="alert">
-                Enviado com sucesso!
-                <button type="button" class="btn-close" data-bs-dismiss="alert" onclick="botao_fechar_msg_sucesso()" aria-label="Fechar"></button>
-            </div>
-            {% if resposta %}
-                <div id="cadastro" class="px-2">
-                    <p>
-                        <strong>Enviado com sucesso!</strong>
-                    </p>
-                    <p>
-                    Email de confirmação de cadastro enviado! Em caso do não recebimento do email enviado pelo InFatec em aproximadamente 5 minutos, entre em
-                        contato com
-                        o Gestor de Usuários ou o Diretor Acadêmico de sua Unidade de Ensino para que proceda os ajustes em
-                        sua
-                        conta.
-                    </p>
-                    <p>
-                        Verifique sua caixa de SPAM, LIXEIRA ou LIXO ELETRÔNICO, pois seu serviço de email poderá realizar
-                        um
-                        redirecionamento
-                        indevido para essas caixas.
-                    </p>
+    <main class="form-signin"> 
+        <fieldset class="text-center">
+            <form class="text-center align-items-center" method="POST" action="/cadastro">
+                <img class="logo" src="{{url_for('static', filename='imagens/logoinfatec.png')}}" alt="Logo InFatec" width="200">
+                <div>
+                    <h1>Primeiro Acesso</h1>
+                    <p>Para o seu primeiro acesso, preencha os campos abaixo.</p>
                 </div>
-            {% endif %}
-            </div>
-        </form>
+                <div class="input input-group mb-3 ms-auto me-auto">
+                    <input class="form-control" id="nome" name="nome" placeholder="Nome" type="text">
+                </div>
+                <div class="input input-group mb-3 ms-auto me-auto">
+                    <input class="form-control" id="email" name="email" placeholder="Email Institucional" type="email">
+                </div>
+                <div class="input mb-3 ms-auto me-auto">
+                    <input type="text" class="form-control" id="cpf" name="cpf" placeholder="CPF">
+                </div>
+                <div class="input-group mb-3 ms-auto me-auto">
+                    <input class="form-control password-form mb-0" id="password" name="password" placeholder="Crie sua senha" type="password" value="">
+                    <span class="input-group-text height-eye" >
+                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" id="togglePassword" fill="currentColor" style="cursor: pointer" class="bi bi-eye" viewBox="0 0 16 16">
+                      <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                      <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                    </svg>
+                </div>
+                <div class="input-group mb-3 ms-auto me-auto">
+                    <input class="form-control password-form mb-0" id="confirmacao_senha" name="confirmacao_senha" placeholder="Repita sua senha" type="password" value="">
+                    <span class="input-group-text height-eye" >
+                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" id="toggleConfirmacao_senha" fill="currentColor" style="cursor: pointer" class="bi bi-eye" viewBox="0 0 16 16">
+                      <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                      <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                    </svg>
+                </div>
+                <div style="display: none;" id='email-validation-error'>
+                    <span class="text-danger">Email inválido, utilize o email institucional da Fatec</span>
+                </div>
+                <div style="display: none;" id='cpf-validation-error'>
+                    <span class="text-danger">CPF inválido, utilize um cpf válido</span>
+                </div>
+                {% if erro %}
+                <span class="text-danger">{{erro}}</span>
+                {% endif %}
+                <br />
+                <br />
+                <a href="/login" class="button botao-voltar btn btn-light mb-3" type="button">Voltar</a>
+                <button class="button botao-enviar btn btn-light mb-3" value="Exibir Alert" type="submit">Enviar</button>
+                {% if resposta %}
+                    <div id="cadastro" class="px-2">
+                        <p>
+                            <strong>Enviado com sucesso!</strong>
+                        </p>
+                        <p>
+                        Email de confirmação de cadastro enviado! Em caso do não recebimento do email enviado pelo InFatec em aproximadamente 5 minutos, entre em
+                            contato com
+                            o Gestor de Usuários ou o Diretor Acadêmico de sua Unidade de Ensino para que proceda os ajustes em
+                            sua
+                            conta.
+                        </p>
+                        <p>
+                            Verifique sua caixa de SPAM, LIXEIRA ou LIXO ELETRÔNICO, pois seu serviço de email poderá realizar
+                            um
+                            redirecionamento
+                            indevido para essas caixas.
+                        </p>
+                    </div>
+                {% endif %}
+                </div>
+            </form>
+        </fieldset>
 
     </main>
 
