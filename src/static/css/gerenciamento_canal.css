@@ -28,8 +28,8 @@
 }
 .btn-secondary { /*Estilização do botão de adicionar membros*/
     color: #fff;
-    background-color: #28292e;
-    border-color: #28292e;
+    background-color: #2d2e33;
+    border-color: #2d2e33;
 }
 
 .btn-secondary:hover {
@@ -86,7 +86,7 @@
 }
 
 .nav-link{
-    color:#28292e; /*Cor da letra da aba que está "inativa*/
+    color: #2d2e33; /*Cor da letra da aba que está "inativa*/
 }
 
 .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active{
@@ -137,8 +137,8 @@
 
 
 .form-check-input:checked {
-    background-color: #28292e;
-    border-color: #28292e;
+    background-color: #2d2e33;
+    border-color: #2d2e33;
 }
 
 
