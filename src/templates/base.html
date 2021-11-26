@@ -51,18 +51,14 @@
               </div>
 
               <div class="col-md-2 col-3 pt-1 d-flex justify-content-between">
-                <span>
-                  <i class="fas fa-filter"></i>
-                </span>
-                <button id="btn-toggle-mobile" class="navbar-toggler position-absolute collapsed pt-1" type="button"
+                <button id="btn-toggle-mobile" class="navbar-toggler position-absolute collapsed pt-1 second-button" type="button"
                   data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu"
                   aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon text-white">
-                    <i class="fas fa-bars"></i>
-                  </span>
+                    <div class="animated-menu-responsivo">
+                      <span id="hamburguer"></span>
+                    </div>
                 </button>
               </div>
-
             </div>
           </div>
         </div>
@@ -152,12 +148,12 @@
             {% block titulo_cabecalho %}{{titulocanal}}{% endblock %}
           </a>
           <!--botao-->
-          <button class="navbar-toggler position-absolute d-md-none collapsed pt-3" type="button"
+          <button class="navbar-toggler position-absolute d-md-none collapsed pt-3 second-button" type="button"
             data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
             aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon text-white">
-              <i class="fas fa-bars"></i>
-            </span>
+              <div class="animated-menu-responsivo">
+                <span id="hamburguer"></span>
+              </div>
           </button>
         </header>
         {% endblock %}
@@ -342,6 +338,17 @@
   }
   )
 </script>
+
+<script>
+  $(document).ready(function () {
+
+  $('.second-button').on('click', function () {
+
+    $('.animated-menu-responsivo').toggleClass('active');
+  });
+  });
+</script>
+
 
 <!-- Modal Pesquisa Avançada-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -34,7 +34,7 @@
   .icone-lupa {
     position: absolute;
     right: 1rem;
-    bottom: 2px;
+    bottom: 0;
   }
   .font-azul {
     color: #0F3456;
@@ -119,6 +119,63 @@
   .dropdown-wrapper {
     position: absolute;
     left: 385px;
+  }
+
+  .animated-menu-responsivo {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    margin-top: 0;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: .5s ease-in-out;
+    -moz-transition: .5s ease-in-out;
+    -o-transition: .5s ease-in-out;
+    transition: .5s ease-in-out;
+    cursor: pointer;
+    }
+
+   #hamburguer{
+    border-top: 2px solid;
+    width: 20px;
+    display: block;
+    color: #e3f2fd;
+    margin-top: 0;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: .5s ease-in-out;
+    -moz-transition: .5s ease-in-out;
+    -o-transition: .5s ease-in-out;
+    transition: .5s ease-in-out;
+  }
+
+   #hamburguer::after,
+   #hamburguer::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: currentColor;
+    margin-top: 5px;
+    transition: 0.3s;
+    position: relative;
+  }
+
+  .animated-menu-responsivo.active #hamburguer{
+    border-top-color: transparent;
+  }
+
+  .animated-menu-responsivo.active #hamburguer::before {
+    transform: rotate(135deg);
+  }
+
+  .animated-menu-responsivo.active #hamburguer::after {
+    transform: rotate(-135deg);
+    top: -7px;
   }
   
   @media (max-width: 576px) {
