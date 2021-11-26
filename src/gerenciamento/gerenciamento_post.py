@@ -72,13 +72,15 @@ def insere_visualizado(id_post, usuario, date):
 
 def posts_visualizado(id_usuario, id_canal):
     cur = mysql.connection.cursor()
-    conteudo = cur.execute(f'''select p.* from usuario u 
+    conteudo = cur.execute(f'''select p.*, a.nome, u.nome as criador from post p
+        left join anexo a
+        on p.id_post=a.fk_post
         inner join visualizado_por vp
-        on u.id_usuario=vp.fk_usuario
-        inner join post p
         on p.id_post=vp.fk_post
-            where vp.fk_usuario={id_usuario}
-            and p.fk_canal={id_canal}''')
+        inner join usuario u
+        on u.id_usuario=p.fk_usuario
+        where vp.fk_usuario={id_usuario}
+        and p.fk_canal={id_canal}''')
     Posts = cur.fetchall()
     cur.close()
     return Posts

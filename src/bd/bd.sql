@@ -46,12 +46,14 @@ CREATE TABLE IF NOT EXISTS visualizado_por (
 	PRIMARY KEY (fk_usuario, fk_post),
 	FOREIGN KEY (fk_usuario) REFERENCES usuario (id_usuario),
 	FOREIGN KEY (fk_post) REFERENCES post (id_post)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS canal_usuario (
 	id_canal INT,
 	id_usuario INT,
-  funcao varchar(30),
+	funcao varchar(30),
 	PRIMARY KEY(id_canal, id_usuario),
     FOREIGN KEY (id_canal) REFERENCES canal (id_canal),
     FOREIGN KEY (id_usuario) REFERENCES usuario (id_usuario)
