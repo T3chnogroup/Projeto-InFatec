@@ -5,6 +5,7 @@
 
 .post-card {
   margin-top: 30px;
+  margin-bottom: 0;
 }
 
 .post-container {
@@ -104,7 +105,7 @@
   max-width: 1293px !important;
   display: block !important;
   position: sticky;
-  margin-top: 25%;
+  margin-top: 6%;
   width: 100%;
   background-color: rgba(245,245,245,255) !important;
   border-radius: 5px;
@@ -135,6 +136,42 @@
   margin-top: 30px;
 }
 
+.bg-button{
+  border: 1px solid black;
+ }
+
+ /*Descrição do canal*/
+ .alert-color{
+   background-color: #e9ecef;
+ }
+
+ .posts-wrapper{
+ margin-bottom: 0.5em;
+ }
+
+ .fixar-canal{
+   color: #2d2e33;
+   font-weight: bold;
+   border-color: #2d2e33;
+ }
+
+ .fixar-canal:hover{
+   color: #fff;
+   background-color: #2d2e33;
+ }
+
+
+ .desafixar-canal{
+   color: #9e1616;
+   font-weight: bold;
+   border-color: #9e1616;  
+ }
+
+ .desafixar-canal:hover{
+   color: #fff;
+   background-color: #9e1616;
+ }
+
 @media(max-width: 767px){
   .formulario-post {
     position: sticky;
@@ -163,6 +200,7 @@
     align-items: center;
     justify-content: center;
   }
+  
 }
 
 @media(max-width: 600px){
@@ -170,39 +208,15 @@
     position: sticky;
     margin: 0 auto;
   }
+
+  .post-card {
+    margin-bottom: 2.5em;
+  }
+
+  .posts-wrapper{
+    margin-bottom: 0.5em;
+    }
 }
-
-  .bg-button{
-   border: 1px solid black;
-  }
-
-  /*Descrição do canal*/
-  .alert-color{
-    background-color: #e9ecef;
-  }
-
-  .fixar-canal{
-    color: #2d2e33;
-    font-weight: bold;
-    border-color: #2d2e33;
-  }
-
-  .fixar-canal:hover{
-    color: #fff;
-    background-color: #2d2e33;
-  }
-
-
-  .desafixar-canal{
-    color: #9e1616;
-    font-weight: bold;
-    border-color: #9e1616;  
-  }
-
-  .desafixar-canal:hover{
-    color: #fff;
-    background-color: #9e1616;
-  }
 
 
 
