@@ -2,6 +2,13 @@ html, body{
     height: unset!important;
 }
 
+fieldset, ::after{
+    background-color: #E5E9F2;
+}
+fieldset{
+    width: 330px;
+}
+
 .input, .input-group{
 max-width: 278px;
 }
@@ -38,7 +45,9 @@ max-width: 278px;
     border-color: #d1e7dd;
     background-color: #d1e7dd;
     color: #0f5132;
-    max-width: 50%;
+    max-width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 #atencao{
