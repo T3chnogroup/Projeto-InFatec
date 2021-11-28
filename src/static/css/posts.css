@@ -172,6 +172,18 @@
    background-color: #9e1616;
  }
 
+ /*Botão enviar posts*/
+ .botao_enviar{
+  color: #9e1616;
+  font-weight: bold;
+  border-color: #9e1616;
+}
+
+.botao_enviar:hover{
+  color: #fff;
+  background-color: #9e1616;
+}
+
 @media(max-width: 767px){
   .formulario-post {
     position: sticky;
@@ -218,6 +230,25 @@
     }
 }
 
+/*botões modal alterar post / excluir post / alterar visibilidade do post*/
+.btn-nao{
+  color: #2d2e33;
+  font-weight: bold;
+  border-color: #2d2e33;
+}
+ 
+.btn-nao:hover{
+  color: #fff;
+  background-color: #2d2e33;
+}
 
+.btn-sim{
+  color: #9e1616;
+  font-weight: bold;
+  border-color: #9e1616;
+}
 
-
+.btn-sim:hover{
+  color: #fff;
+  background-color: #9e1616;
+}

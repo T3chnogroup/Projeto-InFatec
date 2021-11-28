@@ -104,11 +104,17 @@
     border: none !important;
   }
   
-  .save-button {
-    padding: 0 50px !important;
-  
-    border-radius: 25px;
+  .save-button{
+    color: #2d2e33;
+    font-weight: bold;
+    border-color: #2d2e33;
+    width: 20%;
   }
+
+  .save-button:hover{
+    color: #fff;
+    background-color: #2d2e33;
+}
   
   .btn-add-group {
     background: none;
