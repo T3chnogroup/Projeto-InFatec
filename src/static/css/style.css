@@ -7,7 +7,9 @@
   #btn-toggle-mobile {
     display: none;
   }
-
+  .modal-header{
+    background-color: #9e1616;
+}
   .textoheader {
     text-align: center;
     width: 100%;      
