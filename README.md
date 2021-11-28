@@ -125,17 +125,17 @@ MYSQL_DB = infatec
 
 ## Sistema Desenvolvido 
 
-Usuario logado como administrador e suas permissões
-![Sistema](./imagens/gif1.gif)
+Alterando o usuário: Usuário pode editar suas informações pessoais caso tenha cadastrado errado.
+![Sistema](./imagens/alterando-usuario.gif)
 
-Usuario logado como moderador de canal e suas permissões
-![Sistema](./imagens/gif2.gif)
+Alterando visibilidade e destinatários do canal: O moderador do canal poderá tornar um canal privado caso deseje que as informações postadas ali sejam vistas apenas pelos membros cadastrados naquele canal. Informações de públicos (destinatários) de um canal também poderão ser editadas.
+![Sistema](./imagens/alterando-visibilidade-e-destinatarios-do-canal.gif)
 
-Usuario logado com permissões de criar canal e gerenciar usuários. O Gif mostra o que acontece quando as permissões desse usuário são removidas
-![Sistema](./imagens/gif3.gif)
+Fixando e desafixando um canal: Um canal que o usuário julgue importante poderá ser fixado no menu sendo mostrado acima dos canais não fixados.
+![Sistema](./imagens/fixando-e-desafixando-um-canal.gif)
 
-Aplicação utilizada por usuário/alunos sem permissões especiais 
-![Sistema](./imagens/gif4.gif)
+Pesquisando membros do canal: Caso o moderador queira localizar rapidamente um membro que está em seu canal, ele poderá utilizar o filtro de pesquisa.
+![Sistema](./imagens/pesquisando-membros-do-canal.gif)
 
 
 ## Cronograma de Entregas
