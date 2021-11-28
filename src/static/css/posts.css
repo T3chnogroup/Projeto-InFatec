@@ -230,3 +230,25 @@
     }
 }
 
+/*botões modal alterar post*/
+.btn-nao{
+  color: #2d2e33;
+  font-weight: bold;
+  border-color: #2d2e33;
+}
+ 
+.btn-nao:hover{
+  color: #fff;
+  background-color: #2d2e33;
+}
+
+.btn-sim{
+  color: #9e1616;
+  font-weight: bold;
+  border-color: #9e1616;
+}
+
+.btn-sim:hover{
+  color: #fff;
+  background-color: #9e1616;
+}
