@@ -219,7 +219,7 @@
   .formulario-post {
     position: sticky;
     margin: 0 auto;
-    bottom: 0;
+    bottom: 3%;
   }
 
   .post-card {
