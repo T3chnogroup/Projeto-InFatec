@@ -116,7 +116,7 @@ def gerenciamento_perfil():
     return render_template('gerenciamento_perfil.html', 
     usuario_logado = usuario_logado, canais=getcanais(id_usuario), 
     pode_criar_canal = pode_criar_canais(id_usuario), 
-    pode_gerenciar_usuario = pode_gerenciar_usuarios(id_usuario))
+    pode_gerenciar_usuario = pode_gerenciar_usuarios(id_usuario), titulocanal = "Gerenciamento de perfil")
 
 
 @app.route('/editar',methods=['POST','GET'])
