@@ -108,6 +108,7 @@
     color: #2d2e33;
     font-weight: bold;
     border-color: #2d2e33;
+    width: 20%;
   }
 
   .save-button:hover{
