@@ -137,6 +137,9 @@ Fixando e desafixando um canal: Um canal que o usuário julgue importante poder�
 Pesquisando membros do canal: Caso o moderador queira localizar rapidamente um membro que está em seu canal, ele poderá utilizar o filtro de pesquisa.
 ![Sistema](./imagens/pesquisando-membros-do-canal.gif)
 
+Área de cadastro de primeiro acesso do usuário e redefinição de senha.
+![Sistema](./imagens/cadastro-e-redefinicao-de-senha.gif)
+
 
 ## Cronograma de Entregas
 
