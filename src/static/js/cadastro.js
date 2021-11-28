@@ -57,3 +57,35 @@ $(document).ready(() => {
 
   })
 }) 
+
+
+function botao_fechar_msg_sucesso() {
+  document.getElementById('cadastro').classList.remove('show');/*função do botão de fechar mensagem de sucesso*/
+}
+
+
+const togglePassword = document.querySelector("#togglePassword");
+const password = document.querySelector("#password");
+
+togglePassword.addEventListener("click", function () {
+
+  // toggle the type attribute
+  const type = password.getAttribute("type") === "password" ? "text" : "password";
+  password.setAttribute("type", type);
+  // toggle the eye icon
+  this.classList.toggle('bi-eye');
+  this.classList.toggle('bi-eye-slash');
+});
+
+const toggleConfirmacao_senha = document.querySelector("#toggleConfirmacao_senha");
+const confirmacao_senha = document.querySelector("#confirmacao_senha");
+
+toggleConfirmacao_senha.addEventListener("click", function () {
+
+  // toggle the type attribute
+  const type = confirmacao_senha.getAttribute("type") === "password" ? "text" : "password";
+  confirmacao_senha.setAttribute("type", type);
+  // toggle the eye icon
+  this.classList.toggle('bi-eye');
+  this.classList.toggle('bi-eye-slash');
+});

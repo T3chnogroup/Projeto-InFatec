@@ -6,6 +6,14 @@ html, body{
 max-width: 278px;
 }
 
+fieldset, ::after{
+    background-color: #E5E9F2;
+}
+
+fieldset{
+    width: 330px;
+}
+
 .botao-voltar.btn-light {
     color: #9e1616;
     font-weight: bold;
@@ -40,13 +48,17 @@ max-width: 278px;
     border-color: #d1e7dd;
     background-color: #d1e7dd;
     color: #0f5132;
-    max-width: 50%;
+    max-width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
-#atencao{
-    max-width: 50%;
-    color: #9e1616;
-    background-color: #ec0f0f17;
+#msg_sucesso{
+    color: #0f5132;
+    background-color: #d1e7dd;
     border: 0px;
     border-radius: 5px;
+    max-width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
 }

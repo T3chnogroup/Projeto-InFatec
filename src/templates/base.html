@@ -44,30 +44,26 @@
             <div class="d-flex justify-content-between">
 
               <div class="col-md-10 col-9 mt-1 px-2 position-relative">
-                <input type="text" class="form-control inputp">
+                <input type="text" id="pesquisar_canais" class="form-control inputp">
                 <span class="icone-lupa font-azul">
                   <i class="fas fa-search"></i>
                 </span>
               </div>
 
               <div class="col-md-2 col-3 pt-1 d-flex justify-content-between">
-                <span>
-                  <i class="fas fa-filter"></i>
-                </span>
-                <button id="btn-toggle-mobile" class="navbar-toggler position-absolute collapsed pt-1" type="button"
+                <button id="btn-toggle-mobile" class="navbar-toggler position-absolute collapsed pt-1 second-button" type="button"
                   data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu"
                   aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon text-white">
-                    <i class="fas fa-bars"></i>
-                  </span>
+                    <div class="animated-menu-responsivo">
+                      <span id="hamburguer"></span>
+                    </div>
                 </button>
               </div>
-
             </div>
           </div>
         </div>
 
-        <div class="grupos">
+        <div class="grupos overflow-auto">
           <ul class="nav flex-column">
             {% if pode_criar_canal %}
             <!--"Criar canal"-->
@@ -81,7 +77,7 @@
             {% endif %}
             {% for canal in canais %}
             {% if canal[4] == True %}
-            <li class="nav-item border-bottom nav-item-btn d-flex justify-content-between pe-2">
+            <li class="nav-item border-bottom nav-item-btn d-flex justify-content-between pe-2 linha-pesquisada-canal">
               <a class="nav-link text-white p-2 sticky-top" href="/post?canal={{canal[0]}}">
                 {% if canal[2] == 'privado' %}
                 <i class="bi bi-lock-fill text-white pt-2" title="Canal privado"></i>
@@ -133,9 +129,9 @@
         </div>
         <!--footer da lista-->
         <footer class="flex-row text-white d-flex justify-content-between ">
-          <a href="" class="text-white"><i class="fas fa-cog"></i></a>
+          <a href="./gerenciamento_perfil" class="text-white"><i class="fas fa-cog"></i></a>
           {% if pode_gerenciar_usuario %}
-          <a href="/gerenciamento_usuario" class="text-white"><i class="fas fa-users"></i></a>
+          <a href="./gerenciamento_usuario" class="text-white"><i class="fas fa-users"></i></a>
           {% endif %}
           <button class="text-white sign-out"><i class="fas fa-sign-out-alt"></i></button>
           <!-- esse -->
@@ -152,12 +148,12 @@
             {% block titulo_cabecalho %}{{titulocanal}}{% endblock %}
           </a>
           <!--botao-->
-          <button class="navbar-toggler position-absolute d-md-none collapsed pt-3" type="button"
+          <button class="navbar-toggler position-absolute d-md-none collapsed pt-3 second-button" type="button"
             data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
             aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon text-white">
-              <i class="fas fa-bars"></i>
-            </span>
+              <div class="animated-menu-responsivo">
+                <span id="hamburguer"></span>
+              </div>
           </button>
         </header>
         {% endblock %}
@@ -206,7 +202,7 @@
   <div class="modal fade" id="criacaocanal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header bg-danger text-white">
+        <div class="modal-header text-white">
           <h5 class="modal-title">Criar Canal</h5>
           <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -220,7 +216,7 @@
                 <p>Defina qual o público alvo deste canal</p>
                 <div class="d-flex align-items-center justify-content-center mb-3">
                   <select class="adicionar-grupo select2-close-mask select2-dropdown" name="grupo"
-                    multiple="multiple">
+                    multiple="multiple" required>
                     <option value="1">Coordenadores</option>
                     <option value="2">Professores</option>
                     <option value="3">Alunos</option>
@@ -229,8 +225,8 @@
                 <!--Select2-->
                 <div class="d-flex align-items-center justify-content-center mb-3">
                   <select class="adicionar-curso select2-close-mask select2-dropdown" name="curso"
-                    multiple="multiple">
-                    <option value="Todos">Todos</option>
+                    multiple="multiple" required>
+                    <option value="Todos os Cursos">Todos os cursos</option>
                     <option value="Análise e Desenvolvimento de Sistemas">Análise e Desenvolvimento de Sistemas</option>
                     <option value="Banco de Dados">Banco de Dados</option>
                     <option value="Desenvolvimento de Software Multiplataforma">Desenvolvimento de Software Multiplataforma</option>
@@ -264,7 +260,7 @@
               </div>
             </div>
             <div class="modal-footer d-flex justify-content-center no-border">
-              <button type="submit" class="btn btn-danger fw-bold save-button">Criar</button>
+              <button type="submit" class="btn fw-bold save-button">Criar</button>
             </div>
           </form>
         </div>
@@ -313,7 +309,7 @@
       placeholder: "Cursos"
     });
     $('.adicionar-membros').select2({
-      placeholder: "Adicionar moderadores"
+      placeholder: "Adicionar membros"
     });
 
     $('.select2-search__field').addClass("largura_input");
@@ -327,11 +323,39 @@
   }
 </script>
 
+<!--Funções de pesquisar o canal-->
+<script>
+  $('#pesquisar_canais').keyup(function() {
+    var texto = $(this).val().toLowerCase()
+    $('.linha-pesquisada-canal').each(function() {
+     var canal = $($(this).find('a')[0]).text().toLowerCase()
+     $(this).addClass('d-none')
+     if (canal.indexOf(texto)>=0){
+       $(this).removeClass('d-none')
+     }
+    }
+    )
+  }
+  )
+</script>
+
+<script>
+  $(document).ready(function () {
+
+  $('.second-button').on('click', function () {
+
+    $('.animated-menu-responsivo').toggleClass('active');
+  });
+  });
+</script>
+
+ 
 <!-- Modal Pesquisa Avançada-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header border-bottom-0">
+        <h5 class="modal-title text-white" id="exampleModalLabel">Pesquisa Avançada</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

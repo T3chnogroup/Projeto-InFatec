@@ -19,7 +19,7 @@
                         <div class="card-body post-container">
                             <div class="post-actions">
                                 {% if pode_editar %}
-                                <button class="action-button" data-bs-toggle="modal" data-bs-target="#edit-modal" onclick="edit_post('{{post[0]}}','{{post[3]}}', '{{post[6]}}')">
+                                <button class="action-button" data-bs-toggle="modal" data-bs-target="#edit-modal" onclick="edit_post('{{post[0]}}','{{post[2]}}', '{{post[5]}}')">
                                     <i class="far fa-edit"></i>
                                 </button>
                                 {% endif %}
@@ -39,20 +39,20 @@
                             <div class="post-content">
                                 <div class="post-header">
                                     <p class="posted-info">
-                                        <span>@{{titulocanal}}</span> fez uma publicação. <br>
+                                        <span>@{{post[7]}}</span> fez uma publicação. <br>
                                     </p>
                                     <p class="date-posted-text">
                                         Postado em {{post[1].strftime('%d/%m/%Y')}}</p>
                                 </div>
                                 <div class="post-main">
                                     <h4>
-                                        {{post[6]}}
+                                        {{post[5]}}
                                     </h4>
                                     <p class="posted-info">
-                                        {{post[3]}}
+                                        {{post[2]}}
                                     </p>
-                                    {% if post[8] %}
-                                    <p><a href="{{url_for('static', filename='uploads/')}}{{post[8]}}" target="_blank" download>{{post[8]}}</a></p>
+                                    {% if post[6] %}
+                                    <p><a href="{{url_for('static', filename='uploads/')}}{{post[6]}}" target="_blank" download>{{post[6]}}</a></p>
                                     {% endif %}
                                 </div>
                             </div>
@@ -139,8 +139,8 @@
                 Deseja realmente voltar a ver este post?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
-                <a id="btn-altera-a-visibilidade" class="btn btn-danger">Sim</a>
+                <button type="button" class="btn btn-nao" data-bs-dismiss="modal">Não</button>
+                <a id="btn-altera-a-visibilidade" class="btn btn-sim">Sim</a>
             </div>
         </div>
     </div>
