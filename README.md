@@ -131,9 +131,6 @@ Alterando o usuário: Usuário pode editar suas informações pessoais caso tenh
 Alterando visibilidade e destinatários do canal: O moderador do canal poderá tornar um canal privado caso deseje que as informações postadas ali sejam vistas apenas pelos membros cadastrados naquele canal. Informações de públicos (destinatários) de um canal também poderão ser editadas.
 ![Sistema](./imagens/alterando-visibilidade-e-destinatarios-do-canal.gif)
 
-Filtro de pesquisa avançada: Filtrando os posts de um canal por titulo, por data específica ou período.
-![Sistema](./imagens/pesquisa-avancada.gif)
-
 Fixando e desafixando um canal: Um canal que o usuário julgue importante poderá ser fixado no menu sendo mostrado acima dos canais não fixados.
 ![Sistema](./imagens/fixando-e-desafixando-um-canal.gif)
 
