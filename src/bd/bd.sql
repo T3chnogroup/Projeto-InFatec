@@ -2,6 +2,9 @@ DROP DATABASE IF EXISTS infatec;
 CREATE DATABASE infatec;
 USE infatec;
 
+-- update post set data_postagem = "2021-11-29" where id_post = 1;
+-- update post set data_postagem = "2021-11-30" where id_post = 2;
+
 CREATE TABLE IF NOT EXISTS usuario (
 	id_usuario INT AUTO_INCREMENT PRIMARY KEY,
 	nome VARCHAR(100) NOT NULL,
